@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.14"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="14">
+<div class="cl-app">
+  <header class="cl-web-topo">
+    <span class="cl-marca"></span>
+    <span data-texto="app.nome"></span>
+    <span data-mascote="uma-cor"></span>
+  </header>
+  <main class="cl-conteudo">
+    <div class="cl-bloco">
+      <p class="cl-rotulo" id="convidou" data-texto="mensagem.convidou"></p>
+      <h1 class="cl-h1" data-dado="convidado.convite.viagem"></h1>
+    </div>
+
+    <!-- Entrar -->
+    <form class="cl-bloco" id="entrar" novalidate>
+      <p data-texto="cl.convidado.entrar_intro"></p>
+      <label class="cl-campo">
+        <span class="cl-campo-rotulo" data-texto="campo.seu_nome"></span>
+        <input class="cl-entrada" type="text" id="nome" autocomplete="off" readonly>
+      </label>
+      <label class="cl-campo">
+        <span class="cl-campo-rotulo" data-texto="campo.sua_familia"></span>
+        <input class="cl-entrada" type="text" id="familia" autocomplete="off" readonly>
+      </label>
+      <p class="cl-suave cl-pequeno" data-texto="cl.convidado.toque"></p>
+    </form>
+
+    <!-- Depois de entrar -->
+    <div class="cl-bloco" id="dentro" hidden>
+      <p class="cl-estado cl-estado--ciente cl-ativo" tabindex="-1" id="entrou-linha"><span data-icone="pessoa"></span><span id="entrou" data-texto="cl.convidado.entrou"></span></p>
+    </div>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-devo" id="bloco-devo" hidden>
+      <h2 class="cl-rotulo" id="rotulo-devo" data-texto="bloco.o_que_eu_devo"></h2>
+      <div class="cl-cartao cl-bloco">
+        <p class="cl-forte" id="devo" data-texto="cl.convidado.deve"></p>
+        <p class="cl-suave cl-pequeno" data-texto="cl.convidado.app_dica"></p>
+        <a class="cl-botao" href="15-site.html" data-texto="acao.baixar_app"></a>
+      </div>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-lista" id="bloco-lista" hidden>
+      <h2 class="cl-rotulo" id="rotulo-lista" data-texto="bloco.lista_do_grupo"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="lista"></ul>
+    </section>
+
+  </main>
+  <div class="cl-base" id="base-entrar">
+    <div class="cl-acao cl-acao--sem-abas">
+      <button type="submit" form="entrar" class="cl-botao cl-botao--principal" data-texto="acao.entrar"></button>
+    </div>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+  function txt(tag, classe, conteudo) { var e = el(tag, classe); e.textContent = conteudo; return e; }
+
+  var cv = C.dado("convidado");
+  $("convidou").setAttribute("data-valores", JSON.stringify({ nome: cv.convite.convidouPor }));
+
+  /* No protótipo, tocar no campo preenche com o convidado de dados.js. */
+  [["nome", cv.nome], ["familia", cv.familia]].forEach(function (p) {
+    var campo = $(p[0]);
+    function preencher() { if (!campo.value) { campo.value = p[1]; campo.readOnly = false; } }
+    campo.addEventListener("focus", preencher);
+    campo.addEventListener("click", preencher);
+  });
+
+  var itens = C.dado("grupo.itens.lista");
+  var meus = C.guardado.ler("clareira.convidadoLeva", {}) || {};
+
+  function montarLista() {
+    var ul = $("lista");
+    ul.innerHTML = "";
+    itens.forEach(function (it) {
+      var li = el("li", "cl-linha");
+      var t = el("div", "cl-linha-texto");
+      t.appendChild(txt("p", "cl-item-titulo", it.nome));
+      var s = el("p", "cl-estado");
+      var b = null;
+      if (it.semDono) {
+        var meu = !!meus[it.id];
+        s.className = "cl-estado " + (meu ? "cl-estado--ciente cl-ativo" : "cl-estado--atencao");
+        s.appendChild(I.criar(meu ? "pessoa" : "depende"));
+        s.appendChild(el("span", "", meu ? { "data-texto": "mensagem.leva", "data-valores": JSON.stringify({ nome: cv.nome }) } : { "data-texto": "mensagem.ninguem_pegou" }));
+        b = el("button", "cl-botao", { type: "button", "data-id": it.id, "data-texto-aria": meu ? "cl.grupo.desistir_aria" : "cl.grupo.eu_levo_aria", "data-valores": JSON.stringify({ item: it.nome }) });
+        b.appendChild(el("span", "", { "data-texto": meu ? "acao.desistir" : "acao.eu_levo" }));
+        b.addEventListener("click", function () {
+          meus[it.id] = !meus[it.id];
+          C.guardado.gravar("clareira.convidadoLeva", meus);
+          montarLista();
+          var novo = $("lista").querySelector('[data-id="' + it.id + '"]');
+          if (novo) novo.focus();
+          C.anunciar(meus[it.id] ? C.texto("mensagem.leva", { nome: cv.nome }) : C.texto("mensagem.ninguem_pegou"));
+        });
+      } else if (it.dono) {
+        s.className = "cl-estado cl-estado--ciente cl-ativo";
+        s.appendChild(I.criar("pessoa"));
+        s.appendChild(el("span", "", { "data-texto": "mensagem.leva", "data-valores": JSON.stringify({ nome: it.dono }) }));
+      } else {
+        s.className = "cl-estado cl-estado--atencao cl-ativo";
+        s.appendChild(I.criar("atencao"));
+        s.appendChild(el("span", "", { "data-texto": "mensagem.assumidos", "data-valores": JSON.stringify({ n: it.assumidos }) }));
+      }
+      t.appendChild(s);
+      li.appendChild(t);
+      if (b) li.appendChild(b);
+      ul.appendChild(li);
+    });
+  }
+
+  $("devo").setAttribute("data-valores", JSON.stringify({
+    texto: C.texto("mensagem.voces_devem", { pessoa: cv.deve.a, valor: C.dinheiro(cv.deve.centavos) }),
+    item: cv.deve.item
+  }));
+
+  $("entrar").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var nome = $("nome").value || cv.nome;
+    var familia = $("familia").value || cv.familia;
+    $("entrou").setAttribute("data-valores", JSON.stringify({ nome: nome, familia: familia }));
+    $("entrar").hidden = true;
+    $("base-entrar").hidden = true;
+    $("dentro").hidden = false;
+    $("bloco-devo").hidden = false;
+    $("bloco-lista").hidden = false;
+    montarLista();
+    $("entrou-linha").focus();
+    C.anunciar(C.texto("cl.convidado.entrou", { nome: nome, familia: familia }));
+  });
+})();
+</script>
+</body>
+</html>

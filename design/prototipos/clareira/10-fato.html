@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.10"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .cl-fato-valor { display: flex; align-items: center; gap: 10px; font-size: var(--cl-t-bloco); line-height: var(--cl-l-bloco); font-weight: 700; color: var(--acento); }
+  .cl-fato-valor .cl-icone { width: 28px; height: 28px; }
+  .cl-fato-dados { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: 16px; }
+  .cl-fato-dados > div { display: flex; flex-direction: column; gap: 2px; }
+</style>
+</head>
+<body data-tela="10">
+<div class="cl-app">
+  <header class="cl-topo">
+    <a class="cl-voltar volta-origem" href="03-alertas.html"><span data-icone="voltar"></span><span data-texto="acao.voltar"></span></a>
+    <p class="cl-topo-viagem" data-dado="camping.nome"></p>
+    <span data-mascote="uma-cor"></span>
+  </header>
+  <main class="cl-conteudo">
+    <div class="cl-bloco">
+      <p class="cl-rotulo" data-texto="cl.fato.rotulo"></p>
+      <h1 class="cl-h1" data-dado="fato.nome"></h1>
+      <p class="cl-fato-valor cl-ativo"><span data-icone="conferido"></span><span data-dado="fato.valor"></span></p>
+      <p class="cl-suave" data-dado="fato.resumo"></p>
+    </div>
+
+    <section class="cl-cartao cl-bloco" aria-labelledby="contagem">
+      <p class="cl-progresso-numero" id="contagem" data-texto="cl.fato.confirmacoes"></p>
+      <div class="cl-trilha" id="marcas" role="img" data-texto-aria="cl.fato.confirmacoes"></div>
+      <p class="cl-suave cl-pequeno" data-texto="cl.fato.marcas"></p>
+      <div class="cl-fato-dados">
+        <div><span class="cl-rotulo" data-texto="cl.fato.situacao"></span><span data-dado="fato.valor"></span></div>
+        <div><span class="cl-rotulo" data-texto="cl.fato.frescor"></span><span data-texto="fato.frescor.recente"></span></div>
+      </div>
+      <p id="ultima" data-texto="cl.fato.ultima"></p>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-historico">
+      <h2 class="cl-rotulo" id="rotulo-historico" data-texto="bloco.historico"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="historico"></ul>
+    </section>
+  </main>
+  <div class="cl-base">
+    <nav class="cl-abas" data-texto-aria="cl.abas">
+      <a class="cl-aba" href="04-lista.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="lista"></span></span><span class="cl-aba-texto" data-texto="area.lista"></span></a>
+      <a class="cl-aba" href="03-alertas.html" aria-current="page"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="camping"></span></span><span class="cl-aba-texto" data-texto="area.camping"></span></a>
+      <a class="cl-aba" href="11-grupo.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="grupo"></span></span><span class="cl-aba-texto" data-texto="area.grupo"></span></a>
+      <a class="cl-aba" href="12-gastos.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="gastos"></span></span><span class="cl-aba-texto" data-texto="area.gastos"></span></a>
+    </nav>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+
+  var de = new URLSearchParams(window.location.search).get("de");
+  if (de && /^\d\d-[a-z-]+\.html$/.test(de)) {
+    Array.prototype.forEach.call(document.querySelectorAll(".volta-origem"), function (a) { a.setAttribute("href", de); });
+  }
+
+  var fato = C.dado("fato");
+  var n = JSON.stringify({ n: fato.confirmacoes });
+  $("contagem").setAttribute("data-valores", n);
+  $("marcas").setAttribute("data-valores", n);
+  for (var i = 0; i < fato.confirmacoes; i++) $("marcas").appendChild(el("span", "cl-marca"));
+  $("ultima").setAttribute("data-valores", JSON.stringify({ nome: fato.ultima.nome, data: fato.ultima.mesAno }));
+
+  /* Histórico (P-08): a linha conhecida e "e mais 5 confirmações". */
+  fato.historico.linhas.forEach(function (l) {
+    var li = el("li", "cl-linha");
+    li.appendChild(I.criar("pessoa"));
+    li.appendChild(el("span", "cl-linha-texto", { "data-texto": "cl.fato.linha", "data-valores": JSON.stringify({ nome: l.nome, data: l.mesAno, tipo: l.tipo }) }));
+    $("historico").appendChild(li);
+  });
+  var mais = el("li", "cl-linha");
+  mais.appendChild(I.criar("grupo"));
+  var t = el("span", "cl-linha-texto cl-suave");
+  t.textContent = fato.historico.outrasTexto;
+  mais.appendChild(t);
+  $("historico").appendChild(mais);
+})();
+</script>
+</body>
+</html>

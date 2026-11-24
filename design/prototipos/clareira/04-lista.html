@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.4"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="4">
+<div class="cl-app">
+  <header class="cl-topo">
+    <p class="cl-topo-viagem" data-dado="lista.cabecalho"></p>
+  </header>
+  <main class="cl-conteudo">
+    <h1 class="cl-h1" data-texto="cl.lista.titulo"></h1>
+
+    <a class="cl-ligacao" href="09-em-casa.html?de=04-lista.html">
+      <span data-icone="casa"></span>
+      <span class="cl-ligacao-texto">
+        <span class="cl-forte" data-texto="cl.lista.comofoi_titulo"></span>
+        <span class="cl-suave cl-pequeno" data-texto="cl.lista.comofoi_texto"></span>
+      </span>
+      <span data-icone="avancar"></span>
+    </a>
+
+    <section class="cl-progresso" aria-labelledby="progresso-total">
+      <p class="cl-progresso-numero" id="progresso-total" data-texto="mensagem.progresso_carro"></p>
+      <div class="cl-trilha" id="trilha" role="img"></div>
+      <p class="cl-suave cl-pequeno" id="trilha-texto" data-texto="cl.lista.categorias"></p>
+      <p class="cl-pista" id="pista" aria-live="polite"></p>
+    </section>
+
+    <div class="cl-aviso" id="aviso-removido" hidden>
+      <span data-icone="remover"></span>
+      <span class="cl-linha-texto" id="aviso-removido-texto"></span>
+      <button type="button" class="cl-botao cl-botao--texto" id="desfazer-remocao" data-texto="acao.desfazer"></button>
+    </div>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-filtro">
+      <h2 class="cl-rotulo" id="rotulo-filtro" data-texto="cl.lista.filtrar"></h2>
+      <div class="cl-fichas" role="group" aria-labelledby="rotulo-filtro" id="filtros"></div>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-tarefas" id="bloco-tarefas">
+      <h2 class="cl-rotulo" id="rotulo-tarefas" data-texto="bloco.tarefas"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="tarefas"></ul>
+    </section>
+
+    <div class="cl-categorias" id="categorias"></div>
+    <p class="cl-suave" id="vazio-filtro" data-texto="cl.lista.vazio_filtro" hidden></p>
+  </main>
+
+  <div class="cl-base">
+    <div class="cl-acao" id="acao">
+      <a class="cl-botao cl-botao--principal" href="06-aviso-de-saida.html" data-texto="acao.vou_sair"></a>
+      <div class="cl-comemora" id="comemora"></div>
+    </div>
+    <nav class="cl-abas" data-texto-aria="cl.abas">
+      <a class="cl-aba" href="04-lista.html" aria-current="page"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="lista"></span></span><span class="cl-aba-texto" data-texto="area.lista"></span></a>
+      <a class="cl-aba" href="03-alertas.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="camping"></span></span><span class="cl-aba-texto" data-texto="area.camping"></span></a>
+      <a class="cl-aba" href="11-grupo.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="grupo"></span></span><span class="cl-aba-texto" data-texto="area.grupo"></span></a>
+      <a class="cl-aba" href="12-gastos.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="gastos"></span></span><span class="cl-aba-texto" data-texto="area.gastos"></span></a>
+    </nav>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+
+  /* O que mudou no protótipo fica guardado; o ponto de partida é sempre dados.js. */
+  var estados = C.guardado.ler("clareira.estados", {}) || {};
+  var comprar = C.guardado.ler("clareira.comprar", {}) || {};
+  var tarefasFeitas = C.guardado.ler("clareira.tarefas", {}) || {};
+  var removidos = C.guardado.ler("clareira.removidos", []) || [];
+  var categorias = C.dado("lista.categorias");
+  var abertas = {};
+  categorias.forEach(function (c) { abertas[c.id] = !!c.aberta; });
+  var filtro = null;
+
+  function estadoDe(it) { return Object.prototype.hasOwnProperty.call(estados, it.id) ? estados[it.id] : it.estado; }
+  function ativo(it) { return removidos.indexOf(it.id) < 0; }
+  function itensDe(cat) { return cat.itens.filter(ativo); }
+
+  function contar(cat) {
+    var r = { total: 0, noCarro: 0, separei: 0, aSeparar: 0 };
+    (cat ? [cat] : categorias).forEach(function (c) {
+      itensDe(c).forEach(function (it) {
+        var e = estadoDe(it);
+        r.total++;
+        if (e === "carro") r.noCarro++; else if (e === "separei") r.separei++; else r.aSeparar++;
+      });
+    });
+    return r;
+  }
+
+  function linhaEstado(it) {
+    var e = estadoDe(it);
+    var chave = e === "carro" ? "carro" : e === "separei" ? "separei" : "a_separar";
+    var icone = e === "a_separar" ? "nao_conferido" : chave;
+    var s = el("span", "cl-estado cl-estado--" + chave + (e === "a_separar" ? "" : " cl-ativo"));
+    s.appendChild(I.criar(icone));
+    s.appendChild(el("span", "", { "data-texto": "estado." + chave }));
+    return s;
+  }
+
+  function linhaItem(it) {
+    var e = estadoDe(it);
+    var li = el("li", "cl-item", { "data-id": it.id });
+    var a = el("a", "cl-item-nome", { href: "05-item.html?item=" + encodeURIComponent(it.id) + "&de=04-lista.html" });
+    a.setAttribute("aria-label", comprar[it.id] ? C.texto("cl.lista.falado_comprar", { falado: C.nomeFalado(it, e) }) : C.nomeFalado(it, e));
+    var titulo = el("span", "cl-item-titulo");
+    titulo.textContent = it.nome;
+    a.appendChild(titulo);
+    var det = el("span", "cl-item-detalhe");
+    var qtd = el("span", "cl-numero");
+    qtd.textContent = it.quantidadeTexto;
+    det.appendChild(qtd);
+    det.appendChild(linhaEstado(it));
+    if (comprar[it.id]) {
+      var c = el("span", "cl-estado cl-estado--comprar cl-ativo");
+      c.appendChild(I.criar("comprar"));
+      c.appendChild(el("span", "", { "data-texto": "estado.comprar" }));
+      det.appendChild(c);
+    }
+    a.appendChild(det);
+    li.appendChild(a);
+
+    var botoes = el("div", "cl-item-botoes");
+    var bSep = el("button", "cl-alternar cl-alternar--separei", {
+      type: "button", "aria-pressed": e === "separei" || e === "carro" ? "true" : "false",
+      "data-texto-aria": "cl.lista.marcar", "data-valores": JSON.stringify({ nome: it.nome, estado: C.texto("estado.separei") })
+    });
+    bSep.appendChild(I.criar("separei"));
+    bSep.addEventListener("click", function () {
+      mudar(it, bSep.getAttribute("aria-pressed") === "true" ? "a_separar" : "separei");
+    });
+    var bCarro = el("button", "cl-alternar cl-alternar--carro", {
+      type: "button", "aria-pressed": e === "carro" ? "true" : "false",
+      "data-texto-aria": "cl.lista.marcar", "data-valores": JSON.stringify({ nome: it.nome, estado: C.texto("estado.carro") })
+    });
+    bCarro.appendChild(I.criar("carro"));
+    bCarro.addEventListener("click", function () {
+      mudar(it, bCarro.getAttribute("aria-pressed") === "true" ? "separei" : "carro");
+    });
+    botoes.appendChild(bSep);
+    botoes.appendChild(bCarro);
+    li.appendChild(botoes);
+    return li;
+  }
+
+  function passaFiltro(it) {
+    if (!filtro) return true;
+    var e = estadoDe(it);
+    if (filtro === "a_separar") return e === "a_separar";
+    if (filtro === "separados") return e === "separei";
+    if (filtro === "no_carro") return e === "carro";
+    if (filtro === "comprar") return !!comprar[it.id];
+    return true;
+  }
+
+  var caixa = document.getElementById("categorias");
+
+  function montarCategorias() {
+    caixa.innerHTML = "";
+    var algum = false;
+    categorias.forEach(function (cat) {
+      var lista = itensDe(cat).filter(passaFiltro);
+      if (filtro && !lista.length) return;
+      algum = true;
+      var p = contar(cat);
+      var aberta = filtro ? true : abertas[cat.id];
+      var sec = el("section", "cl-categoria", { "data-categoria": cat.id });
+      var idCorpo = "categoria-" + cat.id;
+      var progresso = C.texto("mensagem.contador", { atual: p.noCarro, total: p.total });
+      var cab = el("button", "cl-categoria-cabeca", {
+        type: "button", "aria-expanded": aberta ? "true" : "false", "aria-controls": idCorpo,
+        "data-texto-aria": "cl.lista.abrir_categoria",
+        "data-valores": JSON.stringify({ categoria: C.texto("categoria." + cat.id), progresso: progresso })
+      });
+      cab.appendChild(el("span", "cl-marca" + (p.noCarro === p.total ? "" : " cl-marca--vazia")));
+      cab.appendChild(el("span", "cl-categoria-nome", { "data-texto": "categoria." + cat.id }));
+      cab.appendChild(el("span", "cl-categoria-progresso", { "data-texto": "mensagem.contador", "data-valores": JSON.stringify({ atual: p.noCarro, total: p.total }) }));
+      cab.appendChild(I.criar("abrir"));
+      var corpo = el("div", "cl-categoria-corpo cl-cartao cl-cartao--lista", { id: idCorpo });
+      if (!aberta) corpo.hidden = true;
+      var ul = el("ul", "cl-linhas");
+      lista.forEach(function (it) { ul.appendChild(linhaItem(it)); });
+      corpo.appendChild(ul);
+      cab.addEventListener("click", function () {
+        var abrir = cab.getAttribute("aria-expanded") !== "true";
+        cab.setAttribute("aria-expanded", abrir ? "true" : "false");
+        corpo.hidden = !abrir;
+        if (!filtro) abertas[cat.id] = abrir;
+      });
+      sec.appendChild(cab);
+      sec.appendChild(corpo);
+      caixa.appendChild(sec);
+    });
+    document.getElementById("vazio-filtro").hidden = algum;
+  }
+
+  function primeiraPendente() {
+    for (var i = 0; i < categorias.length; i++) {
+      var pend = itensDe(categorias[i]).filter(function (it) { return estadoDe(it) !== "carro"; });
+      if (pend.length) return { cat: categorias[i], itens: pend };
+    }
+    return null;
+  }
+
+  function atualizarResumo() {
+    var t = contar(null);
+    var total = document.getElementById("progresso-total");
+    total.setAttribute("data-valores", JSON.stringify({ feitos: t.noCarro, total: t.total }));
+    var trilha = document.getElementById("trilha");
+    trilha.innerHTML = "";
+    var completas = 0;
+    categorias.forEach(function (cat) {
+      var p = contar(cat);
+      var cheia = p.total > 0 && p.noCarro === p.total;
+      if (cheia) completas++;
+      trilha.appendChild(el("span", "cl-marca" + (cheia ? "" : " cl-marca--vazia")));
+    });
+    var valores = JSON.stringify({ feitas: completas, total: categorias.length });
+    document.getElementById("trilha-texto").setAttribute("data-valores", valores);
+    trilha.setAttribute("data-valores", valores);
+    trilha.setAttribute("data-texto-aria", "cl.lista.categorias");
+    var pista = document.getElementById("pista");
+    var pend = t.total - t.noCarro;
+    var primeira = primeiraPendente();
+    if (!primeira) {
+      pista.removeAttribute("data-valores");
+      pista.setAttribute("data-texto", "cl.lista.completa");
+    } else if (pend === 1) {
+      pista.setAttribute("data-valores", JSON.stringify({ categoria: C.texto("categoria." + primeira.cat.id), item: primeira.itens[0].nome }));
+      pista.setAttribute("data-texto", "cl.lista.pista_um");
+    } else {
+      pista.setAttribute("data-valores", JSON.stringify({ n: pend, categoria: C.texto("categoria." + primeira.cat.id) }));
+      pista.setAttribute("data-texto", "cl.lista.pista_varios");
+    }
+    return t;
+  }
+
+  var acao = document.getElementById("acao");
+  var comemora = document.getElementById("comemora");
+  var relogio = null;
+
+  function comemorar() {
+    comemora.innerHTML = "";
+    var pose = el("span", "cl-pose");
+    pose.appendChild(C.mascote("pose-comemorando", { texto: "" }));
+    comemora.appendChild(pose);
+    comemora.appendChild(el("span", "", { "data-texto": "cl.lista.completa" }));
+    acao.classList.add("cl-comemorando");
+    C.anunciar(C.texto("cl.lista.completa"));
+    window.clearTimeout(relogio);
+    relogio = window.setTimeout(function () {
+      acao.classList.remove("cl-comemorando");
+      comemora.innerHTML = "";
+    }, 2000);
+  }
+
+  function mudar(it, novo) {
+    var antes = contar(null);
+    estados[it.id] = novo;
+    if (novo === it.estado) delete estados[it.id];
+    C.guardado.gravar("clareira.estados", estados);
+    var foco = document.activeElement;
+    var qual = foco && foco.classList.contains("cl-alternar--carro") ? ".cl-alternar--carro" : ".cl-alternar--separei";
+    montarCategorias();
+    var depois = atualizarResumo();
+    var linha = caixa.querySelector('[data-id="' + it.id + '"]');
+    if (linha) {
+      var b = linha.querySelector(qual);
+      if (b) b.focus();
+    }
+    C.anunciar(C.nomeFalado(it, novo));
+    if (depois.total > 0 && depois.noCarro === depois.total && antes.noCarro !== antes.total) comemorar();
+  }
+
+  /* Filtros (um de cada vez; tocar de novo mostra tudo). */
+  var filtros = document.getElementById("filtros");
+  C.dado("lista.filtros").forEach(function (f) {
+    var b = el("button", "cl-ficha", { type: "button", "aria-pressed": "false", "data-filtro": f });
+    b.appendChild(I.criar("ciente"));
+    b.appendChild(el("span", "", { "data-texto": "filtro." + f }));
+    b.addEventListener("click", function () {
+      filtro = filtro === f ? null : f;
+      Array.prototype.forEach.call(filtros.children, function (x) {
+        x.setAttribute("aria-pressed", x.getAttribute("data-filtro") === filtro ? "true" : "false");
+      });
+      montarCategorias();
+    });
+    filtros.appendChild(b);
+  });
+
+  /* Faixa de tarefas (P-06): o texto vem igual de dados.js. */
+  var tarefas = document.getElementById("tarefas");
+  C.dado("lista.tarefas").forEach(function (t) {
+    var feito = Object.prototype.hasOwnProperty.call(tarefasFeitas, t.id) ? tarefasFeitas[t.id] : t.feito;
+    var li = el("li", "cl-linha");
+    var txt = el("span", "cl-linha-texto");
+    txt.textContent = t.texto;
+    var b = el("button", "cl-ficha", {
+      type: "button", "aria-pressed": feito ? "true" : "false",
+      "data-texto-aria": "cl.lista.tarefa_aria", "data-valores": JSON.stringify({ tarefa: t.texto })
+    });
+    b.appendChild(I.criar("ciente"));
+    b.appendChild(el("span", "", { "data-texto": "estado.feito" }));
+    b.addEventListener("click", function () {
+      var agora = b.getAttribute("aria-pressed") !== "true";
+      b.setAttribute("aria-pressed", agora ? "true" : "false");
+      tarefasFeitas[t.id] = agora;
+      C.guardado.gravar("clareira.tarefas", tarefasFeitas);
+    });
+    li.appendChild(txt);
+    li.appendChild(b);
+    tarefas.appendChild(li);
+  });
+
+  /* Item removido na tela 5: aviso com desfazer. */
+  var removidoAgora = C.guardado.ler("clareira.removidoAgora", null);
+  if (removidoAgora && removidos.indexOf(removidoAgora) >= 0 && C.item(removidoAgora)) {
+    var aviso = document.getElementById("aviso-removido");
+    document.getElementById("aviso-removido-texto").setAttribute("data-valores", JSON.stringify({ nome: C.item(removidoAgora).nome }));
+    document.getElementById("aviso-removido-texto").setAttribute("data-texto", "cl.lista.removido");
+    aviso.hidden = false;
+    document.getElementById("desfazer-remocao").addEventListener("click", function () {
+      removidos = removidos.filter(function (x) { return x !== removidoAgora; });
+      C.guardado.gravar("clareira.removidos", removidos);
+      aviso.hidden = true;
+      montarCategorias();
+      atualizarResumo();
+    });
+  }
+  C.guardado.remover("clareira.removidoAgora");
+
+  montarCategorias();
+  atualizarResumo();
+})();
+</script>
+</body>
+</html>

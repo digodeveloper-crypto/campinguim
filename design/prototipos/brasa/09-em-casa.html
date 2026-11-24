@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.9"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="9">
+<header class="br-tela br-topo br-topo--empilhada">
+  <p class="br-momento"><span data-icone="casa"></span><span data-texto="brasa.momento_casa"></span></p>
+  <div class="br-topo-linha">
+    <div class="br-topo-texto">
+      <p class="br-destaque" data-texto="brasa.t9_titulo"></p>
+      <p class="br-frase br-suave" data-texto="brasa.t9_frase"></p>
+    </div>
+    <span class="br-apoio br-mascote-medio"><span data-mascote="pose-neutro" data-mascote-texto=""></span></span>
+  </div>
+</header>
+<div class="br-tela br-atras" aria-hidden="true"></div>
+<main class="br-tela br-folha br-folha--empilhada">
+  <div class="br-alca">
+    <span class="br-alca-traco" aria-hidden="true"></span>
+    <a class="br-fechar" href="07-estadia.html" data-fechar><span data-icone="fechar"></span><span data-texto="acao.fechar"></span></a>
+  </div>
+  <div class="br-corpo">
+    <div class="br-cabeca-folha">
+      <p class="br-rotulo" id="passo" data-texto="brasa.passo"></p>
+      <h1 id="titulo-passo" data-texto="bloco.sobrou_faltou"></h1>
+    </div>
+
+    <!-- Passo 1 · Sobrou e faltou -->
+    <section class="br-bloco" id="p1" aria-labelledby="titulo-passo">
+      <ul class="br-pilha" id="consumiveis"></ul>
+    </section>
+
+    <!-- Passo 2 · Pergunta do camping (P-16) -->
+    <section class="br-bloco" id="p2" aria-labelledby="titulo-passo" hidden>
+      <p class="br-rotulo" id="contador" data-texto="mensagem.contador"></p>
+      <div class="br-cartao">
+        <p data-texto="pergunta.regras_cumpridas"></p>
+        <p class="br-bloco-titulo" data-dado="emCasa.passo2.regra"></p>
+        <div class="br-opcoes" id="resposta" role="group" aria-labelledby="contador"></div>
+      </div>
+      <div class="br-campo" role="group" aria-labelledby="r-como">
+        <p class="br-campo-rotulo" id="r-como" data-texto="campo.responder_como"></p>
+        <div class="br-opcoes br-opcoes--coluna" id="como"></div>
+      </div>
+    </section>
+
+    <!-- Passo 3 · Sugestão, opcional -->
+    <section class="br-bloco" id="p3" aria-labelledby="titulo-passo" hidden>
+      <p data-texto="pergunta.sugestao"></p>
+      <div class="br-opcoes" id="sugestoes" role="group" aria-labelledby="titulo-passo"></div>
+      <div class="br-campo">
+        <label class="br-campo-rotulo" for="sugestao" data-texto="campo.sugestao"></label>
+        <textarea class="br-entrada" id="sugestao" rows="3"></textarea>
+        <p class="br-rotulo" id="caracteres" data-texto="brasa.caracteres" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- Fim -->
+    <section class="br-bloco" id="p4" hidden>
+      <p class="br-cartao br-estado br-cor-carro" id="fim" role="status"></p>
+    </section>
+  </div>
+  <div class="br-rodape" id="rodape">
+    <div class="br-rodape-acoes">
+      <button class="br-botao br-botao--secundario" type="button" id="pular" data-texto="acao.pular"></button>
+      <div class="br-halo"><button class="br-botao" type="button" id="seguir" data-texto="acao.proxima"></button></div>
+    </div>
+  </div>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+  var casa = C.dado("emCasa");
+  var passo = 1;
+  var TITULOS = { 1: "bloco.sobrou_faltou", 2: "bloco.pergunta_camping", 3: "bloco.sugestao" };
+
+  /* Um de dois (ou nenhum): botões com aria-pressed; tocar no ligado desliga. */
+  function umDe(caixa, opcoes) {
+    opcoes.forEach(function (o) {
+      var b = el("button", "br-alterna" + (o.cor ? " " + o.cor : ""), { type: "button", "aria-pressed": "false", "data-texto": o.chave, "data-texto-aria": o.aria, valores: o.valores });
+      if (o.texto) b.textContent = o.texto;
+      if (o.icone) {
+        b.removeAttribute("data-texto");
+        b.appendChild(B.icone(o.icone));
+        b.appendChild(el("span", null, { "data-texto": o.chave }));
+      }
+      b.addEventListener("click", function () {
+        var ligar = b.getAttribute("aria-pressed") !== "true";
+        Array.prototype.forEach.call(caixa.children, function (x) { x.setAttribute("aria-pressed", x === b && ligar ? "true" : "false"); });
+      });
+      caixa.appendChild(b);
+    });
+  }
+
+  /* Passo 1: consumíveis, sobrou ou faltou; nada marcado no início. */
+  var consumiveis = document.getElementById("consumiveis");
+  casa.passo1.itens.forEach(function (i) {
+    var acoes = el("div", "br-linha-acoes", { role: "group", "aria-label": i.nome });
+    umDe(acoes, [
+      { chave: "estado.sobrou", icone: "sobrou", cor: "br-cor-carro", aria: "brasa.marcar_sobrou", valores: { nome: i.nome } },
+      { chave: "estado.faltou", icone: "faltou", cor: "br-cor-atencao", aria: "brasa.marcar_faltou", valores: { nome: i.nome } }
+    ]);
+    consumiveis.appendChild(el("li", "br-linha", null, [
+      el("div", "br-linha-nome", null, [
+        el("span", "br-linha-titulo", { texto: i.nome }),
+        el("span", "br-linha-detalhe", { "data-texto": "brasa.levado", valores: { quantidade: i.levado } })
+      ]),
+      acoes
+    ]));
+  });
+
+  /* Passo 2: "1 de 4", Sim ou Não, responder como. */
+  document.getElementById("contador").setAttribute("data-valores", JSON.stringify({ atual: casa.passo2.atual, total: casa.passo2.total }));
+  umDe(document.getElementById("resposta"), [{ chave: "opcao.sim" }, { chave: "opcao.nao" }]);
+  var como = document.getElementById("como");
+  casa.passo2.responderComo.forEach(function (nome, i) {
+    var b = el("button", "br-alterna", { type: "button", "aria-pressed": "false", texto: nome });
+    b.addEventListener("click", function () { Array.prototype.forEach.call(como.children, function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); });
+    como.appendChild(b);
+  });
+
+  /* Passo 3: opções de toque (várias) e texto de até 200 caracteres. */
+  var sugestoes = document.getElementById("sugestoes");
+  casa.passo3.opcoes.forEach(function (o) {
+    var b = el("button", "br-alterna", { type: "button", "aria-pressed": "false", texto: o });
+    b.addEventListener("click", function () { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); });
+    sugestoes.appendChild(b);
+  });
+  var campo = document.getElementById("sugestao");
+  var limite = casa.passo3.limiteCaracteres;
+  campo.maxLength = limite;
+  campo.value = casa.passo3.texto;
+  function contar() { document.getElementById("caracteres").setAttribute("data-valores", JSON.stringify({ n: campo.value.length, max: limite })); }
+  campo.addEventListener("input", contar);
+  contar();
+
+  /* Um passo por vez, com "pular" em cada um. */
+  function mostrar() {
+    [1, 2, 3, 4].forEach(function (n) { document.getElementById("p" + n).hidden = n !== passo; });
+    var cabeca = document.getElementById("passo");
+    var titulo = document.getElementById("titulo-passo");
+    if (passo <= 3) {
+      cabeca.hidden = false;
+      cabeca.setAttribute("data-valores", JSON.stringify({ n: passo, total: 3 }));
+      titulo.setAttribute("data-texto", TITULOS[passo]);
+      document.getElementById("seguir").setAttribute("data-texto", passo === 3 ? "acao.enviar" : "acao.proxima");
+      document.getElementById("rodape").hidden = false;
+    } else {
+      cabeca.hidden = true;
+      document.getElementById("rodape").hidden = true;
+    }
+  }
+  function avancar(enviou) {
+    if (passo === 3) {
+      var fim = document.getElementById("fim");
+      fim.innerHTML = "";
+      fim.appendChild(B.icone("ciente"));
+      fim.appendChild(el("span", null, { "data-texto": enviou ? "mensagem.sugestao_registrada" : "brasa.fim" }));
+      titulo().setAttribute("data-texto", "brasa.t9_titulo");
+    }
+    passo++;
+    mostrar();
+    titulo().focus();
+  }
+  function titulo() { return document.getElementById("titulo-passo"); }
+  document.getElementById("seguir").addEventListener("click", function () { avancar(true); });
+  document.getElementById("pular").addEventListener("click", function () { avancar(false); });
+  mostrar();
+
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

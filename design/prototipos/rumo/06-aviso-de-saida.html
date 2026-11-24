@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="rumo.titulo.6"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<script src="paleta.js"></script>
+</head>
+<body data-tela="6">
+<main class="rumo">
+  <header class="etapa">
+    <div class="etapa-linha">
+      <div class="etapa-texto">
+        <p class="etapa-marca"></p>
+        <h1 class="titulo-tela" data-texto="rumo.t6.titulo"></h1>
+      </div>
+      <span id="mascote"></span>
+    </div>
+  </header>
+
+  <section class="progresso" aria-live="polite">
+    <p class="progresso-numero"><strong id="prog-total"></strong></p>
+    <p class="suave" id="prog-frase"></p>
+    <div id="prog-regua"></div>
+  </section>
+
+  <section class="bloco" aria-labelledby="fora-titulo">
+    <h2 class="bloco-titulo" id="fora-titulo" data-texto="bloco.separados_fora"></h2>
+    <ul class="folha" id="fora"></ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="nao-titulo">
+    <h2 class="bloco-titulo" id="nao-titulo" data-texto="bloco.nao_separados"></h2>
+    <div class="folha"><p class="vazio" data-texto="mensagem.nao_separados_vazio"></p></div>
+  </section>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var cg = window.CAMPINGUIM, R = window.RUMO, D = cg.dados;
+  var refs = R.montar({
+    parada: "carregar",
+    icone: false,
+    voltar: "04-lista.html",
+    acoes: [{ id: "sair", chave: "acao.sair_assim", href: "07-estadia.html" }]
+  });
+  var apoio = R.mascote("pose-alerta", "apoio--cabeca", true);
+  document.getElementById("mascote").replaceWith(apoio);
+  var figura = apoio.querySelector("[data-mascote]");
+
+  var estados = {};
+  D.avisoSaida.foraDoCarro.forEach(function (id) { estados[id] = cg.item(id).estado; });
+
+  function desenhar(foco) {
+    var p = cg.progresso(estados);
+    var faltam = D.avisoSaida.foraDoCarro.filter(function (id) { return estados[id] !== "carro"; }).length;
+    var total = document.getElementById("prog-total");
+    total.setAttribute("data-texto", "mensagem.progresso_carro");
+    total.setAttribute("data-valores", JSON.stringify({ feitos: p.noCarro, total: p.total }));
+    var frase = document.getElementById("prog-frase");
+    frase.setAttribute("data-texto", faltam ? R.contagem("rumo.t6.faltam", faltam) : "rumo.t6.completo");
+    frase.setAttribute("data-valores", JSON.stringify({ n: faltam, feitos: p.noCarro, total: p.total }));
+    var regua = document.getElementById("prog-regua");
+    regua.innerHTML = "";
+    regua.appendChild(R.regua(p.noCarro, p.total));
+
+    /* A parada Carregar fecha: o mascote comemora e a saída é confirmada. */
+    figura.setAttribute("data-mascote", faltam ? "pose-alerta" : "pose-comemorando");
+    refs.acoes.sair.querySelector(".botao-texto").setAttribute("data-texto", faltam ? "acao.sair_assim" : "acao.confirmar_saida");
+
+    var lista = document.getElementById("fora");
+    lista.innerHTML = "";
+    D.avisoSaida.foraDoCarro.forEach(function (id) {
+      var item = cg.item(id);
+      var e = estados[id];
+      var li = R.el("li", "item item--" + e, { "data-id": id });
+      var t = R.el("span", "item-abrir");
+      var nome = R.el("span", "item-nome");
+      nome.textContent = item.nome;
+      var meta = R.el("span", "item-meta");
+      var q = R.el("span", "item-qtd");
+      q.textContent = item.quantidadeTexto;
+      meta.appendChild(q);
+      meta.appendChild(R.linhaEstado(e));
+      t.appendChild(nome);
+      t.appendChild(meta);
+      li.appendChild(t);
+      var b = R.el("button", "marca marca--carro", { type: "button", "aria-pressed": e === "carro" ? "true" : "false",
+        "data-texto-aria": "rumo.t6.botao_aria", "data-valores": JSON.stringify({ nome: item.nome }) });
+      b.innerHTML = R.icone("carro", e === "carro");
+      b.appendChild(R.tx("span", null, "estado.carro"));
+      b.addEventListener("click", function () {
+        estados[id] = estados[id] === "carro" ? "separei" : "carro";
+        desenhar(id);
+      });
+      li.appendChild(b);
+      lista.appendChild(li);
+    });
+    if (foco) {
+      var alvo = lista.querySelector('[data-id="' + foco + '"] button');
+      if (alvo) alvo.focus();
+      if (!faltam) cg.anunciar(R.texto("rumo.t6.completo", { feitos: p.noCarro, total: p.total }));
+    }
+  }
+  desenhar();
+})();
+</script>
+</body>
+</html>

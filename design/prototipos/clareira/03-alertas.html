@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.3"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="3">
+<div class="cl-app">
+  <header class="cl-topo">
+    <p class="cl-topo-viagem" data-dado="viagem.cabecalho"></p>
+  </header>
+  <main class="cl-conteudo">
+    <div class="cl-titulo-pose">
+      <div class="cl-bloco">
+        <p class="cl-rotulo" data-texto="cl.alertas.rotulo"></p>
+        <h1 class="cl-h1" data-dado="camping.nome"></h1>
+        <p class="cl-estado cl-estado--ciente cl-ativo"><span data-icone="ciente"></span><span id="confirmado" data-texto="mensagem.confirmado_por"></span></p>
+      </div>
+      <span class="cl-pose"><span data-mascote="pose-alerta" data-mascote-texto=""></span></span>
+    </div>
+    <p data-texto="cl.alertas.intro"></p>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-alertas">
+      <h2 class="cl-rotulo" id="rotulo-alertas" data-texto="cl.alertas.o_camping"></h2>
+      <ul class="cl-bloco" id="alertas-atencao"></ul>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="alertas-informacao"></ul>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-ajustes">
+      <h2 class="cl-rotulo" id="rotulo-ajustes" data-texto="ajuste.titulo"></h2>
+      <p class="cl-suave cl-pequeno" data-texto="cl.alertas.ajustes_intro"></p>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="ajustes"></ul>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-regras">
+      <h2 class="cl-rotulo" id="rotulo-regras" data-texto="ajuste.regras"></h2>
+      <p class="cl-suave cl-pequeno" data-texto="cl.alertas.regras_intro"></p>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="regras"></ul>
+    </section>
+  </main>
+  <div class="cl-base">
+    <div class="cl-acao">
+      <a class="cl-botao cl-botao--principal" href="04-lista.html" data-texto="acao.ver_lista"></a>
+    </div>
+    <nav class="cl-abas" data-texto-aria="cl.abas">
+      <a class="cl-aba" href="04-lista.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="lista"></span></span><span class="cl-aba-texto" data-texto="area.lista"></span></a>
+      <a class="cl-aba" href="03-alertas.html" aria-current="page"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="camping"></span></span><span class="cl-aba-texto" data-texto="area.camping"></span></a>
+      <a class="cl-aba" href="11-grupo.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="grupo"></span></span><span class="cl-aba-texto" data-texto="area.grupo"></span></a>
+      <a class="cl-aba" href="12-gastos.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="gastos"></span></span><span class="cl-aba-texto" data-texto="area.gastos"></span></a>
+    </nav>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+  function texto(tag, classe, conteudo) {
+    var e = el(tag, classe);
+    e.textContent = conteudo;
+    return e;
+  }
+
+  document.getElementById("confirmado").setAttribute("data-valores", JSON.stringify({ n: C.dado("camping.confirmacoes") }));
+
+  /* Alertas: atenção com triângulo e a palavra "Atenção"; informação com o "i". */
+  C.dado("alertas").forEach(function (a) {
+    var li = el("li", a.nivel === "atencao" ? "cl-alerta cl-alerta--atencao" : "cl-linha cl-alerta-linha cl-alerta--informacao");
+    li.appendChild(I.criar(a.nivel === "atencao" ? "atencao" : "informacao"));
+    var corpo = el("div", "cl-alerta-corpo");
+    corpo.appendChild(el("span", "cl-nivel cl-nivel--" + a.nivel, { "data-texto": "nivel." + a.nivel }));
+    corpo.appendChild(texto("span", "", a.texto));
+    li.appendChild(corpo);
+    document.getElementById("alertas-" + a.nivel).appendChild(li);
+  });
+
+  /* Ajustes, cada um com desfazer (E3-08). */
+  var desfeitos = C.guardado.ler("clareira.ajustesDesfeitos", {}) || {};
+  C.dado("ajustes.itens").forEach(function (a) {
+    var li = el("li", "cl-linha");
+    var txt = el("div", "cl-linha-texto");
+    var titulo = el("p", "cl-forte", { "data-texto": "cl.alertas.ajuste", "data-valores": JSON.stringify({ tipo: C.texto("ajuste." + a.tipo), item: a.item }) });
+    var motivo = texto("p", "cl-suave cl-pequeno", a.motivo);
+    var marca = el("p", "cl-estado cl-estado--a_separar");
+    marca.appendChild(I.criar("volta"));
+    marca.appendChild(el("span", "", { "data-texto": "cl.alertas.desfeito" }));
+    txt.appendChild(titulo);
+    txt.appendChild(motivo);
+    txt.appendChild(marca);
+    var b = el("button", "cl-botao", { type: "button" });
+    var rot = el("span");
+    b.appendChild(rot);
+    function pintar() {
+      var d = !!desfeitos[a.id];
+      marca.hidden = !d;
+      rot.setAttribute("data-texto", d ? "cl.alertas.refazer" : "acao.desfazer");
+      b.setAttribute("data-valores", JSON.stringify({ item: a.item }));
+      b.setAttribute("data-texto-aria", d ? "cl.alertas.refazer_aria" : "cl.alertas.desfazer_aria");
+    }
+    b.addEventListener("click", function () {
+      desfeitos[a.id] = !desfeitos[a.id];
+      C.guardado.gravar("clareira.ajustesDesfeitos", desfeitos);
+      pintar();
+      C.anunciar(C.texto(desfeitos[a.id] ? "cl.alertas.desfeito" : "cl.alertas.refazer"));
+    });
+    pintar();
+    li.appendChild(txt);
+    li.appendChild(b);
+    document.getElementById("ajustes").appendChild(li);
+  });
+
+  /* Regras, cada uma com "ciente" (E3-07); a regra com fato abre a tela 10. */
+  var cientes = C.guardado.ler("clareira.cientes", {}) || {};
+  C.dado("regras").forEach(function (r) {
+    var li = el("li", "cl-linha");
+    var txt;
+    if (r.fato) {
+      txt = el("a", "cl-linha-texto cl-item-nome", { href: "10-fato.html?de=03-alertas.html", "data-texto-aria": "cl.alertas.ver_fato", "data-valores": JSON.stringify({ regra: r.texto }) });
+      var l = el("span", "cl-aba-icone");
+      l.appendChild(texto("span", "cl-item-titulo", r.texto));
+      l.appendChild(I.criar("avancar"));
+      txt.appendChild(l);
+    } else {
+      txt = el("div", "cl-linha-texto");
+      txt.appendChild(texto("span", "cl-item-titulo", r.texto));
+    }
+    var ciente = Object.prototype.hasOwnProperty.call(cientes, r.id) ? cientes[r.id] : r.ciente;
+    var b = el("button", "cl-ficha", {
+      type: "button", "aria-pressed": ciente ? "true" : "false",
+      "data-texto-aria": "cl.alertas.ciente_aria", "data-valores": JSON.stringify({ regra: r.texto })
+    });
+    b.appendChild(I.criar("ciente"));
+    b.appendChild(el("span", "", { "data-texto": "acao.ciente" }));
+    b.addEventListener("click", function () {
+      var agora = b.getAttribute("aria-pressed") !== "true";
+      b.setAttribute("aria-pressed", agora ? "true" : "false");
+      cientes[r.id] = agora;
+      C.guardado.gravar("clareira.cientes", cientes);
+    });
+    li.appendChild(txt);
+    li.appendChild(b);
+    document.getElementById("regras").appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>

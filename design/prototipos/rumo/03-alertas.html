@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="rumo.titulo.3"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<script src="paleta.js"></script>
+</head>
+<body data-tela="3">
+<main class="rumo">
+  <header class="etapa">
+    <div class="etapa-linha">
+      <div class="etapa-texto">
+        <p class="etapa-marca"></p>
+        <h1 class="titulo-tela" data-dado="camping.nome"></h1>
+      </div>
+      <span id="mascote"></span>
+    </div>
+    <p class="selo selo--espaco" id="selo"><span class="selo-linha" id="confirmado"></span></p>
+  </header>
+
+  <section class="bloco" aria-labelledby="atencao-titulo">
+    <h2 class="bloco-titulo nivel--atencao" id="atencao-titulo"></h2>
+    <ul class="folha" id="atencao"></ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="info-titulo">
+    <h2 class="bloco-titulo" id="info-titulo"></h2>
+    <ul class="folha" id="informacao"></ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="ajustes-titulo">
+    <h2 class="bloco-titulo" id="ajustes-titulo" data-texto="ajuste.titulo"></h2>
+    <ul class="folha" id="ajustes"></ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="regras-titulo">
+    <h2 class="bloco-titulo" id="regras-titulo"></h2>
+    <ul class="folha" id="regras"></ul>
+  </section>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var cg = window.CAMPINGUIM, R = window.RUMO, D = cg.dados;
+  R.montar({
+    parada: "preparar",
+    icone: false,
+    acoes: [{ id: "ver-lista", chave: "acao.ver_lista", href: "04-lista.html" }]
+  });
+  document.getElementById("mascote").replaceWith(R.mascote("pose-alerta", "apoio--cabeca", true));
+
+  var conf = document.getElementById("confirmado");
+  conf.setAttribute("data-texto", "mensagem.confirmado_por");
+  conf.setAttribute("data-valores", JSON.stringify({ n: D.camping.confirmacoes }));
+
+  function titulo(id, ico, chave) {
+    var h = document.getElementById(id);
+    h.innerHTML = R.icone(ico, ico === "atencao");
+    h.appendChild(R.tx("span", null, chave));
+  }
+  titulo("atencao-titulo", "atencao", "nivel.atencao");
+  titulo("info-titulo", "info", "nivel.informacao");
+  titulo("ajustes-titulo", "tarefa", "ajuste.titulo");
+  titulo("regras-titulo", "regra", "ajuste.regras");
+
+  /* Alertas: Atenção (chuveiro e churrasco, D-01 e P-23) e Informação. O nível vem de dados.js. */
+  D.alertas.forEach(function (a) {
+    var li = R.el("li", "linha" + (a.nivel === "atencao" ? " linha--atencao" : ""));
+    li.innerHTML = R.icone(a.nivel === "atencao" ? "atencao" : "info");
+    var t = R.el("span", "linha-texto");
+    t.textContent = a.texto;
+    li.appendChild(t);
+    document.getElementById(a.nivel === "atencao" ? "atencao" : "informacao").appendChild(li);
+  });
+
+  /* Ajustes na lista, cada um com "desfazer" (E3-08). */
+  var icones = { entrou: "entrou", saiu: "saiu", tarefa: "tarefa" };
+  D.ajustes.itens.forEach(function (a) {
+    var li = R.el("li", "linha");
+    li.innerHTML = R.icone(icones[a.tipo]);
+    var t = R.el("span", "linha-texto");
+    var tipo = R.tx("span", "linha-sub", "ajuste." + a.tipo);
+    var nome = R.el("span", "linha-nome");
+    nome.textContent = a.item;
+    var motivo = R.el("span", "linha-sub");
+    motivo.textContent = a.motivo;
+    var desfeito = R.tx("span", "linha-sub estado estado--a_separar", "rumo.t3.desfeito", null, { hidden: "" });
+    t.appendChild(tipo);
+    t.appendChild(nome);
+    t.appendChild(motivo);
+    t.appendChild(desfeito);
+    li.appendChild(t);
+    var b = R.el("button", "marca", { type: "button", "data-texto-aria": "rumo.t3.desfazer_aria", "data-valores": JSON.stringify({ item: a.item }) });
+    var rot = R.tx("span", null, "acao.desfazer");
+    b.appendChild(rot);
+    b.addEventListener("click", function () {
+      var feito = desfeito.hidden;
+      desfeito.hidden = !feito;
+      rot.setAttribute("data-texto", feito ? "rumo.acao.refazer" : "acao.desfazer");
+      b.setAttribute("data-texto-aria", feito ? "rumo.acao.refazer" : "rumo.t3.desfazer_aria");
+    });
+    li.appendChild(b);
+    document.getElementById("ajustes").appendChild(li);
+  });
+
+  /* Regras, cada uma com "ciente" (E3-07); "Som até 22h" abre o fato (ligação 3 → 10). */
+  D.regras.forEach(function (r) {
+    var li = R.el("li", "linha");
+    var texto;
+    if (r.fato) {
+      texto = R.el("a", "linha-ligacao", { href: "10-fato.html?de=03-alertas" });
+      texto.innerHTML = R.icone("regra");
+      var s = R.el("span", "linha-texto");
+      s.textContent = r.texto;
+      texto.appendChild(s);
+      texto.insertAdjacentHTML("beforeend", R.icone("direita"));
+    } else {
+      texto = R.el("span", "linha-ligacao");
+      texto.innerHTML = R.icone("regra");
+      var s2 = R.el("span", "linha-texto");
+      s2.textContent = r.texto;
+      texto.appendChild(s2);
+    }
+    li.appendChild(texto);
+    var b = R.el("button", "marca", { type: "button", "aria-pressed": r.ciente ? "true" : "false",
+      "data-texto-aria": "rumo.t3.ciente_aria", "data-valores": JSON.stringify({ regra: r.texto }) });
+    function desenhar() {
+      var ligado = b.getAttribute("aria-pressed") === "true";
+      b.innerHTML = ligado ? R.icone("ciente") : "";
+      b.appendChild(R.tx("span", null, ligado ? "estado.ciente" : "acao.ciente"));
+    }
+    desenhar();
+    b.addEventListener("click", function () {
+      b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      desenhar();
+    });
+    li.appendChild(b);
+    document.getElementById("regras").appendChild(li);
+  });
+})();
+</script>
+</body>
+</html>

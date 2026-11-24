@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.12"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="12">
+<div class="r-app">
+  <header class="r-topo"><span data-icone="gastos"></span><span data-dado="grupo.nomeViagem.texto"></span></header>
+  <main class="r-conteudo">
+    <div class="r-cabeca">
+      <p class="r-rotulo" data-texto="gastos.rotulo"></p>
+      <h1 data-dado="gastos.item"></h1>
+      <p class="r-suave" id="comprou"></p>
+    </div>
+
+    <section class="r-cartao r-secao" aria-labelledby="t-valor">
+      <h2 class="r-rotulo" id="t-valor" data-texto="gastos.valor"></h2>
+      <p class="r-valor" data-dinheiro="gastos.totalCentavos"></p>
+      <p class="r-progresso-numero" id="cotas"></p>
+      <p class="r-suave r-pequeno" data-texto="gastos.regra"></p>
+    </section>
+
+    <p class="r-frase" id="frase"></p>
+
+    <section class="r-secao" aria-labelledby="t-familias">
+      <h2 id="t-familias" data-texto="gastos.por_familia"></h2>
+      <ul class="r-cartao r-cartao--lista r-cotas" id="familias"></ul>
+      <p class="r-frase" id="recebe"></p>
+    </section>
+
+    <section class="r-secao" aria-labelledby="t-nossa">
+      <h2 id="t-nossa" data-texto="gastos.nossa_parte"></h2>
+      <div class="r-cartao r-secao">
+        <p class="r-progresso-numero" id="devem"></p>
+        <div class="r-chave">
+          <span class="r-rotulo" id="t-chave"></span>
+          <span class="r-chave-valor" data-dado="gastos.usuaria.pix.chave"></span>
+        </div>
+        <div class="r-acoes-linha">
+          <button type="button" class="r-botao" id="copiar-chave"><span data-icone="copiar"></span><span data-texto="acao.copiar_chave"></span></button>
+          <button type="button" class="r-botao" id="copiar-valor"><span data-icone="copiar"></span><span data-texto="acao.copiar_valor"></span></button>
+        </div>
+        <p class="r-nota" id="copiado" role="status" hidden><span data-icone="ciente"></span><span id="copiado-texto"></span></p>
+      </div>
+    </section>
+  </main>
+  <footer class="r-rodape">
+    <button type="button" class="r-mural-botao" data-mural><span data-icone="mural"></span><span data-texto="nav.mural"></span></button>
+    <button type="button" class="r-acao" id="paguei" aria-pressed="false"><span data-icone="caixa"></span><span data-texto="acao.paguei"></span></button>
+  </footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA, el = R.el;
+  var g = C.dado("gastos");
+  var u = g.usuaria;
+  var real = C.dinheiro;
+
+  function valores(id, v) {
+    var e = document.getElementById(id);
+    e.setAttribute("data-valores", JSON.stringify(v));
+    return e;
+  }
+
+  valores("comprou", { nome: g.comprou }).setAttribute("data-texto", "gastos.comprou_por");
+  valores("cotas", { n: g.cotas, valor: real(g.cotaCentavos) }).setAttribute("data-texto", "mensagem.cotas_de");
+  valores("frase", { cota: real(g.cotaCentavos), valor: real(u.deveCentavos), pessoa: u.deveA }).setAttribute("data-texto", "gastos.frase");
+  valores("recebe", { pessoa: g.comprou, valor: real(g.compradorRecebeCentavos) }).setAttribute("data-texto", "mensagem.recebe");
+  valores("devem", { pessoa: u.deveA, valor: real(u.deveCentavos) }).setAttribute("data-texto", "mensagem.voces_devem");
+  valores("t-chave", { tipo: u.pix.tipo }).setAttribute("data-texto", "gastos.chave_tipo");
+
+  /* Cotas por família. Os emblemas aqui são só contorno (nada de turquesa claro em gastos);
+     o de quem já pagou acende. Os valores vêm de dados.js: a divisão não é recalculada. */
+  var linhas = {};
+  g.familias.forEach(function (f) {
+    var emb = R.emblema(f.familia, { contorno: true, tamanho: "pequeno", aceso: f.situacao === "ja_pago" });
+    var sit = el("span", { classe: "r-situacao" });
+    var li = el("li", { classe: "r-cota" }, [
+      el("div", { classe: "r-cota-quem" }, [emb, el("span", { classe: "r-familia-texto" }, [
+        el("span", { classe: "r-familia-nome", dado: f.nome }),
+        el("span", { classe: "r-suave r-pequeno", dado: f.pessoas }),
+        sit
+      ])]),
+      el("div", { classe: "r-cota-valor" }, [
+        el("strong", { classe: "cg-dinheiro", dado: real(f.valorCentavos) }),
+        el("span", { classe: "r-suave r-pequeno", texto: "mensagem.cotas", valores: { n: f.cotas } })
+      ])
+    ]);
+    linhas[f.familia] = { emb: emb, sit: sit, f: f };
+    pintarSituacao(f.familia, f.situacao);
+    document.getElementById("familias").appendChild(li);
+  });
+
+  function pintarSituacao(id, situacao) {
+    var l = linhas[id];
+    l.sit.innerHTML = "";
+    var pago = situacao === "ja_pago";
+    l.sit.className = "r-situacao r-situacao--" + (pago ? "carro" : "neutro");
+    l.sit.appendChild(R.icone(pago ? "ciente" : "caixa"));
+    l.sit.appendChild(el("span", { texto: "gastos.situacao." + situacao }));
+    if (l.f.comprador) l.sit.appendChild(el("span", { texto: "gastos.comprador_parenteses", valores: { c: C.texto("gastos.situacao.comprador") } }));
+    R.acender(l.emb, pago);
+  }
+
+  /* Copiar chave e valor (o valor sem "R$", com centavos). */
+  function avisarCopia(ok, chave) {
+    var nota = document.getElementById("copiado");
+    document.getElementById("copiado-texto").setAttribute("data-texto", ok ? chave : "mensagem.nao_copiado");
+    nota.hidden = false;
+    C.anunciar(C.texto(ok ? chave : "mensagem.nao_copiado"));
+  }
+  document.getElementById("copiar-chave").addEventListener("click", function () {
+    C.copiar(u.pix.chave).then(function (ok) { avisarCopia(ok, "gastos.chave_copiada"); });
+  });
+  document.getElementById("copiar-valor").addEventListener("click", function () {
+    C.copiar(real(u.deveCentavos)).then(function (ok) { avisarCopia(ok, "gastos.valor_copiado"); });
+  });
+
+  /* Paguei (E2-14): marca a nossa família como paga e acende o emblema. */
+  var paguei = document.getElementById("paguei");
+  paguei.setAttribute("aria-pressed", u.paguei.marcado ? "true" : "false");
+  paguei.addEventListener("click", function () {
+    var on = paguei.getAttribute("aria-pressed") !== "true";
+    paguei.setAttribute("aria-pressed", on ? "true" : "false");
+    R.trocarIcone(paguei.querySelector(".r-icone"), on ? "separei" : "caixa");
+    var original = linhas[u.familia].f.situacao;
+    pintarSituacao(u.familia, on ? "ja_pago" : original);
+    C.anunciar(C.texto(on ? "gastos.paguei_ok" : "gastos.paguei_desfeito"));
+  });
+
+  R.iniciar();
+})();
+</script>
+</body>
+</html>

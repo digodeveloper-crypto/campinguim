@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.13"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="13">
+<div class="r-app">
+  <header class="r-topo"><span data-icone="barraca"></span><span data-texto="semdados.topo"></span></header>
+  <main class="r-conteudo">
+    <a class="r-ligacao" href="02-criar-viagem.html"><span data-icone="seta-esquerda"></span><span data-texto="semdados.voltar"></span></a>
+    <div class="r-cabeca r-cabeca--com-figura">
+      <div class="r-cabeca-texto">
+        <p class="r-rotulo" data-texto="semdados.rotulo"></p>
+        <h1 data-dado="campingSemDados.nome"></h1>
+      </div>
+      <span class="r-anfitriao r-anfitriao--pequeno"><span data-mascote="pose-alerta" data-mascote-texto=""></span></span>
+    </div>
+
+    <div class="r-aviso">
+      <span id="ic-aviso"></span>
+      <div class="r-aviso-texto">
+        <p data-texto="mensagem.sem_dados"></p>
+        <p class="r-suave r-pequeno" data-texto="mensagem.busca_internet"></p>
+      </div>
+    </div>
+
+    <section class="r-secao" aria-labelledby="t-duvida">
+      <h2 id="t-duvida" data-texto="bloco.na_duvida"></h2>
+      <p class="r-suave" data-texto="semdados.duvida_frase"></p>
+      <ul class="r-cartao r-cartao--lista" id="duvida"></ul>
+    </section>
+
+    <section class="r-secao" aria-labelledby="t-perguntas">
+      <h2 id="t-perguntas" data-texto="bloco.perguntas_camping"></h2>
+      <p class="r-suave" data-texto="semdados.perguntas_frase"></p>
+      <div class="r-cartao r-secao" id="perguntas"></div>
+      <div class="r-acoes-linha">
+        <button type="button" class="r-botao" id="copiar"><span data-icone="copiar"></span><span data-texto="acao.copiar"></span></button>
+      </div>
+      <p class="r-nota" id="copiado" hidden><span data-icone="ciente"></span><span id="copiado-texto"></span></p>
+    </section>
+  </main>
+  <footer class="r-rodape">
+    <button type="button" class="r-mural-botao" data-mural><span data-icone="mural"></span><span data-texto="nav.mural"></span></button>
+    <button type="button" class="r-acao" id="compartilhar"><span data-icone="compartilhar"></span><span data-texto="acao.compartilhar"></span></button>
+  </footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA, el = R.el;
+  var s = C.dado("campingSemDados");
+
+  document.getElementById("ic-aviso").replaceWith(R.circulo("informacao", "neutro"));
+
+  /* Na dúvida: cada item com a etiqueta "depende do camping" (ícone e texto). */
+  s.itensNaDuvida.forEach(function (it) {
+    document.getElementById("duvida").appendChild(el("li", { classe: "r-linha" }, [
+      el("div", { classe: "r-linha-nome" }, [
+        el("span", { classe: "r-linha-titulo", dado: it.nome }),
+        el("span", { classe: "r-linha-info" }, [
+          el("span", { dado: it.quantidadeTexto }),
+          el("span", { classe: "r-situacao r-situacao--atencao" }, [R.icone("informacao"), el("span", { texto: "estado.depende_do_camping" })])
+        ])
+      ])
+    ]));
+  });
+
+  /* O texto de perguntas (P-15): abertura e as 7 linhas, sem citar o app. */
+  var caixa = document.getElementById("perguntas");
+  caixa.appendChild(el("p", { classe: "r-linha-titulo", dado: s.perguntas.abertura }));
+  var ol = el("ul", { classe: "r-secao" });
+  s.perguntas.linhas.forEach(function (l) { ol.appendChild(el("li", { dado: l })); });
+  caixa.appendChild(ol);
+  var texto = [s.perguntas.abertura].concat(s.perguntas.linhas).join("\n");
+
+  function avisar(ok, chave) {
+    document.getElementById("copiado-texto").setAttribute("data-texto", ok ? chave : "mensagem.nao_copiado");
+    document.getElementById("copiado").hidden = false;
+    C.anunciar(C.texto(ok ? chave : "mensagem.nao_copiado"));
+  }
+
+  document.getElementById("copiar").addEventListener("click", function () {
+    C.copiar(texto).then(function (ok) { avisar(ok, "semdados.copiado"); });
+  });
+
+  /* Compartilhar: o menu do celular, quando existe; senão, copia. */
+  document.getElementById("compartilhar").addEventListener("click", function () {
+    var copiarAgora = function () { C.copiar(texto).then(function (ok) { avisar(ok, "semdados.copiado"); }); };
+    try {
+      if (navigator.share) {
+        navigator.share({ text: texto }).catch(function () { /* cancelado ou sem menu: fica como está */ });
+        return;
+      }
+    } catch (e) { /* sem menu de compartilhar */ }
+    copiarAgora();
+  });
+
+  R.iniciar();
+})();
+</script>
+</body>
+</html>

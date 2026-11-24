@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.3"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="3">
+<header class="br-tela br-topo">
+  <p class="br-momento"><span data-icone="camping"></span><span data-texto="brasa.momento_antes"></span></p>
+  <div class="br-topo-linha">
+    <div class="br-topo-texto">
+      <p class="br-destaque" data-dado="camping.nome"></p>
+      <p class="br-onde" id="confirmado" data-texto="mensagem.confirmado_por"></p>
+    </div>
+    <span class="br-apoio br-mascote-pequeno"><span data-mascote="pose-alerta" data-mascote-texto=""></span></span>
+  </div>
+</header>
+<main class="br-tela br-folha">
+  <div class="br-alca" aria-hidden="true"><span class="br-alca-traco"></span></div>
+  <div class="br-corpo">
+    <h1 data-texto="brasa.t3_titulo"></h1>
+
+    <section class="br-bloco" aria-labelledby="b-atencao">
+      <h2 class="br-cor-atencao br-estado-titulo" id="b-atencao"><span data-icone="atencao"></span> <span data-texto="nivel.atencao"></span></h2>
+      <ul class="br-pilha" id="l-atencao"></ul>
+    </section>
+
+    <section class="br-bloco" aria-labelledby="b-info">
+      <h2 class="br-estado-titulo" id="b-info"><span class="br-cor-suave" data-icone="informacao"></span> <span data-texto="nivel.informacao"></span></h2>
+      <ul class="br-pilha" id="l-info"></ul>
+    </section>
+
+    <section class="br-bloco" aria-labelledby="b-ajustes">
+      <h2 id="b-ajustes" data-texto="ajuste.titulo"></h2>
+      <ul class="br-pilha" id="l-ajustes"></ul>
+    </section>
+
+    <section class="br-bloco" aria-labelledby="b-regras">
+      <h2 id="b-regras" data-texto="ajuste.regras"></h2>
+      <ul class="br-pilha" id="l-regras"></ul>
+      <a class="br-cartao br-ligacao" href="10-fato.html?de=3">
+        <span class="br-ligacao-texto">
+          <span class="br-rotulo" data-texto="brasa.fato_rotulo"></span>
+          <span class="br-bloco-linha" data-dado="fato.resumo"></span>
+        </span>
+        <span data-icone="abrir"></span>
+      </a>
+    </section>
+  </div>
+  <div class="br-rodape">
+    <div class="br-halo"><a class="br-botao" href="04-lista.html" data-texto="acao.ver_lista"></a></div>
+    <nav data-seletor="camping"></nav>
+  </div>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+
+  document.getElementById("confirmado").setAttribute("data-valores", JSON.stringify({ n: C.dado("camping.confirmacoes") }));
+
+  /* Alertas: Atenção e Informação, cada um com ícone e o nome do nível. */
+  C.dado("alertas").forEach(function (a) {
+    var atencao = a.nivel === "atencao";
+    var li = el("li", "br-cartao br-alerta");
+    li.appendChild(B.icone(atencao ? "atencao" : "informacao", atencao ? "br-cor-atencao" : "br-cor-suave"));
+    var texto = el("div", "br-alerta-texto", null, [el("p", null, { texto: a.texto })]);
+    if (a.id === "chuveiro") texto.appendChild(el("p", "br-rotulo", { "data-texto": "brasa.dica_chuveiro" }));
+    li.appendChild(texto);
+    document.getElementById(atencao ? "l-atencao" : "l-info").appendChild(li);
+  });
+
+  /* Ajustes na lista: entrou, saiu, tarefa; cada um com "desfazer". */
+  var ICONE_AJUSTE = { entrou: "entrou", saiu: "saiu", tarefa: "tarefa" };
+  C.dado("ajustes.itens").forEach(function (a) {
+    var tipo = el("span", "br-estado br-cor-texto", null, [B.icone(ICONE_AJUSTE[a.tipo]), el("span", null, { "data-texto": "ajuste." + a.tipo })]);
+    var texto = el("div", "br-linha-nome", null, [
+      tipo,
+      el("span", "br-linha-titulo", { texto: a.item }),
+      el("span", "br-linha-detalhe", null, [el("span", null, { "data-texto": "brasa.motivo", valores: { motivo: a.motivo } })])
+    ]);
+    var estado = el("span", "br-estado br-cor-suave", { hidden: true }, [el("span", null, { "data-texto": "brasa.desfeito" })]);
+    var botao = el("button", "br-alterna", { type: "button", "aria-pressed": "false", "data-texto": "acao.desfazer" });
+    botao.addEventListener("click", function () {
+      var desfeito = botao.getAttribute("aria-pressed") !== "true";
+      botao.setAttribute("aria-pressed", desfeito ? "true" : "false");
+      botao.setAttribute("data-texto", desfeito ? "brasa.refazer" : "acao.desfazer");
+      estado.hidden = !desfeito;
+      li.classList.toggle("br-desfeito", desfeito);
+    });
+    B.nomearPor(botao, a.item);
+    texto.appendChild(estado);
+    var li = el("li", "br-linha", null, [texto, el("div", "br-linha-acoes", null, [botao])]);
+    document.getElementById("l-ajustes").appendChild(li);
+  });
+
+  /* Regras, cada uma com "ciente": tocar troca o botão pela marca de visto com o texto. */
+  C.dado("regras").forEach(function (r) {
+    var botao = el("button", "br-alterna", { type: "button", "aria-pressed": r.ciente ? "true" : "false" }, [
+      el("span", "br-icone-ciente", null, [B.icone("ciente")]),
+      el("span", null, { "data-texto": "acao.ciente" })
+    ]);
+    function mostrar() {
+      var ok = botao.getAttribute("aria-pressed") === "true";
+      botao.querySelector(".br-icone-ciente").hidden = !ok;
+      botao.lastChild.setAttribute("data-texto", ok ? "estado.ciente" : "acao.ciente");
+      botao.classList.toggle("br-cor-carro", ok);
+    }
+    botao.addEventListener("click", function () {
+      botao.setAttribute("aria-pressed", botao.getAttribute("aria-pressed") === "true" ? "false" : "true");
+      mostrar();
+    });
+    mostrar();
+    B.nomearPor(botao, r.texto);
+    var li = el("li", "br-linha", null, [
+      el("div", "br-linha-nome", null, [el("span", "br-linha-titulo", { texto: r.texto })]),
+      el("div", "br-linha-acoes", null, [botao])
+    ]);
+    document.getElementById("l-regras").appendChild(li);
+  });
+
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

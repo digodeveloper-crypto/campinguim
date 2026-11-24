@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.1"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .cl-app--abertura { background: var(--superficie); }
+  .cl-app--abertura .cl-cena { background: var(--fundo); padding-top: 104px; }
+  .cl-abertura-corpo { flex: 1 0 auto; justify-content: flex-start; gap: 16px; padding-top: 24px; text-align: center; background: var(--superficie); }
+  .cl-abertura-nome { font-size: min(2.25rem, 14cqi); line-height: min(2.625rem, 1.17em); overflow-wrap: normal; }
+  .cl-abertura-frase { max-width: 22em; margin: 0 auto; }
+  .cl-app--abertura .cl-acao { flex-direction: column; background: var(--superficie); }
+  .cl-app--abertura .cl-acao > * { flex: none; }
+  .cl-app--abertura .cl-botao--principal { box-shadow: none; }
+</style>
+</head>
+<body data-tela="1">
+<div class="cl-app cl-app--abertura">
+  <div class="cl-cena">
+    <span class="cl-ceu"></span>
+    <span class="cl-cena-figura"><span data-mascote="principal" data-mascote-texto=""></span></span>
+    <span class="cl-copas" data-copas></span>
+  </div>
+  <main class="cl-conteudo cl-abertura-corpo">
+    <h1 class="cl-h1 cl-abertura-nome" data-texto="app.nome"></h1>
+    <p class="cl-abertura-frase" data-texto="cl.abertura.frase"></p>
+  </main>
+  <div class="cl-base">
+    <div class="cl-acao cl-acao--sem-abas">
+      <p class="cl-suave cl-pequeno" style="text-align:center" data-texto="cl.abertura.sem_cadastro"></p>
+      <a class="cl-botao cl-botao--principal" href="02-criar-viagem.html" data-texto="acao.comecar"></a>
+      <a class="cl-botao cl-botao--texto" href="15-site.html" data-texto="acao.ver_site"></a>
+    </div>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+</body>
+</html>

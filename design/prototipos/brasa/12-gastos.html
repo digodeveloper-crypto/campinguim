@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.12"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="12">
+<header class="br-tela br-topo">
+  <p class="br-momento"><span data-icone="gastos"></span><span data-dado="gastos.item"></span></p>
+  <p class="br-destaque" data-dinheiro="gastos.totalCentavos"></p>
+  <p class="br-onde" id="comprou" data-texto="brasa.comprou_por"></p>
+  <p class="br-frase" id="cotas-topo" data-texto="mensagem.cotas_de"></p>
+</header>
+<main class="br-tela br-folha">
+  <div class="br-alca">
+    <span class="br-alca-marca"><span data-mascote="uma-cor"></span></span>
+    <span class="br-alca-traco" aria-hidden="true"></span>
+  </div>
+  <div class="br-corpo">
+    <h1 data-texto="brasa.t12_titulo"></h1>
+
+    <section class="br-bloco" aria-labelledby="b-sua">
+      <h2 id="b-sua" data-texto="brasa.sua_parte"></h2>
+      <div class="br-cartao">
+        <p class="br-bloco-titulo" id="devem" data-texto="mensagem.voces_devem"></p>
+        <p class="br-rotulo" data-texto="campo.chave_pix"></p>
+        <p class="br-chave" data-dado="gastos.usuaria.pix.chave"></p>
+        <p class="br-rotulo" id="tipo-chave" data-texto="brasa.tipo_chave"></p>
+        <button class="br-alterna br-largo" type="button" id="copiar-valor"><span data-icone="copiar"></span><span data-texto="acao.copiar_valor"></span></button>
+        <button class="br-alterna br-cor-carro br-largo" type="button" id="paguei" aria-pressed="false"><span data-icone="conferido"></span><span data-texto="acao.paguei"></span></button>
+      </div>
+    </section>
+
+    <section class="br-bloco" aria-labelledby="b-item">
+      <h2 id="b-item" data-texto="brasa.item_dividido"></h2>
+      <dl class="br-cartao br-fato-dados">
+        <div><dt class="br-rotulo" data-texto="brasa.item_dividido"></dt><dd data-dado="gastos.item"></dd></div>
+        <div><dt class="br-rotulo" data-texto="gastos.comprou"></dt><dd data-dado="gastos.comprou"></dd></div>
+        <div><dt class="br-rotulo" data-texto="gastos.valor"></dt><dd class="br-numero" data-dinheiro="gastos.totalCentavos"></dd></div>
+        <div><dt class="br-rotulo" data-texto="brasa.divisao"></dt><dd id="cotas" data-texto="mensagem.cotas_de"></dd></div>
+      </dl>
+      <p class="br-rotulo" data-texto="gastos.regra"></p>
+    </section>
+
+    <section class="br-bloco" aria-labelledby="b-familias">
+      <h2 id="b-familias" data-texto="gastos.familia"></h2>
+      <ul class="br-pilha" id="familias"></ul>
+      <p class="br-cartao br-estado br-cor-carro br-recebe" id="recebe" data-texto="mensagem.recebe"></p>
+    </section>
+  </div>
+  <div class="br-rodape">
+    <p class="br-estado br-cor-carro" id="copiado" role="status" hidden></p>
+    <div class="br-halo"><button class="br-botao" type="button" id="copiar-chave"><span data-icone="copiar"></span><span data-texto="acao.copiar_chave"></span></button></div>
+    <nav data-seletor="gastos"></nav>
+  </div>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+  var g = C.dado("gastos");
+  var u = g.usuaria;
+  function valores(id, v) { document.getElementById(id).setAttribute("data-valores", JSON.stringify(v)); }
+
+  /* Os valores vêm prontos de dados.js (centavos); nada é recalculado aqui. */
+  valores("comprou", { pessoa: g.comprou });
+  valores("cotas-topo", { n: g.cotas, valor: C.dinheiro(g.cotaCentavos) });
+  valores("cotas", { n: g.cotas, valor: C.dinheiro(g.cotaCentavos) });
+  valores("devem", { pessoa: u.deveA, valor: C.dinheiro(u.deveCentavos) });
+  valores("tipo-chave", { tipo: u.pix.tipo });
+  valores("recebe", { pessoa: g.comprou, valor: C.dinheiro(g.compradorRecebeCentavos) });
+
+  /* Cotas por família: cartão por família (vira linha com fonte grande), situação com ícone e texto. */
+  var lista = document.getElementById("familias");
+  g.familias.forEach(function (f) {
+    var pago = f.situacao === "ja_pago";
+    var situacao = [B.icone(pago ? "conferido" : "relogio", pago ? "br-ativo" : null), el("span", null, { "data-texto": "gastos.situacao." + f.situacao })];
+    if (f.comprador) situacao.push(el("span", "br-suave", { "data-texto": "gastos.situacao.comprador" }));
+    lista.appendChild(el("li", "br-cartao br-gasto", null, [
+      el("div", "br-gasto-linha", null, [
+        el("p", "br-linha-titulo", { texto: f.nome }),
+        el("p", "br-gasto-valor br-numero", { texto: C.dinheiro(f.valorCentavos) })
+      ]),
+      el("p", "br-rotulo", { texto: f.pessoas }),
+      el("div", "br-gasto-linha", null, [
+        el("p", "br-estado " + (pago ? "br-cor-carro" : "br-cor-separei"), null, situacao),
+        el("p", "br-rotulo", { "data-texto": "mensagem.cotas", valores: { n: f.cotas } })
+      ])
+    ]));
+  });
+
+  /* Paguei (P-12: ninguém marcou). */
+  var paguei = document.getElementById("paguei");
+  paguei.addEventListener("click", function () { paguei.setAttribute("aria-pressed", paguei.getAttribute("aria-pressed") === "true" ? "false" : "true"); });
+
+  /* Copiar chave e copiar valor, com aviso falado e escrito. */
+  function copiar(texto) {
+    C.copiar(texto).then(function (ok) {
+      var aviso = document.getElementById("copiado");
+      aviso.hidden = false;
+      aviso.innerHTML = "";
+      aviso.appendChild(B.icone(ok ? "ciente" : "atencao"));
+      aviso.appendChild(el("span", null, { "data-texto": ok ? "mensagem.copiado" : "mensagem.nao_copiado" }));
+      C.anunciar(C.texto(ok ? "mensagem.copiado" : "mensagem.nao_copiado"));
+    });
+  }
+  document.getElementById("copiar-chave").addEventListener("click", function () { copiar(u.pix.chave); });
+  document.getElementById("copiar-valor").addEventListener("click", function () { copiar(C.dinheiro(u.deveCentavos)); });
+
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

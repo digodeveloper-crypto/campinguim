@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.5"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="5">
+<div class="r-app">
+  <header class="r-topo"><span data-icone="lista"></span><span data-texto="lista.titulo"></span></header>
+  <main class="r-conteudo">
+    <div class="r-cabeca">
+      <p class="r-rotulo" id="categoria"></p>
+      <h1 data-dado="itemDetalhe.nome"></h1>
+      <p class="r-linha-info" id="situacao"></p>
+    </div>
+
+    <section class="r-aviso" aria-labelledby="t-motivo">
+      <span id="ic-motivo"></span>
+      <div class="r-aviso-texto">
+        <h2 class="r-aviso-nivel" id="t-motivo" data-texto="campo.motivo"></h2>
+        <p data-dado="itemDetalhe.motivo"></p>
+        <p class="r-suave r-pequeno" data-texto="item.motivo_origem"></p>
+      </div>
+    </section>
+
+    <section class="r-cartao r-secao" aria-labelledby="t-quantidade">
+      <div class="r-contador" id="quantidade">
+        <span class="r-contador-rotulo">
+          <span class="r-campo-rotulo" id="t-quantidade" data-texto="campo.quantidade"></span>
+          <span class="r-suave r-pequeno" data-dado="itemDetalhe.detalhe"></span>
+        </span>
+      </div>
+    </section>
+
+    <section class="r-secao" aria-labelledby="t-estado">
+      <h2 class="r-rotulo" id="t-estado" data-texto="item.estado"></h2>
+      <div class="r-cartao r-tarefa" id="estado"></div>
+    </section>
+
+    <section class="r-cartao r-secao" aria-labelledby="t-comprar">
+      <button type="button" class="r-interruptor" id="comprar" aria-pressed="false">
+        <span class="r-campo-rotulo" id="t-comprar" data-texto="estado.comprar"></span>
+        <span class="r-interruptor-trilho" aria-hidden="true"></span>
+      </button>
+      <p class="r-situacao r-situacao--atencao" id="marca-comprar" hidden><span data-icone="comprar"></span><span data-texto="estado.comprar"></span></p>
+    </section>
+
+    <section class="r-campo">
+      <label class="r-campo-rotulo" for="nota" data-texto="campo.nota"></label>
+      <textarea class="r-entrada" id="nota" rows="3"></textarea>
+    </section>
+
+    <section class="r-secao">
+      <p class="r-nota" id="removido" hidden><span data-icone="remover"></span><span id="removido-texto" data-texto="item.removido"></span></p>
+      <div class="r-acoes-linha">
+        <button type="button" class="r-botao" id="remover"><span data-icone="remover"></span><span data-texto="acao.remover"></span></button>
+      </div>
+    </section>
+  </main>
+  <footer class="r-rodape">
+    <button type="button" class="r-mural-botao" data-mural><span data-icone="mural"></span><span data-texto="nav.mural"></span></button>
+    <a class="r-acao" href="04-lista.html"><span data-icone="seta-esquerda"></span><span data-texto="item.voltar"></span></a>
+  </footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA, el = R.el;
+  var d = C.dado("itemDetalhe");
+  var it = C.item(d.item);
+  var estado = d.estado;
+
+  document.getElementById("categoria").setAttribute("data-texto", "categoria." + it.categoria);
+  document.getElementById("ic-motivo").replaceWith(R.circulo("barraca", "neutro"));
+  document.getElementById("removido-texto").setAttribute("data-valores", JSON.stringify({ nome: d.nome }));
+
+  /* Situação, como na lista: ícone + texto. */
+  var sit = document.getElementById("situacao");
+  function pintarSituacao() {
+    sit.innerHTML = "";
+    var s = el("span", { classe: "r-situacao r-situacao--" + (estado === "carro" ? "carro" : estado === "separei" ? "separei" : "neutro") });
+    if (estado === "carro") { s.appendChild(R.icone("carro")); s.appendChild(el("span", { texto: "estado.carro" })); }
+    else if (estado === "separei") { s.appendChild(R.icone("separei")); s.appendChild(el("span", { texto: "lista.separei_fora", valores: { a: C.texto("estado.separei"), b: C.texto("estado.fora_do_carro") } })); }
+    else { s.appendChild(R.icone("caixa")); s.appendChild(el("span", { texto: "estado.a_separar" })); }
+    sit.appendChild(s);
+  }
+
+  /* Quantidade com menos e mais. */
+  var q = d.quantidade;
+  var saida = el("span", { classe: "r-passo-valor", "aria-live": "polite", dado: q });
+  var menos = el("button", { type: "button", classe: "r-passo-botao", aria: "criar.menos", valores: { campo: C.texto("campo.quantidade") } }, [R.icone("menos")]);
+  var mais = el("button", { type: "button", classe: "r-passo-botao", aria: "criar.mais", valores: { campo: C.texto("campo.quantidade") } }, [R.icone("mais")]);
+  menos.addEventListener("click", function () { if (q > 1) { q--; saida.textContent = String(q); } });
+  mais.addEventListener("click", function () { q++; saida.textContent = String(q); });
+  document.getElementById("quantidade").appendChild(el("span", { classe: "r-passos", role: "group", "aria-labelledby": "t-quantidade" }, [menos, saida, mais]));
+
+  /* Estado: separei e está no carro, como na lista. */
+  var icSep = R.icone("caixa");
+  var bSep = el("button", { type: "button", classe: "r-estado r-estado--separei", aria: "lista.marcar_separei", valores: { nome: d.nome } }, [
+    el("span", { classe: "r-circulo", "aria-hidden": "true" }, [icSep]), el("span", { texto: "estado.separei" })
+  ]);
+  var bCar = el("button", { type: "button", classe: "r-estado r-estado--carro", aria: "lista.marcar_carro", valores: { nome: d.nome } }, [
+    el("span", { classe: "r-circulo", "aria-hidden": "true" }, [R.icone("carro")]), el("span", { texto: "estado.carro" })
+  ]);
+  function pintar() {
+    bSep.setAttribute("aria-pressed", estado !== "a_separar" ? "true" : "false");
+    R.trocarIcone(icSep, estado !== "a_separar" ? "separei" : "caixa");
+    bCar.setAttribute("aria-pressed", estado === "carro" ? "true" : "false");
+    pintarSituacao();
+  }
+  bSep.addEventListener("click", function () { estado = estado === "a_separar" ? "separei" : "a_separar"; pintar(); C.anunciar(C.nomeFalado(it, estado)); });
+  bCar.addEventListener("click", function () { estado = estado === "carro" ? "separei" : "carro"; pintar(); C.anunciar(C.nomeFalado(it, estado)); });
+  var caixaEstado = document.getElementById("estado");
+  caixaEstado.appendChild(el("span", { classe: "r-tarefa-texto r-suave", texto: "item.estado_frase" }));
+  caixaEstado.appendChild(el("span", { classe: "r-linha-acoes" }, [bSep, bCar]));
+  pintar();
+
+  /* "Preciso comprar": mostra a marca (sacola e texto), sem mudar o estado. */
+  var comprar = document.getElementById("comprar");
+  comprar.setAttribute("aria-pressed", d.comprar ? "true" : "false");
+  document.getElementById("marca-comprar").hidden = !d.comprar;
+  comprar.addEventListener("click", function () {
+    var on = comprar.getAttribute("aria-pressed") !== "true";
+    comprar.setAttribute("aria-pressed", on ? "true" : "false");
+    document.getElementById("marca-comprar").hidden = !on;
+  });
+
+  document.getElementById("nota").value = d.nota;
+
+  /* Remover da lista: mostra o aviso e vira "desfazer". */
+  var remover = document.getElementById("remover");
+  var removido = false;
+  remover.addEventListener("click", function () {
+    removido = !removido;
+    document.getElementById("removido").hidden = !removido;
+    remover.querySelector("[data-texto]").setAttribute("data-texto", removido ? "acao.desfazer" : "acao.remover");
+    R.trocarIcone(remover.querySelector(".r-icone"), removido ? "desfazer" : "remover");
+    C.anunciar(C.texto(removido ? "item.removido" : "item.voltou", { nome: d.nome }));
+  });
+
+  R.iniciar();
+})();
+</script>
+</body>
+</html>

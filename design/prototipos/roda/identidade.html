@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.identidade"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="identidade">
+<div class="r-app">
+  <header class="r-topo"><span data-icone="mural"></span><span data-texto="id.topo"></span></header>
+  <main class="r-conteudo">
+
+    <!-- 1. Nome, território e frase -->
+    <div class="r-cabeca r-cabeca--com-figura">
+      <div class="r-cabeca-texto">
+        <p class="r-rotulo" data-texto="direcao.territorio"></p>
+        <h1 data-texto="direcao.nome"></h1>
+        <p class="r-frase" data-texto="direcao.frase"></p>
+      </div>
+      <span id="emblema-direcao"></span>
+    </div>
+
+    <!-- 2. Paleta -->
+    <section class="r-secao" aria-labelledby="t-paleta">
+      <h2 id="t-paleta" data-texto="id.paleta"></h2>
+      <p class="r-suave" data-texto="id.paleta_frase"></p>
+      <ul class="r-cartao r-cartao--lista r-id-cores" id="papeis"></ul>
+      <h3 data-texto="id.extras"></h3>
+      <ul class="r-cartao r-cartao--lista r-id-cores" id="extras"></ul>
+      <h3 data-texto="id.contraste"></h3>
+      <p class="r-suave r-pequeno" data-texto="id.contraste_frase"></p>
+      <ul class="r-cartao r-cartao--lista r-id-cores" id="pares"></ul>
+    </section>
+
+    <!-- 3. Tipografia -->
+    <section class="r-secao" aria-labelledby="t-tipo">
+      <h2 id="t-tipo" data-texto="id.tipografia"></h2>
+      <div class="r-cartao r-secao">
+        <p class="r-rotulo" data-texto="id.tipo_titulo"></p>
+        <div class="r-id-escala">
+          <p class="r-id-escala-titulo" data-texto="lista.titulo"></p>
+          <p class="r-id-escala-bloco" data-texto="mural.grupo"></p>
+        </div>
+        <p class="r-suave r-pequeno" data-texto="id.tipo_titulo_frase"></p>
+      </div>
+      <div class="r-cartao r-secao">
+        <p class="r-rotulo" data-texto="id.tipo_texto"></p>
+        <p data-texto="abertura.frase"></p>
+        <p class="r-pequeno" data-texto="id.tipo_rotulo_exemplo"></p>
+        <p class="r-suave r-pequeno" data-texto="id.tipo_texto_frase"></p>
+      </div>
+      <ul class="r-cartao r-cartao--lista">
+        <li class="r-linha"><div class="r-linha-nome"><span class="r-linha-titulo" data-texto="id.escala"></span><span class="r-linha-info" data-texto="id.escala_valores"></span></div></li>
+        <li class="r-linha"><div class="r-linha-nome"><span class="r-linha-titulo" data-texto="id.licenca"></span><span class="r-linha-info" id="caminhos"></span></div></li>
+      </ul>
+    </section>
+
+    <!-- 4. Ícones -->
+    <section class="r-secao" aria-labelledby="t-icones">
+      <h2 id="t-icones" data-texto="id.icones"></h2>
+      <p class="r-suave" data-texto="id.icones_frase"></p>
+      <div class="r-cartao r-secao">
+        <h3 class="r-rotulo" data-texto="id.icones_estados"></h3>
+        <div class="r-id-icones" id="estados"></div>
+      </div>
+      <div class="r-cartao r-secao">
+        <h3 class="r-rotulo" data-texto="id.icones_todos"></h3>
+        <div class="r-id-icones" id="icones"></div>
+      </div>
+    </section>
+
+    <!-- 5. Navegação -->
+    <section class="r-secao" aria-labelledby="t-nav">
+      <h2 id="t-nav" data-texto="id.navegacao"></h2>
+      <p data-texto="direcao.navegacao"></p>
+      <div class="r-id-esquema" aria-hidden="true">
+        <div class="r-id-esquema-blocos" id="esquema"></div>
+        <div class="r-id-esquema-pe">
+          <span class="r-id-esquema-mural" data-texto="nav.mural"></span>
+          <span class="r-id-esquema-acao" data-texto="id.esquema_acao"></span>
+        </div>
+      </div>
+      <ul class="r-cartao r-cartao--lista" id="mapa"></ul>
+    </section>
+
+    <!-- 6. Mascote -->
+    <section class="r-secao" aria-labelledby="t-mascote">
+      <h2 id="t-mascote" data-texto="id.mascote"></h2>
+      <p data-texto="id.mascote_frase"></p>
+      <div class="r-cartao r-id-mascotes">
+        <div class="r-id-mascote">
+          <span class="r-anfitriao r-anfitriao--medio"><span data-mascote="principal" data-mascote-texto=""></span></span>
+          <span class="r-pequeno" data-texto="id.mascote_apoio"></span>
+        </div>
+        <div class="r-id-mascote r-id-umacor">
+          <span data-mascote="uma-cor" data-mascote-texto=""></span>
+          <span class="r-pequeno" data-texto="id.mascote_umacor"></span>
+        </div>
+      </div>
+      <ul class="r-cartao r-cartao--lista" id="poses"></ul>
+    </section>
+
+    <!-- 7. Tom de voz -->
+    <section class="r-secao" aria-labelledby="t-tom">
+      <h2 id="t-tom" data-texto="id.tom"></h2>
+      <p class="r-suave" data-texto="id.tom_frase"></p>
+      <div class="r-id-frases" id="frases"></div>
+    </section>
+
+    <!-- 8. Origem e riscos -->
+    <section class="r-secao" aria-labelledby="t-origem">
+      <h2 id="t-origem" data-texto="id.origem"></h2>
+      <p data-texto="id.origem_texto"></p>
+      <h3 data-texto="id.riscos"></h3>
+      <ul class="r-cartao r-cartao--lista" id="riscos"></ul>
+    </section>
+  </main>
+  <footer class="r-rodape r-rodape--solo">
+    <a class="r-acao" href="01-abertura.html" data-texto="id.abrir"></a>
+  </footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA, el = R.el;
+  var familias = C.dado("grupo.familias");
+
+  document.getElementById("emblema-direcao").replaceWith(R.emblema(familias[0].id, { tamanho: "grande", aceso: true }));
+
+  /* Caminhos das licenças: a quebra de linha só acontece depois de uma barra, nunca no meio do nome. */
+  C.texto("id.licenca_caminhos").split(" · ").forEach(function (c) {
+    document.getElementById("caminhos").appendChild(el("span", { dado: c.split("/").join("/" + String.fromCharCode(8203)) }));
+  });
+
+  /* Paleta: amostra no claro e no escuro (valores de direcoes.md, escritos em textos.js). */
+  function amostra(hex) {
+    var s = el("span", { classe: "r-id-amostra", "aria-hidden": "true" });
+    s.style.background = hex;
+    return s;
+  }
+  function linhaCor(chaveNome, chaveUso, chaveClaro, chaveEscuro, valoresNome) {
+    var claro = chaveClaro ? C.texto(chaveClaro) : null;
+    var escuro = chaveEscuro ? C.texto(chaveEscuro) : null;
+    return el("li", { classe: "r-id-cor" }, [
+      el("span", { classe: "r-id-amostras" }, [claro ? amostra(claro) : null, escuro ? amostra(escuro) : null]),
+      el("span", { classe: "r-id-cor-texto" }, [
+        el("span", { classe: "r-linha-titulo", texto: chaveNome, valores: valoresNome || null }),
+        el("span", { classe: "r-linha-info", texto: chaveUso })
+      ])
+    ]);
+  }
+  ["fundo", "superficie", "texto", "texto-suave", "linha", "acento", "sobre-acento", "atencao", "separei", "carro"].forEach(function (p) {
+    document.getElementById("papeis").appendChild(linhaCor("id.papel." + p, "id.valores." + p, "id.claro." + p, "id.escuro." + p));
+  });
+  var extras = document.getElementById("extras");
+  extras.appendChild(linhaCor("id.extra.apoio", "id.extra.apoio_uso", null, "id.escuro.apoio"));
+  familias.forEach(function (f, n) {
+    extras.appendChild(linhaCor("id.extra.emblema", "id.extra.emblema_" + (n + 1), "id.claro.emblema_" + (n + 1), null, { familia: f.nome }));
+  });
+  extras.appendChild(linhaCor("id.extra.monograma", "id.extra.monograma_uso", "id.claro.monograma", null));
+
+  for (var i = 1; i <= 9; i++) {
+    document.getElementById("pares").appendChild(el("li", { classe: "r-id-cor" }, [
+      el("span", { classe: "r-id-cor-texto" }, [
+        el("span", { classe: "r-linha-titulo", texto: "id.par." + i }),
+        el("span", { classe: "r-linha-info", texto: "id.par." + i + ".valores" })
+      ])
+    ]));
+  }
+
+  /* Ícones: os de estado em repouso e ativos; depois o conjunto inteiro, com o nome de cada um. */
+  function icone(nome, tipo, chave, valores) {
+    return el("div", { classe: "r-id-icone" }, [
+      tipo === undefined ? R.icone(nome) : R.circulo(nome, tipo),
+      el("span", { texto: chave, valores: valores || null })
+    ]);
+  }
+  var est = document.getElementById("estados");
+  [["caixa", "", "id.icone_repouso", "estado.separei"], ["separei", "separei", "id.icone_ativo", "estado.separei"],
+   ["carro", "", "id.icone_repouso", "estado.carro"], ["carro", "carro", "id.icone_ativo", "estado.carro"],
+   ["comprar", "neutro", "id.icone_nome", "estado.comprar"], ["atencao", "atencao", "id.icone_nome", "nivel.atencao"],
+   ["faltou", "neutro", "id.icone_nome", "estado.faltou"], ["ciente", "neutro", "id.icone_nome", "estado.ciente"],
+   ["conferido", "neutro", "id.icone_nome", "estado.conferido"]].forEach(function (x) {
+    est.appendChild(icone(x[0], x[1], x[2], { nome: C.texto(x[3]) }));
+  });
+  var todos = document.getElementById("icones");
+  window.CAMPINGUIM_ICONES.nomes.forEach(function (n) { todos.appendChild(icone(n, undefined, "id.icone." + n)); });
+
+  /* Navegação: o esquema do mural e o mapa das telas. */
+  ["lista", "grupo", "gastos", "camping", "volta", "casa"].forEach(function (b) {
+    document.getElementById("esquema").appendChild(el("span", { classe: "r-id-esquema-bloco" + (b === "lista" ? " r-id-esquema-bloco--lista" : ""), texto: "mural." + b }));
+  });
+  for (var m = 1; m <= 6; m++) {
+    document.getElementById("mapa").appendChild(el("li", { classe: "r-linha" }, [el("div", { classe: "r-linha-nome" }, [
+      el("span", { classe: "r-linha-titulo", texto: "id.mapa." + m }),
+      el("span", { classe: "r-linha-info", texto: "id.mapa." + m + ".telas" })
+    ])]));
+  }
+
+  /* Mascote: as poses usadas e onde. */
+  ["principal", "pose-alerta", "pose-comemorando", "pose-camping", "pose-neutro", "uma-cor", "mural"].forEach(function (p) {
+    document.getElementById("poses").appendChild(el("li", { classe: "r-linha" }, [el("div", { classe: "r-linha-nome" }, [
+      el("span", { classe: "r-linha-titulo", texto: "id.pose." + p }),
+      el("span", { classe: "r-linha-info", texto: "id.pose." + p + ".onde" })
+    ])]));
+  });
+
+  /* Tom de voz: três frases da própria direção, montadas com os dados do cenário. */
+  var g = C.dado("gastos");
+  var frases = [
+    { texto: "grupo.sem_dono", valores: { n: C.dado("grupo.semDono").length } },
+    { texto: "lista.faltam", valores: { n: C.dado("lista.separei") } },
+    { texto: "gastos.frase", valores: { cota: C.dinheiro(g.cotaCentavos), valor: C.dinheiro(g.usuaria.deveCentavos), pessoa: g.usuaria.deveA } }
+  ];
+  frases.forEach(function (f) {
+    document.getElementById("frases").appendChild(el("p", { classe: "r-id-frase", texto: f.texto, valores: f.valores }));
+  });
+
+  for (var r = 1; r <= 4; r++) {
+    document.getElementById("riscos").appendChild(el("li", { classe: "r-linha" }, [el("div", { classe: "r-linha-nome" }, [el("span", { texto: "id.risco." + r })])]));
+  }
+
+  R.iniciar();
+})();
+</script>
+</body>
+</html>

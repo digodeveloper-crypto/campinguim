@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.11"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="11">
+<div class="cl-app">
+  <header class="cl-topo">
+    <span data-mascote="uma-cor"></span>
+    <p class="cl-topo-viagem" data-dado="grupo.nomeViagem.texto"></p>
+  </header>
+  <main class="cl-conteudo">
+    <h1 class="cl-h1" data-texto="cl.grupo.titulo"></h1>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-familias">
+      <h2 class="cl-rotulo" id="rotulo-familias" data-texto="bloco.familias"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="familias"></ul>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-sem-dono">
+      <h2 class="cl-rotulo" id="rotulo-sem-dono" data-texto="bloco.ninguem_pegou"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="sem-dono"></ul>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-duplicado">
+      <h2 class="cl-rotulo" id="rotulo-duplicado" data-texto="bloco.duplicado"></h2>
+      <ul class="cl-bloco" id="duplicados"></ul>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-quem-leva">
+      <h2 class="cl-rotulo" id="rotulo-quem-leva" data-texto="bloco.quem_leva"></h2>
+      <ul class="cl-bloco" id="quem-leva"></ul>
+    </section>
+
+    <a class="cl-ligacao" href="14-convidado.html">
+      <span data-icone="olho"></span>
+      <span class="cl-ligacao-texto"><span class="cl-forte" data-texto="acao.ver_convidado"></span></span>
+      <span data-icone="avancar"></span>
+    </a>
+    <p class="cl-aviso" id="lembrete-ok" role="status" hidden><span data-icone="ciente"></span><span data-texto="cl.grupo.lembrete_ok"></span></p>
+  </main>
+  <div class="cl-base">
+    <div class="cl-acao">
+      <button type="button" class="cl-botao cl-botao--principal" id="lembrar"><span data-icone="lembrar"></span><span data-texto="acao.lembrar"></span></button>
+    </div>
+    <nav class="cl-abas" data-texto-aria="cl.abas">
+      <a class="cl-aba" href="04-lista.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="lista"></span></span><span class="cl-aba-texto" data-texto="area.lista"></span></a>
+      <a class="cl-aba" href="03-alertas.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="camping"></span></span><span class="cl-aba-texto" data-texto="area.camping"></span></a>
+      <a class="cl-aba" href="11-grupo.html" aria-current="page"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="grupo"></span></span><span class="cl-aba-texto" data-texto="area.grupo"></span></a>
+      <a class="cl-aba" href="12-gastos.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="gastos"></span></span><span class="cl-aba-texto" data-texto="area.gastos"></span></a>
+    </nav>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+  function txt(tag, classe, conteudo) { var e = el(tag, classe); e.textContent = conteudo; return e; }
+
+  var g = C.dado("grupo");
+  var eu = C.dado("cenario.usuaria");
+  var itens = {};
+  g.itens.lista.forEach(function (i) { itens[i.id] = i; });
+
+  /* Famílias (sem progresso por família, P-10). */
+  g.familias.forEach(function (f) {
+    var li = el("li", "cl-linha");
+    li.appendChild(I.criar("grupo"));
+    var t = el("div", "cl-linha-texto");
+    t.appendChild(txt("p", "cl-item-titulo", f.descricao));
+    t.appendChild(txt("p", "cl-suave cl-pequeno", f.pessoas));
+    li.appendChild(t);
+    $("familias").appendChild(li);
+  });
+
+  /* Ninguém pegou: "eu levo" mostra "<usuária> leva" e "desistir". */
+  var assumidos = C.guardado.ler("clareira.euLevo", {}) || {};
+  g.semDono.forEach(function (id) {
+    var it = itens[id];
+    var li = el("li", "cl-linha");
+    var t = el("div", "cl-linha-texto");
+    t.appendChild(txt("p", "cl-item-titulo", it.nome));
+    var estado = el("p", "cl-estado");
+    t.appendChild(estado);
+    var b = el("button", "cl-botao", { type: "button", "data-valores": JSON.stringify({ item: it.nome }) });
+    var bt = el("span");
+    b.appendChild(bt);
+    function pintar() {
+      var meu = !!assumidos[id];
+      estado.innerHTML = "";
+      estado.className = "cl-estado " + (meu ? "cl-estado--ciente cl-ativo" : "cl-estado--atencao");
+      estado.appendChild(I.criar(meu ? "pessoa" : "depende"));
+      estado.appendChild(el("span", "", meu ? { "data-texto": "mensagem.leva", "data-valores": JSON.stringify({ nome: eu }) } : { "data-texto": "mensagem.ninguem_pegou" }));
+      bt.setAttribute("data-texto", meu ? "acao.desistir" : "acao.eu_levo");
+      b.setAttribute("data-texto-aria", meu ? "cl.grupo.desistir_aria" : "cl.grupo.eu_levo_aria");
+    }
+    b.addEventListener("click", function () {
+      assumidos[id] = !assumidos[id];
+      C.guardado.gravar("clareira.euLevo", assumidos);
+      pintar();
+      C.anunciar(assumidos[id] ? C.texto("mensagem.leva", { nome: eu }) : C.texto("mensagem.ninguem_pegou"));
+    });
+    pintar();
+    li.appendChild(t);
+    li.appendChild(b);
+    $("sem-dono").appendChild(li);
+  });
+
+  /* Duplicado (P-09): 3 assumidos, com o aviso. */
+  g.duplicados.forEach(function (id) {
+    var it = itens[id];
+    var li = el("li", "cl-alerta cl-alerta--atencao");
+    li.appendChild(I.criar("atencao"));
+    var corpo = el("div", "cl-alerta-corpo");
+    corpo.appendChild(el("span", "cl-nivel cl-nivel--atencao", { "data-texto": "nivel.atencao" }));
+    corpo.appendChild(el("span", "cl-forte", { "data-texto": "cl.grupo.duplicado_titulo", "data-valores": JSON.stringify({ item: it.nome, assumidos: C.texto("mensagem.assumidos", { n: it.assumidos }) }) }));
+    corpo.appendChild(txt("span", "", it.aviso));
+    li.appendChild(corpo);
+    $("duplicados").appendChild(li);
+  });
+
+  /* Quem leva o quê: o item com gasto leva à tela 12. */
+  g.quemLeva.forEach(function (id) {
+    var it = itens[id];
+    var li = el("li");
+    var a = el("a", "cl-ligacao", it.gasto ? { href: "12-gastos.html", "data-texto-aria": "cl.grupo.item_gastos", "data-valores": JSON.stringify({ item: it.nome }) } : {});
+    a.appendChild(I.criar(it.gasto ? "gastos" : "pessoa"));
+    var t = el("span", "cl-ligacao-texto");
+    t.appendChild(txt("span", "cl-forte", it.nome));
+    var dono = el("span", "cl-estado cl-estado--ciente cl-ativo");
+    dono.appendChild(I.criar("pessoa"));
+    dono.appendChild(el("span", "", { "data-texto": "mensagem.leva", "data-valores": JSON.stringify({ nome: it.dono }) }));
+    t.appendChild(dono);
+    a.appendChild(t);
+    if (it.gasto) a.appendChild(I.criar("avancar"));
+    li.appendChild(a);
+    $("quem-leva").appendChild(li);
+  });
+
+  $("lembrar").addEventListener("click", function () {
+    $("lembrete-ok").hidden = false;
+    C.anunciar(C.texto("cl.grupo.lembrete_ok"));
+  });
+})();
+</script>
+</body>
+</html>

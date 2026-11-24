@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.1"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="1">
+<div class="r-app">
+  <main class="r-abertura">
+    <div class="r-encontro">
+      <span class="r-anfitriao"><span data-mascote="principal" data-mascote-texto=""></span></span>
+      <div class="r-encontro-roda" id="roda"></div>
+    </div>
+    <div class="r-cabeca">
+      <h1 class="r-marca-nome" data-texto="app.nome"></h1>
+      <p class="r-frase" data-texto="abertura.frase"></p>
+      <p class="r-suave" data-texto="abertura.sem_cadastro"></p>
+    </div>
+  </main>
+  <footer class="r-rodape r-rodape--abertura">
+    <a class="r-acao" href="02-criar-viagem.html" data-texto="acao.comecar"></a>
+    <a class="r-ligacao" href="15-site.html"><span data-icone="site"></span><span data-texto="acao.ver_site"></span></a>
+  </footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA;
+  /* Os três emblemas das famílias em roda, à frente do anfitrião (sem tocar a figura). */
+  var roda = document.getElementById("roda");
+  (C.dado("grupo.familias") || []).forEach(function (f) { roda.appendChild(R.emblema(f.id)); });
+  R.iniciar();
+})();
+</script>
+</body>
+</html>

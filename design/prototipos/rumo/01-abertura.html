@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="rumo.titulo.1"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<script src="paleta.js"></script>
+</head>
+<body data-tela="1">
+<main class="rumo abertura">
+  <div class="abertura-mapa" id="mapa"></div>
+  <h1 class="marca-nome" data-texto="app.nome"></h1>
+  <p class="abertura-frase" data-texto="rumo.t1.frase"></p>
+  <ol class="rota-previa rota-rotulo" id="previa" data-texto-aria="rumo.t1.rota"></ol>
+  <p class="abertura-nota" data-texto="rumo.t1.sem_cadastro"></p>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var R = window.RUMO;
+  /* O mascote no topo do mapa: em pé sobre o cume das curvas de nível. */
+  var mapa = document.getElementById("mapa");
+  mapa.innerHTML = R.curvas({ w: 358, h: 340, cx: 179, cy: 250, aneis: 11, r0: 26, passo: 17, sx: 1.6, sy: 0.82, fase: 0.4 });
+  mapa.appendChild(R.mascote("principal", "apoio--abertura", true));
+  /* Prévia da rota: as cinco paradas, só para ler. */
+  var previa = document.getElementById("previa");
+  R.paradas.forEach(function (p) { previa.appendChild(R.tx("li", null, p.chave)); });
+  R.montar({
+    rota: false,
+    curvas: false,
+    legenda: false,
+    acoes: [{ id: "comecar", chave: "acao.comecar", href: "02-criar-viagem.html" }],
+    discreto: { href: "15-site.html", chave: "acao.ver_site" }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.3"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="3">
+<div class="of-app" id="app">
+<header class="of-topo">
+  <p class="of-etiqueta-viagem of-etiqueta-viagem--so-texto"><span data-dado="viagem.cabecalho"></span></p>
+  <button class="of-trocar" type="button" aria-pressed="false" data-texto-aria="oficina.trocar_lado"><span data-icone="trocar_lado"></span></button>
+</header>
+<main class="of-pagina">
+  <div class="of-cabeca">
+    <p class="of-rotulo of-caixa-alta" data-texto="tela.3"></p>
+    <h1 class="of-h1" data-dado="camping.nome"></h1>
+    <p class="of-rotulo" id="of-confirmado" data-texto="mensagem.confirmado_por"></p>
+  </div>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-atencao">
+    <div class="of-atencao-cabeca">
+      <h2 class="of-nivel of-nivel--atencao" id="of-s-atencao"><span data-icone="atencao"></span><span data-texto="nivel.atencao"></span></h2>
+      <div class="of-etiqueta-lona of-costura"><span data-mascote="pose-alerta"></span></div>
+    </div>
+    <ul id="of-atencao"></ul>
+  </section>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-info">
+    <h2 class="of-nivel" id="of-s-info"><span data-icone="informacao"></span><span data-texto="nivel.informacao"></span></h2>
+    <ul id="of-info"></ul>
+  </section>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-ajustes">
+    <h2 class="of-h2" id="of-s-ajustes" data-texto="ajuste.titulo"></h2>
+    <ul id="of-ajustes"></ul>
+  </section>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-regras">
+    <h2 class="of-h2" id="of-s-regras" data-texto="ajuste.regras"></h2>
+    <ul id="of-regras"></ul>
+  </section>
+
+  <a class="of-ligacao-linha" href="07-estadia.html"><span class="of-h2" data-texto="bloco.regras_a_mao"></span><span data-icone="seguir"></span></a>
+</main>
+<footer class="of-rodape">
+  <a class="of-botao" href="04-lista.html"><span class="of-ilhos" aria-hidden="true"></span><span data-texto="acao.ver_lista"></span></a>
+</footer>
+<nav class="of-abas" data-texto-aria="oficina.areas">
+  <a class="of-aba" href="04-lista.html"><span data-icone="lista"></span><span data-texto="area.lista"></span></a>
+  <a class="of-aba" href="03-alertas.html" aria-current="page"><span data-icone="camping"></span><span data-texto="area.camping"></span></a>
+  <a class="of-aba" href="11-grupo.html"><span data-icone="grupo"></span><span data-texto="area.grupo"></span></a>
+  <a class="of-aba" href="12-gastos.html"><span data-icone="gastos"></span><span data-texto="area.gastos"></span></a>
+  <a class="of-aba" href="08-volta.html"><span data-icone="volta"></span><span data-texto="area.volta"></span></a>
+</nav>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+
+var C = window.CAMPINGUIM;
+var OF = (function () {
+  "use strict";
+  var raiz = document.documentElement;
+  var app = document.getElementById("app");
+
+  function t(chave, valores) {
+    var v = C.texto(chave, valores);
+    if (v === null) { if (window.console) console.error("[oficina] chave sem texto:", chave); return "[" + chave + "]"; }
+    return v;
+  }
+
+  /* Cria um elemento: el("li", { class: "x", "data-texto": "k" }, [filhos ou texto de dados]). */
+  function el(tag, atributos, filhos) {
+    var e = document.createElement(tag);
+    if (atributos) Object.keys(atributos).forEach(function (k) {
+      var v = atributos[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === "texto") e.textContent = v;
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    (filhos || []).forEach(function (f) { if (f) e.appendChild(typeof f === "string" ? document.createTextNode(f) : f); });
+    return e;
+  }
+
+  function icone(nome, classe) { return el("span", { "data-icone": nome, "class": classe || null }); }
+
+  /* Lado das divisórias (guardado no navegador, com tentativa protegida). */
+  var botaoLado = document.querySelector(".of-trocar");
+  function lado(l) {
+    raiz.setAttribute("data-of-lado", l);
+    if (botaoLado) botaoLado.setAttribute("aria-pressed", l === "esquerda" ? "true" : "false");
+  }
+  lado(C.guardado.ler("oficina.lado", "direita") === "esquerda" ? "esquerda" : "direita");
+  if (botaoLado) botaoLado.addEventListener("click", function () {
+    var novo = raiz.getAttribute("data-of-lado") === "esquerda" ? "direita" : "esquerda";
+    lado(novo);
+    C.guardado.gravar("oficina.lado", novo);
+    C.anunciar(t(novo === "esquerda" ? "oficina.lado_esquerda" : "oficina.lado_direita"));
+  });
+
+  /* Altura do rodapé: as divisórias ficam logo acima dele e a página reserva o espaço. */
+  var rodape = document.querySelector(".of-rodape");
+  function medir() {
+    if (!app) return;
+    app.style.setProperty("--of-rodape-h", (rodape && !rodape.hidden ? rodape.offsetHeight : 0) + "px");
+  }
+  medir();
+  if (window.ResizeObserver && rodape) new ResizeObserver(medir).observe(rodape);
+  window.addEventListener("resize", medir);
+
+  /* Os parâmetros do avaliador (tema, fonte, moldura, avaliador) seguem nas ligações internas. */
+  var SEGUEM = ["tema", "fonte", "moldura", "avaliador"];
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+    if (!a) return;
+    var href = a.getAttribute("href");
+    if (!href || /^[a-z]+:/i.test(href) || href.charAt(0) === "#" || href.indexOf(".html") < 0 || href.indexOf("../") === 0) return;
+    try {
+      var atual = new URLSearchParams(window.location.search);
+      var partes = href.split("#");
+      var base = partes[0].split("?");
+      var novos = new URLSearchParams(base[1] || "");
+      SEGUEM.forEach(function (p) { if (atual.has(p) && !novos.has(p)) novos.set(p, atual.get(p)); });
+      var q = novos.toString();
+      a.setAttribute("href", base[0] + (q ? "?" + q : "") + (partes[1] ? "#" + partes[1] : ""));
+    } catch (e) { /* segue a ligação como está */ }
+  }, true);
+
+  function parametro(nome) {
+    try { return new URLSearchParams(window.location.search).get(nome); } catch (e) { return null; }
+  }
+
+  return { t: t, el: el, icone: icone, parametro: parametro, medir: medir, app: app };
+})();
+
+
+(function () {
+  var D = C.dados, el = OF.el, t = OF.t;
+  document.getElementById("of-confirmado").setAttribute("data-valores", JSON.stringify({ n: D.camping.confirmacoes }));
+
+  D.alertas.forEach(function (a) {
+    var atencao = a.nivel === "atencao";
+    document.getElementById(atencao ? "of-atencao" : "of-info").appendChild(
+      el("li", { "class": "of-alerta-linha" + (atencao ? " of-alerta-linha--atencao" : "") },
+        [OF.icone(atencao ? "atencao" : "informacao"), el("span", { texto: a.texto })]));
+  });
+
+  var ICONE = { entrou: "entrou", saiu: "saiu", tarefa: "tarefa" };
+  D.ajustes.itens.forEach(function (a) {
+    var botao = el("button", { type: "button", "class": "of-texto-botao" }, [el("span", { "data-texto": "acao.desfazer" })]);
+    var estado = el("span", { "class": "of-rotulo of-escondido", "data-texto": "oficina.desfeito" });
+    var linha = el("li", { "class": "of-ajuste", "data-desfeito": "0" }, [
+      OF.icone(ICONE[a.tipo]),
+      el("span", { "class": "of-ajuste-texto" }, [
+        el("span", { "class": "of-rotulo of-caixa-alta", "data-texto": "ajuste." + a.tipo }),
+        el("span", { "class": "of-ajuste-item", texto: a.item }),
+        el("span", { "class": "of-rotulo", "data-texto": "oficina.motivo", "data-valores": JSON.stringify({ motivo: a.motivo }) }),
+        estado
+      ]),
+      botao
+    ]);
+    botao.addEventListener("click", function () {
+      var desfeito = linha.getAttribute("data-desfeito") === "1";
+      linha.setAttribute("data-desfeito", desfeito ? "0" : "1");
+      estado.classList.toggle("of-escondido", desfeito);
+      botao.firstChild.setAttribute("data-texto", desfeito ? "acao.desfazer" : "oficina.refazer");
+      C.anunciar(t(desfeito ? "oficina.refazer" : "oficina.desfeito"));
+    });
+    document.getElementById("of-ajustes").appendChild(linha);
+  });
+
+  D.regras.forEach(function (r) {
+    var texto = el("span", { "class": "of-regra-texto" }, [el("span", { texto: r.texto })]);
+    if (r.fato) texto.appendChild(el("a", { "class": "of-texto-botao", href: "10-fato.html?de=3" }, [el("span", { "data-texto": "oficina.ver_fato" }), OF.icone("seguir")]));
+    var ciente = el("button", { type: "button", "class": "of-ciente", "aria-pressed": r.ciente ? "true" : "false" },
+      [OF.icone("ciente"), el("span", { "data-texto": "acao.ciente" })]);
+    ciente.setAttribute("aria-label", t("oficina.marca_de", { estado: t("estado.ciente"), nome: r.texto }));
+    ciente.addEventListener("click", function () {
+      ciente.setAttribute("aria-pressed", ciente.getAttribute("aria-pressed") === "true" ? "false" : "true");
+    });
+    document.getElementById("of-regras").appendChild(el("li", { "class": "of-regra" }, [texto, ciente]));
+  });
+})();
+
+</script>
+</body>
+</html>

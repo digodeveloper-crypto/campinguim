@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="avaliacao.titulo_pagina"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="_compartilhado/base.css">
+</head>
+<body data-pagina="avaliacao">
+<div class="cg-ap">
+  <header class="cg-ap-cabeca">
+    <h1 data-texto="avaliacao.titulo"></h1>
+    <p class="cg-ap-intro" data-texto="avaliacao.intro"></p>
+    <nav data-texto-aria="apresentacao.navegar">
+      <ul class="cg-ap-nav">
+        <li><a class="cg-ap-botao" href="index.html" data-texto="apresentacao.inicio"></a></li>
+        <li><a class="cg-ap-botao" href="comparacao.html" data-texto="apresentacao.comparacao"></a></li>
+        <li><a class="cg-ap-botao" href="avaliacao.html" aria-current="page" data-texto="apresentacao.avaliacao"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cg-ap-avaliacao" id="folhas"></div>
+
+    <section class="cg-ap-copiar" id="copiar" hidden>
+      <p class="cg-ap-intro" data-texto="avaliacao.guardado"></p>
+      <div>
+        <button type="button" class="cg-ap-botao cg-ap-botao--principal" id="botao-copiar" data-texto="avaliacao.copiar"></button>
+      </div>
+      <p class="cg-ap-estado" id="estado-copia" role="status"></p>
+      <label for="texto-avaliacao" class="cg-oculto" data-texto="avaliacao.texto_rotulo"></label>
+      <textarea id="texto-avaliacao" readonly hidden></textarea>
+    </section>
+  </main>
+</div>
+
+<script src="_compartilhado/dados.js"></script>
+<script src="_compartilhado/textos.js"></script>
+<script src="_compartilhado/mascote.js"></script>
+<script src="_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM;
+  var CRITERIOS = ["impressao", "clareza", "lista", "alertas", "sol", "uma_mao", "premium", "mascote"];
+  var CHAVE = "avaliacao";
+  var area = document.getElementById("folhas");
+  var notas = C.guardado.ler(CHAVE, {}) || {};
+  var nomes = {};
+  var prontas = [];
+
+  function criar(tag, classe, atributos) {
+    var el = document.createElement(tag);
+    if (classe) el.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { el.setAttribute(k, atributos[k]); });
+    return el;
+  }
+
+  function nota(pasta, criterio) {
+    return notas[pasta] && notas[pasta][criterio] ? notas[pasta][criterio] : null;
+  }
+
+  function marcar(pasta, criterio, valor, grupo) {
+    notas[pasta] = notas[pasta] || {};
+    notas[pasta][criterio] = nota(pasta, criterio) === valor ? null : valor;
+    C.guardado.gravar(CHAVE, notas);
+    var botoes = grupo.querySelectorAll("button");
+    for (var i = 0; i < botoes.length; i++) {
+      botoes[i].setAttribute("aria-pressed", Number(botoes[i].getAttribute("data-nota")) === notas[pasta][criterio] ? "true" : "false");
+    }
+  }
+
+  function folha(info) {
+    var sec = criar("section", "cg-ap-folha");
+    var nomeProprio = C.textoDaDirecao(info, "nome");
+    var nome = nomeProprio || C.texto("apresentacao.direcao_n", { n: info.posicao });
+    nomes[info.pasta] = nome;
+    var id = "folha-" + info.pasta;
+    var titulo = criar("h2", "", { id: id });
+    titulo.textContent = nome;
+    sec.appendChild(titulo);
+    if (!info.pronta) {
+      sec.appendChild(criar("p", "cg-ap-selo", { "data-texto": "apresentacao.em_producao" }));
+      return sec;
+    }
+    prontas.push(info.pasta);
+    var lista = criar("ol", "cg-ap-criterios", { "aria-labelledby": id });
+    CRITERIOS.forEach(function (c) {
+      var li = criar("li", "cg-ap-criterio");
+      var texto = criar("div", "cg-ap-criterio-texto");
+      var idCriterio = id + "-" + c;
+      texto.appendChild(criar("h3", "", { id: idCriterio, "data-texto": "avaliacao.criterio." + c }));
+      texto.appendChild(criar("p", "cg-ap-pergunta", { "data-texto": "avaliacao.pergunta." + c }));
+      li.appendChild(texto);
+      var grupo = criar("div", "cg-ap-notas", { role: "group", "aria-labelledby": idCriterio });
+      for (var n = 1; n <= 5; n++) {
+        var b = criar("button", "cg-ap-nota", {
+          type: "button",
+          "data-nota": String(n),
+          "aria-pressed": nota(info.pasta, c) === n ? "true" : "false",
+          "data-texto": "avaliacao.nota_curta",
+          "data-valores": JSON.stringify({ n: n })
+        });
+        b.setAttribute("aria-label", C.texto("avaliacao.nota_de", { criterio: C.texto("avaliacao.criterio." + c), n: n }));
+        (function (valor) {
+          b.addEventListener("click", function () { marcar(info.pasta, c, valor, grupo); });
+        })(n);
+        grupo.appendChild(b);
+      }
+      li.appendChild(grupo);
+      lista.appendChild(li);
+    });
+    sec.appendChild(lista);
+    return sec;
+  }
+
+  function comoTexto() {
+    var linhas = [C.texto("avaliacao.texto_titulo")];
+    prontas.forEach(function (pasta) {
+      linhas.push("");
+      linhas.push(nomes[pasta]);
+      CRITERIOS.forEach(function (c) {
+        var n = nota(pasta, c);
+        linhas.push(C.texto("avaliacao.linha", { criterio: C.texto("avaliacao.criterio." + c), nota: n ? n : C.texto("avaliacao.sem_nota") }));
+      });
+    });
+    return linhas.join("\n");
+  }
+
+  C.carregarDirecoes(function (direcoes) {
+    direcoes.forEach(function (info) { area.appendChild(folha(info)); });
+    if (!prontas.length) {
+      area.insertBefore(criar("p", "cg-ap-aviso", { "data-texto": "avaliacao.nenhuma" }), area.firstChild);
+      return;
+    }
+    var secao = document.getElementById("copiar");
+    var estado = document.getElementById("estado-copia");
+    var caixa = document.getElementById("texto-avaliacao");
+    secao.hidden = false;
+    document.getElementById("botao-copiar").addEventListener("click", function () {
+      var t = comoTexto();
+      caixa.value = t;
+      caixa.hidden = false;
+      C.copiar(t).then(function (ok) {
+        estado.textContent = C.texto(ok ? "mensagem.copiado" : "mensagem.nao_copiado");
+        if (!ok) caixa.select();
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

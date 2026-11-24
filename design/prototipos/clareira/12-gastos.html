@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.12"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .cl-gasto-cabeca { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; }
+  .cl-valor-grande { font-size: var(--cl-t-titulo); line-height: var(--cl-l-titulo); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .cl-familia-valor { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+  .cl-chave { font-weight: 600; overflow-wrap: anywhere; }
+</style>
+</head>
+<body data-tela="12">
+<div class="cl-app">
+  <header class="cl-topo">
+    <span data-mascote="uma-cor"></span>
+    <p class="cl-topo-viagem" data-dado="grupo.nomeViagem.texto"></p>
+  </header>
+  <main class="cl-conteudo">
+    <h1 class="cl-h1" data-texto="cl.gastos.titulo"></h1>
+
+    <section class="cl-cartao cl-bloco" aria-labelledby="item">
+      <p class="cl-rotulo" data-texto="cl.gastos.item"></p>
+      <div class="cl-gasto-cabeca">
+        <h2 class="cl-h2" id="item" data-dado="gastos.item"></h2>
+        <p class="cl-valor-grande" data-dinheiro="gastos.totalCentavos"></p>
+      </div>
+      <p><span class="cl-suave" data-texto="gastos.comprou"></span> <span class="cl-forte" data-dado="gastos.comprou"></span></p>
+      <p class="cl-forte" id="cotas-de" data-texto="mensagem.cotas_de"></p>
+      <p class="cl-suave cl-pequeno" data-texto="gastos.regra"></p>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-divisao">
+      <h2 class="cl-rotulo" id="rotulo-divisao" data-texto="cl.gastos.divisao"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="familias"></ul>
+      <p class="cl-estado cl-estado--carro cl-ativo" id="recebe"><span data-icone="pessoa"></span><span id="recebe-texto" data-texto="mensagem.recebe"></span></p>
+    </section>
+
+    <section class="cl-cartao cl-bloco" aria-labelledby="rotulo-parte">
+      <h2 class="cl-rotulo" id="rotulo-parte" data-texto="cl.gastos.sua_parte"></h2>
+      <p class="cl-h2" id="devem" data-texto="mensagem.voces_devem"></p>
+      <div>
+        <p class="cl-suave cl-pequeno" id="chave-rotulo" data-texto="cl.gastos.chave"></p>
+        <p class="cl-chave" data-dado="gastos.usuaria.pix.chave"></p>
+      </div>
+      <div class="cl-fichas">
+        <button type="button" class="cl-botao" id="copiar-valor"><span data-icone="copiar"></span><span data-texto="acao.copiar_valor"></span></button>
+        <button type="button" class="cl-ficha" id="paguei"><span data-icone="ciente"></span><span data-texto="acao.paguei"></span></button>
+      </div>
+      <p class="cl-aviso" id="copiado" role="status" hidden><span data-icone="ciente"></span><span id="copiado-texto"></span></p>
+    </section>
+  </main>
+  <div class="cl-base">
+    <div class="cl-acao">
+      <button type="button" class="cl-botao cl-botao--principal" id="copiar-chave"><span data-icone="copiar"></span><span data-texto="acao.copiar_chave"></span></button>
+    </div>
+    <nav class="cl-abas" data-texto-aria="cl.abas">
+      <a class="cl-aba" href="04-lista.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="lista"></span></span><span class="cl-aba-texto" data-texto="area.lista"></span></a>
+      <a class="cl-aba" href="03-alertas.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="camping"></span></span><span class="cl-aba-texto" data-texto="area.camping"></span></a>
+      <a class="cl-aba" href="11-grupo.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="grupo"></span></span><span class="cl-aba-texto" data-texto="area.grupo"></span></a>
+      <a class="cl-aba" href="12-gastos.html" aria-current="page"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="gastos"></span></span><span class="cl-aba-texto" data-texto="area.gastos"></span></a>
+    </nav>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+  function txt(tag, classe, conteudo) { var e = el(tag, classe); e.textContent = conteudo; return e; }
+
+  /* Os valores vêm prontos de dados.js (centavos); nada é recalculado aqui. */
+  var g = C.dado("gastos");
+  $("cotas-de").setAttribute("data-valores", JSON.stringify({ n: g.cotas, valor: C.dinheiro(g.cotaCentavos) }));
+  $("recebe-texto").setAttribute("data-valores", JSON.stringify({ pessoa: g.comprou, valor: C.dinheiro(g.compradorRecebeCentavos) }));
+  $("devem").setAttribute("data-valores", JSON.stringify({ pessoa: g.usuaria.deveA, valor: C.dinheiro(g.usuaria.deveCentavos) }));
+  $("chave-rotulo").setAttribute("data-valores", JSON.stringify({ tipo: g.usuaria.pix.tipo }));
+
+  g.familias.forEach(function (f) {
+    var li = el("li", "cl-linha");
+    var t = el("div", "cl-linha-texto");
+    t.appendChild(txt("p", "cl-item-titulo", f.nome));
+    t.appendChild(txt("p", "cl-suave cl-pequeno", f.pessoas));
+    var v = el("p", "cl-familia-valor");
+    v.appendChild(el("span", "cl-forte cl-numero", { "data-texto": "cl.gastos.cotas_valor", "data-valores": JSON.stringify({ cotas: C.texto("mensagem.cotas", { n: f.cotas }), valor: C.dinheiro(f.valorCentavos) }) }));
+    var pago = f.situacao === "ja_pago";
+    var s = el("span", "cl-estado " + (pago ? "cl-estado--carro cl-ativo" : "cl-estado--a_separar"));
+    s.appendChild(I.criar(pago ? "conferido" : "nao_conferido"));
+    s.appendChild(el("span", "", { "data-texto": "gastos.situacao." + f.situacao }));
+    v.appendChild(s);
+    if (f.comprador) {
+      var c = el("span", "cl-estado cl-estado--a_separar");
+      c.appendChild(I.criar("pessoa"));
+      c.appendChild(el("span", "", { "data-texto": "gastos.situacao.comprador" }));
+      v.appendChild(c);
+    }
+    t.appendChild(v);
+    li.appendChild(t);
+    $("familias").appendChild(li);
+  });
+
+  function avisar(ok) {
+    $("copiado-texto").setAttribute("data-texto", ok ? "mensagem.copiado" : "mensagem.nao_copiado");
+    $("copiado").hidden = false;
+    C.anunciar(C.texto(ok ? "mensagem.copiado" : "mensagem.nao_copiado"));
+  }
+  $("copiar-chave").addEventListener("click", function () { C.copiar(g.usuaria.pix.chave).then(avisar); });
+  $("copiar-valor").addEventListener("click", function () { C.copiar(C.dinheiro(g.usuaria.deveCentavos)).then(avisar); });
+
+  var pago = C.guardado.ler("clareira.paguei", g.usuaria.paguei.marcado);
+  $("paguei").setAttribute("aria-pressed", pago ? "true" : "false");
+  $("paguei").addEventListener("click", function () {
+    pago = !pago;
+    $("paguei").setAttribute("aria-pressed", pago ? "true" : "false");
+    C.guardado.gravar("clareira.paguei", pago);
+  });
+})();
+</script>
+</body>
+</html>

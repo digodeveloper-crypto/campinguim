@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.4"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="4">
+<div class="r-app">
+  <header class="r-topo"><span data-icone="barraca"></span><span data-dado="lista.cabecalho"></span></header>
+  <main class="r-conteudo">
+    <div class="r-cabeca r-cabeca--com-figura">
+      <div class="r-cabeca-texto">
+        <h1 data-texto="lista.titulo"></h1>
+        <div class="r-progresso">
+          <p class="r-progresso-numero" id="progresso" data-texto="mensagem.progresso_carro"></p>
+          <div class="r-barra" aria-hidden="true"><span id="barra"></span></div>
+          <p class="r-frase" id="frase"></p>
+        </div>
+      </div>
+      <span id="emblema"></span>
+    </div>
+
+    <section class="r-secao" aria-labelledby="t-filtros">
+      <h2 class="r-rotulo" id="t-filtros" data-texto="lista.filtrar"></h2>
+      <div class="r-filtros" id="filtros" role="group" aria-labelledby="t-filtros"></div>
+    </section>
+
+    <section class="r-secao" aria-labelledby="t-tarefas">
+      <h2 class="r-rotulo" id="t-tarefas" data-texto="bloco.tarefas"></h2>
+      <ul class="r-cartao r-secao" id="tarefas"></ul>
+    </section>
+
+    <section class="r-secao" data-texto-aria="lista.itens">
+      <p class="r-vazio" id="vazio" data-texto="lista.filtro_vazio" hidden></p>
+      <ul class="r-cartao r-cartao--lista r-cartao--itens" id="categorias"></ul>
+    </section>
+  </main>
+  <footer class="r-rodape">
+    <button type="button" class="r-mural-botao" data-mural><span data-icone="mural"></span><span data-texto="nav.mural"></span></button>
+    <a class="r-acao" href="06-aviso-de-saida.html" data-texto="acao.vou_sair"></a>
+  </footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA, el = R.el;
+  var tem = function (o, k) { return Object.prototype.hasOwnProperty.call(o, k); };
+
+  /* Estados marcados agora, só em memória: o estado inicial vem sempre de dados.js. */
+  var estados = {};
+  var comprar = {};
+  var filtro = null;
+  function estadoDe(it) { return tem(estados, it.id) ? estados[it.id] : it.estado; }
+
+  /* Emblema da família: acende quando tudo estiver no carro. */
+  var emblema = R.emblema(C.dado("gastos.usuaria.familia"), { tamanho: "grande", informa: true });
+  document.getElementById("emblema").replaceWith(emblema);
+
+  var numero = document.getElementById("progresso");
+  var barra = document.getElementById("barra");
+  var frase = document.getElementById("frase");
+
+  function atualizarTotal() {
+    var p = C.progresso(estados);
+    numero.setAttribute("data-valores", JSON.stringify({ feitos: p.noCarro, total: p.total }));
+    barra.style.width = (100 * p.noCarro / p.total) + "%";
+    var falta = p.total - p.noCarro;
+    frase.setAttribute("data-valores", JSON.stringify({ n: falta }));
+    frase.setAttribute("data-texto", falta === 0 ? "lista.completa" : falta === 1 ? "lista.falta_uma" : "lista.faltam");
+    R.acender(emblema, falta === 0);
+    R.estadosDaLista(estados);
+  }
+
+  /* Situação escrita na linha: ícone + texto (DSG-10). */
+  function situacao(caixa, e) {
+    caixa.innerHTML = "";
+    caixa.className = "r-situacao r-situacao--" + (e === "carro" ? "carro" : e === "separei" ? "separei" : "neutro");
+    if (e === "carro") {
+      caixa.appendChild(R.icone("carro"));
+      caixa.appendChild(el("span", { texto: "estado.carro" }));
+    } else if (e === "separei") {
+      caixa.appendChild(R.icone("separei"));
+      caixa.appendChild(el("span", { texto: "lista.separei_fora", valores: { a: C.texto("estado.separei"), b: C.texto("estado.fora_do_carro") } }));
+    } else {
+      caixa.appendChild(R.icone("caixa"));
+      caixa.appendChild(el("span", { texto: "estado.a_separar" }));
+    }
+  }
+
+  var linhas = [];
+
+  function linha(it, aoMudar) {
+    var titulo = el("a", { classe: "r-linha-titulo", href: "05-item.html", dado: it.nome });
+    var sit = el("span");
+    var info = el("span", { classe: "r-linha-info", "aria-hidden": "true" }, [el("span", { dado: it.quantidadeTexto }), sit]);
+    var icSep = R.icone("caixa");
+    var bSep = el("button", { type: "button", classe: "r-estado r-estado--separei", aria: "lista.marcar_separei", valores: { nome: it.nome } }, [
+      el("span", { classe: "r-circulo", "aria-hidden": "true" }, [icSep]),
+      el("span", { texto: "estado.separei" })
+    ]);
+    var bCar = el("button", { type: "button", classe: "r-estado r-estado--carro", aria: "lista.marcar_carro", valores: { nome: it.nome } }, [
+      el("span", { classe: "r-circulo", "aria-hidden": "true" }, [R.icone("carro")]),
+      el("span", { texto: "estado.carro" })
+    ]);
+    var li = el("li", { classe: "r-linha", "data-item": it.id }, [
+      el("div", { classe: "r-linha-nome" }, [titulo, info]),
+      el("div", { classe: "r-linha-acoes" }, [bSep, bCar])
+    ]);
+    function pintar() {
+      var e = estadoDe(it);
+      titulo.setAttribute("aria-label", C.nomeFalado(it, e));
+      bSep.setAttribute("aria-pressed", e !== "a_separar" ? "true" : "false");
+      R.trocarIcone(icSep, e !== "a_separar" ? "separei" : "caixa");
+      bCar.setAttribute("aria-pressed", e === "carro" ? "true" : "false");
+      situacao(sit, e);
+    }
+    function mudar(novo) {
+      estados[it.id] = novo;
+      pintar();
+      aoMudar();
+      C.anunciar(C.nomeFalado(it, novo));
+    }
+    bSep.addEventListener("click", function () { mudar(estadoDe(it) === "a_separar" ? "separei" : "a_separar"); });
+    bCar.addEventListener("click", function () { mudar(estadoDe(it) === "carro" ? "separei" : "carro"); });
+    pintar();
+    linhas.push({ item: it, li: li });
+    return li;
+  }
+
+  /* Categorias recolhíveis; abertas na chegada as que têm pendência (dados.js). */
+  var categorias = [];
+  var lista = document.getElementById("categorias");
+  C.dado("lista.categorias").forEach(function (cat) {
+    var idItens = "itens-" + cat.id;
+    var prog = el("span", { classe: "r-cat-progresso", texto: "mensagem.progresso_carro" });
+    var botao = el("button", { type: "button", classe: "r-cat", "aria-expanded": cat.aberta ? "true" : "false", "aria-controls": idItens }, [
+      el("span", { classe: "r-cat-texto" }, [el("span", { classe: "r-cat-nome", texto: "categoria." + cat.id }), prog]),
+      R.icone("seta", "r-seta")
+    ]);
+    var ul = el("ul", { classe: "r-itens", id: idItens, hidden: !cat.aberta });
+    var reg = { cat: cat, botao: botao, ul: ul, prog: prog, aberta: cat.aberta, li: null };
+    function atualizarCategoria() {
+      var p = C.progresso(estados, cat.id);
+      prog.setAttribute("data-valores", JSON.stringify({ feitos: p.noCarro, total: p.total }));
+      botao.setAttribute("aria-label", C.texto("lista.cat_falado", { nome: C.texto("categoria." + cat.id), progresso: C.texto("mensagem.progresso_carro", { feitos: p.noCarro, total: p.total }) }));
+    }
+    reg.atualizar = atualizarCategoria;
+    cat.itens.forEach(function (i) {
+      ul.appendChild(linha(C.item(i.id), function () { atualizarCategoria(); atualizarTotal(); aplicarFiltro(); }));
+    });
+    botao.addEventListener("click", function () {
+      var aberta = botao.getAttribute("aria-expanded") !== "true";
+      botao.setAttribute("aria-expanded", aberta ? "true" : "false");
+      ul.hidden = !aberta;
+      if (!filtro) reg.aberta = aberta;
+    });
+    reg.li = el("li", { classe: "r-categoria" }, [el("h3", {}, [botao]), ul]);
+    lista.appendChild(reg.li);
+    atualizarCategoria();
+    categorias.push(reg);
+  });
+
+  /* Filtros: a separar, separados, no carro, comprar (um de cada vez; tocar de novo tira). */
+  function combina(it) {
+    var e = estadoDe(it);
+    if (filtro === "a_separar") return e === "a_separar";
+    if (filtro === "separados") return e === "separei";
+    if (filtro === "no_carro") return e === "carro";
+    if (filtro === "comprar") return !!comprar[it.id];
+    return true;
+  }
+
+  function aplicarFiltro() {
+    var algum = false;
+    categorias.forEach(function (reg) {
+      var visiveis = 0;
+      linhas.forEach(function (l) {
+        if (l.item.categoria !== reg.cat.id) return;
+        var ok = combina(l.item);
+        l.li.hidden = !ok;
+        if (ok) visiveis++;
+      });
+      if (filtro) {
+        reg.li.hidden = visiveis === 0;
+        reg.ul.hidden = visiveis === 0;
+        reg.botao.setAttribute("aria-expanded", visiveis > 0 ? "true" : "false");
+      } else {
+        reg.li.hidden = false;
+        reg.ul.hidden = !reg.aberta;
+        reg.botao.setAttribute("aria-expanded", reg.aberta ? "true" : "false");
+      }
+      if (visiveis) algum = true;
+    });
+    document.getElementById("vazio").hidden = !(filtro && !algum);
+    lista.hidden = !!(filtro && !algum);
+  }
+
+  var icFiltro = { a_separar: "caixa", separados: "separei", no_carro: "carro", comprar: "comprar" };
+  var botoesFiltro = [];
+  C.dado("lista.filtros").forEach(function (id) {
+    var b = el("button", { type: "button", classe: "r-filtro", "aria-pressed": "false" }, [R.icone(icFiltro[id]), el("span", { texto: "filtro." + id })]);
+    b.addEventListener("click", function () {
+      filtro = filtro === id ? null : id;
+      botoesFiltro.forEach(function (o) { o.setAttribute("aria-pressed", o === b && filtro ? "true" : "false"); });
+      aplicarFiltro();
+    });
+    botoesFiltro.push(b);
+    document.getElementById("filtros").appendChild(b);
+  });
+
+  /* Faixa de tarefas (P-06): uma marca só, "feito". O texto da tarefa vem igual de dados.js. */
+  C.dado("lista.tarefas").forEach(function (t) {
+    var ic = R.icone(t.feito ? "feito" : "caixa");
+    var b = el("button", { type: "button", classe: "r-estado r-estado--neutro", "aria-pressed": t.feito ? "true" : "false", aria: "lista.marcar_feito", valores: { tarefa: t.texto } }, [
+      el("span", { classe: "r-circulo", "aria-hidden": "true" }, [ic]),
+      el("span", { texto: "estado.feito" })
+    ]);
+    b.addEventListener("click", function () {
+      var on = b.getAttribute("aria-pressed") !== "true";
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+      R.trocarIcone(ic, on ? "feito" : "caixa");
+    });
+    document.getElementById("tarefas").appendChild(el("li", { classe: "r-tarefa" }, [
+      el("span", { classe: "r-tarefa-texto" }, [el("span", { dado: t.texto })]),
+      b
+    ]));
+  });
+
+  atualizarTotal();
+  R.iniciar();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.2"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="2">
+<header class="br-tela br-topo br-topo--empilhada">
+  <p class="br-momento"><span data-icone="camping"></span><span data-texto="brasa.momento_antes"></span></p>
+  <p class="br-destaque" data-texto="brasa.t2_destaque"></p>
+  <p class="br-frase br-suave" data-texto="brasa.t2_frase"></p>
+</header>
+<div class="br-tela br-atras" aria-hidden="true"></div>
+<main class="br-tela br-folha br-folha--empilhada">
+  <div class="br-alca">
+    <span class="br-alca-marca"><span data-mascote="uma-cor"></span></span>
+    <span class="br-alca-traco" aria-hidden="true"></span>
+    <a class="br-fechar" href="01-abertura.html" data-fechar><span data-icone="fechar"></span><span data-texto="acao.fechar"></span></a>
+  </div>
+  <div class="br-corpo">
+    <h1 data-texto="brasa.t2_titulo"></h1>
+
+    <div class="br-campo" role="group" aria-labelledby="r-tipo">
+      <p class="br-campo-rotulo" id="r-tipo"><span data-texto="campo.tipo"></span><span class="br-obrigatorio" data-texto="campo.obrigatorio"></span></p>
+      <div class="br-opcoes br-opcoes--coluna" id="op-tipo"></div>
+    </div>
+
+    <div class="br-campo">
+      <div class="br-contador-linha" id="c-noites"></div>
+      <p class="br-rotulo" data-texto="campo.datas"></p>
+    </div>
+
+    <div class="br-campo" role="group" aria-labelledby="r-pessoas">
+      <p class="br-campo-rotulo" id="r-pessoas"><span data-texto="campo.pessoas"></span><span class="br-obrigatorio" data-texto="campo.obrigatorio"></span></p>
+      <div class="br-cartao br-pilha" id="c-pessoas"></div>
+    </div>
+
+    <div class="br-campo">
+      <div class="br-contador-linha" id="c-pets"></div>
+    </div>
+
+    <div class="br-campo" role="group" aria-labelledby="r-clima">
+      <p class="br-campo-rotulo" id="r-clima" data-texto="campo.clima"></p>
+      <div class="br-opcoes" id="op-clima"></div>
+    </div>
+
+    <div class="br-campo" role="group" aria-labelledby="r-chuva">
+      <p class="br-campo-rotulo" id="r-chuva" data-texto="campo.chuva"></p>
+      <div class="br-opcoes" id="op-chuva"></div>
+    </div>
+
+    <div class="br-campo">
+      <label class="br-campo-rotulo" for="destino" data-texto="campo.destino"></label>
+      <input class="br-entrada" id="destino" type="text" autocomplete="off">
+    </div>
+    <div class="br-campo">
+      <label class="br-campo-rotulo" for="cidade" data-texto="campo.cidade"></label>
+      <input class="br-entrada" id="cidade" type="text" autocomplete="off">
+    </div>
+    <a class="br-ligacao" id="sem-dados" href="13-camping-sem-dados.html">
+      <span data-icone="duvida"></span>
+      <span class="br-ligacao-texto"><span data-texto="brasa.exemplo_sem_dados"></span></span>
+      <span data-icone="abrir"></span>
+    </a>
+  </div>
+  <div class="br-rodape">
+    <div class="br-halo"><a class="br-botao" href="03-alertas.html" data-texto="acao.gerar_lista"></a></div>
+  </div>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+  var v = C.dado("viagem"), f = C.dado("faixas");
+
+  /* Escolha de uma opção entre várias: botões com aria-pressed (só um ligado). */
+  function opcoes(caixa, ids, chave, escolhido) {
+    ids.forEach(function (id) {
+      var b = el("button", "br-alterna", { type: "button", "aria-pressed": id === escolhido ? "true" : "false", "data-texto": chave(id) });
+      b.addEventListener("click", function () {
+        Array.prototype.forEach.call(caixa.children, function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      });
+      caixa.appendChild(b);
+    });
+  }
+
+  opcoes(document.getElementById("op-tipo"), v.tipos, function (id) { return "opcao.tipo." + id; }, v.tipo);
+  opcoes(document.getElementById("op-clima"), v.climas, function (id) { return "opcao.clima." + id; }, v.clima);
+  opcoes(document.getElementById("op-chuva"), ["sim", "nao"], function (id) { return "opcao." + id; }, v.chuva ? "sim" : "nao");
+
+  /* Contador: rótulo, menos, valor, mais. */
+  function contador(caixa, chaveCampo, valor, obrigatorio) {
+    var nome = C.texto(chaveCampo);
+    var id = "v-" + chaveCampo.replace(/\W/g, "-");
+    var rotulo = el("p", "br-campo-rotulo", { id: id + "-r" }, [el("span", null, { "data-texto": chaveCampo })]);
+    if (obrigatorio) rotulo.appendChild(el("span", "br-obrigatorio", { "data-texto": "campo.obrigatorio" }));
+    var saida = el("output", "br-contador-valor", { id: id, "aria-live": "polite", "aria-labelledby": id + "-r" });
+    saida.textContent = String(valor);
+    var menos = el("button", "br-marca", { type: "button", "data-texto-aria": "brasa.menos_campo", valores: { campo: nome } }, [B.icone("menos")]);
+    var mais = el("button", "br-marca", { type: "button", "data-texto-aria": "brasa.mais_campo", valores: { campo: nome } }, [B.icone("mais")]);
+    menos.addEventListener("click", function () { valor = Math.max(0, valor - 1); saida.textContent = String(valor); });
+    mais.addEventListener("click", function () { valor = valor + 1; saida.textContent = String(valor); });
+    caixa.appendChild(rotulo);
+    caixa.appendChild(el("div", "br-contador", null, [menos, saida, mais]));
+  }
+
+  contador(document.getElementById("c-noites"), "campo.noites", v.noites, true);
+  var pessoas = document.getElementById("c-pessoas");
+  [["campo.adultos", f.adultos], ["campo.adolescentes", f.adolescentes], ["campo.criancas", f.criancas], ["campo.menores5", f.menores5]].forEach(function (p) {
+    var linha = el("div", "br-contador-linha");
+    pessoas.appendChild(linha);
+    contador(linha, p[0], p[1], false);
+  });
+  contador(document.getElementById("c-pets"), "campo.pets", f.pets, false);
+
+  document.getElementById("destino").value = v.destino.camping;
+  document.getElementById("cidade").value = v.destino.cidade;
+  document.querySelector("#sem-dados [data-texto]").setAttribute("data-valores", JSON.stringify({ nome: v.destinoSemDados }));
+
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

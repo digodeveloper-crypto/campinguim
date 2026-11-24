@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="rumo.titulo.13"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<script src="paleta.js"></script>
+</head>
+<body data-tela="13">
+<main class="rumo">
+  <header class="etapa">
+    <div class="etapa-linha">
+      <div class="etapa-texto">
+        <p class="etapa-marca"></p>
+        <h1 class="titulo-tela" data-dado="campingSemDados.nome"></h1>
+        <p class="etapa-sub" data-texto="rumo.t13.registro"></p>
+      </div>
+      <span id="mascote"></span>
+    </div>
+  </header>
+
+  <p class="aviso-linha bloco" id="sem-dados"></p>
+
+  <section class="bloco" aria-labelledby="duvida-titulo">
+    <h2 class="bloco-titulo" id="duvida-titulo" data-texto="bloco.na_duvida"></h2>
+    <ul class="folha" id="duvida"></ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="perguntas-titulo">
+    <h2 class="bloco-titulo" id="perguntas-titulo" data-texto="bloco.perguntas_camping"></h2>
+    <p class="suave" data-texto="rumo.t13.perguntas_intro"></p>
+    <div class="folha carta" id="carta"></div>
+    <p class="mensagem" id="copiado" aria-live="polite"></p>
+  </section>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var cg = window.CAMPINGUIM, R = window.RUMO, D = cg.dados;
+  var S = D.campingSemDados;
+  var refs = R.montar({
+    parada: "preparar",
+    icone: false,
+    voltar: "02-criar-viagem.html",
+    acoes: [
+      { id: "compartilhar", chave: "acao.compartilhar", tipo: "secundaria", icone: "compartilhar" },
+      { id: "copiar", chave: "acao.copiar", icone: "copiar" }
+    ]
+  });
+  document.getElementById("mascote").replaceWith(R.mascote("pose-alerta", "apoio--cabeca", true));
+
+  var aviso = document.getElementById("sem-dados");
+  aviso.innerHTML = R.icone("info");
+  aviso.appendChild(R.tx("span", null, "mensagem.sem_dados"));
+
+  /* Itens "depende do camping" (P-14: água com quantidade cheia). */
+  S.itensNaDuvida.forEach(function (i) {
+    var li = R.el("li", "linha");
+    var t = R.el("span", "linha-texto");
+    var n = R.el("span", "linha-nome");
+    n.textContent = i.nome;
+    var q = R.el("span", "linha-sub");
+    q.textContent = i.quantidadeTexto;
+    t.appendChild(n);
+    t.appendChild(q);
+    var tag = R.el("span", "estado estado--separei");
+    tag.innerHTML = R.icone("info");
+    tag.appendChild(R.tx("span", null, "estado.depende_do_camping"));
+    t.appendChild(tag);
+    li.appendChild(t);
+    document.getElementById("duvida").appendChild(li);
+  });
+
+  /* Texto de perguntas (P-15), na ordem da spec; não cita o app. */
+  var linhas = [S.perguntas.abertura].concat(S.perguntas.linhas);
+  var carta = document.getElementById("carta");
+  linhas.forEach(function (l, k) {
+    var p = R.el("p", k ? "carta-linha" : "carta-abertura");
+    p.textContent = l;
+    carta.appendChild(p);
+  });
+  var todo = linhas.join("\n");
+
+  var msg = document.getElementById("copiado");
+  function avisar(ok) {
+    msg.innerHTML = ok ? R.icone("ciente") : "";
+    msg.appendChild(R.tx("span", null, ok ? "mensagem.copiado" : "mensagem.nao_copiado"));
+    cg.anunciar(R.texto(ok ? "mensagem.copiado" : "mensagem.nao_copiado"));
+  }
+  refs.acoes.copiar.addEventListener("click", function () { cg.copiar(todo).then(avisar); });
+  refs.acoes.compartilhar.addEventListener("click", function () {
+    /* Menu de compartilhar do celular; sem ele, copia. */
+    if (navigator.share) {
+      navigator.share({ text: todo }).catch(function () {});
+    } else {
+      cg.copiar(todo).then(avisar);
+    }
+  });
+})();
+</script>
+</body>
+</html>

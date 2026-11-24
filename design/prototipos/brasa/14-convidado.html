@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.14"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="14">
+<div class="br-tela br-pagina">
+  <header class="br-pagina-cabeca">
+    <span class="br-marca-mascote"><span data-mascote="uma-cor"></span></span>
+    <span class="br-marca-nome" data-texto="app.nome"></span>
+  </header>
+
+  <section class="br-bloco" aria-labelledby="t-convite">
+    <p class="br-rotulo" id="convidou" data-texto="mensagem.convidou"></p>
+    <h1 id="t-convite" data-dado="convidado.convite.viagem"></h1>
+  </section>
+
+  <!-- Passo 1: entrar com o nome, sem instalar -->
+  <section class="br-cartao br-entrar" id="entrar" aria-labelledby="t-entrar">
+    <h2 id="t-entrar" data-texto="acao.entrar"></h2>
+    <p class="br-suave" data-texto="brasa.entrar_intro"></p>
+    <form class="br-pilha" id="form-entrar">
+      <div class="br-campo">
+        <label class="br-campo-rotulo" for="nome" data-texto="campo.seu_nome"></label>
+        <input class="br-entrada" id="nome" type="text" autocomplete="off" data-texto-placeholder="brasa.toque_preenche">
+      </div>
+      <div class="br-campo">
+        <label class="br-campo-rotulo" for="familia" data-texto="campo.sua_familia"></label>
+        <input class="br-entrada" id="familia" type="text" autocomplete="off" data-texto-placeholder="brasa.toque_preenche">
+      </div>
+      <div class="br-halo"><button class="br-botao" type="submit" data-texto="acao.entrar"></button></div>
+    </form>
+  </section>
+
+  <!-- Passo 2: o que eu devo e a lista do grupo, com "eu levo" -->
+  <p class="br-estado br-cor-carro" id="quem" hidden></p>
+
+  <section class="br-bloco" id="devo" aria-labelledby="t-devo" hidden>
+    <h2 id="t-devo" data-texto="bloco.o_que_eu_devo"></h2>
+    <p class="br-cartao br-bloco-titulo" id="deve" data-texto="brasa.deve_item"></p>
+  </section>
+
+  <section class="br-bloco" id="lista-grupo" aria-labelledby="t-lista" hidden>
+    <h2 id="t-lista" data-texto="bloco.lista_do_grupo"></h2>
+    <ul class="br-pilha" id="itens"></ul>
+  </section>
+
+  <section class="br-bloco" id="baixar" hidden>
+    <a class="br-botao br-botao--discreto" href="01-abertura.html" data-texto="acao.baixar_app"></a>
+  </section>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+  var cv = C.dado("convidado");
+  var g = C.dado("grupo");
+
+  document.getElementById("convidou").setAttribute("data-valores", JSON.stringify({ nome: cv.convite.convidouPor }));
+
+  /* No protótipo, tocar no campo preenche com o convidado do cenário (dados.js). */
+  function preencher(id, valor) {
+    var campo = document.getElementById(id);
+    function por() { if (!campo.value) campo.value = valor; }
+    campo.addEventListener("focus", por);
+    campo.addEventListener("click", por);
+  }
+  preencher("nome", cv.nome);
+  preencher("familia", cv.familia);
+
+  var meus = {};
+  function lista() {
+    var caixa = document.getElementById("itens");
+    caixa.innerHTML = "";
+    g.itens.lista.forEach(function (i) {
+      var filhos = [el("span", "br-linha-titulo", { texto: i.nome })];
+      var acoes = null;
+      if (i.semDono) {
+        var meu = !!meus[i.id];
+        filhos.push(meu
+          ? el("span", "br-estado br-cor-carro", null, [B.icone("pessoa", "br-ativo"), el("span", null, { "data-texto": "mensagem.leva", valores: { nome: cv.nome } })])
+          : el("span", "br-estado br-cor-atencao", null, [B.icone("pessoa"), el("span", null, { "data-texto": "mensagem.ninguem_pegou" })]));
+        var b = el("button", meu ? "br-alterna br-alterna--medio" : "br-botao br-botao--pequeno br-botao--medio", { type: "button", "data-texto": meu ? "acao.desistir" : "acao.eu_levo", "data-item": i.id });
+        B.nomearPor(b, i.nome);
+        b.addEventListener("click", function () {
+          if (meus[i.id]) delete meus[i.id]; else meus[i.id] = true;
+          lista();
+          var novo = document.querySelector('[data-item="' + i.id + '"]');
+          if (novo) novo.focus();
+        });
+        acoes = el("div", "br-linha-acoes br-linha-acoes--largas", null, [b]);
+      } else if (i.duplicado) {
+        filhos.push(el("span", "br-estado br-cor-separei", null, [B.icone("grupo"), el("span", null, { "data-texto": "mensagem.assumidos", valores: { n: i.assumidos } })]));
+      } else if (i.dono) {
+        filhos.push(el("span", "br-estado br-cor-carro", null, [B.icone("pessoa", "br-ativo"), el("span", null, { "data-texto": "mensagem.leva", valores: { nome: i.dono } })]));
+      }
+      caixa.appendChild(el("li", "br-linha", null, [el("div", "br-linha-nome", null, filhos), acoes]));
+    });
+  }
+
+  document.getElementById("form-entrar").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var nome = document.getElementById("nome").value.trim() || cv.nome;
+    var familia = document.getElementById("familia").value.trim() || cv.familia;
+    document.getElementById("entrar").hidden = true;
+    var quem = document.getElementById("quem");
+    quem.hidden = false;
+    quem.innerHTML = "";
+    quem.appendChild(B.icone("pessoa", "br-ativo"));
+    quem.appendChild(el("span", null, { "data-texto": "brasa.entrou_como", valores: { nome: nome, familia: familia } }));
+    var deve = C.texto("mensagem.voces_devem", { pessoa: cv.deve.a, valor: C.dinheiro(cv.deve.centavos) });
+    document.getElementById("deve").setAttribute("data-valores", JSON.stringify({ texto: deve, item: cv.deve.item }));
+    ["devo", "lista-grupo", "baixar"].forEach(function (id) { document.getElementById(id).hidden = false; });
+    lista();
+    var primeiro = document.querySelector("#itens button");
+    if (primeiro) primeiro.focus();
+  });
+
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.4"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="4">
+<header class="br-tela br-topo">
+  <p class="br-momento"><span data-icone="estrada"></span><span data-texto="brasa.momento_antes"></span></p>
+  <p class="br-onde" data-dado="lista.cabecalho"></p>
+  <p class="br-destaque" id="progresso" data-texto="mensagem.progresso_carro"></p>
+  <div class="br-progresso" aria-hidden="true"><span id="barra"></span></div>
+  <p class="br-frase" id="frase"></p>
+</header>
+<main class="br-tela br-folha">
+  <div class="br-alca">
+    <span class="br-alca-marca"><span data-mascote="uma-cor"></span></span>
+    <span class="br-alca-traco" aria-hidden="true"></span>
+  </div>
+  <div class="br-corpo">
+    <h1 data-texto="brasa.t4_titulo"></h1>
+
+    <div class="br-campo" role="group" aria-labelledby="r-filtros">
+      <p class="br-rotulo" id="r-filtros" data-texto="brasa.filtros_rotulo"></p>
+      <div class="br-filtros" id="filtros"></div>
+    </div>
+
+    <section class="br-bloco" aria-labelledby="b-tarefas">
+      <h2 id="b-tarefas" data-texto="bloco.tarefas"></h2>
+      <ul class="br-pilha" id="tarefas"></ul>
+    </section>
+
+    <p class="br-aviso-vazio" id="vazio" data-texto="brasa.filtro_vazio" hidden></p>
+    <div class="br-pilha br-categorias" id="categorias" role="list" data-texto-aria="brasa.categorias_rotulo"></div>
+  </div>
+  <div class="br-rodape">
+    <div class="br-halo"><a class="br-botao" href="06-aviso-de-saida.html" data-texto="acao.vou_sair"></a></div>
+    <nav data-seletor="lista"></nav>
+  </div>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+  var filtroAtual = null;
+  var abertas = {};
+  var linhas = {};
+
+  /* Progresso no topo (só para ler) e frase no tom da direção. */
+  function atualizarTopo() {
+    var p = C.progresso(B.estados());
+    document.getElementById("progresso").setAttribute("data-valores", JSON.stringify({ feitos: p.noCarro, total: p.total }));
+    document.getElementById("barra").style.width = (100 * p.noCarro / p.total) + "%";
+    var faltam = p.total - p.noCarro;
+    var frase = document.getElementById("frase");
+    if (faltam === 0) frase.setAttribute("data-texto", "brasa.tudo_no_carro");
+    else if (faltam === 1) frase.setAttribute("data-texto", "brasa.falta_1");
+    else { frase.setAttribute("data-valores", JSON.stringify({ n: faltam })); frase.setAttribute("data-texto", "brasa.faltam_n"); }
+  }
+
+  /* Estado visível de um item: ícone e texto (DSG-10). */
+  function estadoVisivel(estado) {
+    if (estado === "carro") return el("span", "br-estado br-cor-carro", null, [B.icone("carro", "br-ativo"), el("span", null, { "data-texto": "estado.carro" })]);
+    if (estado === "separei") return el("span", "br-estado br-cor-separei", null, [B.icone("separei", "br-ativo"), el("span", null, { "data-texto": "estado.separei_falado" })]);
+    return el("span", "br-estado br-cor-suave", null, [B.icone("separei"), el("span", null, { "data-texto": "estado.a_separar" })]);
+  }
+
+  function linhaDoItem(item) {
+    var li = el("div", "br-linha", { role: "listitem" });
+    function montar() {
+      var estado = B.estadoDe(item);
+      var comprar = !!B.comprar()[item.id];
+      li.innerHTML = "";
+      li.setAttribute("data-estado", estado);
+      li.setAttribute("data-comprar", comprar ? "1" : "0");
+      var detalhe = el("span", "br-linha-detalhe", null, [el("span", "br-numero br-cor-texto", { texto: item.quantidadeTexto }), estadoVisivel(estado)]);
+      if (comprar) detalhe.appendChild(el("span", "br-estado br-cor-atencao", null, [B.icone("comprar", "br-ativo"), el("span", null, { "data-texto": "estado.comprar" })]));
+      var nome = el("a", "br-linha-nome", { href: "05-item.html?item=" + encodeURIComponent(item.id) }, [
+        el("span", "br-linha-titulo", { texto: item.nome }),
+        detalhe
+      ]);
+      var falado = C.nomeFalado(item, estado);
+      nome.setAttribute("aria-label", comprar ? C.texto("brasa.falado_comprar", { falado: falado }) : falado);
+      var separado = estado === "separei" || estado === "carro";
+      var bSep = el("button", "br-marca br-cor-separei", { type: "button", "aria-pressed": separado ? "true" : "false", "data-texto-aria": "brasa.marcar_separei", valores: { nome: item.nome } }, [B.icone("separei")]);
+      var bCarro = el("button", "br-marca br-cor-carro", { type: "button", "aria-pressed": estado === "carro" ? "true" : "false", "data-texto-aria": "brasa.marcar_carro", valores: { nome: item.nome } }, [B.icone("carro")]);
+      bSep.addEventListener("click", function () {
+        B.definirEstado(item.id, separado ? "a_separar" : "separei");
+        mudou(item, bSep);
+      });
+      bCarro.addEventListener("click", function () {
+        B.definirEstado(item.id, estado === "carro" ? "separei" : "carro");
+        mudou(item, bCarro);
+      });
+      li.appendChild(nome);
+      li.appendChild(el("div", "br-linha-acoes", null, [bSep, bCarro]));
+    }
+    li.montar = montar;
+    montar();
+    linhas[item.id] = li;
+    return li;
+  }
+
+  function mudou(item, botao) {
+    var foco = botao && botao.classList.contains("br-cor-carro") ? ".br-cor-carro" : ".br-cor-separei";
+    linhas[item.id].montar();
+    var novo = linhas[item.id].querySelector(".br-linha-acoes " + foco);
+    if (novo) novo.focus();
+    C.anunciar(C.nomeFalado(item, B.estadoDe(item)));
+    atualizarCategorias();
+    atualizarTopo();
+    filtrar();
+  }
+
+  /* Categorias recolhíveis, na ordem do PRD; abertas as que têm pendência (dados.js). */
+  var cabecas = {};
+  function montarCategorias() {
+    var caixa = document.getElementById("categorias");
+    C.dado("lista.categorias").forEach(function (cat) {
+      abertas[cat.id] = cat.aberta;
+      var idLista = "cat-" + cat.id;
+      var prog = el("span", "br-categoria-progresso br-rotulo", { "data-texto": "mensagem.progresso_carro" });
+      var botao = el("button", "br-categoria-botao", { type: "button", "aria-expanded": cat.aberta ? "true" : "false", "aria-controls": idLista }, [
+        B.icone("recolher"),
+        el("span", "br-categoria-nome", { "data-texto": "categoria." + cat.id }),
+        prog
+      ]);
+      var lista = el("div", "br-pilha", { id: idLista, role: "list" });
+      cat.itens.forEach(function (i) { lista.appendChild(linhaDoItem(C.item(i.id))); });
+      lista.hidden = !cat.aberta;
+      botao.addEventListener("click", function () {
+        abertas[cat.id] = !abertas[cat.id];
+        botao.setAttribute("aria-expanded", abertas[cat.id] ? "true" : "false");
+        lista.hidden = !abertas[cat.id];
+      });
+      var bloco = el("section", "br-categoria", { role: "listitem" }, [el("h2", "br-categoria-h", null, [botao]), lista]);
+      cabecas[cat.id] = { bloco: bloco, prog: prog, lista: lista, botao: botao };
+      caixa.appendChild(bloco);
+    });
+    atualizarCategorias();
+  }
+
+  function atualizarCategorias() {
+    Object.keys(cabecas).forEach(function (id) {
+      var p = C.progresso(B.estados(), id);
+      cabecas[id].prog.setAttribute("data-valores", JSON.stringify({ feitos: p.noCarro, total: p.total }));
+    });
+  }
+
+  /* Filtros: a separar, separados, no carro, comprar. Um por vez; tocar de novo desliga. */
+  var CONDICAO = {
+    a_separar: function (l) { return l.getAttribute("data-estado") === "a_separar"; },
+    separados: function (l) { return l.getAttribute("data-estado") === "separei"; },
+    no_carro: function (l) { return l.getAttribute("data-estado") === "carro"; },
+    comprar: function (l) { return l.getAttribute("data-comprar") === "1"; }
+  };
+  function montarFiltros() {
+    var caixa = document.getElementById("filtros");
+    C.dado("lista.filtros").forEach(function (f) {
+      var b = el("button", "br-alterna", { type: "button", "aria-pressed": "false", "data-texto": "filtro." + f });
+      b.addEventListener("click", function () {
+        filtroAtual = filtroAtual === f ? null : f;
+        Array.prototype.forEach.call(caixa.children, function (o) { o.setAttribute("aria-pressed", o === b && filtroAtual ? "true" : "false"); });
+        filtrar();
+      });
+      caixa.appendChild(b);
+    });
+  }
+
+  function filtrar() {
+    var algum = false;
+    Object.keys(cabecas).forEach(function (id) {
+      var c = cabecas[id], visiveis = 0;
+      Array.prototype.forEach.call(c.lista.children, function (l) {
+        var ok = !filtroAtual || CONDICAO[filtroAtual](l);
+        l.hidden = !ok;
+        if (ok) visiveis++;
+      });
+      if (filtroAtual) {
+        c.bloco.hidden = visiveis === 0;
+        c.lista.hidden = visiveis === 0;
+        c.botao.setAttribute("aria-expanded", visiveis ? "true" : "false");
+      } else {
+        c.bloco.hidden = false;
+        c.lista.hidden = !abertas[id];
+        c.botao.setAttribute("aria-expanded", abertas[id] ? "true" : "false");
+      }
+      if (visiveis) algum = true;
+    });
+    document.getElementById("vazio").hidden = !filtroAtual || algum;
+  }
+
+  /* Faixa de tarefas (P-06): o texto vem de dados.js; marca única "feito". */
+  C.dado("lista.tarefas").forEach(function (t) {
+    var b = el("button", "br-alterna br-cor-carro", { type: "button", "aria-pressed": t.feito ? "true" : "false", "data-texto-aria": "brasa.marcar_feito", valores: { nome: t.texto } }, [
+      B.icone("conferido"), el("span", null, { "data-texto": "estado.feito" })
+    ]);
+    b.addEventListener("click", function () { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); });
+    document.getElementById("tarefas").appendChild(el("li", "br-linha", null, [
+      el("div", "br-linha-nome", null, [el("span", "br-estado br-cor-texto", null, [B.icone("tarefa"), el("span", "br-linha-titulo", { texto: t.texto })])]),
+      el("div", "br-linha-acoes", null, [b])
+    ]));
+  });
+
+  montarFiltros();
+  montarCategorias();
+  atualizarTopo();
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

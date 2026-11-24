@@ -1,0 +1,1674 @@
+/* Campinguim · protótipo 3 · Oficina (equipamento e ofício).
+   Contrato: direcao/direcoes.md, seção 3, e direcao/padrao-producao.md.
+   Tema principal claro (lona crua); escuro é alumínio anodizado.
+   Assinatura: a costura (tracejado de 1,5 px, traço 6 e espaço 4, em --linha, a 4 px para dentro do cartão),
+   só em cartões que agrupam; nunca em botão.
+   Navegação: abas de fichário presas na borda direita (ou esquerda, com "trocar lado"), na faixa de baixo.
+   Tamanhos de texto em rem (fonte 100, 130 e 200 %); desenhos e respiros em px. */
+
+/* ---------- 1. Os 10 papéis de cor (direcoes.md, Oficina) e o apoio do mascote ---------- */
+
+:root,
+[data-tema="claro"] {
+  --fundo: #ECE7DC;          /* lona crua */
+  --superficie: #F8F5EE;
+  --texto: #1B1D20;          /* grafite */
+  --texto-suave: #4C5057;
+  --linha: #6F747B;          /* aço */
+  --acento: #22252A;         /* grafite */
+  --sobre-acento: #F6C744;   /* amarelo de cinta */
+  --atencao: #A1360F;        /* ferrugem */
+  --separei: #7A5800;        /* latão */
+  --carro: #2C5470;          /* aço azulado */
+  --apoio-mascote: #E7E0D1;  /* etiqueta de lona: atrás da versão colorida nos dois temas */
+  color-scheme: light;
+
+  --of-fonte: var(--cg-fonte-plex-condensada);
+  --of-mono: var(--cg-fonte-plex-mono);
+  --of-aba-l: 3.75rem;       /* 60 px em 100 %: 56 da direção + 4 de respiro para o rótulo (QA, rodada 1) */
+  --of-aba-salto: 6px;       /* quanto a divisória aberta sai além das outras */
+  --of-rodape-h: 5rem;       /* medido pela tela (ResizeObserver); este é o valor de reserva */
+  --of-costura: 1.5px;
+}
+
+[data-tema="escuro"] {
+  --fundo: #131416;          /* anodizado */
+  --superficie: #1E2024;
+  --texto: #ECEAE4;
+  --texto-suave: #A9ADB3;
+  --linha: #737881;
+  --acento: #F2C230;         /* amarelo de cinta */
+  --sobre-acento: #17181A;
+  --atencao: #FF9A73;
+  --separei: #E2C27A;
+  --carro: #9CC3E4;
+  --apoio-mascote: #E7E0D1;
+  color-scheme: dark;
+}
+
+/* ---------- 2. Base da tela ---------- */
+
+.of-app,
+.of-app *,
+.of-app *::before,
+.of-app *::after {
+  box-sizing: border-box;
+}
+
+.of-app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--of-fonte);
+  font-size: 1.0625rem;      /* 17 */
+  line-height: 1.5rem;       /* 24 */
+  font-weight: 400;
+}
+
+:where(.of-app) :where(h1, h2, h3, p, ul, ol, dl, dd, figure) {
+  margin: 0;
+  padding: 0;
+}
+
+:where(.of-app) :where(ul, ol) {
+  list-style: none;
+}
+
+:where(.of-app) :where(button, input, textarea) {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+:where(.of-app) button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(.of-app) a {
+  color: var(--texto);
+}
+
+.of-app svg {
+  display: block;
+  flex: none;
+}
+
+/* O atributo hidden sempre esconde, mesmo em elemento com display próprio. */
+.of-app [hidden] {
+  display: none !important;
+}
+
+/* Escala: 28/32, 19/24, 17/24, 15/20. */
+.of-h1 {
+  font-size: 1.75rem;
+  line-height: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+
+.of-h2 {
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-weight: 600;
+}
+
+.of-corpo {
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+}
+
+.of-rotulo {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+}
+
+/* Rótulo de categoria: caixa alta, espaçamento de 0,06 em (só nos rótulos). */
+.of-caixa-alta {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.of-suave {
+  color: var(--texto-suave);
+}
+
+/* Quantidades, valores em reais e contagens: mono. */
+.of-mono {
+  font-family: var(--of-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.of-mono-g {
+  font-family: var(--of-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+.of-escondido {
+  display: none !important;
+}
+
+/* ---------- 3. Topo: nome da viagem (ou voltar) e "trocar lado" ---------- */
+
+.of-topo {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  padding: calc(12px + var(--cg-seguro-topo)) 16px 4px;
+}
+
+.of-etiqueta-viagem {
+  flex: 0 1 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 2px 12px 2px 4px;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 6px;
+  background: var(--superficie);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.of-etiqueta-viagem--so-texto {
+  padding-left: 12px;
+}
+
+/* Marca d'água: versão uma-cor em --texto-suave, no máximo 48 px. */
+.of-etiqueta-viagem .cg-mascote {
+  width: 40px;
+}
+
+.cg-mascote[data-arte="uma-cor"] path {
+  fill: var(--texto-suave);
+}
+
+.of-voltar,
+.of-trocar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 10px;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--texto);
+}
+
+.of-voltar {
+  padding-left: 4px;
+}
+
+.of-trocar {
+  justify-content: center;
+  width: 44px;
+  padding: 0;
+  border: var(--of-costura) solid var(--linha);
+  background: transparent;
+  margin-left: auto;
+}
+
+.of-trocar[aria-pressed="true"] {
+  background: var(--superficie);
+}
+
+.of-voltar svg,
+.of-trocar svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ---------- 4. Página (conteúdo) e reservas para as divisórias e o rodapé ---------- */
+
+.of-pagina {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 12px calc(var(--of-aba-l) + var(--of-aba-salto) + 8px) calc(var(--of-rodape-h) + 24px) 16px;
+}
+
+html[data-of-lado="esquerda"] .of-pagina {
+  padding-left: calc(var(--of-aba-l) + var(--of-aba-salto) + 8px);
+  padding-right: 16px;
+}
+
+.of-sem-abas .of-pagina {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.of-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.of-bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.of-bloco-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+/* ---------- 5. Cartões e a costura ---------- */
+
+.of-cartao {
+  position: relative;
+  background: var(--superficie);
+  border-radius: 6px;
+  padding: 16px 14px;
+}
+
+.of-costura::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, var(--linha) 0 6px, transparent 6px 10px) left top / 100% var(--of-costura) no-repeat,
+    repeating-linear-gradient(90deg, var(--linha) 0 6px, transparent 6px 10px) left bottom / 100% var(--of-costura) no-repeat,
+    repeating-linear-gradient(180deg, var(--linha) 0 6px, transparent 6px 10px) left top / var(--of-costura) 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--linha) 0 6px, transparent 6px 10px) right top / var(--of-costura) 100% no-repeat;
+}
+
+/* Etiqueta de lona: o apoio do mascote colorido, nos dois temas (identidade da direção). */
+.of-etiqueta-lona {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  background: var(--apoio-mascote);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.of-etiqueta-lona.of-costura::before {
+  background:
+    repeating-linear-gradient(90deg, var(--linha) 0 6px, transparent 6px 10px) left top / 100% var(--of-costura) no-repeat,
+    repeating-linear-gradient(90deg, var(--linha) 0 6px, transparent 6px 10px) left bottom / 100% var(--of-costura) no-repeat,
+    repeating-linear-gradient(180deg, var(--linha) 0 6px, transparent 6px 10px) left top / var(--of-costura) 100% no-repeat,
+    repeating-linear-gradient(180deg, var(--linha) 0 6px, transparent 6px 10px) right top / var(--of-costura) 100% no-repeat;
+}
+
+/* ---------- 6. Botões ---------- */
+
+/* Botão principal: grafite (claro) ou amarelo de cinta (escuro), com um ilhós à esquerda do texto. */
+.of-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-height: 48px;
+  min-width: 44px;
+  padding: 0.625rem 1rem;
+  border: 0;
+  border-radius: 6px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.of-app a.of-botao {
+  color: var(--sobre-acento);
+}
+
+.of-ilhos {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.of-botao-sec {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 0.875rem;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--texto);
+  font-size: 1rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+}
+
+.of-rodape .of-botao-sec {
+  min-height: 48px;
+  flex: 0 1 auto;
+}
+
+.of-botao-sec svg,
+.of-botao svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Botão de texto (ação discreta: desfazer, ver o fato, Ver o site). */
+.of-texto-botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--texto);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+}
+
+.of-texto-botao svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Alternância de opção (filtro, tipo, clima, sim/não): etiqueta que fica cheia quando escolhida. */
+.of-opcao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5rem 0.75rem;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 6px;
+  background: var(--superficie);
+  color: var(--texto);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.of-opcao svg {
+  width: 20px;
+  height: 20px;
+}
+
+.of-opcao .of-opcao-marca {
+  visibility: hidden;
+}
+
+.of-opcao[aria-pressed="true"] {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--sobre-acento);
+  font-weight: 600;
+}
+
+.of-opcao[aria-pressed="true"] .of-opcao-marca {
+  visibility: visible;
+}
+
+.of-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ---------- 7. Rodapé: só a ação principal ---------- */
+
+.of-rodape {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px calc(12px + var(--cg-seguro-baixo));
+  background: var(--fundo);
+  border-top: var(--of-costura) solid var(--linha);
+}
+
+.of-rodape--coluna {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.of-rodape--coluna .of-texto-botao {
+  align-self: center;
+}
+
+/* ---------- 8. Abas de fichário na borda ---------- */
+
+.of-abas {
+  position: fixed;
+  right: 0;
+  bottom: calc(var(--of-rodape-h) + 12px);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.of-aba {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: var(--of-aba-l);
+  min-height: 72px;
+  padding: 8px 2px;
+  border: var(--of-costura) solid var(--linha);
+  border-right: 0;
+  border-radius: 6px 0 0 6px;
+  background: var(--superficie);
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.of-app a.of-aba {
+  color: var(--texto-suave);
+}
+
+.of-aba svg {
+  width: 24px;
+  height: 24px;
+}
+
+.of-app a.of-aba[aria-current="page"] {
+  width: calc(var(--of-aba-l) + var(--of-aba-salto));
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--sobre-acento);
+  font-weight: 600;
+}
+
+html[data-of-lado="esquerda"] .of-abas {
+  right: auto;
+  left: 0;
+  align-items: flex-start;
+}
+
+html[data-of-lado="esquerda"] .of-aba {
+  border-right: var(--of-costura) solid var(--linha);
+  border-left: 0;
+  border-radius: 0 6px 6px 0;
+}
+
+html[data-of-lado="esquerda"] .of-app a.of-aba[aria-current="page"] {
+  border-color: var(--acento);
+}
+
+/* ---------- 9. Lista: linhas de 52 px, quantidade em coluna mono à direita ---------- */
+
+.of-progresso {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.of-progresso-texto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+/* Régua: barra de 8 px com a marca de cada dez itens. */
+.of-regua {
+  position: relative;
+  height: 8px;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 2px;
+  background: var(--superficie);
+  overflow: hidden;
+}
+
+.of-regua-cheio {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--carro);
+}
+
+.of-categoria {
+  padding: 4px 10px 10px 12px;
+}
+
+.of-categoria-cabeca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 8px 4px;
+  border: 0;
+  background: transparent;
+  color: var(--texto);
+  text-align: left;
+}
+
+.of-categoria-cabeca {
+  flex-wrap: wrap;
+}
+
+.of-categoria-cabeca .of-cat-nome {
+  flex: 1 1 6rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.of-categoria-cabeca svg {
+  width: 20px;
+  height: 20px;
+  transition: rotate 0.15s;
+}
+
+.of-categoria-cabeca[aria-expanded="true"] .of-seta {
+  rotate: 90deg;
+}
+
+.of-categoria-cabeca > .of-mono {
+  margin-left: auto;
+}
+
+.of-categoria-cabeca .of-cat-pendente {
+  color: var(--separei);
+}
+
+.of-linhas {
+  display: flex;
+  flex-direction: column;
+  padding-top: 4px;
+}
+
+.of-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 4px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-linha:first-child {
+  border-top-color: transparent;
+}
+
+/* Nome, quantidade e estado à esquerda; marcas (ou botão) à direita.
+   Quando não cabem lado a lado, quem desce de linha é a quantidade e depois as marcas: nenhuma palavra se parte. */
+.of-linha > .of-linha-texto {
+  flex: 1 1 7rem;
+}
+
+.of-linha > :not(.of-linha-texto) {
+  flex: none;
+}
+
+.of-linha-texto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 10px;
+  row-gap: 2px;
+  min-height: 44px;
+  padding: 2px 0;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.of-app a.of-linha-texto {
+  color: var(--texto);
+}
+
+.of-app .of-linha-nome {
+  flex: 1 1 5rem;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+}
+
+.of-app .of-linha-qtd {
+  flex: 0 1 auto;
+  margin-left: auto;
+  text-align: right;
+}
+
+.of-linha-texto > .of-linha-estado,
+.of-linha-texto > .of-paragrafos {
+  flex: 1 0 100%;
+}
+
+.of-linha-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+}
+
+.of-linha-estado svg {
+  width: 16px;
+  height: 16px;
+}
+
+.of-linha-estado[data-estado="separei"] {
+  color: var(--separei);
+}
+
+.of-linha-estado[data-estado="carro"] {
+  color: var(--carro);
+}
+
+.of-linha-estado[data-estado="faltou"],
+.of-linha-estado[data-estado="comprar"] {
+  color: var(--atencao);
+}
+
+.of-marcas {
+  display: flex;
+  gap: 8px;
+}
+
+/* Marca de estado: retângulo de etiqueta; ativa, ganha o fundo na cor do estado e o ícone em --superficie. */
+.of-marca {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--texto-suave);
+}
+
+.of-marca svg {
+  width: 24px;
+  height: 24px;
+}
+
+.of-marca[data-marca="separei"][aria-pressed="true"],
+.of-marca[data-marca="conferido"][aria-pressed="true"] {
+  background: var(--separei);
+  border-color: var(--separei);
+  color: var(--superficie);
+}
+
+.of-marca[data-marca="carro"][aria-pressed="true"],
+.of-marca[data-marca="secar"][aria-pressed="true"] {
+  background: var(--carro);
+  border-color: var(--carro);
+  color: var(--superficie);
+}
+
+.of-marca[data-marca="faltou"][aria-pressed="true"],
+.of-marca[data-marca="comprar"][aria-pressed="true"] {
+  background: var(--atencao);
+  border-color: var(--atencao);
+  color: var(--superficie);
+}
+
+.of-marca[data-marca="feito"][aria-pressed="true"],
+.of-marca[data-marca="ciente"][aria-pressed="true"] {
+  background: var(--texto);
+  border-color: var(--texto);
+  color: var(--superficie);
+}
+
+.of-vazio {
+  padding: 12px 4px;
+  color: var(--texto-suave);
+}
+
+/* Faixa de tarefas. */
+.of-tarefa {
+  display: grid;
+  grid-template-columns: minmax(min-content, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 4px 10px 4px 14px;
+  border-radius: 6px;
+  border: var(--of-costura) solid var(--linha);
+  background: var(--superficie);
+}
+
+/* Dica da primeira abertura da lista. */
+.of-dica {
+  display: grid;
+  grid-template-columns: auto minmax(min-content, 1fr);
+  gap: 8px 10px;
+  align-items: start;
+  padding: 12px 12px 8px;
+  border-radius: 6px;
+  background: var(--superficie);
+  border-left: 4px solid var(--acento);
+}
+
+.of-dica svg {
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+}
+
+.of-dica .of-texto-botao {
+  grid-column: 2;
+  justify-self: start;
+  margin-left: -8px;
+}
+
+/* ---------- 10. Campos de formulário ---------- */
+
+.of-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.of-campo-rotulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+}
+
+.of-obrigatorio {
+  font-family: var(--of-mono);
+  font-size: 0.9375rem;
+  color: var(--texto-suave);
+}
+
+.of-entrada {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.625rem 0.75rem;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 6px;
+  background: var(--superficie);
+  color: var(--texto);
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+}
+
+textarea.of-entrada {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.of-entrada::placeholder {
+  color: var(--texto-suave);
+  opacity: 1;
+}
+
+/* Contador de quantidade: menos, número em mono, mais. */
+.of-passo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 12px;
+  min-height: 52px;
+  padding: 4px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-passo:first-of-type {
+  border-top-color: transparent;
+}
+
+.of-passo-rotulo {
+  flex: 1 1 8rem;
+}
+
+.of-contador {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.of-contador output {
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+.of-contador .of-marca {
+  color: var(--texto);
+}
+
+/* Lista de definição em estilo de ficha técnica. */
+.of-ficha {
+  display: flex;
+  flex-direction: column;
+}
+
+.of-ficha-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 12px;
+  padding: 10px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-ficha-linha:first-child {
+  border-top-color: transparent;
+}
+
+.of-ficha-linha dt {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+}
+
+.of-ficha-linha dd {
+  text-align: right;
+  margin-left: auto;
+}
+
+/* ---------- 11. Alertas ---------- */
+
+.of-nivel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.of-nivel svg {
+  width: 22px;
+  height: 22px;
+}
+
+.of-nivel--atencao {
+  color: var(--atencao);
+}
+
+.of-alerta-linha {
+  display: grid;
+  grid-template-columns: auto minmax(min-content, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 10px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-alerta-linha:first-child {
+  border-top-color: transparent;
+}
+
+.of-alerta-linha svg {
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+}
+
+.of-alerta-linha--atencao svg {
+  color: var(--atencao);
+}
+
+.of-atencao-cabeca {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.of-atencao-cabeca .of-etiqueta-lona {
+  padding: 6px;
+}
+
+.of-atencao-cabeca .cg-mascote {
+  width: 72px;
+}
+
+.of-ajuste {
+  display: grid;
+  grid-template-columns: auto minmax(min-content, 1fr) auto;
+  gap: 8px 10px;
+  align-items: center;
+  min-height: 52px;
+  padding: 6px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-ajuste:first-child {
+  border-top-color: transparent;
+}
+
+.of-ajuste svg {
+  width: 22px;
+  height: 22px;
+}
+
+.of-ajuste-texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.of-ajuste[data-desfeito="1"] .of-ajuste-item {
+  text-decoration: line-through;
+}
+
+html[data-fonte="200"] .of-ajuste {
+  grid-template-columns: auto minmax(min-content, 1fr);
+}
+
+html[data-fonte="200"] .of-ajuste > button {
+  grid-column: 2;
+  justify-self: start;
+}
+
+.of-regra {
+  display: grid;
+  grid-template-columns: minmax(min-content, 1fr) auto;
+  gap: 8px 10px;
+  align-items: center;
+  min-height: 52px;
+  padding: 6px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-regra:first-child {
+  border-top-color: transparent;
+}
+
+.of-regra-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.of-regra-texto .of-texto-botao {
+  margin-left: -8px;
+}
+
+html[data-fonte="200"] .of-regra {
+  grid-template-columns: minmax(min-content, 1fr);
+}
+
+/* "ciente": em repouso só o texto; tocado, ícone de visto e texto, com fundo. */
+.of-ciente {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 0.75rem;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--texto);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.of-ciente svg {
+  width: 20px;
+  height: 20px;
+}
+
+.of-ciente[aria-pressed="false"] svg {
+  display: none;
+}
+
+.of-ciente[aria-pressed="true"] {
+  background: var(--texto);
+  border-color: var(--texto);
+  color: var(--superficie);
+  font-weight: 600;
+}
+
+/* Linha que leva a outra tela (fato, gastos). */
+.of-ligacao-linha {
+  display: grid;
+  grid-template-columns: minmax(min-content, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 6px 0;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.of-app a.of-ligacao-linha {
+  color: var(--texto);
+}
+
+.of-ligacao-linha svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ---------- 12. Mascote e etiquetas ---------- */
+
+.of-abertura-etiqueta {
+  align-self: center;
+  padding: 20px;
+}
+
+.of-abertura-etiqueta .cg-mascote,
+.of-site-etiqueta .cg-mascote {
+  width: 176px;
+}
+
+.of-mascote-lado {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.of-mascote-lado .of-etiqueta-lona {
+  padding: 8px;
+}
+
+.of-mascote-lado .cg-mascote {
+  width: 88px;
+}
+
+html[data-fonte="200"] .of-mascote-lado {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.of-abertura {
+  justify-content: center;
+}
+
+.of-abertura-miolo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  margin: auto 0;
+  text-align: center;
+}
+
+.of-abertura-miolo .of-cabeca {
+  gap: 8px;
+  max-width: 20rem;
+}
+
+/* ---------- 13. Folha (painel) do "faltou" ---------- */
+
+.of-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: var(--fundo);
+}
+
+.of-folha {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  background: var(--superficie);
+  border-top: var(--of-costura) solid var(--linha);
+}
+
+.of-folha-cabeca {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: calc(12px + var(--cg-seguro-topo)) 12px 8px 16px;
+}
+
+.of-folha-corpo {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 16px calc(16px + var(--cg-seguro-baixo));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.of-folha-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.5rem 0.25rem;
+  border: 0;
+  border-top: 1px solid var(--linha);
+  background: transparent;
+  color: var(--texto);
+  text-align: left;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+}
+
+.of-folha-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--texto-suave);
+}
+
+.of-escrever {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.of-escrever .of-entrada {
+  flex: 1 1 10rem;
+  width: auto;
+}
+
+/* ---------- 14. Gastos ---------- */
+
+.of-familia-gasto {
+  display: grid;
+  grid-template-columns: minmax(min-content, 1fr) auto;
+  gap: 4px 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-familia-gasto:first-child {
+  border-top-color: transparent;
+}
+
+.of-familia-gasto .of-valor {
+  text-align: right;
+}
+
+.of-situacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.of-situacao svg {
+  width: 18px;
+  height: 18px;
+}
+
+html[data-fonte="200"] .of-familia-gasto {
+  grid-template-columns: minmax(min-content, 1fr);
+}
+
+html[data-fonte="200"] .of-familia-gasto .of-valor {
+  text-align: left;
+}
+
+.of-destaque {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.of-destaque .of-mono-g,
+.of-destaque .of-mono {
+  color: var(--sobre-acento);
+}
+
+.of-chave {
+  display: block;
+  font-family: var(--of-mono);
+  font-size: 1.0625rem;
+  line-height: 1.5rem;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- 15. Texto de perguntas (tela 13) ---------- */
+
+.of-perguntas {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 6px;
+  border: var(--of-costura) solid var(--linha);
+  background: var(--fundo);
+}
+
+/* ---------- 16. Páginas web (14 e 15): etiquetas costuradas em sequência ---------- */
+
+.of-web .of-pagina {
+  padding-top: calc(16px + var(--cg-seguro-topo));
+  padding-bottom: 32px;
+}
+
+.of-web-topo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: calc(12px + var(--cg-seguro-topo)) 16px 4px;
+  font-weight: 600;
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+}
+
+.of-web-topo .cg-mascote {
+  width: 36px;
+}
+
+.of-sequencia {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.of-numero {
+  font-family: var(--of-mono);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  color: var(--texto-suave);
+}
+
+.of-site-etiqueta {
+  align-self: flex-start;
+  padding: 16px;
+}
+
+.of-marcar {
+  display: grid;
+  grid-template-columns: auto minmax(min-content, 1fr);
+  align-items: start;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 0.625rem 0.75rem 0.625rem 0.5rem;
+  border: var(--of-costura) solid var(--linha);
+  border-radius: 6px;
+  background: var(--superficie);
+  color: var(--texto);
+  text-align: left;
+  font-size: 1rem;
+  line-height: 1.375rem;
+}
+
+.of-marcar svg {
+  width: 24px;
+  height: 24px;
+}
+
+.of-marcar .of-sim {
+  display: none;
+}
+
+.of-marcar[aria-pressed="true"] .of-sim {
+  display: block;
+}
+
+.of-marcar[aria-pressed="true"] .of-nao {
+  display: none;
+}
+
+/* ---------- 17. Página de identidade ---------- */
+
+.of-id-secao {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.of-cores {
+  display: flex;
+  flex-direction: column;
+}
+
+.of-cor {
+  display: grid;
+  grid-template-columns: auto minmax(min-content, 1fr);
+  gap: 2px 10px;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-cor:first-child {
+  border-top-color: transparent;
+}
+
+.of-cor-amostras {
+  display: flex;
+  gap: 4px;
+  grid-row: span 2;
+}
+
+.of-cor-amostra {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid var(--linha);
+}
+
+.of-pares {
+  display: flex;
+  flex-direction: column;
+}
+
+.of-par {
+  display: grid;
+  grid-template-columns: minmax(min-content, 1fr) auto auto;
+  gap: 4px 12px;
+  padding: 6px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-par:first-child {
+  border-top-color: transparent;
+}
+
+html[data-fonte="200"] .of-par {
+  grid-template-columns: minmax(min-content, 1fr);
+}
+
+.of-icones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: 12px 8px;
+}
+
+.of-icone-ficha {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.of-icone-ficha .of-icone-par {
+  display: flex;
+  gap: 6px;
+}
+
+.of-icone-solto {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--texto);
+}
+
+.of-icone-solto svg {
+  width: 24px;
+  height: 24px;
+}
+
+.of-icone-ficha .of-marca {
+  cursor: default;
+}
+
+/* Esquema da navegação desenhado em HTML e CSS. */
+.of-esquema {
+  position: relative;
+  align-self: center;
+  width: 200px;
+  height: 300px;
+  border: 2px solid var(--texto);
+  border-radius: 18px;
+  background: var(--fundo);
+  overflow: hidden;
+}
+
+.of-esquema-topo {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  height: 18px;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.of-esquema-topo span {
+  border: 1.5px solid var(--linha);
+  border-radius: 3px;
+}
+
+.of-esquema-topo span:first-child {
+  width: 96px;
+}
+
+.of-esquema-topo span:last-child {
+  width: 40px;
+}
+
+.of-esquema-pagina {
+  position: absolute;
+  top: 40px;
+  left: 12px;
+  right: 48px;
+  bottom: 52px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.of-esquema-pagina span {
+  position: relative;
+  flex: 1;
+  border-radius: 4px;
+  background: var(--superficie);
+}
+
+.of-esquema-pagina span::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px dashed var(--linha);
+  border-radius: 2px;
+}
+
+.of-esquema-abas {
+  position: absolute;
+  right: 0;
+  bottom: 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.of-esquema-abas span {
+  width: 28px;
+  height: 26px;
+  border: 1.5px solid var(--linha);
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
+  background: var(--superficie);
+}
+
+.of-esquema-abas span:first-child {
+  width: 34px;
+  background: var(--acento);
+  border-color: var(--acento);
+}
+
+.of-esquema-rodape {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  height: 28px;
+  border-radius: 4px;
+  background: var(--acento);
+}
+
+.of-esquema-legenda {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.of-esquema-legenda li {
+  padding-left: 12px;
+  border-left: 3px solid var(--linha);
+}
+
+.of-poses {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 16px 10px;
+}
+
+.of-pose {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.of-pose .of-etiqueta-lona {
+  align-self: flex-start;
+  padding: 8px;
+}
+
+.of-pose .cg-mascote {
+  width: 96px;
+}
+
+.of-uma-cor-mostra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.of-uma-cor-mostra .cg-mascote {
+  width: 48px;
+}
+
+.of-frases {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.of-frases li {
+  padding: 10px 12px;
+  border-left: 3px solid var(--acento);
+  background: var(--superficie);
+  border-radius: 0 6px 6px 0;
+  font-family: var(--of-fonte);
+}
+
+.of-amostra-tipo {
+  padding: 8px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.of-amostra-tipo:first-child {
+  border-top-color: transparent;
+}
+
+.of-paragrafos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.of-paragrafos ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 1rem;
+  list-style: square;
+}
+
+/* Site: as categorias da lista pronta numa só etiqueta costurada. */
+.of-site-categoria + .of-site-categoria {
+  border-top: 1px solid var(--linha);
+  padding-top: 8px;
+}
+
+/* Caminho de arquivo: cadeia longa sem espaço, pode quebrar em qualquer ponto. */
+.of-caminho {
+  overflow-wrap: anywhere;
+}
+
+/* Em 200 %, a dica usa a largura toda: ícone em cima, texto e botão embaixo. */
+html[data-fonte="200"] .of-dica {
+  grid-template-columns: minmax(min-content, 1fr);
+}
+
+html[data-fonte="200"] .of-dica .of-texto-botao {
+  grid-column: 1;
+  margin-left: -8px;
+}

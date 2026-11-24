@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.5"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="5">
+<div class="cl-app">
+  <header class="cl-topo">
+    <a class="cl-voltar volta-origem" href="04-lista.html"><span data-icone="voltar"></span><span data-texto="acao.voltar"></span></a>
+    <p class="cl-topo-viagem" data-dado="lista.cabecalho"></p>
+    <span data-mascote="uma-cor"></span>
+  </header>
+  <main class="cl-conteudo">
+    <div class="cl-bloco">
+      <p class="cl-rotulo" id="rotulo-categoria"></p>
+      <h1 class="cl-h1" id="nome"></h1>
+    </div>
+
+    <section class="cl-cartao cl-bloco" id="bloco-motivo" aria-labelledby="rotulo-motivo">
+      <p class="cl-estado cl-estado--ciente cl-ativo"><span data-icone="camping"></span><span id="rotulo-motivo" data-texto="cl.item.origem"></span></p>
+      <p><span class="cl-forte" data-texto="campo.motivo"></span></p>
+      <p id="motivo"></p>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-quantidade" id="bloco-quantidade">
+      <h2 class="cl-rotulo" id="rotulo-quantidade" data-texto="campo.quantidade"></h2>
+      <div class="cl-cartao cl-cartao--lista">
+        <div class="cl-contador">
+          <span class="cl-contador-rotulo cl-forte" id="detalhe"></span>
+          <div class="cl-contador-controles" role="group" aria-labelledby="rotulo-quantidade">
+            <button type="button" class="cl-alternar" id="menos" data-texto-aria="opcao.menos"><span data-icone="menos"></span></button>
+            <output class="cl-contador-valor" id="quantidade" aria-live="polite"></output>
+            <button type="button" class="cl-alternar" id="mais" data-texto-aria="opcao.mais"><span data-icone="mais"></span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-tarefa" id="bloco-tarefa" hidden>
+      <h2 class="cl-rotulo" id="rotulo-tarefa" data-texto="campo.quantidade"></h2>
+      <p class="cl-cartao" id="tarefa"></p>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-estado">
+      <h2 class="cl-rotulo" id="rotulo-estado" data-texto="cl.item.estado"></h2>
+      <div class="cl-fichas" role="group" aria-labelledby="rotulo-estado">
+        <button type="button" class="cl-ficha cl-ficha--separei" id="b-separei"><span data-icone="separei"></span><span data-texto="estado.separei"></span></button>
+        <button type="button" class="cl-ficha cl-ficha--carro" id="b-carro"><span data-icone="carro"></span><span data-texto="estado.carro"></span></button>
+      </div>
+      <p class="cl-estado" id="estado-atual"></p>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-comprar">
+      <button type="button" class="cl-ligacao cl-caixa-marcar" id="b-comprar" aria-labelledby="rotulo-comprar" aria-describedby="dica-comprar">
+        <span class="cl-caixa"><span data-icone="ciente"></span></span>
+        <span class="cl-ligacao-texto">
+          <span class="cl-forte" id="rotulo-comprar" data-texto="estado.comprar"></span>
+          <span class="cl-suave cl-pequeno" id="dica-comprar" data-texto="cl.item.comprar_dica"></span>
+        </span>
+        <span class="cl-estado--comprar" data-icone="comprar"></span>
+      </button>
+      <p class="cl-estado cl-estado--comprar cl-ativo" id="marca-comprar" hidden><span data-icone="comprar"></span><span data-texto="estado.comprar"></span></p>
+    </section>
+
+    <label class="cl-campo">
+      <span class="cl-rotulo" data-texto="campo.nota"></span>
+      <textarea class="cl-entrada" id="nota" data-texto-placeholder="cl.item.nota_dica"></textarea>
+    </label>
+
+    <section class="cl-bloco">
+      <button type="button" class="cl-botao" id="remover"><span data-icone="remover"></span><span data-texto="acao.remover"></span></button>
+      <div class="cl-cartao cl-bloco" id="confirmar" hidden>
+        <p id="pergunta-remover" data-texto="cl.item.remover_pergunta"></p>
+        <div class="cl-fichas">
+          <button type="button" class="cl-botao" id="sim-remover"><span data-icone="remover"></span><span data-texto="acao.remover"></span></button>
+          <button type="button" class="cl-botao" id="nao-remover" data-texto="cl.item.manter"></button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div class="cl-base">
+    <div class="cl-acao">
+      <a class="cl-botao cl-botao--principal volta-origem" href="04-lista.html" data-texto="cl.item.pronto"></a>
+    </div>
+    <nav class="cl-abas" data-texto-aria="cl.abas">
+      <a class="cl-aba" href="04-lista.html" aria-current="page"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="lista"></span></span><span class="cl-aba-texto" data-texto="area.lista"></span></a>
+      <a class="cl-aba" href="03-alertas.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="camping"></span></span><span class="cl-aba-texto" data-texto="area.camping"></span></a>
+      <a class="cl-aba" href="11-grupo.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="grupo"></span></span><span class="cl-aba-texto" data-texto="area.grupo"></span></a>
+      <a class="cl-aba" href="12-gastos.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="gastos"></span></span><span class="cl-aba-texto" data-texto="area.gastos"></span></a>
+    </nav>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* Sem parâmetro, o item é o de telas.md (itemDetalhe); com ?item=, qualquer item da lista. */
+  var busca = new URLSearchParams(window.location.search);
+  var detalhe = C.dado("itemDetalhe");
+  var id = busca.get("item") || detalhe.item;
+  var it = C.item(id) || C.item(detalhe.item);
+  var ehDetalhe = it.id === detalhe.item;
+
+  /* Voltar para a tela de onde veio (só telas desta pasta). */
+  var de = busca.get("de");
+  if (de && /^\d\d-[a-z-]+\.html$/.test(de)) {
+    Array.prototype.forEach.call(document.querySelectorAll(".volta-origem"), function (a) { a.setAttribute("href", de); });
+  }
+
+  var estados = C.guardado.ler("clareira.estados", {}) || {};
+  var comprar = C.guardado.ler("clareira.comprar", {}) || {};
+  var quantidades = C.guardado.ler("clareira.quantidades", {}) || {};
+  var notas = C.guardado.ler("clareira.notas", {}) || {};
+
+  $("rotulo-categoria").setAttribute("data-texto", "categoria." + it.categoria);
+  $("nome").textContent = ehDetalhe ? detalhe.nome : it.nome;
+
+  if (ehDetalhe || it.motivo) {
+    $("motivo").textContent = ehDetalhe ? detalhe.motivo : it.motivo;
+  } else {
+    $("bloco-motivo").hidden = true;
+  }
+
+  /* Quantidade: número com menos e mais; itens-tarefa mostram a tarefa. */
+  var base = ehDetalhe ? detalhe.quantidade : it.quantidade;
+  if (base === null || base === undefined) {
+    $("bloco-quantidade").hidden = true;
+    $("bloco-tarefa").hidden = false;
+    $("tarefa").textContent = it.quantidadeTexto;
+  } else {
+    var q = Object.prototype.hasOwnProperty.call(quantidades, it.id) ? quantidades[it.id] : base;
+    var unidade = ehDetalhe ? detalhe.detalhe : it.unidade;
+    if (unidade) $("detalhe").textContent = unidade;
+    var pintarQ = function () {
+      $("quantidade").textContent = String(q);
+      $("quantidade").setAttribute("aria-label", C.texto("cl.item.quantidade_valor", { valor: q }));
+      $("menos").disabled = q <= 1;
+    };
+    $("menos").addEventListener("click", function () { if (q > 1) { q--; quantidades[it.id] = q; C.guardado.gravar("clareira.quantidades", quantidades); pintarQ(); } });
+    $("mais").addEventListener("click", function () { q++; quantidades[it.id] = q; C.guardado.gravar("clareira.quantidades", quantidades); pintarQ(); });
+    pintarQ();
+  }
+
+  /* Estado: separei e está no carro, com ícone e texto. */
+  function estado() { return Object.prototype.hasOwnProperty.call(estados, it.id) ? estados[it.id] : (ehDetalhe ? detalhe.estado : it.estado); }
+  function pintarEstado() {
+    var e = estado();
+    $("b-separei").setAttribute("aria-pressed", e === "separei" || e === "carro" ? "true" : "false");
+    $("b-carro").setAttribute("aria-pressed", e === "carro" ? "true" : "false");
+    var linha = $("estado-atual");
+    var chave = e === "carro" ? "carro" : e === "separei" ? "separei" : "a_separar";
+    linha.className = "cl-estado cl-ativo cl-estado--" + chave;
+    linha.innerHTML = "";
+    linha.appendChild(I.criar(chave === "a_separar" ? "nao_conferido" : chave));
+    var t = document.createElement("span");
+    t.setAttribute("data-texto", chave === "separei" ? "estado.separei_falado" : "estado." + chave);
+    linha.appendChild(t);
+  }
+  function mudar(novo) {
+    estados[it.id] = novo;
+    if (novo === it.estado) delete estados[it.id];
+    C.guardado.gravar("clareira.estados", estados);
+    pintarEstado();
+    C.anunciar(C.nomeFalado(it, novo));
+  }
+  $("b-separei").addEventListener("click", function () { mudar($("b-separei").getAttribute("aria-pressed") === "true" ? "a_separar" : "separei"); });
+  $("b-carro").addEventListener("click", function () { mudar($("b-carro").getAttribute("aria-pressed") === "true" ? "separei" : "carro"); });
+  pintarEstado();
+
+  /* Preciso comprar: mostra a marca, sem mudar o estado. */
+  function pintarComprar() {
+    var c = Object.prototype.hasOwnProperty.call(comprar, it.id) ? comprar[it.id] : (ehDetalhe ? detalhe.comprar : false);
+    $("b-comprar").setAttribute("aria-pressed", c ? "true" : "false");
+    $("marca-comprar").hidden = !c;
+  }
+  $("b-comprar").addEventListener("click", function () {
+    comprar[it.id] = $("b-comprar").getAttribute("aria-pressed") !== "true";
+    if (!comprar[it.id]) delete comprar[it.id];
+    C.guardado.gravar("clareira.comprar", comprar);
+    pintarComprar();
+  });
+  pintarComprar();
+
+  /* Nota. */
+  $("nota").value = Object.prototype.hasOwnProperty.call(notas, it.id) ? notas[it.id] : (ehDetalhe ? detalhe.nota : "");
+  $("nota").addEventListener("input", function () { notas[it.id] = $("nota").value; C.guardado.gravar("clareira.notas", notas); });
+
+  /* Remover da lista: pergunta antes; a lista mostra "desfazer". */
+  $("pergunta-remover").setAttribute("data-valores", JSON.stringify({ nome: $("nome").textContent }));
+  $("remover").addEventListener("click", function () {
+    $("confirmar").hidden = false;
+    $("remover").hidden = true;
+    $("nao-remover").focus();
+  });
+  $("nao-remover").addEventListener("click", function () {
+    $("confirmar").hidden = true;
+    $("remover").hidden = false;
+    $("remover").focus();
+  });
+  $("sim-remover").addEventListener("click", function () {
+    var removidos = C.guardado.ler("clareira.removidos", []) || [];
+    if (removidos.indexOf(it.id) < 0) removidos.push(it.id);
+    C.guardado.gravar("clareira.removidos", removidos);
+    C.guardado.gravar("clareira.removidoAgora", it.id);
+    window.location.href = "04-lista.html";
+  });
+})();
+</script>
+</body>
+</html>

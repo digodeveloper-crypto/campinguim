@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.1"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="1">
+<div class="of-app of-sem-abas" id="app">
+<main class="of-pagina of-abertura">
+  <div class="of-abertura-miolo">
+    <div class="of-etiqueta-lona of-costura of-abertura-etiqueta"><span data-mascote="principal" data-mascote-texto=""></span></div>
+    <div class="of-cabeca">
+      <h1 class="of-h1" data-texto="app.nome"></h1>
+      <p class="of-corpo" data-texto="oficina.abertura.frase"></p>
+      <p class="of-rotulo" data-texto="oficina.abertura.sem_cadastro"></p>
+    </div>
+  </div>
+</main>
+<footer class="of-rodape of-rodape--coluna">
+  <a class="of-botao" href="02-criar-viagem.html"><span class="of-ilhos" aria-hidden="true"></span><span data-texto="acao.comecar"></span></a>
+  <a class="of-texto-botao" href="15-site.html"><span data-texto="acao.ver_site"></span></a>
+</footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+
+var C = window.CAMPINGUIM;
+var OF = (function () {
+  "use strict";
+  var raiz = document.documentElement;
+  var app = document.getElementById("app");
+
+  function t(chave, valores) {
+    var v = C.texto(chave, valores);
+    if (v === null) { if (window.console) console.error("[oficina] chave sem texto:", chave); return "[" + chave + "]"; }
+    return v;
+  }
+
+  /* Cria um elemento: el("li", { class: "x", "data-texto": "k" }, [filhos ou texto de dados]). */
+  function el(tag, atributos, filhos) {
+    var e = document.createElement(tag);
+    if (atributos) Object.keys(atributos).forEach(function (k) {
+      var v = atributos[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === "texto") e.textContent = v;
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    (filhos || []).forEach(function (f) { if (f) e.appendChild(typeof f === "string" ? document.createTextNode(f) : f); });
+    return e;
+  }
+
+  function icone(nome, classe) { return el("span", { "data-icone": nome, "class": classe || null }); }
+
+  /* Lado das divisórias (guardado no navegador, com tentativa protegida). */
+  var botaoLado = document.querySelector(".of-trocar");
+  function lado(l) {
+    raiz.setAttribute("data-of-lado", l);
+    if (botaoLado) botaoLado.setAttribute("aria-pressed", l === "esquerda" ? "true" : "false");
+  }
+  lado(C.guardado.ler("oficina.lado", "direita") === "esquerda" ? "esquerda" : "direita");
+  if (botaoLado) botaoLado.addEventListener("click", function () {
+    var novo = raiz.getAttribute("data-of-lado") === "esquerda" ? "direita" : "esquerda";
+    lado(novo);
+    C.guardado.gravar("oficina.lado", novo);
+    C.anunciar(t(novo === "esquerda" ? "oficina.lado_esquerda" : "oficina.lado_direita"));
+  });
+
+  /* Altura do rodapé: as divisórias ficam logo acima dele e a página reserva o espaço. */
+  var rodape = document.querySelector(".of-rodape");
+  function medir() {
+    if (!app) return;
+    app.style.setProperty("--of-rodape-h", (rodape && !rodape.hidden ? rodape.offsetHeight : 0) + "px");
+  }
+  medir();
+  if (window.ResizeObserver && rodape) new ResizeObserver(medir).observe(rodape);
+  window.addEventListener("resize", medir);
+
+  /* Os parâmetros do avaliador (tema, fonte, moldura, avaliador) seguem nas ligações internas. */
+  var SEGUEM = ["tema", "fonte", "moldura", "avaliador"];
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+    if (!a) return;
+    var href = a.getAttribute("href");
+    if (!href || /^[a-z]+:/i.test(href) || href.charAt(0) === "#" || href.indexOf(".html") < 0 || href.indexOf("../") === 0) return;
+    try {
+      var atual = new URLSearchParams(window.location.search);
+      var partes = href.split("#");
+      var base = partes[0].split("?");
+      var novos = new URLSearchParams(base[1] || "");
+      SEGUEM.forEach(function (p) { if (atual.has(p) && !novos.has(p)) novos.set(p, atual.get(p)); });
+      var q = novos.toString();
+      a.setAttribute("href", base[0] + (q ? "?" + q : "") + (partes[1] ? "#" + partes[1] : ""));
+    } catch (e) { /* segue a ligação como está */ }
+  }, true);
+
+  function parametro(nome) {
+    try { return new URLSearchParams(window.location.search).get(nome); } catch (e) { return null; }
+  }
+
+  return { t: t, el: el, icone: icone, parametro: parametro, medir: medir, app: app };
+})();
+
+
+</script>
+</body>
+</html>

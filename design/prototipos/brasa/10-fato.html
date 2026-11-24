@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.10"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="10">
+<header class="br-tela br-topo br-topo--empilhada">
+  <p class="br-momento"><span data-icone="camping"></span><span id="momento" data-texto="brasa.momento_antes"></span></p>
+  <p class="br-destaque" data-dado="camping.nome"></p>
+  <p class="br-onde" id="confirmado" data-texto="mensagem.confirmado_por"></p>
+</header>
+<div class="br-tela br-atras" aria-hidden="true"></div>
+<main class="br-tela br-folha br-folha--empilhada">
+  <div class="br-alca">
+    <span class="br-alca-marca"><span data-mascote="uma-cor"></span></span>
+    <span class="br-alca-traco" aria-hidden="true"></span>
+    <a class="br-fechar" id="fechar" href="03-alertas.html" data-fechar><span data-icone="fechar"></span><span data-texto="acao.fechar"></span></a>
+  </div>
+  <div class="br-corpo">
+    <h1 data-dado="fato.nome"></h1>
+
+    <div class="br-cartao br-fato">
+      <p class="br-rotulo" data-texto="brasa.valor_rotulo"></p>
+      <p class="br-fato-valor br-cor-carro"><span data-icone="ciente"></span><span data-dado="fato.valor"></span></p>
+      <dl class="br-fato-dados">
+        <div><dt class="br-rotulo" data-texto="brasa.frescor_rotulo"></dt><dd data-texto="fato.frescor.recente"></dd></div>
+        <div><dt class="br-rotulo" id="t-confirmacoes" data-texto="brasa.confirmacoes"></dt><dd id="ultima" data-texto="brasa.ultima"></dd></div>
+      </dl>
+    </div>
+
+    <p class="br-citacao" data-dado="fato.resumo"></p>
+
+    <section class="br-bloco" aria-labelledby="b-historico">
+      <h2 id="b-historico" data-texto="bloco.historico"></h2>
+      <ul class="br-cartao br-itens" id="historico"></ul>
+    </section>
+  </div>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+  var fato = C.dado("fato");
+
+  /* Esta folha abre por cima dos alertas (3) ou da estadia (7); fechar volta a quem abriu. */
+  var de = null;
+  try { de = new URLSearchParams(window.location.search).get("de"); } catch (e) { de = null; }
+  if (de === "7") {
+    document.getElementById("fechar").setAttribute("href", "07-estadia.html");
+    document.getElementById("momento").setAttribute("data-texto", "brasa.momento_camping");
+  }
+
+  document.getElementById("confirmado").setAttribute("data-valores", JSON.stringify({ n: C.dado("camping.confirmacoes") }));
+  document.getElementById("t-confirmacoes").setAttribute("data-valores", JSON.stringify({ n: fato.confirmacoes }));
+  document.getElementById("ultima").setAttribute("data-valores", JSON.stringify({ nome: fato.ultima.nome, mesAno: fato.ultima.mesAno }));
+
+  /* Histórico (P-08): a linha conhecida e "e mais 5 confirmações de 'cumprida'". */
+  var lista = document.getElementById("historico");
+  fato.historico.linhas.forEach(function (l) {
+    lista.appendChild(el("li", "br-item-simples", null, [
+      B.icone("pessoa", "br-cor-suave"),
+      el("span", "br-item-simples-texto", { "data-texto": "brasa.historico_linha", valores: { nome: l.nome, mesAno: l.mesAno, tipo: l.tipo } })
+    ]));
+  });
+  lista.appendChild(el("li", "br-item-simples", null, [
+    B.icone("grupo", "br-cor-suave"),
+    el("span", "br-item-simples-texto br-suave", { texto: fato.historico.outrasTexto })
+  ]));
+
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

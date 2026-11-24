@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="comparacao.titulo_pagina"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="_compartilhado/base.css">
+</head>
+<body data-pagina="comparacao">
+<div class="cg-ap">
+  <header class="cg-ap-cabeca">
+    <h1 data-texto="comparacao.titulo"></h1>
+    <p class="cg-ap-intro" data-texto="comparacao.intro"></p>
+    <nav data-texto-aria="apresentacao.navegar">
+      <ul class="cg-ap-nav">
+        <li><a class="cg-ap-botao" href="index.html" data-texto="apresentacao.inicio"></a></li>
+        <li><a class="cg-ap-botao" href="comparacao.html" aria-current="page" data-texto="apresentacao.comparacao"></a></li>
+        <li><a class="cg-ap-botao" href="avaliacao.html" data-texto="apresentacao.avaliacao"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="cg-ap-comparacao" id="colunas"></main>
+</div>
+
+<script src="_compartilhado/dados.js"></script>
+<script src="_compartilhado/textos.js"></script>
+<script src="_compartilhado/mascote.js"></script>
+<script src="_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM;
+  var area = document.getElementById("colunas");
+  var caixas = [];
+
+  function criar(tag, classe, atributos) {
+    var el = document.createElement(tag);
+    if (classe) el.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { el.setAttribute(k, atributos[k]); });
+    return el;
+  }
+
+  /* Mesma escala nos dez quadros: a do quadro mais estreito. */
+  function escalarTodos() {
+    var largura = Infinity;
+    caixas.forEach(function (c) { if (c.caixa.clientWidth > 0) largura = Math.min(largura, c.caixa.clientWidth); });
+    if (!isFinite(largura)) return;
+    var escala = largura / 390;
+    caixas.forEach(function (c) {
+      c.caixa.style.width = largura + "px";
+      c.quadro.style.transform = "scale(" + escala + ")";
+    });
+  }
+
+  function quadro(info, nome, tema) {
+    var figura = criar("figure", "cg-ap-quadro");
+    var caixa = criar("div", "cg-ap-amostra", { inert: "" });
+    var iframe = criar("iframe", "", {
+      src: info.pasta + "/" + info.ficha.amostra + "?moldura=0&avaliador=0&tema=" + tema,
+      title: C.texto("comparacao.quadro", { nome: nome, tema: C.texto("comparacao." + tema) }),
+      loading: "lazy",
+      tabindex: "-1"
+    });
+    caixa.appendChild(iframe);
+    figura.appendChild(caixa);
+    figura.appendChild(criar("figcaption", "", { "data-texto": "comparacao." + tema }));
+    caixas.push({ caixa: caixa, quadro: iframe });
+    return figura;
+  }
+
+  function coluna(info) {
+    var sec = criar("section", "cg-ap-coluna");
+    var nomeProprio = C.textoDaDirecao(info, "nome");
+    var nome = nomeProprio || C.texto("apresentacao.direcao_n", { n: info.posicao });
+    var titulo = criar("h2");
+    titulo.textContent = nome;
+    sec.appendChild(titulo);
+    if (!info.pronta) {
+      sec.appendChild(criar("p", "cg-ap-selo", { "data-texto": "apresentacao.em_producao" }));
+      return sec;
+    }
+    var quadros = criar("div", "cg-ap-quadros");
+    quadros.appendChild(quadro(info, nome, "claro"));
+    quadros.appendChild(quadro(info, nome, "escuro"));
+    sec.appendChild(quadros);
+    return sec;
+  }
+
+  C.carregarDirecoes(function (direcoes) {
+    direcoes.forEach(function (info) { area.appendChild(coluna(info)); });
+    caixas.forEach(function (c) { c.caixa.style.width = ""; });
+    escalarTodos();
+    var espera = null;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(espera);
+      espera = window.setTimeout(function () {
+        caixas.forEach(function (c) { c.caixa.style.width = ""; });
+        escalarTodos();
+      }, 100);
+    });
+  });
+})();
+</script>
+</body>
+</html>

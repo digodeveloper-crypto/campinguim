@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.15"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<style>
+  .cl-site .cl-cena { background: var(--fundo); padding-top: 40px; }
+  .cl-site-corpo { background: var(--superficie); }
+  .cl-site-oque { font-size: var(--cl-t-bloco); line-height: var(--cl-l-bloco); font-weight: 600; }
+  .cl-site .cl-cartao { background: var(--fundo); }
+  .cl-site-linha { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; min-height: 44px; padding: 10px 0; }
+  .cl-site .cl-caixa-marcar { border: 0; padding: 8px 0; background: transparent; }
+</style>
+</head>
+<body data-tela="15">
+<div class="cl-app cl-site">
+  <header class="cl-web-topo">
+    <span class="cl-marca"></span>
+    <span data-texto="app.nome"></span>
+  </header>
+  <div class="cl-cena">
+    <span class="cl-ceu"></span>
+    <span class="cl-cena-figura"><span data-mascote="principal" data-mascote-texto=""></span></span>
+    <span class="cl-copas" data-copas></span>
+  </div>
+  <main class="cl-conteudo cl-site-corpo">
+    <div class="cl-bloco">
+      <h1 class="cl-h1" data-texto="app.nome"></h1>
+      <p class="cl-site-oque" data-texto="site.oQueE"></p>
+    </div>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-lista">
+      <h2 class="cl-rotulo" id="rotulo-lista" data-texto="bloco.lista_pronta"></h2>
+      <p class="cl-suave" data-texto="cl.site.lista_intro"></p>
+      <p class="cl-forte" data-dado="site.resumoLista"></p>
+      <div class="cl-categorias" id="categorias"></div>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-espera">
+      <h2 class="cl-h2" id="rotulo-espera" data-texto="bloco.lista_espera"></h2>
+      <p class="cl-suave" data-texto="cl.site.lista_espera_intro"></p>
+      <form class="cl-bloco" id="espera" novalidate>
+        <label class="cl-campo">
+          <span class="cl-campo-rotulo" data-texto="campo.seu_email"></span>
+          <input class="cl-entrada" type="email" id="email" autocomplete="email" inputmode="email" aria-describedby="falta-email">
+        </label>
+        <p class="cl-estado cl-estado--atencao cl-ativo" id="falta-email" hidden><span data-icone="atencao"></span><span data-texto="cl.site.email_falta"></span></p>
+        <button type="button" class="cl-caixa-marcar" role="checkbox" aria-checked="false" id="consentimento">
+          <span class="cl-caixa"><span data-icone="ciente"></span></span>
+          <span data-texto="site.consentimento"></span>
+        </button>
+        <button type="submit" class="cl-botao cl-botao--principal" data-texto="acao.lista_espera"></button>
+      </form>
+      <p class="cl-aviso" id="espera-ok" tabindex="-1" hidden><span data-icone="ciente"></span><span data-texto="mensagem.lista_espera_ok"></span></p>
+    </section>
+  </main>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+  function txt(tag, classe, conteudo) { var e = el(tag, classe); e.textContent = conteudo; return e; }
+
+  /* A mesma lista da tela 4, só leitura, sem estados; categorias recolhíveis, todas fechadas. */
+  C.dado("lista.categorias").forEach(function (cat) {
+    var sec = el("section", "cl-categoria");
+    var id = "site-" + cat.id;
+    var cab = el("button", "cl-categoria-cabeca", { type: "button", "aria-expanded": "false", "aria-controls": id });
+    cab.appendChild(el("span", "cl-marca"));
+    cab.appendChild(el("span", "cl-categoria-nome", { "data-texto": "categoria." + cat.id }));
+    cab.appendChild(el("span", "cl-categoria-progresso", { "data-texto": cat.itens.length === 1 ? "cl.site.item" : "cl.site.itens", "data-valores": JSON.stringify({ n: cat.itens.length }) }));
+    cab.appendChild(I.criar("abrir"));
+    var corpo = el("ul", "cl-categoria-corpo cl-cartao cl-cartao--lista cl-linhas", { id: id });
+    corpo.hidden = true;
+    cat.itens.forEach(function (it) {
+      var li = el("li", "cl-site-linha");
+      li.appendChild(txt("span", "", it.nome));
+      li.appendChild(txt("span", "cl-suave cl-numero", it.quantidadeTexto));
+      corpo.appendChild(li);
+    });
+    cab.addEventListener("click", function () {
+      var abrir = cab.getAttribute("aria-expanded") !== "true";
+      cab.setAttribute("aria-expanded", abrir ? "true" : "false");
+      corpo.hidden = !abrir;
+    });
+    sec.appendChild(cab);
+    sec.appendChild(corpo);
+    $("categorias").appendChild(sec);
+  });
+
+  /* Lista de espera (P-18: só a caixa de consentimento, sem link de política). */
+  $("consentimento").addEventListener("click", function () {
+    var b = $("consentimento");
+    b.setAttribute("aria-checked", b.getAttribute("aria-checked") === "true" ? "false" : "true");
+  });
+  $("espera").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (!$("email").value.trim()) {
+      $("falta-email").hidden = false;
+      $("email").setAttribute("aria-invalid", "true");
+      $("email").focus();
+      return;
+    }
+    $("espera").hidden = true;
+    $("espera-ok").hidden = false;
+    $("espera-ok").focus();
+    C.anunciar(C.texto("mensagem.lista_espera_ok"));
+  });
+})();
+</script>
+</body>
+</html>

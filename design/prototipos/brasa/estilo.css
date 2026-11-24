@@ -1,0 +1,1563 @@
+/* Campinguim · protótipo Brasa · fogueira e noite (direcoes.md, direção 1).
+   Tema principal escuro; o claro é a "manhã de cinzas". Os 10 papéis de cor com os valores exatos de
+   direcoes.md, em :root e [data-tema="claro"] (claro) e em [data-tema="escuro"]; nenhuma cor fora deles,
+   exceto o apoio do mascote (#F3D9B8, tabela da direção) e a arte do mascote.
+   Elemento-assinatura: o brilho de brasa, um halo radial com a cor de acento a 12 %, atrás do único
+   elemento que pede ação na tela (.br-halo). Só um por tela.
+   Modelo de navegação: a metade de cima só para ler (.br-topo); a de baixo, uma folha que sobe (.br-folha),
+   com alça, ação principal no rodapé da folha e o seletor das 4 áreas na base.
+   Tamanhos em rem (a base muda a raiz para 100, 130 e 200 %). Cantos: 20 px nas folhas, 14 px nos botões. */
+
+:root,
+[data-tema="claro"] {
+  --fundo: #F6EFE6;
+  --superficie: #FFFDF9;
+  --texto: #23180F;
+  --texto-suave: #66513F;
+  --linha: #8F7863;
+  --acento: #9A4A12;
+  --sobre-acento: #FFFFFF;
+  --atencao: #A8341A;
+  --separei: #7A5B12;
+  --carro: #1F6B62;
+  /* Apoio do mascote: dispensado no claro (o corpo tem mais de 6:1 contra os fundos). */
+  --apoio-mascote: transparent;
+  color-scheme: light;
+}
+
+[data-tema="escuro"] {
+  --fundo: #15110E;
+  --superficie: #241D18;
+  --texto: #F7EDE0;
+  --texto-suave: #C8B6A3;
+  --linha: #8A735F;
+  --acento: #F3A847;
+  --sobre-acento: #1C1108;
+  --atencao: #FF8F6B;
+  --separei: #E9CF8E;
+  --carro: #9FD3C7;
+  /* Halo de fogueira: corpo do mascote #4A5560 contra ele, 5,59:1. */
+  --apoio-mascote: #F3D9B8;
+  color-scheme: dark;
+}
+
+/* O que está oculto fica oculto, qualquer que seja o display do componente. */
+.br-tela [hidden],
+.br-tela[hidden] {
+  display: none !important;
+}
+
+/* ---------- Tipografia ---------- */
+
+body {
+  font-family: var(--cg-fonte-atkinson);
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+  font-weight: 400;
+}
+
+.br-tela,
+.br-tela * {
+  box-sizing: border-box;
+}
+
+.br-tela h1,
+.br-tela h2,
+.br-tela h3,
+.br-tela p,
+.br-tela ul,
+.br-tela ol,
+.br-tela dl,
+.br-tela dd,
+.br-tela figure {
+  margin: 0;
+  padding: 0;
+}
+
+.br-tela ul,
+.br-tela ol {
+  list-style: none;
+}
+
+.br-titulo,
+.br-tela h1 {
+  font-family: var(--cg-fonte-fraunces);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-optical-sizing: auto;
+  font-weight: 560;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  letter-spacing: -0.005em;
+  color: var(--texto);
+  overflow-wrap: anywhere;
+}
+
+.br-tela h2,
+.br-bloco-titulo {
+  font-family: var(--cg-fonte-fraunces);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-optical-sizing: auto;
+  font-weight: 560;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+  color: var(--texto);
+}
+
+.br-tela h3 {
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+  font-weight: 700;
+}
+
+.br-rotulo {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+.br-suave {
+  color: var(--texto-suave);
+}
+
+.br-numero {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Ícones ---------- */
+
+.br-icone {
+  display: inline-flex;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 0;
+}
+
+.br-icone svg,
+svg.br-i {
+  width: 100%;
+  height: 100%;
+}
+
+/* Estado ativo: preenchido. Partes vazadas desenhadas na cor da superfície, por cima do preenchimento. */
+.br-ativo .br-i-cheio,
+[aria-pressed="true"] .br-i-cheio {
+  fill: currentColor;
+}
+
+.br-ativo .br-i-vazado,
+[aria-pressed="true"] .br-i-vazado {
+  stroke: var(--superficie);
+}
+
+/* ---------- Tela: metade de cima para ler, folha que sobe para tocar ---------- */
+
+.br-topo {
+  position: relative;
+  z-index: 0;
+  min-height: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: calc(1.5rem + var(--cg-seguro-topo)) 1.25rem 1.75rem;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.br-topo--empilhada {
+  min-height: calc(40% - 1.25rem);
+}
+
+.br-topo-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.br-topo-texto {
+  display: flex;
+  flex: 1 1 12rem;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.br-momento {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+.br-onde {
+  color: var(--texto-suave);
+}
+
+.br-destaque {
+  font-family: var(--cg-fonte-fraunces);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-optical-sizing: auto;
+  font-weight: 560;
+  font-size: min(2.25rem, 12cqi);
+  line-height: 1.17;
+  color: var(--texto);
+  overflow-wrap: anywhere;
+}
+
+.br-frase {
+  color: var(--texto);
+}
+
+/* A folha de baixo, que fica atrás quando outra folha abre por cima: aparece só a borda. */
+.br-atras {
+  position: relative;
+  z-index: 1;
+  height: 1.25rem;
+  margin: 0 0.875rem;
+  border-radius: 20px 20px 0 0;
+  background: var(--superficie);
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.br-atras::before {
+  content: "";
+  width: 2rem;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--linha);
+}
+
+.br-folha {
+  position: relative;
+  z-index: 1;
+  min-height: 60%;
+  /* O rodapé fica preso ao pé da tela: a folha reserva o espaço dele (medido por icones.js). */
+  padding-bottom: var(--br-rodape-altura, 0px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px 20px 0 0;
+  background: var(--superficie);
+  color: var(--texto);
+  transition: transform 160ms ease-out;
+}
+
+.br-folha--empilhada {
+  box-shadow: 0 -6px 18px color-mix(in srgb, var(--fundo) 70%, transparent);
+}
+
+.br-folha.br-arrastando {
+  transition: none;
+}
+
+.br-folha:focus,
+.br-folha h1:focus,
+.br-folha h2:focus {
+  outline: none;
+}
+
+/* Alça: traço de arrastar no alto, centrado; abaixo dele, a marca do mascote (uma cor) à esquerda e o
+   "fechar" de 48 px à direita. O traço fica acima da linha dos dois, então a letra grande não o faz
+   cruzar o botão. */
+.br-alca {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 28px;
+  padding: 20px 0.75rem 0 1.25rem;
+  touch-action: none;
+}
+
+.br-alca-traco {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 2.5rem;
+  max-width: 40px;
+  height: 5px;
+  margin-left: -20px;
+  border-radius: 3px;
+  background: var(--linha);
+}
+
+.br-alca-marca {
+  display: flex;
+  align-items: center;
+}
+
+.br-alca .cg-mascote,
+.br-marca-mascote .cg-mascote {
+  width: 2rem;
+}
+
+.cg-mascote[data-arte="uma-cor"] path {
+  fill: var(--texto-suave);
+}
+
+.br-fechar {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 3rem;
+  min-width: 3rem;
+  padding: 0 0.75rem 0 0.5rem;
+  border-radius: 14px;
+  color: var(--texto);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: inset 0 0 0 2px var(--linha);
+}
+
+.br-corpo {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0.75rem 1.25rem 1.75rem;
+}
+
+.br-cabeca-folha {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Rodapé da folha: a ação principal e, na base, o seletor das áreas. Fica preso ao pé da tela. */
+.br-rodape {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem calc(1rem + var(--cg-seguro-baixo));
+  background: var(--superficie);
+  box-shadow: 0 -1px 0 var(--fundo);
+}
+
+.br-rodape-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.br-rodape-acoes > * {
+  flex: 1 1 9rem;
+}
+
+/* ---------- Brilho de brasa (assinatura): um por tela, atrás do que pede ação ---------- */
+
+.br-halo {
+  position: relative;
+  isolation: isolate;
+}
+
+.br-halo::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2.25rem -1.25rem;
+  pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--acento) 12%, transparent), transparent);
+}
+
+/* ---------- Botões ---------- */
+
+.br-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 14px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font: inherit;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.br-botao--secundario {
+  background: transparent;
+  color: var(--texto);
+  box-shadow: inset 0 0 0 2px var(--linha);
+}
+
+.br-botao--discreto {
+  width: auto;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.75rem;
+  background: transparent;
+  color: var(--texto);
+  font-weight: 400;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.br-botao--pequeno {
+  width: auto;
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.br-botao--pequeno.br-botao--secundario[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+/* ---------- Blocos dentro da folha ---------- */
+
+.br-bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.br-bloco-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+/* Cartão sem borda: separado da folha pelo tom (o fundo, mais escuro no tema escuro). */
+.br-cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 14px;
+  background: var(--fundo);
+}
+
+.br-pilha {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Linha alta (64 px), cartão sem borda; à direita, as marcas de estado. */
+.br-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  min-height: 4rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-radius: 14px;
+  background: var(--fundo);
+}
+
+.br-linha-nome {
+  flex: 1 1 11rem;
+  min-width: 0;
+  min-height: 2.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: var(--texto);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+a.br-linha-nome:hover .br-linha-titulo {
+  text-decoration: underline;
+}
+
+.br-linha-titulo {
+  font-weight: 400;
+}
+
+.br-linha-detalhe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+.br-linha-acoes {
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 100%;
+  min-width: 0;
+  margin-left: auto;
+}
+
+/* Estado com ícone E texto (DSG-10). */
+.br-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+
+.br-estado .br-icone {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.br-tela .br-cor-separei { color: var(--separei); }
+.br-tela .br-cor-carro { color: var(--carro); }
+.br-tela .br-cor-atencao { color: var(--atencao); }
+.br-tela .br-cor-suave { color: var(--texto-suave); }
+.br-tela .br-cor-texto { color: var(--texto); }
+
+/* Marca de estado: botão de 44 px com ícone; preenchido quando ligado. */
+.br-marca {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--linha);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.br-marca .br-icone {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.br-marca[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+/* Alternância com ícone e texto (estado, "ciente", "eu levo", filtros...). */
+.br-alterna {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.5rem 0.875rem;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--texto);
+  box-shadow: inset 0 0 0 2px var(--linha);
+  font: inherit;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.br-alterna[aria-pressed="true"] {
+  box-shadow: inset 0 0 0 2px currentColor;
+}
+
+.br-alterna .br-icone {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* ---------- Seletor das 4 áreas (na base da folha principal) ---------- */
+
+.br-seletor-lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.25rem;
+  border-radius: 16px;
+  background: var(--fundo);
+}
+
+.br-seletor-lista > li {
+  flex: 1 1 3.75rem;
+  display: flex;
+}
+
+.br-seletor-area {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  min-height: 3.5rem;
+  padding: 0.25rem 0.25rem;
+  border-radius: 12px;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  text-decoration: none;
+  text-align: center;
+}
+
+.br-seletor-area[aria-current="page"] {
+  background: var(--superficie);
+  color: var(--texto);
+  font-weight: 700;
+}
+
+.br-seletor-nome {
+  overflow-wrap: normal;
+}
+
+/* ---------- Mascote ---------- */
+/* Só tamanho (width) e, na uma cor, o fill. No tema escuro, a versão colorida fica sobre o halo de
+   fogueira #F3D9B8: círculo difuso de borda esfumada, maciço por baixo de toda a figura. */
+
+.br-apoio {
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+}
+
+.br-apoio::before {
+  content: "";
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  z-index: -1;
+  background: radial-gradient(closest-side, var(--apoio-mascote) 62%, transparent);
+}
+
+.br-mascote-grande .cg-mascote {
+  width: min(11.5rem, 56cqi);
+}
+
+.br-mascote-medio .cg-mascote {
+  width: min(6rem, 30cqi);
+}
+
+.br-mascote-pequeno .cg-mascote {
+  width: min(4.5rem, 24cqi);
+}
+
+/* ---------- Campos (tela 2, 5, 9, 14, 15) ---------- */
+
+.br-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.br-campo-rotulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.5rem;
+  font-weight: 700;
+}
+
+.br-obrigatorio {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.br-entrada {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.625rem 0.875rem;
+  border: 0;
+  border-radius: 12px;
+  background: var(--fundo);
+  color: var(--texto);
+  box-shadow: inset 0 0 0 2px var(--linha);
+  font: inherit;
+}
+
+textarea.br-entrada {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.br-entrada::placeholder {
+  color: var(--texto-suave);
+  opacity: 1;
+}
+
+.br-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.br-opcoes > .br-alterna {
+  flex: 1 1 6rem;
+  justify-content: center;
+}
+
+/* Contador: menos · valor · mais. */
+.br-contador-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  min-height: 3.5rem;
+}
+
+.br-contador {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
+.br-contador-valor {
+  min-width: 2.5rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Lista simples dentro de cartão (regras, desmontagem...). */
+.br-itens > li + li {
+  border-top: 1px solid var(--linha);
+}
+
+.br-item-simples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 0;
+}
+
+.br-item-simples > .br-icone {
+  color: var(--texto-suave);
+}
+
+.br-item-simples-texto {
+  flex: 1 1 10rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Ligação em forma de linha, com seta. */
+.br-ligacao {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.br-ligacao-texto {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.br-ligacao-texto > span:first-child {
+  text-decoration: underline;
+  text-decoration-color: var(--linha);
+  text-underline-offset: 0.2em;
+}
+
+.br-ligacao > .br-icone:last-child {
+  color: var(--texto-suave);
+}
+
+/* Barra de progresso fina, com o texto ao lado (o número sempre escrito). */
+.br-progresso {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--linha);
+  overflow: hidden;
+}
+
+.br-progresso > span {
+  display: block;
+  height: 100%;
+  border-radius: 3px;
+  background: var(--carro);
+}
+
+/* ---------- Lista (tela 4) e checklist da volta (tela 8) ---------- */
+
+.br-filtros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  gap: 0.5rem;
+}
+
+.br-categoria {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.br-categoria-botao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.5rem 0.25rem;
+  border: 0;
+  background: transparent;
+  color: var(--texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.br-categoria-botao > .br-icone {
+  color: var(--texto-suave);
+  transition: transform 160ms ease-out;
+}
+
+.br-categoria-botao[aria-expanded="false"] > .br-icone {
+  transform: rotate(-90deg);
+}
+
+.br-categoria-nome {
+  flex: 1 1 8rem;
+  min-width: 0;
+  font-family: var(--cg-fonte-fraunces);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-weight: 560;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+  overflow-wrap: anywhere;
+}
+
+.br-categoria-progresso {
+  margin-left: auto;
+}
+
+.br-aviso-vazio {
+  color: var(--texto-suave);
+}
+
+/* ---------- Folha dentro da tela (por cima da folha da tela) ---------- */
+
+.br-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: color-mix(in srgb, var(--fundo) 72%, transparent);
+}
+
+.br-veu[hidden] {
+  display: none;
+}
+
+.br-folha-interna {
+  max-height: 88%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px 20px 0 0;
+  background: var(--superficie);
+  color: var(--texto);
+  box-shadow: 0 -6px 18px color-mix(in srgb, var(--fundo) 70%, transparent);
+  transition: transform 160ms ease-out;
+}
+
+.br-folha-interna[hidden] {
+  display: none;
+}
+
+.br-folha-interna .br-corpo {
+  overflow-y: auto;
+  flex: 1 1 auto;
+}
+
+/* ---------- Páginas web (telas 14 e 15): página corrida de uma coluna, sem folhas ---------- */
+
+.br-pagina {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: calc(1rem + var(--cg-seguro-topo)) 1.25rem calc(2rem + var(--cg-seguro-baixo));
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.br-pagina-cabeca {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+}
+
+.br-marca-nome {
+  font-family: var(--cg-fonte-fraunces);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-weight: 560;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+}
+
+.br-pagina .br-cartao {
+  background: var(--superficie);
+}
+
+.br-pagina .br-linha {
+  background: var(--superficie);
+}
+
+.br-caixa {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-height: 2.75rem;
+  cursor: pointer;
+}
+
+/* Caixa de marcar: o campo nativo cobre o alvo de 44 px; o desenho é a marca ao lado. */
+.br-caixa-alvo {
+  position: relative;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.br-caixa-alvo input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.br-caixa-marca {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: var(--fundo);
+  box-shadow: inset 0 0 0 2px var(--linha);
+  color: var(--sobre-acento);
+  pointer-events: none;
+}
+
+.br-caixa-marca .br-icone {
+  visibility: hidden;
+}
+
+.br-caixa-alvo input:checked + .br-caixa-marca {
+  background: var(--acento);
+  box-shadow: none;
+}
+
+.br-caixa-alvo input:checked + .br-caixa-marca .br-icone {
+  visibility: visible;
+}
+
+.br-caixa-alvo input:focus-visible + .br-caixa-marca {
+  outline: 3px solid var(--texto);
+  outline-offset: 2px;
+}
+
+.br-caixa-texto {
+  padding-top: 0.55rem;
+}
+
+/* ---------- Abertura (tela 1) ---------- */
+
+.br-topo--abertura {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 55%;
+  gap: 1.25rem;
+}
+
+.br-folha--abertura {
+  min-height: 45%;
+}
+
+.br-folha--abertura .br-corpo {
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.br-tela .br-nome-app {
+  font-size: min(2.5rem, 10.5cqi);
+  line-height: 1.15;
+}
+
+.br-folha--abertura .br-frase {
+  font-family: var(--cg-fonte-fraunces);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-weight: 560;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+}
+
+/* ---------- Página de identidade ---------- */
+
+.br-amostras {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+}
+
+.br-amostra {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.br-cor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: 0.5rem;
+  border-radius: 12px;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.br-cor-pastilha {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px var(--linha);
+}
+
+.br-cor-valor {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.br-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.br-tabela th,
+.br-tabela td {
+  padding: 0.5rem 0.25rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--linha);
+}
+
+.br-tabela td.br-numero {
+  text-align: right;
+}
+
+.br-icones-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 6.5rem), 1fr));
+  gap: 0.5rem;
+}
+
+.br-icones-grade > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.75rem 0.25rem;
+  border-radius: 12px;
+  background: var(--fundo);
+  text-align: center;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  overflow-wrap: anywhere;
+}
+
+.br-icones-par {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.br-esquema {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+}
+
+.br-esquema-celular {
+  width: 11rem;
+  border-radius: 1.25rem;
+  padding: 0.375rem;
+  background: var(--fundo);
+  box-shadow: inset 0 0 0 2px var(--linha);
+}
+
+.br-esquema-topo {
+  display: flex;
+  align-items: flex-end;
+  height: 6rem;
+  padding: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+.br-esquema-atras {
+  height: 0.75rem;
+  margin: 0 0.5rem;
+  border-radius: 0.75rem 0.75rem 0 0;
+  background: var(--superficie);
+}
+
+.br-esquema-folha {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  padding: 0.5rem;
+  border-radius: 0.75rem 0.75rem 0.5rem 0.5rem;
+  background: var(--superficie);
+  box-shadow: 0 -3px 8px color-mix(in srgb, var(--fundo) 70%, transparent);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.br-esquema-faixa {
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  background: var(--fundo);
+}
+
+.br-esquema-botao {
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  text-align: center;
+  font-weight: 700;
+}
+
+.br-esquema-areas {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.br-esquema-areas > span {
+  flex: 1;
+  height: 0.75rem;
+  border-radius: 0.25rem;
+  background: var(--fundo);
+}
+
+.br-mascotes-uso {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9rem), 1fr));
+  gap: 0.75rem;
+}
+
+.br-mascotes-uso > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0.5rem;
+  border-radius: 14px;
+  background: var(--fundo);
+  color: var(--texto);
+  text-align: center;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.br-mascotes-uso .cg-mascote {
+  width: 5rem;
+}
+
+.br-citacao {
+  padding-left: 1rem;
+  border-left: 3px solid var(--acento);
+}
+
+.br-perguntas {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Ajustes finos ---------- */
+
+.br-estado-titulo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.br-desfeito .br-linha-titulo {
+  text-decoration: line-through;
+  color: var(--texto-suave);
+}
+
+.br-bloco-linha {
+  display: block;
+}
+
+.br-rotulo-bloco {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+.br-categoria-h {
+  font: inherit;
+}
+
+.br-alerta {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.br-alerta-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.br-alerta > .br-icone {
+  margin-top: 0.1rem;
+}
+
+.br-bloco-mascote {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.br-rotulo-categoria {
+  margin-top: 0.75rem;
+  font-weight: 700;
+}
+
+.br-escolha {
+  width: 100%;
+  border: 0;
+  color: var(--texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.br-linha.br-escolha {
+  padding-right: 1rem;
+}
+
+.br-linha.br-pendente {
+  box-shadow: inset 3px 0 0 var(--acento);
+}
+
+.br-linha-acoes--largas {
+  flex: 1 1 100%;
+  margin-left: 0;
+}
+
+.br-largo {
+  width: 100%;
+  justify-content: flex-start;
+  min-height: 3rem;
+}
+
+.br-alterna--medio,
+.br-botao--medio {
+  min-height: 3rem;
+}
+
+.br-opcoes--coluna {
+  flex-direction: column;
+}
+
+.br-opcoes--coluna > .br-alterna {
+  justify-content: flex-start;
+  flex: none;
+}
+
+.br-fato-valor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--cg-fonte-fraunces);
+  font-variation-settings: "SOFT" 100, "WONK" 0;
+  font-weight: 560;
+  font-size: min(1.875rem, 11cqi);
+  line-height: 1.2;
+  flex-wrap: wrap;
+}
+
+.br-fato-valor .br-icone {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.br-fato-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.br-fato-dados > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 1rem;
+}
+
+.br-fato-dados dd {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+/* A chave é um código que não pode quebrar: cresce com a fonte até caber na largura da tela. */
+.br-chave {
+  font-weight: 700;
+  font-size: min(1.0625rem, 5.4cqi);
+  white-space: nowrap;
+}
+
+.br-gasto {
+  gap: 0.25rem;
+}
+
+.br-gasto-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.br-gasto-valor {
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+}
+
+.br-recebe {
+  flex-direction: row;
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+}
+
+.br-site-abertura {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-top: 1rem;
+}
+
+.br-site-mascote {
+  margin: 0.5rem 0 0.25rem 0.5rem;
+}
+
+.br-site-oquee {
+  font-size: 1.3125rem;
+  line-height: 1.875rem;
+}
+
+.br-site-qtd {
+  margin-left: auto;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+}
+
+.br-pagina .br-categoria-botao {
+  padding-left: 0;
+}
+
+.br-lista-pontos > li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+
+.br-lista-pontos > li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.7rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acento);
+}
+
+.br-tabela-caixa {
+  overflow-x: auto;
+}
+
+.br-amostra-papel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--linha);
+}
+
+.br-cor-tema {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.br-id-escuro {
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.br-regra-texto {
+  display: flex;
+  flex: 1 1 10rem;
+  flex-direction: column;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Opção escolhida: além da borda, um ponto (não depende de cor). */
+.br-opcoes > .br-alterna[aria-pressed="true"]:not(:has(.br-icone))::before {
+  content: "";
+  flex: none;
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.br-opcoes > .br-alterna[aria-pressed="true"] {
+  background: var(--fundo);
+}
+
+.br-rodape-acoes .br-botao {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.br-id-escuro {
+  color: var(--texto);
+}
+
+.br-linha-acoes--largas > .br-botao,
+.br-linha-acoes--largas > .br-alterna {
+  flex: 1 1 8rem;
+}
+
+/* Rodapé compacto com fonte ampliada: o texto cresce, os respiros e os ícones ficam fixos,
+   para a ação principal continuar nos 40 % de baixo da tela (topo abaixo de 506 px na moldura). */
+.br-rodape {
+  gap: 12px;
+  padding: 12px 20px calc(16px + var(--cg-seguro-baixo));
+}
+
+.br-rodape .br-botao {
+  min-height: 56px;
+  padding: 12px 16px;
+}
+
+.br-rodape .br-icone,
+.br-seletor-area .br-icone {
+  width: 24px;
+  height: 24px;
+}
+
+.br-seletor-lista {
+  gap: 8px;
+  padding: 4px;
+}
+
+.br-seletor-area {
+  min-height: 56px;
+  padding: 4px;
+}
+
+/* Fonte ampliada (130 e 200 %): o seletor vira 2 × 2 e as amostras de cor descem para uma coluna. */
+@container cg-tela (max-width: 22rem) {
+  .br-seletor-lista > li {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .br-amostra {
+    grid-template-columns: 1fr;
+  }
+}
+
+.br-ligacao-texto {
+  overflow-wrap: normal;
+}
+
+/* Fonte ampliada: a metade de cima encolhe para a folha aparecer já na primeira vista. Sem altura
+   mínima, com respiro menor, e o mascote pequeno ao lado do texto em vez de numa linha só dele. */
+@container cg-tela (max-width: 22rem) {
+  .br-topo:not(.br-topo--abertura) {
+    min-height: 0;
+    gap: 4px;
+    padding: calc(12px + var(--cg-seguro-topo)) 20px 20px;
+  }
+
+  .br-topo .br-topo-linha {
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .br-topo .br-mascote-medio .cg-mascote,
+  .br-topo .br-mascote-pequeno .cg-mascote {
+    width: 18cqi;
+  }
+
+  .br-topo .br-destaque {
+    font-size: min(2.25rem, 10cqi);
+  }
+}

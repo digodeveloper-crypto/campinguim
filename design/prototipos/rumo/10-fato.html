@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="rumo.titulo.10"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<script src="paleta.js"></script>
+</head>
+<body data-tela="10">
+<main class="rumo">
+  <header class="etapa">
+    <p class="etapa-marca"></p>
+    <h1 class="titulo-tela" data-dado="fato.nome"></h1>
+    <p class="etapa-sub" data-dado="camping.nome"></p>
+  </header>
+
+  <section class="bloco fato">
+    <div class="selo selo--fato">
+      <span class="selo-grande" data-dado="fato.valor"></span>
+      <span class="selo-linha" id="confirmacoes"></span>
+      <span class="selo-linha" data-dado="fato.ultima.mesAno"></span>
+    </div>
+    <p class="estado estado--conferido fato-frescor" id="frescor"></p>
+  </section>
+
+  <section class="bloco">
+    <p class="registro" data-dado="fato.resumo"></p>
+  </section>
+
+  <section class="bloco" aria-labelledby="historico-titulo">
+    <h2 class="bloco-titulo" id="historico-titulo" data-texto="bloco.historico"></h2>
+    <ul class="folha" id="historico"></ul>
+  </section>
+</main>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var cg = window.CAMPINGUIM, R = window.RUMO, D = cg.dados;
+  var F = D.fato;
+  R.montar({ parada: "camping", icone: true, voltar: R.origem("07-estadia") + ".html" });
+
+  var conf = document.getElementById("confirmacoes");
+  conf.setAttribute("data-texto", R.contagem("rumo.t10.confirmacoes", F.confirmacoes));
+  conf.setAttribute("data-valores", JSON.stringify({ n: F.confirmacoes }));
+  var fr = document.getElementById("frescor");
+  fr.innerHTML = R.icone("conferido", true);
+  fr.appendChild(R.tx("span", null, "rumo.t10.frescor", { frescor: R.texto("fato.frescor." + F.frescor) }));
+
+  /* Histórico (P-08): a linha conhecida e "e mais 5 confirmações de 'cumprida'". */
+  var h = document.getElementById("historico");
+  F.historico.linhas.forEach(function (l) {
+    var li = R.el("li", "linha");
+    li.innerHTML = R.icone("pessoa");
+    li.appendChild(R.tx("span", "linha-texto", "rumo.t10.linha", { nome: l.nome, mes: l.mesAno, tipo: l.tipo }));
+    h.appendChild(li);
+  });
+  var outras = R.el("li", "linha");
+  outras.innerHTML = R.icone("grupo");
+  outras.appendChild(R.el("span", "linha-texto suave", { "data-dado": "fato.historico.outrasTexto" }));
+  h.appendChild(outras);
+})();
+</script>
+</body>
+</html>

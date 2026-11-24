@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.8"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="8">
+<div class="of-app" id="app">
+<header class="of-topo">
+  <p class="of-etiqueta-viagem"><span data-mascote="uma-cor"></span><span data-dado="viagem.cabecalho"></span></p>
+  <button class="of-trocar" type="button" aria-pressed="false" data-texto-aria="oficina.trocar_lado"><span data-icone="trocar_lado"></span></button>
+</header>
+<main class="of-pagina">
+  <div class="of-cabeca">
+    <h1 class="of-h1" data-texto="oficina.titulo.8"></h1>
+    <p class="of-corpo of-suave" data-texto="oficina.volta.intro"></p>
+  </div>
+
+  <div class="of-progresso">
+    <p class="of-progresso-texto"><span class="of-mono-g" id="of-prog" data-texto="mensagem.progresso_conferidos"></span></p>
+    <div class="of-regua" aria-hidden="true"><div class="of-regua-cheio" id="of-regua"></div></div>
+  </div>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-desmontagem">
+    <h2 class="of-h2" id="of-s-desmontagem" data-texto="bloco.desmontagem"></h2>
+    <ul id="of-desmontagem"></ul>
+  </section>
+
+  <section class="of-bloco" aria-labelledby="of-s-conferir">
+    <h2 class="of-h2" id="of-s-conferir" data-texto="bloco.conferir_volta"></h2>
+    <div class="of-bloco" id="of-categorias"></div>
+  </section>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-casa">
+    <h2 class="of-h2" id="of-s-casa" data-texto="bloco.em_casa"></h2>
+    <ul id="of-casa"></ul>
+  </section>
+</main>
+<footer class="of-rodape">
+  <a class="of-botao" href="09-em-casa.html"><span class="of-ilhos" aria-hidden="true"></span><span data-texto="acao.concluir"></span></a>
+</footer>
+<nav class="of-abas" data-texto-aria="oficina.areas">
+  <a class="of-aba" href="04-lista.html"><span data-icone="lista"></span><span data-texto="area.lista"></span></a>
+  <a class="of-aba" href="03-alertas.html"><span data-icone="camping"></span><span data-texto="area.camping"></span></a>
+  <a class="of-aba" href="11-grupo.html"><span data-icone="grupo"></span><span data-texto="area.grupo"></span></a>
+  <a class="of-aba" href="12-gastos.html"><span data-icone="gastos"></span><span data-texto="area.gastos"></span></a>
+  <a class="of-aba" href="08-volta.html" aria-current="page"><span data-icone="volta"></span><span data-texto="area.volta"></span></a>
+</nav>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+
+var C = window.CAMPINGUIM;
+var OF = (function () {
+  "use strict";
+  var raiz = document.documentElement;
+  var app = document.getElementById("app");
+
+  function t(chave, valores) {
+    var v = C.texto(chave, valores);
+    if (v === null) { if (window.console) console.error("[oficina] chave sem texto:", chave); return "[" + chave + "]"; }
+    return v;
+  }
+
+  /* Cria um elemento: el("li", { class: "x", "data-texto": "k" }, [filhos ou texto de dados]). */
+  function el(tag, atributos, filhos) {
+    var e = document.createElement(tag);
+    if (atributos) Object.keys(atributos).forEach(function (k) {
+      var v = atributos[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === "texto") e.textContent = v;
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    (filhos || []).forEach(function (f) { if (f) e.appendChild(typeof f === "string" ? document.createTextNode(f) : f); });
+    return e;
+  }
+
+  function icone(nome, classe) { return el("span", { "data-icone": nome, "class": classe || null }); }
+
+  /* Lado das divisórias (guardado no navegador, com tentativa protegida). */
+  var botaoLado = document.querySelector(".of-trocar");
+  function lado(l) {
+    raiz.setAttribute("data-of-lado", l);
+    if (botaoLado) botaoLado.setAttribute("aria-pressed", l === "esquerda" ? "true" : "false");
+  }
+  lado(C.guardado.ler("oficina.lado", "direita") === "esquerda" ? "esquerda" : "direita");
+  if (botaoLado) botaoLado.addEventListener("click", function () {
+    var novo = raiz.getAttribute("data-of-lado") === "esquerda" ? "direita" : "esquerda";
+    lado(novo);
+    C.guardado.gravar("oficina.lado", novo);
+    C.anunciar(t(novo === "esquerda" ? "oficina.lado_esquerda" : "oficina.lado_direita"));
+  });
+
+  /* Altura do rodapé: as divisórias ficam logo acima dele e a página reserva o espaço. */
+  var rodape = document.querySelector(".of-rodape");
+  function medir() {
+    if (!app) return;
+    app.style.setProperty("--of-rodape-h", (rodape && !rodape.hidden ? rodape.offsetHeight : 0) + "px");
+  }
+  medir();
+  if (window.ResizeObserver && rodape) new ResizeObserver(medir).observe(rodape);
+  window.addEventListener("resize", medir);
+
+  /* Os parâmetros do avaliador (tema, fonte, moldura, avaliador) seguem nas ligações internas. */
+  var SEGUEM = ["tema", "fonte", "moldura", "avaliador"];
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+    if (!a) return;
+    var href = a.getAttribute("href");
+    if (!href || /^[a-z]+:/i.test(href) || href.charAt(0) === "#" || href.indexOf(".html") < 0 || href.indexOf("../") === 0) return;
+    try {
+      var atual = new URLSearchParams(window.location.search);
+      var partes = href.split("#");
+      var base = partes[0].split("?");
+      var novos = new URLSearchParams(base[1] || "");
+      SEGUEM.forEach(function (p) { if (atual.has(p) && !novos.has(p)) novos.set(p, atual.get(p)); });
+      var q = novos.toString();
+      a.setAttribute("href", base[0] + (q ? "?" + q : "") + (partes[1] ? "#" + partes[1] : ""));
+    } catch (e) { /* segue a ligação como está */ }
+  }, true);
+
+  function parametro(nome) {
+    try { return new URLSearchParams(window.location.search).get(nome); } catch (e) { return null; }
+  }
+
+  return { t: t, el: el, icone: icone, parametro: parametro, medir: medir, app: app };
+})();
+
+
+(function () {
+  var D = C.dados, V = D.volta, el = OF.el, t = OF.t;
+  var conferido = {}, secar = {};
+  C.itens().forEach(function (i) { conferido[i.id] = !!V.conferidoInicial; secar[i.id] = !!V.secarInicial; });
+
+  function tarefas(lista, alvo) {
+    lista.forEach(function (texto) {
+      var b = el("button", { type: "button", "class": "of-ciente", "aria-pressed": "false", "aria-label": t("oficina.marca_de", { estado: t("estado.feito"), nome: texto }) },
+        [OF.icone("ciente"), el("span", { "data-texto": "estado.feito" })]);
+      b.addEventListener("click", function () { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); });
+      document.getElementById(alvo).appendChild(el("li", { "class": "of-regra" }, [el("span", { texto: texto }), b]));
+    });
+  }
+  tarefas(V.desmontagem, "of-desmontagem");
+  tarefas(V.emCasa, "of-casa");
+
+  function progresso() {
+    var n = 0, total = 0;
+    Object.keys(conferido).forEach(function (k) { total++; if (conferido[k]) n++; });
+    document.getElementById("of-prog").setAttribute("data-valores", JSON.stringify({ feitos: n, total: total }));
+    document.getElementById("of-regua").style.width = (total ? 100 * n / total : 0) + "%";
+  }
+
+  function estadoLinha(i) {
+    var partes = [];
+    var ok = conferido[i.id];
+    partes.push(el("span", { "class": "of-linha-estado", "data-estado": ok ? "separei" : "a_separar", style: "flex: 0 1 auto;" },
+      [OF.icone(ok ? "conferido" : "a_separar"), el("span", { "data-texto": ok ? "estado.conferido" : "estado.nao_conferido" })]));
+    if (secar[i.id]) partes.push(el("span", { "class": "of-linha-estado", "data-estado": "carro", style: "flex: 0 1 auto;" },
+      [OF.icone("secar"), el("span", { "data-texto": "estado.secar" })]),
+      el("span", { "class": "of-rotulo", "data-texto": "mensagem.lembrete", "data-valores": JSON.stringify({ dias: V.lembreteDias }) }));
+    return el("span", { "class": "of-paragrafos", style: "flex: 1 0 100%; gap: 2px;" }, partes);
+  }
+
+  function falado(i) {
+    var e = conferido[i.id] ? t("estado.conferido") : t("estado.nao_conferido");
+    if (secar[i.id]) e += ", " + t("estado.secar");
+    return t("estado.falado", { nome: i.nome, quantidade: i.quantidadeTexto, estado: e });
+  }
+
+  function linha(i) {
+    var texto = el("span", { "class": "of-linha-texto", role: "text", "aria-label": falado(i) }, [
+      el("span", { "class": "of-linha-nome", texto: i.nome, style: conferido[i.id] ? null : "font-weight: 600;" }),
+      el("span", { "class": "of-linha-qtd of-mono", texto: i.quantidadeTexto }),
+      estadoLinha(i)
+    ]);
+    var bc = el("button", { type: "button", "class": "of-marca", "data-marca": "conferido", "aria-pressed": conferido[i.id] ? "true" : "false",
+      "aria-label": t("oficina.marca_de", { estado: t("estado.conferido"), nome: i.nome }) }, [OF.icone("conferido")]);
+    var bs = el("button", { type: "button", "class": "of-marca", "data-marca": "secar", "aria-pressed": secar[i.id] ? "true" : "false",
+      "aria-label": t("oficina.marca_de", { estado: t("estado.secar"), nome: i.nome }) }, [OF.icone("secar")]);
+    var li = el("li", { "class": "of-linha", "data-item": i.id }, [texto, el("div", { "class": "of-marcas" }, [bc, bs])]);
+    function trocar(novo, qual) {
+      var outro = li.parentNode.replaceChild(linha(i), li);
+      var b = document.querySelector('.of-linha[data-item="' + i.id + '"] .of-marca[data-marca="' + qual + '"]');
+      if (b) b.focus();
+      progresso();
+      C.anunciar(falado(i));
+    }
+    bc.addEventListener("click", function () { conferido[i.id] = !conferido[i.id]; trocar(null, "conferido"); });
+    bs.addEventListener("click", function () { secar[i.id] = !secar[i.id]; trocar(null, "secar"); });
+    return li;
+  }
+
+  var caixa = document.getElementById("of-categorias");
+  D.lista.categorias.forEach(function (c) {
+    var itens = C.itens().filter(function (i) { return i.categoria === c.id; });
+    var idLinhas = "of-v-" + c.id;
+    var cab = el("button", { type: "button", "class": "of-categoria-cabeca", "aria-expanded": "true", "aria-controls": idLinhas }, [
+      OF.icone("seguir", "of-seta"),
+      el("span", { "class": "of-cat-nome", "data-texto": "categoria." + c.id }),
+      el("span", { "class": "of-mono", texto: String(itens.length) })
+    ]);
+    var lista = el("ul", { "class": "of-linhas", id: idLinhas }, itens.map(linha));
+    cab.addEventListener("click", function () {
+      var aberta = cab.getAttribute("aria-expanded") !== "true";
+      cab.setAttribute("aria-expanded", aberta ? "true" : "false");
+      lista.hidden = !aberta;
+    });
+    caixa.appendChild(el("section", { "class": "of-cartao of-costura of-categoria" }, [el("h3", null, [cab]), lista]));
+  });
+  progresso();
+})();
+
+</script>
+</body>
+</html>

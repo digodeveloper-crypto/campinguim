@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.6"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="6">
+<div class="cl-app">
+  <header class="cl-topo">
+    <a class="cl-voltar" href="04-lista.html"><span data-icone="voltar"></span><span data-texto="acao.voltar"></span></a>
+    <p class="cl-topo-viagem" data-dado="lista.cabecalho"></p>
+  </header>
+  <main class="cl-conteudo">
+    <div class="cl-bloco">
+      <h1 class="cl-h1" data-texto="cl.saida.titulo"></h1>
+      <p class="cl-progresso-numero" id="progresso" data-texto="mensagem.progresso_carro"></p>
+      <p class="cl-pista" id="resumo" aria-live="polite"></p>
+    </div>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-fora">
+      <h2 class="cl-rotulo" id="rotulo-fora" data-texto="bloco.separados_fora"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="fora"></ul>
+    </section>
+
+    <section class="cl-bloco" aria-labelledby="rotulo-nao">
+      <h2 class="cl-rotulo" id="rotulo-nao" data-texto="bloco.nao_separados"></h2>
+      <ul class="cl-cartao cl-cartao--lista cl-linhas" id="nao-separados"></ul>
+      <p class="cl-estado cl-estado--ciente cl-ativo" id="nao-vazio"><span data-icone="ciente"></span><span data-texto="mensagem.nao_separados_vazio"></span></p>
+    </section>
+  </main>
+  <div class="cl-base">
+    <div class="cl-acao" id="acao">
+      <a class="cl-botao cl-botao--principal" id="sair" href="07-estadia.html"></a>
+      <div class="cl-comemora" id="comemora"></div>
+    </div>
+    <nav class="cl-abas" data-texto-aria="cl.abas">
+      <a class="cl-aba" href="04-lista.html" aria-current="page"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="lista"></span></span><span class="cl-aba-texto" data-texto="area.lista"></span></a>
+      <a class="cl-aba" href="03-alertas.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="camping"></span></span><span class="cl-aba-texto" data-texto="area.camping"></span></a>
+      <a class="cl-aba" href="11-grupo.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="grupo"></span></span><span class="cl-aba-texto" data-texto="area.grupo"></span></a>
+      <a class="cl-aba" href="12-gastos.html"><span class="cl-aba-icone"><span class="cl-marca"></span><span data-icone="gastos"></span></span><span class="cl-aba-texto" data-texto="area.gastos"></span></a>
+    </nav>
+  </div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, I = window.CAMPINGUIM_ICONES;
+  if (!C || !I) return;
+  var $ = function (id) { return document.getElementById(id); };
+  function el(tag, classe, atributos) {
+    var e = document.createElement(tag);
+    if (classe) e.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { e.setAttribute(k, atributos[k]); });
+    return e;
+  }
+
+  var estados = C.guardado.ler("clareira.estados", {}) || {};
+  var removidos = C.guardado.ler("clareira.removidos", []) || [];
+  function estadoDe(it) { return Object.prototype.hasOwnProperty.call(estados, it.id) ? estados[it.id] : it.estado; }
+  function ativos() { return C.itens().filter(function (it) { return removidos.indexOf(it.id) < 0; }); }
+
+  /* Os três do aviso (dados.js) ficam na tela mesmo depois de irem para o carro. */
+  var aviso = C.dado("avisoSaida.foraDoCarro").map(C.item);
+
+  function estadoLinha(e) {
+    var chave = e === "carro" ? "carro" : e === "separei" ? "separei" : "a_separar";
+    var s = el("span", "cl-estado cl-ativo cl-estado--" + chave);
+    s.appendChild(I.criar(chave === "a_separar" ? "nao_conferido" : chave));
+    s.appendChild(el("span", "", { "data-texto": chave === "separei" ? "estado.separei_falado" : "estado." + chave }));
+    return s;
+  }
+
+  function montar(focoId) {
+    var ul = $("fora");
+    ul.innerHTML = "";
+    aviso.forEach(function (it) {
+      var e = estadoDe(it);
+      var li = el("li", "cl-linha");
+      var txt = el("div", "cl-linha-texto");
+      var nome = el("p", "cl-item-titulo");
+      nome.textContent = it.nome;
+      txt.appendChild(nome);
+      var det = el("p", "cl-item-detalhe");
+      var q = el("span");
+      q.textContent = it.quantidadeTexto;
+      det.appendChild(q);
+      det.appendChild(estadoLinha(e));
+      txt.appendChild(det);
+      var b = el("button", "cl-ficha cl-ficha--carro", {
+        type: "button", "aria-pressed": e === "carro" ? "true" : "false", "data-id": it.id,
+        "data-texto-aria": "cl.saida.por_no_carro", "data-valores": JSON.stringify({ nome: it.nome })
+      });
+      b.appendChild(I.criar("carro"));
+      b.appendChild(el("span", "", { "data-texto": "estado.carro" }));
+      b.addEventListener("click", function () {
+        var antes = contar();
+        estados[it.id] = estadoDe(it) === "carro" ? "separei" : "carro";
+        if (estados[it.id] === it.estado) delete estados[it.id];
+        C.guardado.gravar("clareira.estados", estados);
+        montar(it.id);
+        var depois = contar();
+        C.anunciar(C.nomeFalado(it, estadoDe(it)));
+        if (depois.noCarro === depois.total && antes.noCarro !== antes.total) comemorar();
+      });
+      li.appendChild(txt);
+      li.appendChild(b);
+      ul.appendChild(li);
+    });
+
+    /* Não separados (D-04): vazio, com a frase de lista vazia. */
+    var nao = ativos().filter(function (it) { return estadoDe(it) === "a_separar"; });
+    var ul2 = $("nao-separados");
+    ul2.innerHTML = "";
+    nao.forEach(function (it) {
+      var li = el("li", "cl-linha");
+      var a = el("a", "cl-linha-texto cl-item-nome", { href: "05-item.html?item=" + encodeURIComponent(it.id) + "&de=06-aviso-de-saida.html" });
+      a.textContent = it.nome;
+      li.appendChild(a);
+      li.appendChild(estadoLinha("a_separar"));
+      ul2.appendChild(li);
+    });
+    ul2.hidden = !nao.length;
+    $("nao-vazio").hidden = !!nao.length;
+
+    var t = contar();
+    $("progresso").setAttribute("data-valores", JSON.stringify({ feitos: t.noCarro, total: t.total }));
+    var fora = t.total - t.noCarro;
+    var resumo = $("resumo");
+    if (!fora) { resumo.removeAttribute("data-valores"); resumo.setAttribute("data-texto", "cl.saida.tudo"); }
+    else if (fora === 1) { resumo.removeAttribute("data-valores"); resumo.setAttribute("data-texto", "cl.saida.resumo_um"); }
+    else { resumo.setAttribute("data-valores", JSON.stringify({ n: fora })); resumo.setAttribute("data-texto", "cl.saida.resumo"); }
+    $("sair").setAttribute("data-texto", fora ? "acao.sair_assim" : "acao.confirmar_saida");
+    if (focoId) {
+      var b = ul.querySelector('[data-id="' + focoId + '"]');
+      if (b) b.focus();
+    }
+  }
+
+  function contar() {
+    var r = { total: 0, noCarro: 0 };
+    ativos().forEach(function (it) { r.total++; if (estadoDe(it) === "carro") r.noCarro++; });
+    return r;
+  }
+
+  var acao = $("acao"), comemora = $("comemora"), relogio = null;
+  function comemorar() {
+    comemora.innerHTML = "";
+    var pose = el("span", "cl-pose");
+    pose.appendChild(C.mascote("pose-comemorando", { texto: "" }));
+    comemora.appendChild(pose);
+    /* A frase "Trilha completa. Tudo no carro." já está no resumo (que é anunciado); aqui, só o mascote. */
+    acao.classList.add("cl-comemorando");
+    window.clearTimeout(relogio);
+    relogio = window.setTimeout(function () {
+      acao.classList.remove("cl-comemorando");
+      comemora.innerHTML = "";
+    }, 2000);
+  }
+
+  montar(null);
+})();
+</script>
+</body>
+</html>

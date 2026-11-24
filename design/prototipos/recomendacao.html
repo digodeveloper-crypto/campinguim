@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="recomendacao.titulo_pagina"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="_compartilhado/base.css">
+</head>
+<body data-pagina="recomendacao">
+<div class="cg-ap">
+  <header class="cg-ap-cabeca">
+    <h1 data-texto="recomendacao.titulo"></h1>
+    <nav data-texto-aria="apresentacao.navegar">
+      <ul class="cg-ap-nav">
+        <li><a class="cg-ap-botao" href="index.html" data-texto="apresentacao.inicio"></a></li>
+        <li><a class="cg-ap-botao" href="comparacao.html" data-texto="apresentacao.comparacao"></a></li>
+        <li><a class="cg-ap-botao" href="avaliacao.html" data-texto="apresentacao.avaliacao"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="cg-ap-recomendacao" id="conteudo"></main>
+</div>
+
+<script src="_compartilhado/dados.js"></script>
+<script src="_compartilhado/textos.js"></script>
+<script src="_compartilhado/mascote.js"></script>
+<script src="recomendacao-dados.js"></script>
+<script src="_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM;
+  var R = window.CAMPINGUIM_RECOMENDACAO || { pronta: false };
+  var area = document.getElementById("conteudo");
+
+  function criar(tag, classe, atributos) {
+    var el = document.createElement(tag);
+    if (classe) el.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { el.setAttribute(k, atributos[k]); });
+    return el;
+  }
+
+  function aguardando() {
+    area.appendChild(criar("p", "cg-ap-aviso", { "data-texto": "recomendacao.aguardando" }));
+  }
+
+  function lista(chaveTitulo, frases) {
+    if (!frases || !frases.length) return null;
+    var sec = criar("section");
+    sec.appendChild(criar("h2", "", { "data-texto": chaveTitulo }));
+    var ul = criar("ul");
+    frases.forEach(function (f) {
+      var li = criar("li");
+      li.textContent = f;
+      ul.appendChild(li);
+    });
+    sec.appendChild(ul);
+    return sec;
+  }
+
+  /* Só mostra a recomendação quando ela está pronta e os cinco protótipos foram aprovados. */
+  if (R.pronta !== true || !R.direcao) {
+    aguardando();
+    return;
+  }
+
+  C.carregarDirecoes(function (direcoes) {
+    var aprovadas = direcoes.filter(function (d) { return d.pronta; });
+    var escolhida = direcoes.filter(function (d) { return d.pasta === R.direcao; })[0];
+    if (aprovadas.length < direcoes.length || !escolhida || !escolhida.pronta) {
+      aguardando();
+      return;
+    }
+    var bloco = criar("section", "cg-ap-aviso");
+    bloco.appendChild(criar("p", "cg-ap-numero", { "data-texto": "recomendacao.escolhida" }));
+    var nome = criar("h2");
+    nome.textContent = C.textoDaDirecao(escolhida, "nome");
+    bloco.appendChild(nome);
+    if (R.resumo) {
+      var resumo = criar("p");
+      resumo.textContent = R.resumo;
+      bloco.appendChild(resumo);
+    }
+    area.appendChild(bloco);
+    [lista("recomendacao.motivos", R.motivos), lista("recomendacao.riscos", R.riscos)].forEach(function (s) {
+      if (s) area.appendChild(s);
+    });
+    if (R.combinacao) {
+      var comb = criar("section");
+      comb.appendChild(criar("h2", "", { "data-texto": "recomendacao.combinacao" }));
+      var p = criar("p");
+      p.textContent = R.combinacao;
+      comb.appendChild(p);
+      area.appendChild(comb);
+    }
+    var acoes = criar("div");
+    acoes.appendChild(criar("a", "cg-ap-botao cg-ap-botao--principal", { href: escolhida.pasta + "/" + escolhida.ficha.inicio, "data-texto": "recomendacao.abrir" }));
+    area.appendChild(acoes);
+  });
+})();
+</script>
+</body>
+</html>

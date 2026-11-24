@@ -1,0 +1,1314 @@
+/* Campinguim · protótipo 2 · Clareira (mata e trilha).
+   Contrato: design/prototipos/direcao/direcoes.md, seção 2, e padrao-producao.md.
+   Tema principal claro (a luz filtrada da clareira); escuro é a mata ao anoitecer.
+   Assinatura: a marca de trilha (retângulo vertical de 4 × 14 px), usada como marcador de categoria
+   e como passo do progresso. Figtree em tudo. Cantos de 12 px. Linhas de lista de 56 px.
+   Nenhuma cor fora das variáveis abaixo (a arte do mascote não passa por aqui). */
+
+/* ---------- 1. Papéis de cor (valores exatos de direcoes.md) ---------- */
+
+:root,
+[data-tema="claro"] {
+  --fundo: #F1F0E6;          /* líquen */
+  --superficie: #FFFFFF;
+  --texto: #17251B;          /* sombra de mata */
+  --texto-suave: #4A5B4E;    /* musgo seco */
+  --linha: #7A8B7C;
+  --acento: #2E5A45;         /* musgo profundo */
+  --sobre-acento: #FFFFFF;
+  --atencao: #9A2B47;        /* baga */
+  --separei: #6B4A2F;        /* casca */
+  --carro: #1E5A62;          /* rio */
+  --apoio-mascote: transparent; /* dispensado no claro */
+}
+
+[data-tema="escuro"] {
+  --fundo: #0F1712;          /* mata à noite */
+  --superficie: #18231C;
+  --texto: #EAF0E6;
+  --texto-suave: #AFC0B1;
+  --linha: #6A8070;
+  --acento: #8CC7A1;         /* folha nova */
+  --sobre-acento: #0E1A12;
+  --atencao: #F2A0B4;
+  --separei: #D9B98A;
+  --carro: #8FD0CC;
+  --apoio-mascote: #DDE7D6;  /* clareira: 5,97:1 contra o corpo #4A5560 */
+}
+
+/* ---------- 2. Medidas ---------- */
+
+:root {
+  --cl-margem: 20px;
+  --cl-entre-blocos: 24px;
+  --cl-canto: 12px;
+  --cl-fonte: var(--cg-fonte-figtree);
+  /* Escala (direcoes.md): 28/34, 20/26, 17/26, 15/20. */
+  --cl-t-titulo: 1.75rem;
+  --cl-l-titulo: 2.125rem;
+  --cl-t-bloco: 1.25rem;
+  --cl-l-bloco: 1.625rem;
+  --cl-t-corpo: 1.0625rem;
+  --cl-l-corpo: 1.625rem;
+  --cl-t-rotulo: 0.9375rem;
+  --cl-l-rotulo: 1.25rem;
+}
+
+/* ---------- 3. Base da tela ---------- */
+
+.cl-app {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--cl-fonte);
+  font-size: var(--cl-t-corpo);
+  line-height: var(--cl-l-corpo);
+  font-weight: 450;
+  overflow-wrap: break-word;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cl-app *,
+.cl-app *::before,
+.cl-app *::after {
+  box-sizing: border-box;
+}
+
+:where(.cl-app) :where(h1, h2, h3, p, ul, ol, figure, dl, dd) {
+  margin: 0;
+}
+
+:where(.cl-app) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+/* Reajustes sem peso de seletor (:where), para não vencer as classes dos componentes. */
+:where(.cl-app) :where(button, input, textarea) {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+:where(.cl-app) :where(button) {
+  cursor: pointer;
+}
+
+:where(.cl-app) :where(a) {
+  color: inherit;
+}
+
+.cl-conteudo {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--cl-entre-blocos);
+  padding: 8px var(--cl-margem) 32px;
+  padding-left: max(var(--cl-margem), var(--cg-seguro-esquerda));
+  padding-right: max(var(--cl-margem), var(--cg-seguro-direita));
+}
+
+.cl-bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---------- 4. Tipografia ---------- */
+
+.cl-h1 {
+  font-size: var(--cl-t-titulo);
+  line-height: var(--cl-l-titulo);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.cl-h2 {
+  font-size: var(--cl-t-bloco);
+  line-height: var(--cl-l-bloco);
+  font-weight: 700;
+}
+
+.cl-rotulo {
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.cl-suave {
+  color: var(--texto-suave);
+}
+
+.cl-pequeno {
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+}
+
+.cl-forte {
+  font-weight: 700;
+}
+
+.cl-numero {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 5. Ícones ---------- */
+
+.cl-icone {
+  display: inline-block;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  line-height: 0;
+  color: inherit;
+}
+
+.cl-icone-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Estado ativo: preenche na cor do estado; o detalhe interno passa para a cor da superfície. */
+.cl-ativo .cl-icone .p,
+[aria-pressed="true"] .cl-icone .p,
+[aria-checked="true"] .cl-icone .p {
+  fill: currentColor;
+}
+
+.cl-ativo .cl-icone .c,
+[aria-pressed="true"] .cl-icone .c,
+[aria-checked="true"] .cl-icone .c {
+  stroke: var(--superficie);
+}
+
+/* ---------- 6. Assinatura: a marca de trilha ---------- */
+
+.cl-marca {
+  display: inline-block;
+  flex: none;
+  width: 4px;
+  height: 14px;
+  border-radius: 1px;
+  background: var(--acento);
+  border: 1.5px solid var(--acento);
+}
+
+.cl-marca--vazia {
+  background: transparent;
+}
+
+/* Passos do progresso: a mesma marca, numa fileira. */
+.cl-trilha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.cl-trilha .cl-marca {
+  width: 6px;
+  height: 21px;
+}
+
+/* ---------- 7. Topo ---------- */
+
+.cl-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: calc(8px + var(--cg-seguro-topo)) var(--cl-margem) 0;
+  padding-left: max(var(--cl-margem), var(--cg-seguro-esquerda));
+  padding-right: max(var(--cl-margem), var(--cg-seguro-direita));
+}
+
+.cl-topo-viagem {
+  flex: 1 1 12rem;
+  min-width: 0;
+  color: var(--texto-suave);
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+  font-weight: 600;
+}
+
+.cl-topo .cg-mascote {
+  width: 32px;
+  flex: none;
+}
+
+.cl-topo .cg-mascote[data-arte="uma-cor"] path,
+.cg-mascote[data-arte="uma-cor"] path {
+  fill: var(--acento);
+}
+
+.cl-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  margin-left: -10px;
+  padding: 0 10px 0 4px;
+  border-radius: var(--cl-canto);
+  color: var(--texto);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------- 8. Cartões e linhas ---------- */
+
+.cl-cartao {
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  border-radius: var(--cl-canto);
+  padding: 16px;
+}
+
+.cl-cartao--lista {
+  padding: 0 12px;
+}
+
+.cl-linhas > li + li,
+.cl-linhas > div + div {
+  border-top: 1px solid var(--linha);
+}
+
+.cl-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  min-height: 56px;
+  padding: 8px 0;
+}
+
+.cl-linha-texto {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+/* Cartão que leva a outra tela. */
+.cl-ligacao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 12px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  border-radius: var(--cl-canto);
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.cl-ligacao-texto {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cl-ligacao > .cl-icone:first-child {
+  color: var(--acento);
+}
+
+/* ---------- 9. Botões ---------- */
+
+.cl-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border-radius: var(--cl-canto);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+  color: var(--texto);
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.cl-botao--principal {
+  min-height: 52px;
+  width: 100%;
+  padding: 12px 20px;
+  border: 0;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-weight: 700;
+}
+
+.cl-botao--texto {
+  border-color: transparent;
+  background: transparent;
+  padding: 8px 10px;
+}
+
+.cl-botao[aria-pressed="true"] {
+  border-width: 2px;
+  border-color: var(--acento);
+}
+
+/* Alternância pequena (44 × 44) com ícone: separei, no carro, conferido, secar. */
+.cl-alternar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 10px;
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+  color: var(--texto-suave);
+}
+
+.cl-alternar[aria-pressed="true"] {
+  border: 2px solid currentColor;
+}
+
+.cl-alternar--separei[aria-pressed="true"] {
+  color: var(--separei);
+}
+
+.cl-alternar--carro[aria-pressed="true"] {
+  color: var(--carro);
+}
+
+.cl-alternar--conferido[aria-pressed="true"] {
+  color: var(--acento);
+}
+
+.cl-alternar--secar[aria-pressed="true"] {
+  color: var(--carro);
+}
+
+/* Fichas de escolha (filtros, tipo, clima): o estado aparece com o visto, não só com a cor. */
+.cl-fichas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cl-ficha {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border-radius: var(--cl-canto);
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+  color: var(--texto);
+  font-weight: 600;
+  text-align: left;
+}
+
+.cl-ficha .cl-icone {
+  display: none;
+}
+
+.cl-ficha[aria-pressed="true"] {
+  border-color: var(--acento);
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.cl-ficha[aria-pressed="true"] .cl-icone {
+  display: inline-block;
+}
+
+/* Fichas de estado: o ícone fica sempre à vista; ativas, na cor do estado. */
+.cl-ficha--icone .cl-icone,
+.cl-ficha--separei .cl-icone,
+.cl-ficha--carro .cl-icone {
+  display: inline-block;
+}
+
+.cl-ficha--separei[aria-pressed="true"] {
+  border-color: var(--separei);
+  background: var(--separei);
+  color: var(--superficie);
+}
+
+.cl-ficha--carro[aria-pressed="true"] {
+  border-color: var(--carro);
+  background: var(--carro);
+  color: var(--superficie);
+}
+
+.cl-ficha--separei[aria-pressed="true"] .cl-icone .c,
+.cl-ficha--carro[aria-pressed="true"] .cl-icone .c,
+.cl-ficha[aria-pressed="true"] .cl-icone .c {
+  stroke: var(--acento);
+}
+
+.cl-alternar:disabled {
+  border-style: dashed;
+  cursor: default;
+}
+
+/* Caixa de marcar (preciso comprar, consentimento): o visto aparece dentro da caixa. */
+.cl-caixa-marcar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  color: var(--texto);
+  text-align: left;
+  font-weight: 450;
+}
+
+.cl-caixa {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--linha);
+  border-radius: 6px;
+  background: var(--superficie);
+  color: var(--sobre-acento);
+}
+
+.cl-caixa .cl-icone {
+  visibility: hidden;
+  width: 20px;
+  height: 20px;
+}
+
+[aria-checked="true"] > .cl-caixa,
+[aria-pressed="true"] > .cl-caixa {
+  background: var(--acento);
+  border-color: var(--acento);
+}
+
+[aria-checked="true"] > .cl-caixa .cl-icone,
+[aria-pressed="true"] > .cl-caixa .cl-icone {
+  visibility: visible;
+}
+
+/* ---------- 10. Estados (sempre ícone e texto) ---------- */
+
+.cl-estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+  font-weight: 600;
+}
+
+.cl-estado .cl-icone {
+  width: 20px;
+  height: 20px;
+}
+
+.cl-estado--separei { color: var(--separei); }
+.cl-estado--carro { color: var(--carro); }
+.cl-estado--comprar { color: var(--atencao); }
+.cl-estado--atencao { color: var(--atencao); }
+.cl-estado--faltou { color: var(--atencao); }
+.cl-estado--sobrou { color: var(--carro); }
+.cl-estado--conferido { color: var(--acento); }
+.cl-estado--nao_conferido { color: var(--texto-suave); }
+.cl-estado--secar { color: var(--carro); }
+.cl-estado--ciente { color: var(--acento); }
+.cl-estado--depende { color: var(--texto-suave); }
+.cl-estado--a_separar { color: var(--texto-suave); }
+
+/* ---------- 11. Lista ---------- */
+
+.cl-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 56px;
+  padding: 4px 0;
+}
+
+.cl-item-nome {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+  padding: 0;
+  border-radius: 8px;
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.cl-item-titulo {
+  font-weight: 600;
+}
+
+.cl-item-detalhe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 10px;
+  color: var(--texto-suave);
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+}
+
+.cl-item-botoes {
+  display: flex;
+  flex: none;
+  gap: 8px;
+}
+
+/* Cabeçalho de categoria: encostado na margem, com a marca de trilha na calha esquerda. */
+.cl-categoria {
+  position: relative;
+}
+
+.cl-categoria-cabeca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 48px;
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: var(--texto);
+  text-align: left;
+}
+
+.cl-categoria-cabeca .cl-marca {
+  position: absolute;
+  left: calc(-1 * var(--cl-margem) + 8px);
+  top: 17px;
+}
+
+.cl-categoria-nome {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: var(--cl-t-bloco);
+  line-height: var(--cl-l-bloco);
+  font-weight: 700;
+}
+
+.cl-categoria-progresso {
+  flex: none;
+  color: var(--texto-suave);
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.cl-categoria-cabeca .cl-icone {
+  color: var(--texto-suave);
+  transition: rotate 150ms ease;
+}
+
+.cl-categoria-cabeca[aria-expanded="true"] .cl-icone {
+  rotate: 180deg;
+}
+
+.cl-categoria-corpo {
+  margin-top: 4px;
+}
+
+.cl-categoria-corpo[hidden] {
+  display: none;
+}
+
+.cl-categorias {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Progresso da lista: número grande e a trilha de marcas. */
+.cl-progresso {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* O número grande cresce com a letra até onde a palavra mais longa
+   ("confirmações", dentro do cartão) ainda cabe inteira: nunca parte a palavra. */
+.cl-progresso-numero {
+  font-size: min(var(--cl-t-titulo), 12cqi);
+  line-height: min(var(--cl-l-titulo), 1.22em);
+  overflow-wrap: normal;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.cl-pista {
+  color: var(--texto);
+}
+
+/* ---------- 12. Base fixa: ação da tela e abas ---------- */
+
+.cl-base {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.cl-acao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px var(--cl-margem);
+  padding-left: max(var(--cl-margem), var(--cg-seguro-esquerda));
+  padding-right: max(var(--cl-margem), var(--cg-seguro-direita));
+}
+
+.cl-acao > * {
+  flex: 1 1 10rem;
+}
+
+.cl-acao .cl-botao--principal {
+  box-shadow: 0 0 0 4px var(--fundo);
+}
+
+.cl-acao--sem-abas {
+  padding-bottom: calc(16px + var(--cg-seguro-baixo));
+  background: var(--fundo);
+}
+
+.cl-abas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  background: var(--superficie);
+  border-top: 1px solid var(--linha);
+  padding: 0 8px var(--cg-seguro-baixo);
+}
+
+.cl-aba {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 64px;
+  padding: 8px 2px;
+  color: var(--texto-suave);
+  text-decoration: none;
+  /* o rótulo das abas cresce com a fonte até 19 px, como nas barras de abas do sistema: nunca quebra a palavra */
+  font-size: min(var(--cl-t-rotulo), 19px);
+  line-height: min(var(--cl-l-rotulo), 24px);
+  font-weight: 600;
+  text-align: center;
+}
+
+.cl-aba-icone {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* A aba atual ganha a marca de trilha ao lado do ícone. */
+.cl-aba .cl-marca {
+  display: none;
+}
+
+.cl-aba[aria-current="page"] {
+  color: var(--acento);
+  font-weight: 700;
+}
+
+.cl-aba[aria-current="page"] .cl-marca {
+  display: inline-block;
+}
+
+.cl-aba-texto {
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+/* Comemoração no lugar do botão (Lista e aviso de saída, por 2 segundos). */
+.cl-comemora {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  padding: 0 8px;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+.cl-comemora .cg-mascote {
+  width: 64px;
+}
+
+.cl-acao.cl-comemorando .cl-comemora {
+  display: flex;
+}
+
+.cl-acao.cl-comemorando > :not(.cl-comemora) {
+  display: none;
+}
+
+/* ---------- 13. Mascote e clareira ---------- */
+
+.cl-pose {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  flex: none;
+  margin: 0 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cl-pose .cg-mascote {
+  width: 84px;
+}
+
+/* No escuro, a versão colorida fica sobre a clareira: elipse achatada, abertura de céu entre copas. */
+[data-tema="escuro"] .cl-pose::before,
+[data-tema="escuro"] .cl-comemora .cl-pose::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 160%;
+  height: 108%;
+  translate: -50% -50%;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--apoio-mascote);
+}
+
+/* Cabeçalho com mascote ao lado do título. */
+.cl-titulo-pose {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cl-titulo-pose > :first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Abertura e site: o mascote em pé na linha de copas. */
+.cl-cena {
+  position: relative;
+  padding-top: 24px;
+}
+
+.cl-cena-figura {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.cl-cena-figura .cg-mascote {
+  display: block;
+  width: 100%;
+}
+
+.cl-ceu {
+  display: none;
+}
+
+[data-tema="escuro"] .cl-ceu {
+  display: block;
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: 30px;
+  width: 64%;
+  aspect-ratio: 1.6 / 1.08;
+  translate: -50% 0;
+  border-radius: 50%;
+  background: var(--apoio-mascote);
+}
+
+.cl-copas {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 72px;
+  /* a clareira da linha (y = 32 de 80) encontra o chão do mascote (480 de 512 da arte) */
+  margin-top: calc(-0.4 * 72px - 2.5%);
+  color: var(--superficie);
+}
+
+.cl-copas-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+/* ---------- 14. Campos ---------- */
+
+.cl-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cl-campo-rotulo {
+  font-weight: 600;
+}
+
+.cl-obrigatorio {
+  color: var(--texto-suave);
+  font-weight: 450;
+  font-size: var(--cl-t-rotulo);
+}
+
+.cl-entrada {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid var(--linha);
+  border-radius: var(--cl-canto);
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+.cl-entrada::placeholder {
+  color: var(--texto-suave);
+  opacity: 1;
+}
+
+textarea.cl-entrada {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.cl-contador {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  min-height: 56px;
+}
+
+.cl-contador-rotulo {
+  flex: 1 1 9rem;
+  min-width: 0;
+}
+
+.cl-contador-controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cl-contador-valor {
+  min-width: 2.5rem;
+  text-align: center;
+  font-size: var(--cl-t-bloco);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 15. Alertas ---------- */
+
+.cl-alerta {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  border-radius: var(--cl-canto);
+}
+
+.cl-alerta--atencao {
+  border: 2px solid var(--atencao);
+}
+
+.cl-alerta-linha {
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  padding: 14px 0;
+}
+
+.cl-alerta-corpo {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cl-alerta--atencao .cl-icone {
+  color: var(--atencao);
+}
+
+.cl-alerta--informacao .cl-icone {
+  color: var(--texto-suave);
+}
+
+.cl-nivel {
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cl-nivel--atencao {
+  color: var(--atencao);
+}
+
+.cl-nivel--informacao {
+  color: var(--texto-suave);
+}
+
+/* ---------- 16. Folha (painel que sobe) ---------- */
+
+.cl-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--texto) 40%, transparent);
+}
+
+.cl-folha {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 21;
+  display: flex;
+  flex-direction: column;
+  max-height: 86%;
+  background: var(--superficie);
+  border-top: 1px solid var(--linha);
+  border-radius: var(--cl-canto) var(--cl-canto) 0 0;
+}
+
+.cl-folha[hidden],
+.cl-veu[hidden] {
+  display: none;
+}
+
+.cl-folha-cabeca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px var(--cl-margem) 8px;
+}
+
+.cl-folha-cabeca > :first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cl-folha-corpo {
+  overflow-y: auto;
+  padding: 0 var(--cl-margem) calc(24px + var(--cg-seguro-baixo));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- 17. Web (telas 14 e 15): cabeçalho fino com a marca de trilha ---------- */
+
+.cl-web-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: calc(8px + var(--cg-seguro-topo)) var(--cl-margem) 8px;
+  border-bottom: 1px solid var(--linha);
+  background: var(--superficie);
+  font-weight: 700;
+}
+
+.cl-web-topo .cl-marca {
+  height: 18px;
+}
+
+.cl-web-topo .cg-mascote {
+  width: 32px;
+  margin-left: auto;
+}
+
+/* ---------- 18. Avisos de passagem ---------- */
+
+.cl-aviso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: var(--cl-canto);
+  border: 1px solid var(--acento);
+  background: var(--superficie);
+  color: var(--texto);
+  font-weight: 600;
+}
+
+.cl-aviso .cl-icone {
+  color: var(--acento);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ---------- 19. Página de identidade ---------- */
+
+.cl-id-paleta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cl-id-tema {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: var(--cl-canto);
+  border: 1px solid var(--linha);
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.cl-id-cor {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+}
+
+.cl-id-amostra {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--linha);
+}
+
+.cl-id-cor-texto {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.cl-id-icones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 9.5rem), 1fr));
+  gap: 12px;
+}
+
+.cl-id-icone {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid var(--linha);
+  border-radius: var(--cl-canto);
+  background: var(--superficie);
+}
+
+.cl-id-icone-par {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.cl-id-icone-par > span {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.cl-id-esquema {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 18rem);
+  min-height: 18rem;
+  margin: 0 auto;
+  border: 2px solid var(--linha);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--fundo);
+  font-size: var(--cl-t-rotulo);
+  line-height: var(--cl-l-rotulo);
+}
+
+.cl-id-esquema-topo,
+.cl-id-esquema-meio {
+  padding: 10px 12px;
+  color: var(--texto-suave);
+}
+
+.cl-id-esquema-meio {
+  flex: 1 1 auto;
+  border-top: 1px dashed var(--linha);
+}
+
+.cl-id-esquema-acao {
+  margin: 0 12px 8px;
+  padding: 8px;
+  border-radius: 10px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-weight: 700;
+  text-align: center;
+}
+
+.cl-id-esquema-abas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.cl-id-esquema-abas > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 0;
+  color: var(--texto-suave);
+  font-size: min(var(--cl-t-rotulo), 17px);
+  text-align: center;
+}
+
+.cl-id-esquema-abas > span:first-child {
+  color: var(--acento);
+  font-weight: 700;
+}
+
+.cl-id-mascotes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+}
+
+.cl-id-mascote-caixa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 9rem;
+  padding: 16px;
+  border-radius: var(--cl-canto);
+  border: 1px solid var(--linha);
+  background: var(--fundo);
+  color: var(--texto);
+  text-align: center;
+}
+
+.cl-id-mascote-caixa .cg-mascote {
+  width: 96px;
+}
+
+.cl-id-marcas {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cl-id-marcas > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cl-id-escala > * + * {
+  margin-top: 8px;
+}
+
+.cl-id-escala-titulo { font-size: var(--cl-t-titulo); line-height: var(--cl-l-titulo); font-weight: 700; }
+.cl-id-escala-bloco { font-size: var(--cl-t-bloco); line-height: var(--cl-l-bloco); font-weight: 700; }
+
+.cl-id-frases > li {
+  padding-left: 14px;
+  border-left: 4px solid var(--acento);
+}
+
+.cl-id-frases > li + li {
+  margin-top: 12px;
+}
+
+.cl-id-riscos > li {
+  display: flex;
+  gap: 10px;
+}
+
+.cl-id-riscos > li + li {
+  margin-top: 10px;
+}
+
+.cl-id-riscos .cl-icone {
+  color: var(--atencao);
+}
+
+/* ---------- 20. Fonte ampliada: colunas viram linhas ---------- */
+
+html[data-fonte="200"] .cl-item {
+  flex-wrap: wrap;
+  padding: 10px 0;
+}
+
+html[data-fonte="200"] .cl-item-nome {
+  flex-basis: 100%;
+}
+
+html[data-fonte="130"] .cl-titulo-pose .cl-pose .cg-mascote,
+html[data-fonte="200"] .cl-titulo-pose .cl-pose .cg-mascote {
+  width: 72px;
+}
+
+html[data-fonte="200"] .cl-titulo-pose {
+  flex-wrap: wrap;
+}
+
+html[data-fonte="200"] .cl-categoria-cabeca {
+  flex-wrap: wrap;
+}
+
+html[data-fonte="200"] .cl-aba {
+  min-height: 72px;
+}
+
+/* ---------- 21. Movimento curto ---------- */
+
+.cl-folha {
+  animation: cl-sobe 180ms ease-out;
+}
+
+@keyframes cl-sobe {
+  from { translate: 0 24px; opacity: 0.6; }
+  to { translate: 0 0; opacity: 1; }
+}

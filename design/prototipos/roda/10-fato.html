@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.10"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="10">
+<div class="r-app">
+  <header class="r-topo"><span data-icone="barraca"></span><span data-dado="camping.nome"></span></header>
+  <main class="r-conteudo">
+    <div class="r-cabeca">
+      <p class="r-rotulo" data-texto="fato.rotulo"></p>
+      <h1 data-dado="fato.nome"></h1>
+    </div>
+
+    <section class="r-cartao r-secao" aria-labelledby="t-valor">
+      <p class="r-situacao r-situacao--carro r-numero-grande" id="t-valor"><span data-icone="conferido"></span><span data-dado="fato.valor"></span></p>
+      <div class="r-gente" id="gente" aria-hidden="true"></div>
+      <p class="r-progresso-numero" id="confirmacoes"></p>
+      <p id="ultima"></p>
+      <p class="r-linha-info"><span class="r-situacao r-situacao--neutro"><span data-icone="ciente"></span><span data-texto="fato.frescor"></span></span></p>
+    </section>
+
+    <section class="r-secao" aria-labelledby="t-resumo">
+      <h2 class="r-rotulo" id="t-resumo" data-texto="fato.resumo_rotulo"></h2>
+      <p class="r-cartao" data-dado="fato.resumo"></p>
+    </section>
+
+    <section class="r-secao" aria-labelledby="t-historico">
+      <h2 id="t-historico" data-texto="bloco.historico"></h2>
+      <ul class="r-cartao r-cartao--lista" id="historico"></ul>
+    </section>
+  </main>
+  <footer class="r-rodape">
+    <button type="button" class="r-mural-botao" data-mural><span data-icone="mural"></span><span data-texto="nav.mural"></span></button>
+    <a class="r-acao" href="03-alertas.html" data-texto="fato.ver_camping"></a>
+  </footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA, el = R.el;
+  var f = C.dado("fato");
+
+  /* As confirmações como gente junta: uma pessoa por confirmação. */
+  var gente = document.getElementById("gente");
+  for (var i = 0; i < f.confirmacoes; i++) gente.appendChild(R.icone("pessoa"));
+
+  var conf = document.getElementById("confirmacoes");
+  conf.setAttribute("data-texto", "fato.confirmacoes");
+  conf.setAttribute("data-valores", JSON.stringify({ n: f.confirmacoes }));
+  var ultima = document.getElementById("ultima");
+  ultima.setAttribute("data-texto", "fato.ultima");
+  ultima.setAttribute("data-valores", JSON.stringify({ nome: f.ultima.nome, mes: f.ultima.mesAno }));
+  var frescor = document.querySelector('[data-texto="fato.frescor"]');
+  frescor.setAttribute("data-valores", JSON.stringify({ frescor: C.texto("fato.frescor." + f.frescor) }));
+
+  /* Histórico (P-08): a linha conhecida e a contagem das outras. */
+  var h = document.getElementById("historico");
+  f.historico.linhas.forEach(function (l) {
+    var li = el("li", { classe: "r-linha" }, [
+      R.circulo("pessoa", "neutro"),
+      el("div", { classe: "r-linha-nome" }, [
+        el("span", { classe: "r-linha-titulo", dado: l.nome }),
+        el("span", { classe: "r-linha-info", texto: "fato.historico_linha", valores: { mes: l.mesAno, tipo: l.tipo, valor: f.valor } })
+      ])
+    ]);
+    li.style.justifyContent = "flex-start";
+    h.appendChild(li);
+  });
+  var outras = el("li", { classe: "r-linha" }, [R.circulo("grupo", "neutro"), el("div", { classe: "r-linha-nome" }, [el("span", { dado: f.historico.outrasTexto })])]);
+  outras.style.justifyContent = "flex-start";
+  h.appendChild(outras);
+
+  R.iniciar();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,2225 @@
+/* Campinguim · protótipo 4 · Rumo (mapa e expedição) · estilo da direção.
+   Contrato: design/prototipos/direcao/direcoes.md (seção 4 · Rumo) e padrao-producao.md.
+   Papel de carta e tinta; curva de nível, rota tracejada e selo de canto cortado; cantos de 2 px, réguas finas,
+   números tabulares; Archivo com eixo de largura (títulos em 125, texto em 100).
+   Nenhuma cor fora dos 10 papéis abaixo (a arte do mascote é a única exceção, e não é tocada aqui). */
+
+/* ---------- 1. Os 10 papéis de cor (valores exatos de direcoes.md) ----------
+   Estes são os valores da paleta Original, aberta só com ?paleta=original. A paleta padrão do Rumo
+   é a Eucalipto (seção 1b), escolhida pelo responsável em 24/11/2026: paleta.js a liga sem parâmetro. */
+
+:root {
+  --fundo: #F3EEE2;
+  --superficie: #FBF8F1;
+  --texto: #1C2630;
+  --texto-suave: #4E5965;
+  --linha: #857558;
+  --acento: #1C2630;
+  --sobre-acento: #FBF8F1;
+  --atencao: #A8321F;
+  --separei: #8A5A14;
+  --carro: #2F5E6E;
+
+  --ico-recorte: var(--superficie);
+  --chanfro: 8px;
+}
+
+[data-tema="escuro"] {
+  --fundo: #10161C;
+  --superficie: #18212A;
+  --texto: #EDE6D6;
+  --texto-suave: #AEB4B8;
+  --linha: #6E7D89;
+  --acento: #EDE6D6;
+  --sobre-acento: #10161C;
+  --atencao: #FF8A70;
+  --separei: #E3B66B;
+  --carro: #8CC8D8;
+}
+
+[data-tema="escuro"] {
+  color-scheme: dark;
+}
+
+/* ---------- 1b. Opções de cor (pedido do responsável): só os valores dos 10 papéis mudam ----------
+   Ativadas por ?paleta=<nome> (paleta.js põe data-paleta na raiz). Sem parâmetro, vale a Eucalipto,
+   a escolhida (docs/DESIGN.md); a Original, acima, só com ?paleta=original.
+   Contraste conferido em cada paleta e tema: texto 7:1, secundário 4,5:1, controles e limites 3:1;
+   o corpo do mascote (#4A5560) contra o fundo claro e contra o papel do apoio no escuro (papel "texto"). */
+
+/* Geleira · fria: gelo e azul fundo, a casa do pinguim. */
+:root[data-paleta="geleira"] {
+  --fundo: #DFEAF1;
+  --superficie: #F5F9FC;
+  --texto: #0D1D2B;
+  --texto-suave: #3A4E5F;
+  --linha: #62809A;
+  --acento: #1F3D6E;
+  --sobre-acento: #F5F9FC;
+  --atencao: #A3261F;
+  --separei: #7A560F;
+  --carro: #0E5C66;
+}
+
+:root[data-paleta="geleira"][data-tema="escuro"] {
+  --fundo: #0A1621;
+  --superficie: #12212F;
+  --texto: #E3EEF4;
+  --texto-suave: #A3B6C4;
+  --linha: #5D7A90;
+  --acento: #A9D0F2;
+  --sobre-acento: #0A1621;
+  --atencao: #FF8E80;
+  --separei: #EBC37A;
+  --carro: #7FD3D3;
+}
+
+/* Pitanga · viva e quente: rosa-coral com o vermelho da pitanga. */
+:root[data-paleta="pitanga"] {
+  --fundo: #FBE4DC;
+  --superficie: #FFF8F5;
+  --texto: #2A1216;
+  --texto-suave: #693F45;
+  --linha: #A5707A;
+  --acento: #A3142F;
+  --sobre-acento: #FFF8F5;
+  --atencao: #8A3A00;
+  --separei: #7E5310;
+  --carro: #165A6E;
+}
+
+:root[data-paleta="pitanga"][data-tema="escuro"] {
+  --fundo: #1B0E12;
+  --superficie: #29161B;
+  --texto: #FCEAE5;
+  --texto-suave: #D6B1B5;
+  --linha: #8F656C;
+  --acento: #FF9DAA;
+  --sobre-acento: #1B0E12;
+  --atencao: #FFB27D;
+  --separei: #EEC77C;
+  --carro: #8FD4E2;
+}
+
+/* Eucalipto · natureza: o verde acinzentado da folha de eucalipto. A ESCOLHIDA e a padrão do Rumo. */
+:root[data-paleta="eucalipto"] {
+  --fundo: #DCE8E2;
+  --superficie: #F4F9F6;
+  --texto: #10201C;
+  --texto-suave: #3D514A;
+  --linha: #66847A;
+  --acento: #1F4B4D;
+  --sobre-acento: #F4F9F6;
+  --atencao: #A0282E;
+  --separei: #77560F;
+  --carro: #24507F;
+}
+
+:root[data-paleta="eucalipto"][data-tema="escuro"] {
+  --fundo: #0C1615;
+  --superficie: #14211F;
+  --texto: #E2EEEA;
+  --texto-suave: #A6BBB4;
+  --linha: #5F7A73;
+  --acento: #B8D5C8;
+  --sobre-acento: #0C1615;
+  --atencao: #FF8F86;
+  --separei: #E8C27C;
+  --carro: #A3C8F2;
+}
+
+/* Jabuticaba · noturna: o roxo-escuro da jabuticaba com lilás. */
+:root[data-paleta="jabuticaba"] {
+  --fundo: #E7E0EF;
+  --superficie: #FAF7FD;
+  --texto: #1C1426;
+  --texto-suave: #514460;
+  --linha: #84759A;
+  --acento: #3D2766;
+  --sobre-acento: #FAF7FD;
+  --atencao: #A2292A;
+  --separei: #7C5410;
+  --carro: #1D5B6B;
+}
+
+:root[data-paleta="jabuticaba"][data-tema="escuro"] {
+  --fundo: #100D1C;
+  --superficie: #1A1729;
+  --texto: #EEE9F7;
+  --texto-suave: #B8B0CC;
+  --linha: #6E6690;
+  --acento: #CDBDF0;
+  --sobre-acento: #100D1C;
+  --atencao: #FF8E7E;
+  --separei: #E9C47E;
+  --carro: #8ED0DA;
+}
+
+/* ---------- 2. Tipografia e base ---------- */
+
+.cg-tela {
+  font-family: var(--cg-fonte-archivo);
+  font-stretch: 100%;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.53;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: break-word;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cg-tela *,
+.cg-tela *::before,
+.cg-tela *::after {
+  box-sizing: border-box;
+}
+
+:where(.cg-tela) button,
+:where(.cg-tela) input,
+:where(.cg-tela) textarea {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+:where(.cg-tela) button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+:where(.cg-tela) a {
+  color: inherit;
+}
+
+:where(.cg-tela) :where(h1, h2, h3, p, ul, ol) {
+  margin: 0;
+}
+
+:where(.cg-tela) :where(ul, ol) {
+  padding: 0;
+  list-style: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.rumo {
+  position: relative;
+  min-height: 100%;
+  padding: 0 16px 32px;
+  padding-left: calc(16px + var(--cg-seguro-esquerda));
+  padding-right: calc(16px + var(--cg-seguro-direita));
+}
+
+/* Rótulo de carta: caixa alta larga e espaçada (15/20). */
+.rotulo,
+.bloco-titulo,
+.etapa-marca {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-stretch: 125%;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
+}
+
+.titulo-tela {
+  font-size: 1.625rem;
+  line-height: 1.875rem;
+  font-stretch: 125%;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--texto);
+}
+
+.subtitulo {
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-stretch: 112.5%;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+.rotulo--espaco {
+  display: block;
+  margin: 16px 0 8px;
+}
+
+.suave {
+  color: var(--texto-suave);
+}
+
+[data-fonte="200"] .titulo-tela {
+  font-stretch: 100%;
+  letter-spacing: 0.01em;
+}
+
+[data-fonte="200"] .rotulo,
+[data-fonte="200"] .bloco-titulo,
+[data-fonte="200"] .etapa-marca {
+  font-stretch: 100%;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- 3. Ícones ---------- */
+
+.ico {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+}
+
+.ico .f {
+  fill: currentColor;
+  stroke: none;
+}
+
+.ico .r {
+  stroke: var(--ico-recorte);
+  stroke-width: 2;
+}
+
+.ico .rf {
+  fill: var(--ico-recorte);
+  stroke: none;
+}
+
+.ico .roda {
+  fill: var(--ico-recorte);
+}
+
+.ico .roda-cheia {
+  fill: currentColor;
+  stroke: var(--ico-recorte);
+  stroke-width: 1.5;
+}
+
+.ico .tracejado {
+  stroke-dasharray: 2 2;
+}
+
+/* ---------- 4. Curvas de nível (fundo do topo) ---------- */
+
+.topo-curvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15rem;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.topo-curvas .curvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.curvas path {
+  fill: none;
+  stroke: var(--linha);
+  stroke-width: 1;
+  opacity: 0.35;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---------- 5. A rota de cinco paradas ---------- */
+
+.rota {
+  position: relative;
+  padding-top: 12px;
+}
+
+.rota-paradas {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* A rota: traço 2, espaço 6, ligando os centros das paradas. */
+.rota-paradas::before {
+  content: "";
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  top: 23px;
+  height: 1.5px;
+  background: repeating-linear-gradient(to right, var(--texto) 0 2px, transparent 2px 8px);
+}
+
+.rota-parada {
+  position: relative;
+  flex: 0 0 64px;
+}
+
+.rota-alvo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 64px;
+  min-height: 48px;
+  padding-bottom: 4px;
+  text-decoration: none;
+  color: var(--texto-suave);
+}
+
+.rota-marca {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 46px;
+}
+
+.rota-ponto {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--texto);
+  background: var(--fundo);
+}
+
+.rota-parada--atual .rota-ponto {
+  width: 18px;
+  height: 18px;
+  background: var(--texto);
+}
+
+.rota-rotulo {
+  font-size: 0.9375rem;
+  line-height: 1.125rem;
+  font-stretch: 85%;
+  font-weight: 500;
+  text-align: center;
+}
+
+.rota-parada--atual .rota-alvo {
+  color: var(--texto);
+}
+
+.rota-parada--atual .rota-rotulo {
+  font-weight: 700;
+}
+
+.rota-num {
+  display: none;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+[data-fonte="130"] .rota-rotulo,
+[data-fonte="200"] .rota-rotulo {
+  display: none;
+}
+
+[data-fonte="130"] .rota-num,
+[data-fonte="200"] .rota-num {
+  display: block;
+}
+
+/* O mascote como "você está aqui" (ícone de 24 px). */
+.apoio--rota .cg-mascote {
+  width: 24px;
+}
+
+/* ---------- 6. Apoio do mascote (papel de canto cortado, só no escuro) ---------- */
+
+/* O papel fica atrás do mascote pelo z-index do próprio apoio; o mascote recebe só width. */
+.apoio {
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  place-items: center;
+  line-height: 0;
+}
+
+[data-tema="escuro"] .apoio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--texto);
+  clip-path: polygon(var(--chanfro) 0, calc(100% - var(--chanfro)) 0, 100% var(--chanfro), 100% calc(100% - var(--chanfro)),
+    calc(100% - var(--chanfro)) 100%, var(--chanfro) 100%, 0 calc(100% - var(--chanfro)), 0 var(--chanfro));
+}
+
+[data-tema="escuro"] .apoio--rota {
+  --chanfro: 4px;
+  padding: 4px;
+}
+
+/* ---------- 7. Cabeçalho da etapa ---------- */
+
+.voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  min-width: 48px;
+  margin-top: 8px;
+  padding-right: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--texto);
+}
+
+.etapa {
+  position: relative;
+  padding: 16px 0 8px;
+}
+
+.etapa-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.etapa-texto {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+.etapa-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.etapa-marca::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 1.5px;
+  background: var(--texto-suave);
+}
+
+.etapa h1 {
+  margin-top: 8px;
+}
+
+.etapa-sub {
+  margin-top: 8px;
+  color: var(--texto-suave);
+}
+
+.etapa .apoio--cabeca .cg-mascote,
+.apoio--cabeca .cg-mascote {
+  width: 96px;
+}
+
+[data-tema="escuro"] .apoio--cabeca {
+  --chanfro: 10px;
+  padding: 6px;
+}
+
+/* ---------- 8. Blocos, folhas e linhas ---------- */
+
+.bloco {
+  margin-top: 24px;
+}
+
+.bloco-titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.bloco-titulo .ico {
+  width: 20px;
+  height: 20px;
+}
+
+.folha {
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+}
+
+.linha {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 6px 12px;
+}
+
+.folha > li + li,
+.folha > .linha + .linha {
+  border-top: 1px solid var(--linha);
+}
+
+/* Linhas com botão: nunca partir uma palavra. O texto encolhe só até a palavra mais longa;
+   quando nome, quantidade e botão não cabem lado a lado, o botão (ou a quantidade) desce de linha. */
+.linha,
+.item {
+  flex-wrap: wrap;
+}
+
+.linha-texto {
+  flex: 1 1 0;
+  min-width: min-content;
+}
+
+.linha > .marca,
+.item > .marca,
+.item > .item-botoes,
+.linha > .linha-qtd {
+  margin-left: auto;
+}
+
+.linha-nome {
+  display: block;
+  font-weight: 600;
+}
+
+.linha-sub {
+  display: block;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.linha > .ico {
+  color: var(--texto-suave);
+}
+
+.linha--atencao > .ico,
+.nivel--atencao {
+  color: var(--atencao);
+}
+
+.linha-ligacao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 0;
+  min-width: min-content;
+  min-height: 48px;
+  text-decoration: none;
+}
+
+.linha-ligacao > .ico:last-child {
+  margin-left: auto;
+}
+
+.nivel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.nivel .ico {
+  width: 20px;
+  height: 20px;
+}
+
+.vazio {
+  padding: 16px 12px;
+  color: var(--texto-suave);
+}
+
+/* ---------- 9. Estados (sempre ícone e texto) ---------- */
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.estado .ico {
+  width: 18px;
+  height: 18px;
+}
+
+.estado--carro {
+  color: var(--carro);
+}
+
+.estado--separei {
+  color: var(--separei);
+}
+
+.estado--a_separar,
+.estado--nao-conferido {
+  color: var(--texto-suave);
+}
+
+.estado--comprar {
+  color: var(--texto);
+}
+
+.estado--faltou,
+.estado--atencao {
+  color: var(--atencao);
+}
+
+.estado--conferido {
+  color: var(--texto);
+}
+
+/* Alternância de símbolo (44 × 44): repouso em traço, ativo em símbolo cheio. */
+.alt {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--linha);
+  border-radius: 2px;
+  background: var(--superficie);
+  color: var(--texto-suave);
+}
+
+.alt .ico-caixa {
+  display: grid;
+  line-height: 0;
+}
+
+.alt-separei[aria-pressed="true"] {
+  color: var(--separei);
+  border-color: var(--separei);
+}
+
+.alt-carro[aria-pressed="true"] {
+  color: var(--carro);
+  border-color: var(--carro);
+}
+
+.alt-conferido[aria-pressed="true"],
+.alt-ciente[aria-pressed="true"] {
+  color: var(--texto);
+  border-color: var(--texto);
+}
+
+.alt-secar[aria-pressed="true"] {
+  color: var(--carro);
+  border-color: var(--carro);
+}
+
+/* Botão de texto que alterna (ciente, feito, eu levo, paguei, está no carro). */
+.marca {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: none;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 12px;
+  border: 1.5px solid var(--linha);
+  border-radius: 2px;
+  background: var(--superficie);
+  color: var(--texto);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+.marca .ico {
+  width: 20px;
+  height: 20px;
+}
+
+.marca[aria-pressed="true"] {
+  border-color: var(--texto);
+  background: var(--texto);
+  color: var(--fundo);
+  --ico-recorte: var(--texto);
+}
+
+.marca--carro[aria-pressed="true"] {
+  border-color: var(--carro);
+  background: var(--superficie);
+  color: var(--carro);
+  --ico-recorte: var(--superficie);
+}
+
+/* ---------- 10. Lista (tela 4) e linhas de item ---------- */
+
+.progresso {
+  margin-top: 16px;
+}
+
+.progresso-numero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+}
+
+.progresso-numero strong {
+  font-size: 1.625rem;
+  line-height: 1.875rem;
+  font-stretch: 125%;
+  font-weight: 700;
+}
+
+.regua {
+  display: flex;
+  gap: 1px;
+  align-items: flex-end;
+  height: 12px;
+  margin-top: 10px;
+}
+
+.regua > span {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.regua-cheia {
+  height: 12px;
+  background: var(--carro);
+}
+
+.regua-vazia {
+  height: 12px;
+  border: 1.5px solid var(--separei);
+  background: var(--superficie);
+}
+
+.regua--volta .regua-cheia {
+  background: var(--texto);
+}
+
+.regua--volta .regua-vazia {
+  border-color: var(--linha);
+}
+
+.regua--curta {
+  height: 8px;
+  margin-top: 0;
+  width: 100%;
+}
+
+.regua--curta .regua-cheia,
+.regua--curta .regua-vazia {
+  height: 8px;
+}
+
+.regua--curta .regua-vazia {
+  border-width: 1px;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 4px 12px;
+  border: 1.5px solid var(--linha);
+  border-radius: 2px;
+  background: var(--superficie);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+.filtro[aria-pressed="true"] {
+  background: var(--acento);
+  border-color: var(--acento);
+  color: var(--sobre-acento);
+  font-weight: 700;
+}
+
+.tarefa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--linha);
+  border-left: 4px solid var(--texto);
+  background: var(--superficie);
+  border-radius: 2px;
+}
+
+.tarefa-texto {
+  flex: 1 1 10rem;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cat {
+  margin-top: 12px;
+}
+
+.cat-titulo {
+  font: inherit;
+}
+
+.cat .folha {
+  margin-top: 4px;
+}
+
+.cat-botao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 6px 4px;
+}
+
+.cat-cabeca {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+}
+
+.cat-nome {
+  flex: 1 1 9rem;
+  min-width: 0;
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-stretch: 112.5%;
+  font-weight: 600;
+}
+
+.cat-prog {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.cat-prog .regua {
+  width: 56px;
+}
+
+
+.cat--aberta .cat-botao > .ico {
+  rotate: 180deg;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 12px;
+  min-height: 64px;
+}
+
+.item-abrir {
+  flex: 1 1 0;
+  min-width: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  min-height: 52px;
+  text-decoration: none;
+}
+
+.item-nome {
+  font-weight: 500;
+}
+
+.item-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 10px;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.item-botoes {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+
+/* Item destacado (fora do carro ou não conferido): régua de tinta à esquerda. */
+.item--separei,
+.item--a_separar,
+.item--pendente {
+  box-shadow: inset 4px 0 0 var(--separei);
+}
+
+/* ---------- 11. Selo de confirmação (retângulo de canto cortado, tinta "carro") ---------- */
+
+.selo {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 16px;
+  color: var(--carro);
+  --selo-fundo: var(--fundo);
+}
+
+.selo::before,
+.selo::after {
+  content: "";
+  position: absolute;
+  clip-path: polygon(var(--chanfro) 0, calc(100% - var(--chanfro)) 0, 100% var(--chanfro), 100% calc(100% - var(--chanfro)),
+    calc(100% - var(--chanfro)) 100%, var(--chanfro) 100%, 0 calc(100% - var(--chanfro)), 0 var(--chanfro));
+}
+
+.selo::before {
+  inset: 0;
+  background: var(--carro);
+}
+
+.selo::after {
+  inset: 2px;
+  --chanfro: 7px;
+  background: var(--selo-fundo);
+}
+
+.selo > * {
+  position: relative;
+  z-index: 1;
+}
+
+.selo--espaco {
+  margin-top: 16px;
+}
+
+.selo-grande {
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-stretch: 125%;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.selo-linha {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.folha .selo,
+.selo--folha {
+  --selo-fundo: var(--superficie);
+}
+
+/* ---------- 12. Formulário (tela 2, 5, 9, 14, 15) ---------- */
+
+.campo {
+  display: block;
+  margin-top: 16px;
+}
+
+.campo-rotulo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.campo-obrigatorio {
+  color: var(--texto-suave);
+  font-weight: 400;
+  font-size: 0.9375rem;
+}
+
+.entrada {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--linha);
+  border-radius: 2px;
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+textarea.entrada {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.opcao {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 6px 14px;
+  border: 1.5px solid var(--linha);
+  border-radius: 2px;
+  background: var(--superficie);
+  font-weight: 500;
+}
+
+.opcao::before {
+  content: "";
+  flex: none;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--texto);
+  border-radius: 50%;
+}
+
+.opcao[aria-pressed="true"] {
+  border-color: var(--texto);
+  font-weight: 700;
+}
+
+.opcao[aria-pressed="true"]::before {
+  background: var(--texto);
+}
+
+.contador {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 4px 12px;
+}
+
+.contador-nome {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  font-weight: 600;
+}
+
+.contador-controle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+
+.contador-valor {
+  min-width: 2ch;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1875rem;
+}
+
+.passo {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--linha);
+  border-radius: 2px;
+  background: var(--superficie);
+}
+
+.resultado {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+
+button.resultado {
+  width: 100%;
+  text-align: left;
+}
+
+.resultado-texto {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.resultado--escolhido {
+  box-shadow: inset 4px 0 0 var(--texto);
+}
+
+/* ---------- 13. Rodapé fixo: ação principal acima da legenda ---------- */
+
+.rodape {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 12px 16px calc(12px + var(--cg-seguro-baixo));
+  background: var(--fundo);
+  border-top: 1px solid var(--linha);
+}
+
+.rodape-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.botao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex: 1 1 8rem;
+  min-height: 56px;
+  min-width: 44px;
+  padding: 8px 16px;
+  border-radius: 2px;
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+  font-stretch: 112.5%;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-decoration: none;
+}
+
+.botao--principal {
+  flex-grow: 2;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  --ico-recorte: var(--acento);
+}
+
+.botao--secundaria {
+  border: 1.5px solid var(--texto);
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+.botao--bloco {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.legenda-botao {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  max-width: 100%;
+  padding: 6px 12px 6px 10px;
+  border: 1.5px solid var(--texto);
+  border-radius: 2px;
+  background: var(--superficie);
+  text-align: left;
+}
+
+.legenda-botao-texto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.legenda-botao-nome {
+  font-weight: 700;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.legenda-botao-itens {
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+/* Letra em 200 %: a legenda fica só com o rótulo curto, para sobrar tela ao conteúdo.
+   O nome acessível continua "Legenda: camping, grupo, gastos". */
+[data-fonte="200"] .legenda-botao-itens {
+  display: none;
+}
+
+.discreto {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  text-underline-offset: 3px;
+}
+
+/* ---------- 14. Painéis (legenda e folhas): foco preso, abertura anunciada ---------- */
+
+.painel {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.painel-fundo {
+  position: absolute;
+  inset: 0;
+  background: var(--fundo);
+  opacity: 0.88;
+}
+
+.painel-caixa {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100% - 24px);
+  margin: 0 12px calc(12px + var(--cg-seguro-baixo));
+  padding: 8px 16px 16px;
+  border: 1.5px solid var(--texto);
+  border-radius: 2px;
+  background: var(--superficie);
+  overflow-y: auto;
+}
+
+.painel-cabeca {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 56px;
+}
+
+.painel-titulo {
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-stretch: 125%;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.painel-fechar {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid var(--linha);
+  border-radius: 2px;
+}
+
+.painel-intro {
+  color: var(--texto-suave);
+  margin-bottom: 8px;
+}
+
+.legenda-lista {
+  border-top: 1px solid var(--linha);
+}
+
+.legenda-item {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--linha);
+}
+
+.legenda-simbolo {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid var(--texto);
+}
+
+.legenda-corpo {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.legenda-item--grupo .legenda-simbolo {
+  margin-top: 4px;
+}
+
+.legenda-nome {
+  font-weight: 700;
+  font-stretch: 112.5%;
+}
+
+.legenda-item--grupo .legenda-nome {
+  padding-top: 12px;
+}
+
+.legenda-detalhe {
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.legenda-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.legenda-ligacao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  text-decoration: none;
+}
+
+.legenda-ligacao > .ico:last-child {
+  margin-left: auto;
+}
+
+.legenda-ligacao--area {
+  flex: 1 1 auto;
+}
+
+.legenda-ligacao[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- 15. Abertura (tela 1) e páginas da internet (14 e 15) ---------- */
+
+.abertura {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 24px;
+}
+
+.abertura-mapa {
+  position: relative;
+  width: 100%;
+  height: 22rem;
+  max-height: 340px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.abertura-mapa .curvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.abertura-mapa .curvas path {
+  opacity: 0.6;
+}
+
+.abertura-mapa .apoio .cg-mascote {
+  width: 176px;
+}
+
+[data-tema="escuro"] .abertura-mapa .apoio {
+  --chanfro: 14px;
+  padding: 8px;
+}
+
+.marca-nome {
+  margin-top: 8px;
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-stretch: 125%;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-fonte="130"] .marca-nome,
+[data-fonte="200"] .marca-nome {
+  font-stretch: 100%;
+  letter-spacing: 0.02em;
+  font-size: min(2.25rem, 10.5cqi);
+  line-height: 1.15;
+}
+
+.abertura-frase {
+  max-width: 22rem;
+  margin-top: 12px;
+  font-size: 1.1875rem;
+  line-height: 1.6rem;
+}
+
+.abertura-nota {
+  margin-top: 12px;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.rota-previa {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 28px;
+}
+
+.rota-previa::before {
+  content: "";
+  position: absolute;
+  left: 32px;
+  right: 32px;
+  top: 6px;
+  height: 1.5px;
+  background: repeating-linear-gradient(to right, var(--texto) 0 2px, transparent 2px 8px);
+}
+
+.rota-previa li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 64px;
+  color: var(--texto-suave);
+}
+
+.rota-previa li::before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--texto);
+  background: var(--fundo);
+}
+
+[data-fonte="130"] .rota-previa,
+[data-fonte="200"] .rota-previa {
+  display: none;
+}
+
+.web {
+  padding-top: 0;
+}
+
+/* A rota vira uma régua horizontal fixa de seções da página. */
+.regua-web {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  margin: 0 -16px;
+  padding: 0 16px;
+  background: var(--fundo);
+  border-bottom: 1px solid var(--linha);
+}
+
+.regua-web ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.regua-web a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 4px;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-stretch: 112.5%;
+  font-weight: 600;
+}
+
+.regua-web a::before {
+  content: "";
+  flex: none;
+  width: 1.5px;
+  height: 14px;
+  background: var(--texto);
+}
+
+.regua-web a[aria-current="true"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+.web-marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-top: 16px;
+  font-weight: 800;
+  font-stretch: 125%;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+[data-fonte="130"] .web-marca,
+[data-fonte="200"] .web-marca {
+  font-stretch: 100%;
+  letter-spacing: 0.02em;
+}
+
+.web-marca .apoio .cg-mascote {
+  width: 32px;
+}
+
+[data-tema="escuro"] .web-marca .apoio {
+  --chanfro: 4px;
+  padding: 3px;
+}
+
+.secao {
+  scroll-margin-top: 64px;
+  margin-top: 32px;
+}
+
+.site-heroi {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.site-heroi .abertura-mapa {
+  height: 17rem;
+  max-height: 260px;
+}
+
+.site-heroi .apoio .cg-mascote {
+  width: 136px;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: 12px;
+  text-align: left;
+}
+
+.check-caixa {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--texto);
+  border-radius: 2px;
+  background: var(--superficie);
+}
+
+.check-caixa .ico {
+  visibility: hidden;
+}
+
+.check[aria-checked="true"] .check-caixa {
+  background: var(--texto);
+  color: var(--fundo);
+}
+
+.check[aria-checked="true"] .check-caixa .ico {
+  visibility: visible;
+}
+
+.check-texto {
+  padding-top: 10px;
+}
+
+.aviso-linha {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mensagem {
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.mensagem:empty {
+  display: none;
+}
+
+/* ---------- 16. Página de identidade ---------- */
+
+.id-bloco {
+  margin-top: 32px;
+}
+
+.id-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.id-tabela th,
+.id-tabela td {
+  padding: 8px 6px;
+  border-top: 1px solid var(--linha);
+  text-align: left;
+  vertical-align: top;
+}
+
+.id-tabela th {
+  font-weight: 700;
+}
+
+[data-fonte="200"] .id-tabela,
+[data-fonte="200"] .id-tabela tbody,
+[data-fonte="200"] .id-tabela tr,
+[data-fonte="200"] .id-tabela td {
+  display: block;
+}
+
+[data-fonte="200"] .id-tabela thead {
+  display: none;
+}
+
+[data-fonte="200"] .id-tabela td {
+  border-top: 0;
+  padding: 2px 0;
+}
+
+[data-fonte="200"] .id-tabela tr {
+  padding: 8px 0;
+  border-top: 1px solid var(--linha);
+}
+
+[data-fonte="200"] .id-tabela td[data-rotulo]::before {
+  content: attr(data-rotulo);
+  margin-right: 0.5em;
+  color: var(--texto-suave);
+}
+
+.amostra-cor {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: -4px;
+  border: 1px solid var(--texto);
+}
+
+.id-icones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+  gap: 8px;
+}
+
+.id-icone {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 6px 8px;
+  border: 1px solid var(--linha);
+  background: var(--superficie);
+}
+
+.id-icone .ico {
+  color: var(--texto);
+}
+
+.id-esquema {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1.5px solid var(--texto);
+  background: var(--superficie);
+}
+
+.id-esquema-rota {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 4px;
+}
+
+.id-esquema-rota::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 50%;
+  height: 1.5px;
+  background: repeating-linear-gradient(to right, var(--texto) 0 2px, transparent 2px 8px);
+}
+
+.id-esquema-rota span {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--texto);
+  background: var(--superficie);
+}
+
+.id-esquema-rota span:nth-child(2) {
+  background: var(--texto);
+}
+
+.id-esquema-corpo {
+  margin: 8px 0;
+  padding: 24px 8px;
+  border: 1px dashed var(--linha);
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.id-esquema-pe {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.id-esquema-acao {
+  align-self: stretch;
+  padding: 8px;
+  background: var(--acento);
+  color: var(--sobre-acento);
+  text-align: center;
+  font-weight: 700;
+}
+
+.id-esquema-legenda {
+  padding: 4px 8px;
+  border: 1.5px solid var(--texto);
+  font-weight: 700;
+}
+
+.id-mascotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 12px;
+}
+
+.id-mascote {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.id-mascote .apoio .cg-mascote {
+  width: 88px;
+}
+
+.id-mascote .apoio--rota .cg-mascote {
+  width: 24px;
+}
+
+[data-tema="escuro"] .id-mascote .apoio {
+  --chanfro: 8px;
+  padding: 4px;
+}
+
+.id-mascote--uma-cor .cg-mascote {
+  width: 88px;
+}
+
+.cg-mascote[data-arte="uma-cor"] path {
+  fill: var(--texto);
+}
+
+.id-lista li {
+  padding: 8px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.id-tom {
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-left: 4px solid var(--texto);
+  background: var(--superficie);
+  font-weight: 500;
+}
+
+/* ---------- 17. Peças de telas específicas ---------- */
+
+/* Tela 9: os três passos como uma sub-rota. */
+.passos {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 9rem;
+  margin-top: 16px;
+}
+
+.passos::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 50%;
+  height: 1.5px;
+  background: repeating-linear-gradient(to right, var(--texto) 0 2px, transparent 2px 8px);
+}
+
+.passo-ponto {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid var(--texto);
+  border-radius: 50%;
+  background: var(--fundo);
+}
+
+.passo-ponto--atual,
+.passo-ponto--feito {
+  background: var(--texto);
+}
+
+.passo-secao .subtitulo {
+  margin-top: 4px;
+}
+
+.linha--empilhada {
+  flex-wrap: wrap;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.linha--empilhada .linha-texto {
+  flex: 1 1 10rem;
+}
+
+.pergunta {
+  padding: 16px 12px;
+}
+
+.pergunta-texto {
+  margin: 12px 0 4px;
+}
+
+.pergunta .opcoes {
+  margin-top: 12px;
+}
+
+/* Tela 10: o fato com o selo. */
+.fato {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.selo--fato {
+  padding: 14px 20px;
+}
+
+.registro {
+  padding: 12px 14px;
+  border-left: 4px solid var(--texto);
+  background: var(--superficie);
+  font-weight: 500;
+}
+
+/* Tela 11. */
+.ligacao-solta {
+  padding: 0 4px;
+  font-weight: 600;
+}
+
+/* Identidade: um caminho de arquivo pode quebrar em qualquer ponto (o texto comum nunca parte palavra). */
+.ligacao-caminho,
+.ligacao-caminho .linha-texto {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* Tela 12: gastos. */
+.gasto,
+.parte {
+  padding: 12px;
+}
+
+.gasto-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+}
+
+.gasto-dados {
+  margin: 8px 0 0;
+}
+
+.gasto-dados > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 6px 0;
+  border-top: 1px solid var(--linha);
+}
+
+.gasto-dados dt {
+  flex: 1 1 8rem;
+  color: var(--texto-suave);
+}
+
+.gasto-dados dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+.gasto-regra {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.gasto-cotas {
+  margin-top: 8px;
+  font-weight: 700;
+}
+
+.familia-gasto {
+  align-items: flex-start;
+}
+
+.familia-conta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  flex: 1 1 100%;
+}
+
+.familia-conta strong {
+  font-size: 1.1875rem;
+}
+
+.recebe {
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+.parte-devem {
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+
+.chave {
+  overflow-wrap: anywhere;
+}
+
+.parte-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+/* Tela 13: o texto de perguntas, como uma carta. */
+.carta {
+  margin-top: 8px;
+  padding: 12px 14px;
+}
+
+.carta-linha {
+  margin-top: 6px;
+  padding-left: 12px;
+  border-left: 1.5px solid var(--linha);
+}
+
+/* Telas 14 e 15. */
+.formulario {
+  padding: 4px 12px 16px;
+}
+
+.linha-qtd {
+  flex: none;
+  max-width: 45%;
+  text-align: right;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.apoio--marca .cg-mascote {
+  width: 32px;
+}
+
+@container cg-tela (max-width: 340px) {
+  .item-botoes {
+    flex-direction: column;
+  }
+}
+
+/* Tela 14: "eu levo" é ação principal do convidado (48 px). */
+.marca--levar {
+  min-height: 48px;
+}
+
+/* ---------- Opções de cor (paletas.html, página de apresentação com o neutro da base) ----------
+   Cinco colunas lado a lado quando cabem; uma coluna no celular. As linhas de cada coluna
+   (cabeça, cores, três telas, botão) se alinham pela grade de baixo (subgrid). */
+
+.pal-dica {
+  margin-top: 0.5rem !important;
+}
+
+.pal-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14.5rem), 1fr));
+  gap: 2rem 1rem;
+}
+
+.pal-coluna {
+  display: grid;
+  grid-row: span 6;
+  grid-template-rows: subgrid;
+  row-gap: 1rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--cg-n-linha);
+  border-top: 8px solid var(--cg-n-linha);
+  border-radius: 2px;
+  background: var(--cg-n-superficie);
+}
+
+.pal-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.pal-caminho,
+.pal-tema-nome,
+.pal-tela figcaption {
+  color: var(--cg-n-texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.pal-cores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.pal-amostras {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pal-cor {
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--cg-n-linha);
+  border-radius: 2px;
+}
+
+.pal-tela {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+  margin: 0;
+}
+
+.pal-par {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.pal-amostra {
+  border-radius: 6px;
+}
+
+.pal-amostra img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pal-abrir {
+  align-self: end;
+  width: 100%;
+}
+
+/* A paleta escolhida pelo responsável: borda mais forte e a palavra "Escolhida" (texto, não só cor).
+   O reforço da borda é um anel por fora, para a coluna manter a mesma largura e as miniaturas alinhadas. */
+.pal-coluna--escolhida {
+  border-color: var(--cg-n-texto);
+  box-shadow: 0 0 0 1px var(--cg-n-texto);
+}
+
+.pal-escolhida {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.375rem;
+  margin: 0.25rem 0 0;
+  font-weight: 600;
+}
+
+.pal-escolhida-selo {
+  padding: 0.125rem 0.5rem;
+  border-radius: 2px;
+  background: var(--cg-n-texto);
+  color: var(--cg-n-superficie);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}

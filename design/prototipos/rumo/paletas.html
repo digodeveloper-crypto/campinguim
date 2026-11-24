@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="rumo.pal.titulo_pagina"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+<script src="paleta.js"></script>
+</head>
+<body data-pagina="paletas-rumo">
+<div class="cg-ap pal">
+  <header class="cg-ap-cabeca">
+    <h1 data-texto="rumo.pal.titulo"></h1>
+    <p class="cg-ap-intro" data-texto="rumo.pal.intro"></p>
+    <p class="cg-ap-intro pal-dica" data-texto="rumo.pal.dica"></p>
+    <ul class="cg-ap-nav">
+      <li><a class="cg-ap-botao" href="identidade.html" data-texto="rumo.pal.voltar"></a></li>
+    </ul>
+  </header>
+
+  <main class="pal-grade" id="paletas"></main>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM;
+  var raiz = document.documentElement;
+  var PALETAS = window.RUMO_PALETA.nomes;
+  var PADRAO = window.RUMO_PALETA.padrao;
+  var PAPEIS = ["fundo", "superficie", "texto", "acento", "atencao", "separei", "carro"];
+  var TELAS = [{ n: 1, arquivo: "01-abertura.html" }, { n: 4, arquivo: "04-lista.html" }, { n: 3, arquivo: "03-alertas.html" }];
+  var TEMAS = ["claro", "escuro"];
+
+  function criar(tag, classe, atributos) {
+    var el = document.createElement(tag);
+    if (classe) el.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { el.setAttribute(k, atributos[k]); });
+    return el;
+  }
+
+  /* Valores lidos de estilo.css: a paleta e o tema trocam por um instante na raiz e voltam. */
+  function ler(paleta, tema) {
+    var antesP = raiz.getAttribute("data-paleta"), antesT = raiz.getAttribute("data-tema");
+    if (paleta === "original") raiz.removeAttribute("data-paleta"); else raiz.setAttribute("data-paleta", paleta);
+    raiz.setAttribute("data-tema", tema);
+    var cs = getComputedStyle(raiz), r = {};
+    PAPEIS.concat(["sobre-acento"]).forEach(function (p) { r[p] = cs.getPropertyValue("--" + p).trim().toUpperCase(); });
+    if (antesP === null) raiz.removeAttribute("data-paleta"); else raiz.setAttribute("data-paleta", antesP);
+    if (antesT === null) raiz.removeAttribute("data-tema"); else raiz.setAttribute("data-tema", antesT);
+    return r;
+  }
+
+  function amostras(nome, tema, cores) {
+    var bloco = criar("div", "pal-tema");
+    bloco.appendChild(criar("p", "pal-tema-nome", { "data-texto": "rumo.id." + tema }));
+    var ul = criar("ul", "pal-amostras", {
+      "data-texto-aria": "rumo.pal.amostras",
+      "data-valores": JSON.stringify({ nome: C.texto("rumo.pal.nome." + nome), tema: C.texto("rumo.id." + tema) })
+    });
+    PAPEIS.forEach(function (p) {
+      var rotulo = C.texto("rumo.pal.cor", { papel: C.texto("rumo.pal.papel." + p), hex: cores[p] });
+      var li = criar("li", "pal-cor", { role: "img", "aria-label": rotulo, title: rotulo });
+      li.style.background = cores[p];
+      ul.appendChild(li);
+    });
+    bloco.appendChild(ul);
+    return bloco;
+  }
+
+  /* Miniatura: a captura da tela real (estado inicial, letra 100 %) na paleta e no tema, em paletas/.
+     Imagem e não iframe: abre na hora, também no celular, e aparece inteira em qualquer captura da página. */
+  function quadro(nome, tela, tema) {
+    var caixa = criar("div", "cg-ap-amostra pal-amostra");
+    caixa.appendChild(criar("img", null, {
+      src: "paletas/" + nome + "-" + tela.arquivo.replace(".html", "") + "-" + tema + ".png",
+      alt: C.texto("rumo.pal.quadro", { tela: C.texto("tela." + tela.n), nome: C.texto("rumo.pal.nome." + nome), tema: C.texto("rumo.id." + tema) }),
+      width: "390",
+      height: "844",
+      decoding: "async"
+    }));
+    return caixa;
+  }
+
+  function coluna(nome) {
+    var cores = { claro: ler(nome, "claro"), escuro: ler(nome, "escuro") };
+    var sec = criar("section", "pal-coluna" + (nome === PADRAO ? " pal-coluna--escolhida" : ""), { "aria-labelledby": "pal-" + nome });
+
+    var cabeca = criar("div", "pal-cabeca");
+    cabeca.appendChild(criar("h2", null, { id: "pal-" + nome, "data-texto": "rumo.pal.nome." + nome }));
+    /* A escolhida pelo responsável (a padrão do Rumo) leva a marca em texto, não só em cor. */
+    if (nome === PADRAO) {
+      var marca = criar("p", "pal-escolhida");
+      marca.appendChild(criar("strong", "pal-escolhida-selo", { "data-texto": "rumo.pal.escolhida" }));
+      marca.appendChild(criar("span", null, { "data-texto": "rumo.pal.escolhida_nota" }));
+      cabeca.appendChild(marca);
+    }
+    cabeca.appendChild(criar("p", "pal-caminho", { "data-texto": "rumo.pal.caminho", "data-valores": JSON.stringify({ caminho: C.texto("rumo.pal.caminho." + nome) }) }));
+    cabeca.appendChild(criar("p", null, { "data-texto": "rumo.pal.linha." + nome }));
+    sec.appendChild(cabeca);
+
+    var cores2 = criar("div", "pal-cores");
+    TEMAS.forEach(function (t) { cores2.appendChild(amostras(nome, t, cores[t])); });
+    sec.appendChild(cores2);
+
+    TELAS.forEach(function (tela) {
+      var fig = criar("figure", "pal-tela");
+      var par = criar("div", "pal-par");
+      TEMAS.forEach(function (t) { par.appendChild(quadro(nome, tela, t)); });
+      fig.appendChild(par);
+      fig.appendChild(criar("figcaption", null, { "data-texto": "tela." + tela.n }));
+      sec.appendChild(fig);
+    });
+
+    /* O botão já mostra o acento da paleta, no tema em que esta página está. */
+    var abrir = criar("a", "cg-ap-botao cg-ap-botao--principal pal-abrir", {
+      href: "01-abertura.html" + (nome === PADRAO ? "" : "?paleta=" + nome),
+      "data-texto": "rumo.pal.abrir",
+      "data-texto-aria": "rumo.pal.abrir_aria",
+      "data-valores": JSON.stringify({ nome: C.texto("rumo.pal.nome." + nome) })
+    });
+    sec.appendChild(abrir);
+    pintaveis.push({ sec: sec, abrir: abrir, cores: cores });
+    return sec;
+  }
+
+  /* O botão e o filete da coluna mostram o acento da paleta no tema em que esta página está. */
+  var pintaveis = [];
+  function pintar() {
+    var tema = raiz.getAttribute("data-tema") === "escuro" ? "escuro" : "claro";
+    pintaveis.forEach(function (p) {
+      var c = p.cores[tema];
+      p.sec.style.borderTopColor = c.acento;
+      p.abrir.style.background = c.acento;
+      p.abrir.style.borderColor = c.acento;
+      p.abrir.style.color = c["sobre-acento"];
+    });
+  }
+
+  var area = document.getElementById("paletas");
+  PALETAS.forEach(function (nome) { area.appendChild(coluna(nome)); });
+  pintar();
+  if (window.MutationObserver) new MutationObserver(pintar).observe(raiz, { attributes: true, attributeFilter: ["data-tema"] });
+})();
+</script>
+</body>
+</html>

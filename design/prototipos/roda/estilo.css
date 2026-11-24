@@ -1,0 +1,1790 @@
+/* Campinguim · protótipo 5 · Roda (comunidade e encontro).
+   Direção: design/prototipos/direcao/direcoes.md, seção 5. Contrato: padrao-producao.md.
+   Cores: os 10 papéis exatos de direcoes.md, em :root (claro, o tema principal) e em [data-tema="escuro"].
+   Fora deles, só o que direcoes.md declara para a Roda: o apoio do mascote no escuro (#F4E2C6),
+   as três cores de emblema das famílias e o monograma sobre elas (#241B2F, o texto do claro).
+   Elemento-assinatura: o emblema de família (escudo de base reta e topo em arco, contorno duplo de bordado).
+   Tipografia: Bricolage Grotesque (títulos, peso 700, largura 90) e Lexend (texto, peso 400).
+   Escala: 32/36, 21/28, 17/26, 15/20, em rem (a base muda a raiz para 100, 130 e 200 %). */
+
+:root {
+  --fundo: #FFF7EC;
+  --superficie: #FFFFFF;
+  --texto: #241B2F;
+  --texto-suave: #5A4E66;
+  --linha: #8A7F96;
+  --acento: #7A2E5C;
+  --sobre-acento: #FFFFFF;
+  --atencao: #A63A12;
+  --separei: #7A5600;
+  --carro: #1E6A6E;
+
+  /* Declarados em direcoes.md para a Roda. */
+  --apoio-mascote: #FFFFFF;   /* no claro o apoio é dispensado: o emblema do anfitrião fica em superfície */
+  --emblema-cr: #F2B53A;      /* Carla e Rafael · sol */
+  --emblema-bp: #9FD3D0;      /* Bruno e Paula · água */
+  --emblema-dl: #E8B7C8;      /* Diego e Lívia · flor */
+  --monograma: #241B2F;       /* monograma sobre as cores de emblema, nos dois temas */
+
+  --r-fonte-titulo: var(--cg-fonte-bricolage);
+  --r-fonte-texto: var(--cg-fonte-lexend);
+  --r-canto: 16px;
+  --r-fio: color-mix(in srgb, var(--linha) 38%, transparent);
+  color-scheme: light;
+}
+
+[data-tema="escuro"] {
+  --fundo: #1A1420;
+  --superficie: #261E2E;
+  --texto: #F5ECF2;
+  --texto-suave: #C2B4C4;
+  --linha: #7E6E86;
+  --acento: #F2B53A;
+  --sobre-acento: #1A1420;
+  --atencao: #FF9E80;
+  --separei: #EBCB7C;
+  --carro: #8DD3D3;
+
+  --apoio-mascote: #F4E2C6;   /* corpo do mascote #4A5560 sobre ele: 5,99:1 */
+  color-scheme: dark;
+}
+
+/* ---------- Base da tela ---------- */
+
+.r-app,
+.r-app *,
+.r-app *::before,
+.r-app *::after,
+.r-camada,
+.r-camada *,
+.r-camada *::before,
+.r-camada *::after {
+  box-sizing: border-box;
+}
+
+.r-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--r-fonte-texto);
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+  font-weight: 400;
+}
+
+.r-app[hidden],
+.r-app [hidden],
+.r-camada [hidden] {
+  display: none !important;
+}
+
+:where(.r-app, .r-camada) :where(h1, h2, h3) {
+  margin: 0;
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  letter-spacing: -0.005em;
+}
+
+:where(.r-app) :where(h1) {
+  /* 32/36; o teto pela largura evita partir uma palavra longa em 200 %. */
+  font-size: min(2rem, 13.5cqi);
+  line-height: 1.125;
+}
+
+:where(.r-app, .r-camada) :where(h2) {
+  font-size: min(1.3125rem, 10cqi);
+  line-height: 1.34;
+}
+
+:where(.r-app, .r-camada) :where(h3) {
+  font-size: 1.1875rem;
+  line-height: 1.4;
+}
+
+:where(.r-app, .r-camada) :where(p) {
+  margin: 0;
+}
+
+:where(.r-app, .r-camada) :where(ul, ol) {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.r-app, .r-camada) :where(a) {
+  color: inherit;
+}
+
+:where(.r-app, .r-camada) :where(button, input, textarea) {
+  font: inherit;
+  color: inherit;
+}
+
+:where(.r-app, .r-camada) :where(button) {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.r-suave {
+  color: var(--texto-suave);
+}
+
+.r-pequeno {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+/* ---------- Topo: o nome da viagem (só leitura) ---------- */
+
+.r-topo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: calc(1rem + var(--cg-seguro-topo)) 1rem 0;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.r-topo .r-icone {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+/* ---------- Conteúdo ---------- */
+
+.r-conteudo {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 1rem 2rem;
+}
+
+.r-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.r-cabeca--com-figura {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.r-cabeca--com-figura > .r-cabeca-texto {
+  flex: 1 1 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.r-frase {
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+}
+
+.r-secao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.r-secao-cabeca {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.r-cartao {
+  background: var(--superficie);
+  border: 1px solid var(--r-fio);
+  border-radius: var(--r-canto);
+  padding: 1rem 1.25rem;
+}
+
+.r-cartao--lista {
+  padding: 0.25rem 1rem;
+}
+
+/* ---------- Rodapé: "Mural" à esquerda, ação principal à direita ---------- */
+
+.r-rodape {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: min(0.75rem, 3cqi);
+  padding: 0.75rem 1rem calc(0.75rem + var(--cg-seguro-baixo));
+  background: var(--fundo);
+  border-top: 1px solid var(--r-fio);
+}
+
+.r-rodape--solo {
+  justify-content: center;
+}
+
+.r-mural-botao {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  min-width: 3.25rem;
+  padding: 0.5rem min(1.125rem, 4cqi) 0.5rem min(0.875rem, 3cqi);
+  border-radius: var(--r-canto);
+  border: 2px solid var(--texto);
+  background: var(--superficie);
+  color: var(--texto);
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  /* Em 200 %, o teto pela largura deixa "Mural" e a ação lado a lado. */
+  font-size: min(1.125rem, 8cqi);
+  line-height: 1.25;
+}
+
+.r-mural-botao .r-icone {
+  width: min(1.5rem, 7cqi);
+  height: min(1.5rem, 7cqi);
+}
+
+.r-acao {
+  flex: 1 1 min(11rem, 40cqi);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0.625rem min(1.25rem, 4cqi);
+  border-radius: var(--r-canto);
+  border: 2px solid var(--acento);
+  background: var(--acento);
+  color: var(--sobre-acento);
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  /* 19 px; em 200 %, o teto pela largura mantém a palavra inteira dentro do botão. */
+  font-size: min(1.1875rem, 8.5cqi);
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+
+.r-acao .r-icone {
+  width: min(1.5rem, 7cqi);
+  height: min(1.5rem, 7cqi);
+  flex: none;
+}
+
+.r-acao[aria-pressed="true"] {
+  background: var(--superficie);
+  color: var(--texto);
+  border-color: var(--texto);
+}
+
+/* Botão secundário (contorno) e ligação de texto. */
+.r-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--linha);
+  background: var(--superficie);
+  color: var(--texto);
+  font-size: 1rem;
+  line-height: 1.375rem;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+}
+
+.r-botao .r-icone {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.r-botao[aria-pressed="true"] {
+  border-color: var(--texto);
+  border-width: 2px;
+  font-weight: 600;
+}
+
+.r-botao--forte {
+  border: 2px solid var(--acento);
+  color: var(--acento);
+  font-weight: 600;
+}
+
+[data-tema="escuro"] .r-botao--forte {
+  color: var(--texto);
+}
+
+.r-ligacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0;
+  color: var(--texto);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.2em;
+}
+
+.r-ligacao .r-icone {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.r-acoes-linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ---------- Ícones (icones.js) ---------- */
+
+.r-icone {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  line-height: 0;
+  vertical-align: middle;
+}
+
+.r-icone > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ícone em círculo: o estado ativo ganha o círculo a 18 % da cor do estado (direcoes.md). */
+.r-circulo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 2px solid var(--linha);
+  color: var(--texto-suave);
+}
+
+.r-circulo .r-icone {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.r-circulo--separei {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--separei) 18%, transparent);
+  color: var(--separei);
+}
+
+.r-circulo--carro {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--carro) 18%, transparent);
+  color: var(--carro);
+}
+
+.r-circulo--atencao {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--atencao) 16%, transparent);
+  color: var(--atencao);
+}
+
+.r-circulo--neutro {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--linha) 18%, transparent);
+  color: var(--texto);
+}
+
+/* ---------- Emblema de família (assinatura) ---------- */
+/* Escudo de base reta e topo em arco; contorno duplo de bordado (2 px, vão de 3 px, 2 px).
+   Aceso (a família terminou a parte dela): a borda fica cheia. Nunca redondo, sem corda, nó ou flor-de-lis. */
+
+.r-emblema {
+  --cor: var(--emblema-cr);
+  --tam: 3.5rem;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--tam);
+  height: calc(var(--tam) * 1.15);
+  padding-top: calc(var(--tam) * 0.12);
+  border-radius: 50% 50% 0.375rem 0.375rem / 40% 40% 0.375rem 0.375rem;
+  background: var(--cor);
+  color: var(--monograma);
+  border: 2px solid var(--monograma);
+  box-shadow: inset 0 0 0 3px var(--cor), inset 0 0 0 5px var(--monograma);
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  /* O monograma acompanha o tamanho do emblema (que cresce em rem) e cabe sempre dentro do contorno interno.
+     Os menores emblemas com monograma têm 3,25 rem: o monograma nunca fica abaixo de 15 px. */
+  font-size: calc(var(--tam) * 0.3);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.r-emblema[data-aceso="1"] {
+  box-shadow: inset 0 0 0 7px var(--monograma);
+}
+
+/* Cor de cada família, na ordem de dados.js (grupo.familias), como em direcoes.md. */
+.r-emblema--cor1 { --cor: var(--emblema-cr); }
+.r-emblema--cor2 { --cor: var(--emblema-bp); }
+.r-emblema--cor3 { --cor: var(--emblema-dl); }
+
+/* Só contorno (tela de gastos: nada de turquesa claro em gastos, concorrentes.md). */
+.r-emblema--contorno {
+  --cor: var(--superficie);
+  color: var(--texto);
+  border-color: var(--texto);
+  box-shadow: inset 0 0 0 3px var(--superficie), inset 0 0 0 5px var(--texto);
+}
+
+.r-emblema--contorno[data-aceso="1"] {
+  border-width: 4px;
+  box-shadow: inset 0 0 0 2px var(--superficie), inset 0 0 0 4px var(--texto);
+}
+
+.r-emblema--pequeno { --tam: 3.25rem; }
+.r-emblema--grande { --tam: 4.5rem; }
+
+.r-familias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.25rem;
+}
+
+.r-familia {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.r-familia-texto {
+  display: flex;
+  flex-direction: column;
+}
+
+.r-familia-nome {
+  font-weight: 600;
+}
+
+.r-conteudo > .r-familia {
+  flex: 0 0 auto;
+}
+
+.r-familia-texto .r-situacao {
+  margin-top: 0.25rem;
+}
+
+/* Apoio do mascote: um emblema claro atrás da figura (no escuro, #F4E2C6; no claro, superfície).
+   O mascote fica inteiro dentro do apoio, sem recorte. */
+.r-anfitriao {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: none;
+  width: var(--anf, 8rem);
+  padding: calc(var(--anf, 8rem) * 0.2) calc(var(--anf, 8rem) * 0.08) calc(var(--anf, 8rem) * 0.06);
+  border-radius: 50% 50% 0.75rem 0.75rem / 38% 38% 0.75rem 0.75rem;
+  background: var(--apoio-mascote);
+  border: 2px solid var(--r-fio);
+  box-shadow: inset 0 0 0 4px var(--apoio-mascote), inset 0 0 0 6px var(--r-fio);
+}
+
+[data-tema="escuro"] .r-anfitriao {
+  border-color: var(--monograma);
+  box-shadow: inset 0 0 0 4px var(--apoio-mascote), inset 0 0 0 6px color-mix(in srgb, var(--monograma) 55%, var(--apoio-mascote));
+}
+
+.r-anfitriao .cg-mascote {
+  width: 100%;
+}
+
+.r-anfitriao--pequeno { --anf: 5.5rem; }
+.r-anfitriao--medio { --anf: 7.5rem; }
+
+/* ---------- Pílulas de nome (quem leva cada item) ---------- */
+
+.r-pilula {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2rem;
+  padding: 0.125rem 0.75rem 0.125rem 0.25rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--linha) 16%, transparent);
+  color: var(--texto);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+}
+
+/* Na pílula, o emblema vai só como forma e cor (o nome está escrito ao lado). */
+.r-pilula .r-emblema {
+  --tam: 1.375rem;
+  padding: 0;
+  border-width: 1.5px;
+  box-shadow: inset 0 0 0 2px var(--cor), inset 0 0 0 3.5px var(--monograma);
+}
+
+.r-pilula .r-emblema-mono {
+  display: none;
+}
+
+.r-pilula--sem-dono {
+  padding-left: 0.75rem;
+  background: transparent;
+  border: 1.5px dashed var(--linha);
+  color: var(--texto);
+}
+
+/* ---------- Mural (camada que cobre a tela; navegação da Roda) ---------- */
+
+.r-camada {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--r-fonte-texto);
+  font-size: 1.0625rem;
+  line-height: 1.625rem;
+}
+
+.r-camada[hidden] {
+  display: none;
+}
+
+.r-camada-rolagem {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.r-camada-rolagem::-webkit-scrollbar {
+  display: none;
+}
+
+.r-mural-cabeca {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: calc(1rem + var(--cg-seguro-topo)) 1rem 0;
+}
+
+.r-mural-titulo {
+  font-size: min(2rem, 13.5cqi) !important;
+  line-height: 1.125 !important;
+}
+
+.r-mural-familias {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding-top: 0.25rem;
+}
+
+[data-fonte="200"] .r-mural-familias {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.r-mural-familia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  text-align: center;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+[data-fonte="200"] .r-mural-familia {
+  flex-direction: row;
+  text-align: left;
+}
+
+.r-blocos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 1.5rem 1rem 1.5rem;
+}
+
+[data-fonte="200"] .r-blocos {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.r-bloco {
+  --tom: var(--superficie);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 10rem;
+  padding: 1rem;
+  border-radius: var(--r-canto);
+  background: var(--tom);
+  color: var(--texto);
+  text-decoration: none;
+}
+
+.r-bloco-texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.r-bloco-titulo {
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+}
+
+.r-bloco-resumo {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+.r-bloco-pe {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.r-bloco .r-circulo {
+  border-color: transparent;
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+.r-bloco .r-seta {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.r-bloco--lista {
+  --tom: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.r-bloco--lista .r-bloco-resumo {
+  color: var(--sobre-acento);
+}
+
+.r-bloco--lista .r-circulo {
+  background: var(--sobre-acento);
+  color: var(--acento);
+}
+
+.r-bloco--grupo { --tom: color-mix(in srgb, var(--carro) 14%, transparent); }
+.r-bloco--gastos { --tom: color-mix(in srgb, var(--acento) 11%, transparent); }
+.r-bloco--camping { --tom: color-mix(in srgb, var(--atencao) 10%, transparent); }
+.r-bloco--volta { --tom: color-mix(in srgb, var(--separei) 13%, transparent); }
+.r-bloco--casa { --tom: color-mix(in srgb, var(--linha) 16%, transparent); }
+
+.r-bloco[aria-current="page"] {
+  outline: 3px solid var(--texto);
+  outline-offset: 2px;
+}
+
+.r-bloco-aqui {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+/* ---------- Folha (Faltou algo) ---------- */
+
+.r-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: color-mix(in srgb, var(--texto) 40%, transparent);
+}
+
+.r-veu[hidden] {
+  display: none;
+}
+
+.r-folha {
+  display: flex;
+  flex-direction: column;
+  max-height: 88%;
+  background: var(--fundo);
+  border-radius: 1.25rem 1.25rem 0 0;
+  border-top: 1px solid var(--r-fio);
+}
+
+.r-folha-cabeca {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1rem 0.75rem;
+}
+
+.r-folha-corpo {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ---------- Lista (tela 4), volta (tela 8) e linhas em geral ---------- */
+
+.r-progresso {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.r-progresso-numero {
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+}
+
+.r-barra {
+  height: 0.625rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--linha) 28%, transparent);
+  overflow: hidden;
+}
+
+.r-barra > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--carro);
+  transition: width 180ms ease-out;
+}
+
+.r-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.r-filtro {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  min-height: 2.75rem;
+  padding: 0.375rem 1rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--linha);
+  background: var(--superficie);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.r-filtro[aria-pressed="true"] {
+  background: var(--texto);
+  border-color: var(--texto);
+  color: var(--fundo);
+  font-weight: 600;
+}
+
+.r-filtro .r-icone {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+.r-categoria {
+  padding: 0.25rem 0;
+}
+
+.r-categoria + .r-categoria {
+  border-top: 1px solid var(--r-fio);
+}
+
+.r-cat {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0.75rem 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.r-cat-texto {
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.125rem 0.75rem;
+}
+
+.r-cat-nome {
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+}
+
+.r-cat-progresso {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+.r-cat .r-seta {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--texto-suave);
+  transition: transform 150ms ease-out;
+}
+
+.r-cat[aria-expanded="true"] .r-seta {
+  transform: rotate(90deg);
+}
+
+.r-itens[hidden] {
+  display: none;
+}
+
+.r-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem 0.75rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--r-fio);
+}
+
+.r-itens > .r-linha:first-child,
+.r-cartao--lista > .r-linha:first-child,
+.r-cartao--lista > .r-tarefa:first-child {
+  border-top-color: transparent;
+}
+
+.r-linha--pendente {
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--separei) 8%, transparent);
+}
+
+.r-linha[hidden] {
+  display: none;
+}
+
+.r-linha-nome {
+  flex: 1 1 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.r-linha-titulo {
+  font-weight: 500;
+  text-decoration: none;
+}
+
+a.r-linha-titulo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  align-self: flex-start;
+  text-decoration: underline;
+  text-decoration-color: var(--r-fio);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+}
+
+.r-linha-info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.125rem 0.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  color: var(--texto-suave);
+}
+
+/* Estado escrito na linha: ícone + texto, na cor do estado (DSG-10). */
+.r-situacao {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  font-weight: 600;
+}
+
+.r-situacao .r-icone {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex: none;
+}
+
+.r-situacao--carro { color: var(--carro); }
+.r-situacao--separei { color: var(--separei); }
+.r-situacao--atencao { color: var(--atencao); }
+.r-situacao--neutro { color: var(--texto-suave); }
+
+.r-linha-acoes {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Alternância de estado: ícone em círculo sobre o rótulo; ativa = círculo a 18 % + cor cheia. */
+.r-estado {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.25rem;
+  width: 5rem;
+  min-height: 2.75rem;
+  padding: 0.25rem 0.125rem;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.125rem;
+  text-align: center;
+}
+
+.r-estado .r-circulo {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.r-estado[aria-pressed="true"] {
+  font-weight: 600;
+}
+
+.r-estado--separei[aria-pressed="true"] { color: var(--separei); }
+.r-estado--carro[aria-pressed="true"] { color: var(--carro); }
+.r-estado--neutro[aria-pressed="true"] { color: var(--texto); }
+
+.r-estado--separei[aria-pressed="true"] .r-circulo {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--separei) 18%, transparent);
+  color: var(--separei);
+}
+
+.r-estado--carro[aria-pressed="true"] .r-circulo {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--carro) 18%, transparent);
+  color: var(--carro);
+}
+
+.r-estado--neutro[aria-pressed="true"] .r-circulo {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--texto) 14%, transparent);
+  color: var(--texto);
+}
+
+.r-vazio {
+  padding: 0.75rem 0;
+  color: var(--texto-suave);
+}
+
+/* Faixa de tarefas. */
+.r-tarefa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem 0.75rem;
+}
+
+.r-tarefa-texto {
+  flex: 1 1 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.r-rotulo {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: var(--texto-suave);
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Avisos (tela 3, 7, 13) ---------- */
+
+.r-aviso {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 1rem;
+  border-radius: var(--r-canto);
+  background: var(--superficie);
+  border: 1px solid var(--r-fio);
+}
+
+.r-aviso--atencao {
+  border: 2px solid var(--atencao);
+}
+
+.r-aviso-texto {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.r-aviso-nivel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.r-aviso--atencao .r-aviso-nivel {
+  color: var(--atencao);
+}
+
+.r-aviso .r-circulo {
+  margin-top: 0.125rem;
+}
+
+/* Ajustes e regras. */
+.r-ajuste-tipo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.r-riscado .r-linha-titulo {
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+}
+
+/* ---------- Formulário (tela 2, 5, 9, 14, 15) ---------- */
+
+.r-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.r-campo-rotulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+  font-weight: 600;
+}
+
+.r-obrigatorio {
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+  color: var(--texto-suave);
+}
+
+.r-entrada {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.75rem;
+  border: 1.5px solid var(--linha);
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+textarea.r-entrada {
+  min-height: 6rem;
+  resize: vertical;
+}
+
+.r-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.r-opcao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  min-height: 3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.875rem;
+  border: 1.5px solid var(--linha);
+  background: var(--superficie);
+  text-align: center;
+}
+
+.r-opcao .r-icone {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+}
+
+.r-opcao[aria-pressed="true"] {
+  border: 2px solid var(--acento);
+  background: color-mix(in srgb, var(--acento) 10%, transparent);
+  font-weight: 600;
+}
+
+.r-opcao[aria-pressed="true"]::after {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--acento);
+  flex: none;
+}
+
+.r-contador {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  min-height: 3.5rem;
+  padding: 0.25rem 0;
+}
+
+.r-contador + .r-contador {
+  border-top: 1px solid var(--r-fio);
+}
+
+.r-contador-rotulo {
+  flex: 1 1 9rem;
+}
+
+.r-passos {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: none;
+}
+
+.r-passo-botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--linha);
+  background: var(--superficie);
+}
+
+.r-passo-botao .r-icone {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.r-passo-valor {
+  min-width: 2rem;
+  text-align: center;
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+}
+
+.r-marcar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.25rem 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.r-marcar[aria-pressed="true"] .r-circulo {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--acento) 16%, transparent);
+  color: var(--acento);
+}
+
+[data-tema="escuro"] .r-marcar[aria-pressed="true"] .r-circulo {
+  color: var(--texto);
+}
+
+/* Interruptor ("preciso comprar"). */
+.r-interruptor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.5rem 0;
+  border: 0;
+  background: transparent;
+  text-align: left;
+}
+
+.r-interruptor-trilho {
+  position: relative;
+  flex: none;
+  width: 3.25rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 2px solid var(--linha);
+  background: var(--superficie);
+}
+
+.r-interruptor-trilho::after {
+  content: "";
+  position: absolute;
+  top: 0.25rem;
+  left: 0.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background: var(--linha);
+  transition: left 150ms ease-out;
+}
+
+.r-interruptor[aria-pressed="true"] .r-interruptor-trilho {
+  border-color: var(--acento);
+  background: var(--acento);
+}
+
+.r-interruptor[aria-pressed="true"] .r-interruptor-trilho::after {
+  left: 1.5rem;
+  background: var(--sobre-acento);
+}
+
+/* ---------- Gastos (tela 12) ---------- */
+
+.r-valor {
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 2rem;
+  line-height: 2.25rem;
+}
+
+.r-cotas {
+  display: flex;
+  flex-direction: column;
+}
+
+.r-cota {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.875rem 0;
+  border-top: 1px solid var(--r-fio);
+}
+
+.r-cota:first-child {
+  border-top-color: transparent;
+}
+
+.r-cota-quem {
+  flex: 1 1 11rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.r-cota-valor {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.r-cota-valor strong {
+  font-weight: 600;
+}
+
+.r-chave {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  border: 1.5px dashed var(--linha);
+}
+
+.r-chave-valor {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Tela 9: passos ---------- */
+
+.r-etapas {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.r-etapa {
+  flex: 1 1 0;
+  height: 0.375rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--linha) 30%, transparent);
+}
+
+.r-etapa[data-feita="1"] {
+  background: var(--acento);
+}
+
+.r-escolha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ---------- Tela 10: confirmações como gente junta ---------- */
+
+.r-gente {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  color: var(--carro);
+}
+
+.r-gente .r-icone {
+  width: 2rem;
+  height: 2rem;
+}
+
+.r-numero-grande {
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: min(2rem, 13.5cqi);
+  line-height: 1.15;
+}
+
+/* ---------- Mensagem curta (anúncio visível) ---------- */
+
+.r-nota {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: color-mix(in srgb, var(--carro) 12%, transparent);
+  color: var(--texto);
+  font-weight: 500;
+}
+
+.r-nota[hidden] {
+  display: none;
+}
+
+.r-nota .r-icone {
+  color: var(--carro);
+  flex: none;
+}
+
+/* ---------- Abertura (tela 1) ---------- */
+
+.r-abertura {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: calc(2rem + var(--cg-seguro-topo)) 1rem 1.5rem;
+  text-align: center;
+}
+
+/* Encontro: o anfitrião no centro, os três emblemas em roda à frente dele, sem tocar a figura. */
+.r-encontro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.r-encontro .r-anfitriao {
+  --anf: min(11rem, 44cqi);
+}
+
+.r-encontro-roda {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.r-encontro-roda .r-emblema:nth-child(2) {
+  margin-top: 0.875rem;
+}
+
+.r-encontro .r-emblema {
+  --tam: min(3.5rem, 15cqi);
+}
+
+.r-marca-nome {
+  font-size: min(2.5rem, 13.5cqi) !important;
+  line-height: 1.1 !important;
+}
+
+.r-rodape--abertura {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.r-rodape--abertura .r-acao {
+  flex: none;
+}
+
+.r-rodape--abertura .r-ligacao {
+  align-self: center;
+}
+
+/* ---------- Web (telas 14 e 15) ---------- */
+
+.r-web-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: calc(0.75rem + var(--cg-seguro-topo)) 1rem 0.75rem;
+  border-bottom: 1px solid var(--r-fio);
+}
+
+.r-web-marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+}
+
+.r-web-marca .cg-mascote {
+  width: 2.25rem;
+}
+
+.r-web-secoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.r-web-bloco {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+  border-radius: var(--r-canto);
+  background: var(--superficie);
+  border: 1px solid var(--r-fio);
+}
+
+.r-web-bloco--tom {
+  background: color-mix(in srgb, var(--carro) 12%, transparent);
+  border-color: transparent;
+}
+
+.r-web-bloco--sol {
+  background: color-mix(in srgb, var(--separei) 12%, transparent);
+  border-color: transparent;
+}
+
+.r-web-heroi {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.r-web-heroi-texto {
+  flex: 1 1 12rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.r-web-pe {
+  padding: 1.5rem 1rem calc(1.5rem + var(--cg-seguro-baixo));
+  color: var(--texto-suave);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.r-web-acao {
+  align-self: stretch;
+  flex: none;
+}
+
+/* ---------- Identidade ---------- */
+
+.r-id-cores {
+  display: flex;
+  flex-direction: column;
+}
+
+.r-id-cor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  padding: 0.625rem 0;
+  border-top: 1px solid var(--r-fio);
+}
+
+.r-id-cor:first-child {
+  border-top-color: transparent;
+}
+
+.r-id-amostras {
+  display: flex;
+  gap: 0.25rem;
+  flex: none;
+}
+
+.r-id-amostra {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--linha);
+}
+
+.r-id-cor-texto {
+  flex: 1 1 12rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.r-id-icones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  gap: 1rem 0.5rem;
+}
+
+[data-fonte="200"] .r-id-icones {
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+}
+
+.r-id-icone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.375rem;
+  text-align: center;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.r-id-icone .r-icone {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.r-id-esquema {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-radius: var(--r-canto);
+  border: 1.5px solid var(--linha);
+  background: var(--fundo);
+}
+
+.r-id-esquema-blocos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.375rem;
+}
+
+[data-fonte="200"] .r-id-esquema-blocos {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.r-id-esquema-bloco {
+  display: flex;
+  align-items: flex-end;
+  min-height: 3.5rem;
+  padding: 0.5rem;
+  border-radius: 0.625rem;
+  background: color-mix(in srgb, var(--linha) 18%, transparent);
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.r-id-esquema-bloco--lista {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.r-id-esquema-pe {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.r-id-esquema-pe span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.625rem;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.r-id-esquema-mural {
+  border: 2px solid var(--texto);
+}
+
+.r-id-esquema-acao {
+  flex: 1 1 auto;
+  justify-content: center;
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.r-id-mascotes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+.r-id-mascote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  flex: 1 1 8rem;
+}
+
+.r-id-umacor .cg-mascote {
+  width: 5.5rem;
+}
+
+/* A versão uma-cor na cor da direção (só fill, só nesta arte). */
+.cg-mascote[data-arte="uma-cor"] path {
+  fill: var(--acento);
+}
+
+.r-id-escala {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.r-id-escala-titulo {
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: min(2rem, 13.5cqi);
+  line-height: 1.125;
+}
+
+.r-id-escala-bloco {
+  font-family: var(--r-fonte-titulo);
+  font-weight: 700;
+  font-stretch: 90%;
+  font-size: 1.3125rem;
+  line-height: 1.75rem;
+}
+
+.r-id-frases {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.r-id-frase {
+  padding-left: 1rem;
+  border-left: 3px solid var(--acento);
+}
+
+
+/* ---------- Movimento ---------- */
+
+.r-bloco,
+.r-acao,
+.r-estado .r-circulo {
+  transition: background-color 150ms ease-out, color 150ms ease-out;
+}
+
+/* Em 200 %, o ícone decorativo da ação principal sai para "Mural" e a ação caberem lado a lado;
+   o texto da ação continua inteiro. */
+[data-fonte="200"] .r-rodape .r-acao .r-icone {
+  display: none;
+}

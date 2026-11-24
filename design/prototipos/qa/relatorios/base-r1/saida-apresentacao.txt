@@ -1,0 +1,184 @@
+index-celular-claro.png  rolagem_horizontal=nao (390px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=10  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/prototipos/brasa/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/clareira/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/oficina/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/rumo/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///C:/campinguim/design/prototipos/roda/ficha.js
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+recomendacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+recomendacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+recomendacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+recomendacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0

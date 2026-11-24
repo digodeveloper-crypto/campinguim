@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="apresentacao.titulo_pagina"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="_compartilhado/base.css">
+</head>
+<body data-pagina="inicio">
+<div class="cg-ap">
+  <header class="cg-ap-cabeca">
+    <h1 data-texto="apresentacao.titulo"></h1>
+    <p class="cg-ap-intro" data-texto="apresentacao.intro"></p>
+    <nav data-texto-aria="apresentacao.navegar">
+      <ul class="cg-ap-nav">
+        <li><a class="cg-ap-botao" href="comparacao.html" data-texto="apresentacao.comparacao"></a></li>
+        <li><a class="cg-ap-botao" href="avaliacao.html" data-texto="apresentacao.avaliacao"></a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <ol class="cg-ap-cartoes" id="cartoes"></ol>
+  </main>
+
+  <footer class="cg-ap-rodape">
+    <a class="cg-ap-discreto" href="recomendacao.html" data-texto="apresentacao.recomendacao"></a>
+  </footer>
+</div>
+
+<script src="_compartilhado/dados.js"></script>
+<script src="_compartilhado/textos.js"></script>
+<script src="_compartilhado/mascote.js"></script>
+<script src="_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM;
+  var lista = document.getElementById("cartoes");
+
+  function criar(tag, classe, atributos) {
+    var el = document.createElement(tag);
+    if (classe) el.className = classe;
+    if (atributos) Object.keys(atributos).forEach(function (k) { el.setAttribute(k, atributos[k]); });
+    return el;
+  }
+
+  /* Escala a tela de 390 × 844 para a largura do quadro. */
+  function escalar(caixa, quadro) {
+    function ajustar() {
+      var largura = caixa.clientWidth;
+      if (largura > 0) quadro.style.transform = "scale(" + (largura / 390) + ")";
+    }
+    ajustar();
+    if (window.ResizeObserver) new ResizeObserver(ajustar).observe(caixa);
+    else window.addEventListener("resize", ajustar);
+  }
+
+  function cartao(info) {
+    var li = criar("li", "cg-ap-cartao");
+    var tema = C.tema();
+    var ficha = info.ficha;
+    var nomeProprio = C.textoDaDirecao(info, "nome");
+    var nome = nomeProprio || C.texto("apresentacao.direcao_n", { n: info.posicao });
+
+    if (info.pronta && ficha.cores && ficha.cores[tema]) {
+      li.style.setProperty("--cg-cartao-acento", ficha.cores[tema].acento);
+      li.style.setProperty("--cg-cartao-fundo", ficha.cores.claro ? ficha.cores.claro.fundo : ficha.cores[tema].fundo);
+    }
+
+    var numero = criar("p", "cg-ap-numero", { "data-texto": "apresentacao.direcao_n", "data-valores": JSON.stringify({ n: ficha && ficha.numero ? ficha.numero : info.posicao }) });
+    var titulo = criar("h2");
+    titulo.textContent = nome;
+    if (nomeProprio) li.appendChild(numero);
+    li.appendChild(titulo);
+
+    if (!info.pronta) {
+      li.appendChild(criar("p", "cg-ap-selo", { "data-texto": "apresentacao.em_producao" }));
+      li.appendChild(criar("div", "cg-ap-amostra cg-ap-amostra--vazia", { "data-texto": "apresentacao.em_producao_texto" }));
+      return li;
+    }
+
+    var territorio = C.textoDaDirecao(info, "territorio");
+    if (territorio) {
+      var t = criar("p", "cg-ap-territorio");
+      t.textContent = territorio;
+      li.appendChild(t);
+    }
+    var frase = C.textoDaDirecao(info, "frase");
+    if (frase) {
+      var f = criar("p");
+      f.textContent = frase;
+      li.appendChild(f);
+    }
+
+    var caixa = criar("div", "cg-ap-amostra", { inert: "" });
+    var quadro = criar("iframe", "", {
+      src: info.pasta + "/" + ficha.amostra + "?moldura=0&avaliador=0&tema=claro",
+      title: C.texto("apresentacao.amostra", { nome: nome }),
+      loading: "lazy",
+      tabindex: "-1"
+    });
+    caixa.appendChild(quadro);
+    li.appendChild(caixa);
+    escalar(caixa, quadro);
+
+    var acoes = criar("div", "cg-ap-acoes");
+    acoes.appendChild(criar("a", "cg-ap-botao cg-ap-botao--principal", { href: info.pasta + "/" + ficha.inicio, "data-texto": "apresentacao.abrir" }));
+    acoes.appendChild(criar("a", "cg-ap-botao", { href: info.pasta + "/" + ficha.identidade, "data-texto": "apresentacao.identidade" }));
+    li.appendChild(acoes);
+    return li;
+  }
+
+  C.carregarDirecoes(function (direcoes) {
+    direcoes.forEach(function (info) { lista.appendChild(cartao(info)); });
+  });
+})();
+</script>
+</body>
+</html>

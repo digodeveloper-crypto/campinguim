@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.7"></title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="7">
+<div class="of-app" id="app">
+<header class="of-topo">
+  <p class="of-etiqueta-viagem of-etiqueta-viagem--so-texto"><span data-dado="viagem.cabecalho"></span></p>
+  <button class="of-trocar" type="button" aria-pressed="false" data-texto-aria="oficina.trocar_lado"><span data-icone="trocar_lado"></span></button>
+</header>
+<main class="of-pagina">
+  <div class="of-mascote-lado">
+    <div class="of-etiqueta-lona of-costura"><span data-mascote="pose-camping"></span></div>
+    <div class="of-cabeca">
+      <p class="of-rotulo of-caixa-alta" data-texto="tela.7"></p>
+      <h1 class="of-h1" data-texto="oficina.titulo.7"></h1>
+    </div>
+  </div>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-regras">
+    <div class="of-bloco-titulo">
+      <h2 class="of-h2" id="of-s-regras" data-texto="bloco.regras_a_mao"></h2>
+      <p class="of-rotulo" id="of-confirmado" data-texto="mensagem.confirmado_por"></p>
+    </div>
+    <ul id="of-regras"></ul>
+  </section>
+
+  <section class="of-cartao of-bloco" aria-labelledby="of-s-faltou">
+    <h2 class="of-h2" id="of-s-faltou" data-texto="bloco.faltou"></h2>
+    <ul class="of-linhas" id="of-faltou"></ul>
+  </section>
+</main>
+<footer class="of-rodape">
+  <button type="button" class="of-botao" id="of-abrir-faltou" aria-haspopup="dialog"><span class="of-ilhos" aria-hidden="true"></span><span data-texto="acao.faltou_algo"></span></button>
+</footer>
+<nav class="of-abas" data-texto-aria="oficina.areas">
+  <a class="of-aba" href="04-lista.html"><span data-icone="lista"></span><span data-texto="area.lista"></span></a>
+  <a class="of-aba" href="03-alertas.html" aria-current="page"><span data-icone="camping"></span><span data-texto="area.camping"></span></a>
+  <a class="of-aba" href="11-grupo.html"><span data-icone="grupo"></span><span data-texto="area.grupo"></span></a>
+  <a class="of-aba" href="12-gastos.html"><span data-icone="gastos"></span><span data-texto="area.gastos"></span></a>
+  <a class="of-aba" href="08-volta.html"><span data-icone="volta"></span><span data-texto="area.volta"></span></a>
+</nav>
+<div class="of-veu" id="of-veu" hidden>
+  <div class="of-folha" role="dialog" aria-labelledby="of-faltou-titulo" id="of-folha">
+    <div class="of-folha-cabeca">
+      <h2 class="of-h2" id="of-faltou-titulo" data-texto="oficina.faltou.titulo"></h2>
+      <button type="button" class="of-botao-sec" id="of-fechar"><span data-icone="fechar"></span><span data-texto="acao.fechar"></span></button>
+    </div>
+    <div class="of-folha-corpo">
+      <div class="of-campo">
+        <label class="of-campo-rotulo" for="of-escrever" data-texto="oficina.faltou.escrever"></label>
+        <div class="of-escrever">
+          <input class="of-entrada" id="of-escrever" type="text" autocomplete="off">
+          <button type="button" class="of-botao-sec" id="of-anotar"><span data-texto="oficina.faltou.anotar"></span></button>
+        </div>
+      </div>
+      <div class="of-bloco">
+        <h3 class="of-rotulo of-caixa-alta" data-texto="oficina.faltou.da_lista"></h3>
+        <div id="of-da-lista" class="of-bloco"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+
+var C = window.CAMPINGUIM;
+var OF = (function () {
+  "use strict";
+  var raiz = document.documentElement;
+  var app = document.getElementById("app");
+
+  function t(chave, valores) {
+    var v = C.texto(chave, valores);
+    if (v === null) { if (window.console) console.error("[oficina] chave sem texto:", chave); return "[" + chave + "]"; }
+    return v;
+  }
+
+  /* Cria um elemento: el("li", { class: "x", "data-texto": "k" }, [filhos ou texto de dados]). */
+  function el(tag, atributos, filhos) {
+    var e = document.createElement(tag);
+    if (atributos) Object.keys(atributos).forEach(function (k) {
+      var v = atributos[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === "texto") e.textContent = v;
+      else e.setAttribute(k, v === true ? "" : v);
+    });
+    (filhos || []).forEach(function (f) { if (f) e.appendChild(typeof f === "string" ? document.createTextNode(f) : f); });
+    return e;
+  }
+
+  function icone(nome, classe) { return el("span", { "data-icone": nome, "class": classe || null }); }
+
+  /* Lado das divisórias (guardado no navegador, com tentativa protegida). */
+  var botaoLado = document.querySelector(".of-trocar");
+  function lado(l) {
+    raiz.setAttribute("data-of-lado", l);
+    if (botaoLado) botaoLado.setAttribute("aria-pressed", l === "esquerda" ? "true" : "false");
+  }
+  lado(C.guardado.ler("oficina.lado", "direita") === "esquerda" ? "esquerda" : "direita");
+  if (botaoLado) botaoLado.addEventListener("click", function () {
+    var novo = raiz.getAttribute("data-of-lado") === "esquerda" ? "direita" : "esquerda";
+    lado(novo);
+    C.guardado.gravar("oficina.lado", novo);
+    C.anunciar(t(novo === "esquerda" ? "oficina.lado_esquerda" : "oficina.lado_direita"));
+  });
+
+  /* Altura do rodapé: as divisórias ficam logo acima dele e a página reserva o espaço. */
+  var rodape = document.querySelector(".of-rodape");
+  function medir() {
+    if (!app) return;
+    app.style.setProperty("--of-rodape-h", (rodape && !rodape.hidden ? rodape.offsetHeight : 0) + "px");
+  }
+  medir();
+  if (window.ResizeObserver && rodape) new ResizeObserver(medir).observe(rodape);
+  window.addEventListener("resize", medir);
+
+  /* Os parâmetros do avaliador (tema, fonte, moldura, avaliador) seguem nas ligações internas. */
+  var SEGUEM = ["tema", "fonte", "moldura", "avaliador"];
+  document.addEventListener("click", function (ev) {
+    var a = ev.target && ev.target.closest ? ev.target.closest("a[href]") : null;
+    if (!a) return;
+    var href = a.getAttribute("href");
+    if (!href || /^[a-z]+:/i.test(href) || href.charAt(0) === "#" || href.indexOf(".html") < 0 || href.indexOf("../") === 0) return;
+    try {
+      var atual = new URLSearchParams(window.location.search);
+      var partes = href.split("#");
+      var base = partes[0].split("?");
+      var novos = new URLSearchParams(base[1] || "");
+      SEGUEM.forEach(function (p) { if (atual.has(p) && !novos.has(p)) novos.set(p, atual.get(p)); });
+      var q = novos.toString();
+      a.setAttribute("href", base[0] + (q ? "?" + q : "") + (partes[1] ? "#" + partes[1] : ""));
+    } catch (e) { /* segue a ligação como está */ }
+  }, true);
+
+  function parametro(nome) {
+    try { return new URLSearchParams(window.location.search).get(nome); } catch (e) { return null; }
+  }
+
+  return { t: t, el: el, icone: icone, parametro: parametro, medir: medir, app: app };
+})();
+
+
+(function () {
+  var D = C.dados, el = OF.el, t = OF.t;
+  document.getElementById("of-confirmado").setAttribute("data-valores", JSON.stringify({ n: D.estadia.confirmacoes }));
+  var niveis = {};
+  D.alertas.forEach(function (a) { niveis[a.id] = a.nivel; });
+
+  D.estadia.regrasAMao.forEach(function (r) {
+    var atencao = r.origem === "alerta" && niveis[r.id] === "atencao";
+    var corpo = [OF.icone(atencao ? "atencao" : "informacao"), el("span", { texto: r.texto })];
+    var li;
+    if (r.fato) {
+      li = el("li", { "class": "of-alerta-linha" }, [el("a", { "class": "of-ligacao-linha", href: "10-fato.html?de=7", style: "grid-column: 1 / -1; padding: 0;" }, [
+        el("span", { "class": "of-alerta-linha", style: "border: 0; padding: 0;" }, corpo), OF.icone("seguir")])]);
+    } else {
+      li = el("li", { "class": "of-alerta-linha" + (atencao ? " of-alerta-linha--atencao" : "") }, corpo);
+    }
+    document.getElementById("of-regras").appendChild(li);
+  });
+
+  var faltou = [];
+  function desenharFaltou() {
+    var ul = document.getElementById("of-faltou");
+    ul.textContent = "";
+    if (!faltou.length) { ul.appendChild(el("li", { "class": "of-vazio", "data-texto": "oficina.faltou_vazio" })); return; }
+    faltou.forEach(function (nome) {
+      ul.appendChild(el("li", { "class": "of-linha", style: "grid-template-columns: minmax(min-content, 1fr);" }, [
+        el("span", { "class": "of-linha-texto" }, [el("span", { "class": "of-linha-nome", texto: nome }),
+          el("span", { "class": "of-linha-estado", "data-estado": "faltou" }, [OF.icone("faltou"), el("span", { "data-texto": "estado.faltou" })])])]));
+    });
+  }
+  desenharFaltou();
+
+  var veu = document.getElementById("of-veu"), folha = document.getElementById("of-folha"), soltar = null;
+  function abrir() {
+    veu.hidden = false;
+    soltar = C.prenderFoco(folha, fechar);
+    C.anunciar(t("oficina.faltou.aberto"));
+  }
+  function fechar() {
+    veu.hidden = true;
+    if (soltar) { soltar(); soltar = null; }
+  }
+  function anotar(nome) {
+    if (!nome) return;
+    if (faltou.indexOf(nome) < 0) faltou.push(nome);
+    desenharFaltou();
+    fechar();
+    C.anunciar(t("oficina.faltou.anotado", { nome: nome }));
+  }
+  document.getElementById("of-abrir-faltou").addEventListener("click", abrir);
+  document.getElementById("of-fechar").addEventListener("click", fechar);
+  document.getElementById("of-anotar").addEventListener("click", function () {
+    var campo = document.getElementById("of-escrever");
+    anotar(campo.value.trim()); campo.value = "";
+  });
+
+  var caixa = document.getElementById("of-da-lista");
+  D.lista.categorias.forEach(function (c) {
+    var grupo = el("div", { role: "group", "aria-labelledby": "of-fl-" + c.id }, [el("p", { "class": "of-rotulo", id: "of-fl-" + c.id, "data-texto": "categoria." + c.id })]);
+    c.itens.forEach(function (i) {
+      var b = el("button", { type: "button", "class": "of-folha-item" }, [el("span", { texto: i.nome }), OF.icone("faltou")]);
+      b.addEventListener("click", function () { anotar(i.nome); });
+      grupo.appendChild(b);
+    });
+    caixa.appendChild(grupo);
+  });
+})();
+
+</script>
+</body>
+</html>

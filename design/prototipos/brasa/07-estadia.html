@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.7"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="7">
+<header class="br-tela br-topo">
+  <p class="br-momento"><span data-icone="camping"></span><span data-texto="brasa.momento_camping"></span></p>
+  <p class="br-destaque" data-dado="camping.nome"></p>
+  <p class="br-onde" id="confirmado" data-texto="mensagem.confirmado_por"></p>
+  <p class="br-frase" data-texto="brasa.t7_frase"></p>
+</header>
+<main class="br-tela br-folha">
+  <div class="br-alca" aria-hidden="true"><span class="br-alca-traco"></span></div>
+  <div class="br-corpo">
+    <h1 data-texto="brasa.t7_titulo"></h1>
+
+    <section class="br-bloco" aria-labelledby="b-regras">
+      <div class="br-bloco-mascote">
+        <h2 id="b-regras" data-texto="bloco.regras_a_mao"></h2>
+        <span class="br-apoio br-mascote-pequeno"><span data-mascote="pose-camping" data-mascote-texto=""></span></span>
+      </div>
+      <ul class="br-cartao br-itens" id="regras"></ul>
+    </section>
+
+    <section class="br-bloco" aria-labelledby="b-faltou">
+      <h2 id="b-faltou" data-texto="bloco.faltou"></h2>
+      <ul class="br-pilha" id="faltou"></ul>
+      <p class="br-aviso-vazio" id="faltou-vazio" data-texto="brasa.faltou_vazio"></p>
+      <button class="br-botao br-botao--secundario" type="button" id="abrir-faltou" aria-haspopup="dialog"><span data-icone="faltou"></span><span data-texto="acao.faltou_algo"></span></button>
+    </section>
+  </div>
+  <div class="br-rodape">
+    <div class="br-halo"><a class="br-botao" href="08-volta.html" data-texto="brasa.acao_volta"></a></div>
+    <nav data-seletor="camping" data-seletor-camping="07-estadia.html"></nav>
+  </div>
+</main>
+
+<div class="br-tela br-veu" id="veu" hidden>
+  <section class="br-folha-interna" id="folha-faltou" role="dialog" aria-labelledby="t-faltou" hidden>
+    <div class="br-alca">
+      <span class="br-alca-traco" aria-hidden="true"></span>
+      <button class="br-fechar" type="button" id="fechar-faltou"><span data-icone="fechar"></span><span data-texto="acao.fechar"></span></button>
+    </div>
+    <div class="br-corpo">
+      <div class="br-cabeca-folha">
+        <h2 id="t-faltou" data-texto="brasa.faltou_titulo"></h2>
+        <p class="br-suave" data-texto="brasa.faltou_intro"></p>
+      </div>
+      <form class="br-campo" id="form-faltou">
+        <label class="br-campo-rotulo" for="faltou-nome" data-texto="brasa.faltou_escrever"></label>
+        <input class="br-entrada" id="faltou-nome" type="text" autocomplete="off">
+        <button class="br-botao br-botao--secundario" type="submit" data-texto="brasa.faltou_por"></button>
+      </form>
+      <section class="br-bloco" aria-labelledby="t-da-lista">
+        <h3 id="t-da-lista" data-texto="brasa.faltou_da_lista"></h3>
+        <div class="br-pilha" id="escolha"></div>
+      </section>
+    </div>
+  </section>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, B = window.BRASA, el = B.el;
+  if (!C) return; /* sem base.js, a tela fica sem texto */
+  var estadia = C.dado("estadia");
+  document.getElementById("confirmado").setAttribute("data-valores", JSON.stringify({ n: estadia.confirmacoes }));
+
+  /* Regras à mão; a do som abre o fato do camping (folha por cima desta). */
+  var alertas = {};
+  C.dado("alertas").forEach(function (a) { alertas[a.id] = a; });
+  var regras = document.getElementById("regras");
+  estadia.regrasAMao.forEach(function (r) {
+    var atencao = r.origem === "alerta" && alertas[r.id] && alertas[r.id].nivel === "atencao";
+    var conteudo;
+    if (r.fato) {
+      conteudo = el("a", "br-ligacao br-item-simples", { href: "10-fato.html?de=7" }, [
+        B.icone("relogio"),
+        el("span", "br-ligacao-texto", null, [el("span", null, { texto: r.texto })]),
+        B.icone("abrir")
+      ]);
+    } else {
+      var texto = el("span", "br-regra-texto");
+      if (atencao) texto.appendChild(el("span", "br-estado br-cor-atencao", { "data-texto": "nivel.atencao" }));
+      texto.appendChild(el("span", null, { texto: r.texto }));
+      conteudo = el("div", "br-item-simples", null, [B.icone(atencao ? "atencao" : "informacao", atencao ? "br-cor-atencao" : null), texto]);
+    }
+    regras.appendChild(el("li", null, null, [conteudo]));
+  });
+
+  /* Faltou: em dois toques ("Faltou algo" e o item) o item entra em "faltou". */
+  var faltou = estadia.faltou.slice();
+  var lista = document.getElementById("faltou");
+  function mostrarFaltou() {
+    lista.innerHTML = "";
+    faltou.forEach(function (nome, i) {
+      var desfazer = el("button", "br-alterna", { type: "button", "data-texto": "acao.desfazer" });
+      desfazer.addEventListener("click", function () { faltou.splice(i, 1); mostrarFaltou(); document.getElementById("abrir-faltou").focus(); });
+      lista.appendChild(el("li", "br-linha", null, [
+        el("div", "br-linha-nome", null, [
+          el("span", "br-linha-titulo", { texto: nome }),
+          el("span", "br-estado br-cor-atencao", null, [B.icone("faltou", "br-ativo"), el("span", null, { "data-texto": "estado.faltou" })])
+        ]),
+        el("div", "br-linha-acoes", null, [desfazer])
+      ]));
+    });
+    document.getElementById("faltou-vazio").hidden = faltou.length > 0;
+  }
+  mostrarFaltou();
+
+  var fechar = null;
+  function entrar(nome) {
+    if (!nome) return;
+    faltou.push(nome);
+    mostrarFaltou();
+    if (fechar) fechar();
+    C.anunciar(C.texto("brasa.faltou_entrou", { nome: nome }));
+  }
+  var escolha = document.getElementById("escolha");
+  C.dado("lista.categorias").forEach(function (cat) {
+    escolha.appendChild(el("p", "br-rotulo br-rotulo-categoria", { "data-texto": "categoria." + cat.id }));
+    cat.itens.forEach(function (i) {
+      var b = el("button", "br-linha br-escolha", { type: "button" }, [
+        el("span", "br-linha-nome", null, [el("span", "br-linha-titulo", { texto: i.nome }), el("span", "br-linha-detalhe", { texto: i.quantidadeTexto })]),
+        B.icone("faltou", "br-cor-atencao")
+      ]);
+      b.addEventListener("click", function () { entrar(i.nome); });
+      escolha.appendChild(b);
+    });
+  });
+  document.getElementById("form-faltou").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    var campo = document.getElementById("faltou-nome");
+    var nome = campo.value.trim();
+    campo.value = "";
+    entrar(nome);
+  });
+  document.getElementById("abrir-faltou").addEventListener("click", function () {
+    fechar = B.abrirFolhaInterna(document.getElementById("folha-faltou"), function () { fechar = null; });
+  });
+  document.getElementById("fechar-faltou").addEventListener("click", function () { if (fechar) fechar(); });
+
+  B.iniciar();
+})();
+</script>
+</body>
+</html>

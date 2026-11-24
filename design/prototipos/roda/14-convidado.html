@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title data-texto="titulo.14"></title>
+<link rel="stylesheet" href="../_compartilhado/base.css">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body data-tela="14">
+<div class="r-app">
+  <header class="r-web-topo">
+    <span class="r-web-marca"><span data-mascote="uma-cor"></span><span data-texto="app.nome"></span></span>
+    <span class="r-suave r-pequeno" data-texto="convidado.sem_instalar"></span>
+  </header>
+  <main class="r-conteudo">
+    <div class="r-cabeca">
+      <p class="r-rotulo" id="convidou"></p>
+      <h1 data-dado="convidado.convite.viagem"></h1>
+      <div class="r-familias" id="familias" aria-hidden="true"></div>
+    </div>
+
+    <!-- Passo 1: entrar com o nome, sem instalar -->
+    <form class="r-web-bloco" id="entrar" aria-labelledby="t-entrar">
+      <h2 id="t-entrar" data-texto="convidado.entrar_titulo"></h2>
+      <p class="r-suave" data-texto="convidado.entrar_frase"></p>
+      <div class="r-campo">
+        <label class="r-campo-rotulo" for="nome" data-texto="campo.seu_nome"></label>
+        <input class="r-entrada" id="nome" type="text" autocomplete="off">
+      </div>
+      <div class="r-campo">
+        <label class="r-campo-rotulo" for="familia" data-texto="campo.sua_familia"></label>
+        <input class="r-entrada" id="familia" type="text" autocomplete="off">
+      </div>
+      <button type="submit" class="r-acao r-web-acao" data-texto="acao.entrar"></button>
+    </form>
+
+    <!-- Passo 2: o mural reduzido do convidado -->
+    <div class="r-web-secoes" id="mural-convidado" hidden>
+      <p class="r-nota" id="bem-vindo"><span data-icone="pessoa"></span><span id="bem-vindo-texto"></span></p>
+      <section class="r-web-bloco r-web-bloco--sol" aria-labelledby="t-devo">
+        <h2 id="t-devo" data-texto="bloco.o_que_eu_devo"></h2>
+        <p class="r-progresso-numero" id="devo"></p>
+        <a class="r-ligacao" href="15-site.html"><span data-icone="baixar"></span><span data-texto="acao.baixar_app"></span></a>
+      </section>
+      <section class="r-web-bloco r-web-bloco--tom" aria-labelledby="t-quem">
+        <h2 id="t-quem" data-texto="bloco.quem_leva"></h2>
+        <ul class="r-cartao r-cartao--lista" id="itens"></ul>
+      </section>
+    </div>
+  </main>
+  <footer class="r-web-pe" data-texto="convidado.pe"></footer>
+</div>
+<script src="../_compartilhado/dados.js"></script>
+<script src="../_compartilhado/textos.js"></script>
+<script src="../_compartilhado/mascote.js"></script>
+<script src="textos.js"></script>
+<script src="icones.js"></script>
+<script src="ficha.js"></script>
+<script src="../_compartilhado/base.js"></script>
+<script>
+(function () {
+  "use strict";
+  var C = window.CAMPINGUIM, R = window.RODA, el = R.el;
+  var cv = C.dado("convidado");
+  var g = C.dado("grupo");
+
+  var convidou = document.getElementById("convidou");
+  convidou.setAttribute("data-texto", "mensagem.convidou");
+  convidou.setAttribute("data-valores", JSON.stringify({ nome: cv.convite.convidouPor }));
+  g.familias.forEach(function (f) { document.getElementById("familias").appendChild(R.emblema(f.id, { tamanho: "pequeno" })); });
+
+  /* No protótipo, tocar no campo preenche com o convidado do cenário (dados.js). */
+  var nome = document.getElementById("nome");
+  var familia = document.getElementById("familia");
+  nome.addEventListener("focus", function () { if (!nome.value) nome.value = cv.nome; });
+  familia.addEventListener("focus", function () { if (!familia.value) familia.value = cv.familia; });
+
+  /* Lista do grupo: o convidado assume com "eu levo" e pode desistir (E2-04). */
+  function pilula(texto, valores, idFamilia, semDono) {
+    return el("span", { classe: "r-pilula" + (semDono ? " r-pilula--sem-dono" : "") }, [
+      idFamilia ? R.emblema(idFamilia) : null, el("span", { texto: texto, valores: valores || null })
+    ]);
+  }
+  g.itens.lista.forEach(function (it) {
+    var info = el("span", { classe: "r-linha-info" });
+    var acoes = el("div", { classe: "r-linha-acoes" });
+    var li = el("li", { classe: "r-linha" }, [el("div", { classe: "r-linha-nome" }, [el("span", { classe: "r-linha-titulo", dado: it.nome }), info]), acoes]);
+    if (it.semDono) {
+      var meu = false;
+      var b = el("button", { type: "button", classe: "r-botao r-botao--forte" }, [R.icone("eu-levo"), el("span", { texto: "acao.eu_levo" })]);
+      var pintar = function () {
+        info.innerHTML = "";
+        info.appendChild(meu ? pilula("mensagem.leva", { nome: cv.nome }, cv.familiaId) : pilula("mensagem.ninguem_pegou", null, null, true));
+        b.querySelector("[data-texto]").setAttribute("data-texto", meu ? "acao.desistir" : "acao.eu_levo");
+        R.trocarIcone(b.querySelector(".r-icone"), meu ? "desfazer" : "eu-levo");
+        b.setAttribute("data-texto-aria", meu ? "grupo.desistir_item" : "grupo.levar_item");
+        b.setAttribute("data-valores", JSON.stringify({ item: it.nome }));
+      };
+      b.addEventListener("click", function () {
+        meu = !meu;
+        pintar();
+        C.anunciar(C.texto(meu ? "grupo.levando" : "grupo.desistiu", { item: it.nome, nome: cv.nome }));
+      });
+      pintar();
+      acoes.appendChild(b);
+    } else if (it.duplicado) {
+      info.appendChild(el("span", { classe: "r-situacao r-situacao--atencao" }, [R.icone("atencao"), el("span", { texto: "mensagem.assumidos", valores: { n: it.assumidos } })]));
+    } else if (it.dono) {
+      info.appendChild(pilula("mensagem.leva", { nome: it.dono }, it.familia));
+    }
+    document.getElementById("itens").appendChild(li);
+  });
+
+  var devo = document.getElementById("devo");
+  devo.setAttribute("data-texto", "convidado.deve");
+  devo.setAttribute("data-valores", JSON.stringify({ pessoa: cv.deve.a, valor: C.dinheiro(cv.deve.centavos), item: cv.deve.item }));
+
+  document.getElementById("entrar").addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    if (!nome.value) nome.value = cv.nome;
+    if (!familia.value) familia.value = cv.familia;
+    var bv = document.getElementById("bem-vindo-texto");
+    bv.setAttribute("data-valores", JSON.stringify({ nome: nome.value, familia: familia.value }));
+    bv.setAttribute("data-texto", "convidado.bem_vindo");
+    document.getElementById("entrar").hidden = true;
+    document.getElementById("mural-convidado").hidden = false;
+    if (C.elementoRolagem) C.elementoRolagem.scrollTop = 0;
+    var t = document.getElementById("t-devo");
+    t.setAttribute("tabindex", "-1");
+    t.focus();
+    C.anunciar(C.texto("convidado.bem_vindo", { nome: nome.value, familia: familia.value }));
+  });
+
+  R.iniciar();
+})();
+</script>
+</body>
+</html>
