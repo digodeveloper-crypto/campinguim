@@ -49,3 +49,20 @@ tmp/
 temp/
 .tmp/
 *.tmp
+
+# Arquivo do aplicativo (nao e do projeto)
+.codex/
+
+# Capturas de tela do QA (ficam so no disco; relatorios .md e saidas .txt entram)
+design/mascote/qa/relatorios/**/*.png
+
+# Videos: dependencias e arquivos gerados (refeitos pelos scripts)
+videos/node_modules/
+videos/renders/
+videos/audio/
+videos/public/audio/
+videos/public/modelos/
+videos/qa/relatorios/**/*.png
+__pycache__/
+# Capturas de tela do QA dos prototipos (ficam so no disco)
+design/prototipos/qa/relatorios/**/*.png
