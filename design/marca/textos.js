@@ -1,0 +1,40 @@
+/* Campinguim · DSG-07 · textos da página de apresentação das logos de perfil (pt-BR).
+   A página não tem texto solto: tudo vem daqui. */
+window.TEXTOS_MARCA = {
+  titulo_pagina: "Campinguim · logos para o perfil",
+  titulo: "Logos para o perfil do Instagram e do TikTok",
+  intro: "Dez opções para a foto de perfil, feitas só com o mascote oficial, o letreiro em Archivo e as cores da paleta Eucalipto. As duas redes mostram a foto em círculo, então cada opção aparece já recortada, em três tamanhos: grande, 80 px (perfil no celular) e 40 px (feed e comentários).",
+  aviso: "O responsável escolheu a opção 01 em 24/11/2026. A recomendação da Cinema e a escolha, com os arquivos prontos para subir, estão no LEIA-ME desta pasta.",
+  rotulo_grande: "grande",
+  rotulo_80: "80 px",
+  rotulo_40: "40 px",
+  painel_claro: "Tela clara · versão clara",
+  painel_escuro: "Tela escura · versão escura",
+  painel_uma: "Uma cor",
+  recomendada: "{r}ª recomendação da Cinema",
+  escolhida: "Escolhida",
+  letreiro_titulo: "Letreiro horizontal, para capas e cabeçalhos",
+  letreiro_texto: "Derivado da opção 01: o mesmo mascote, com o letreiro ao lado, fora do quadrado do mascote.",
+  alt_opcao: "Opção {n}, {variante}, em {tamanho}",
+  alt_letreiro: "Letreiro horizontal, {variante}",
+  variante_claro: "versão clara",
+  variante_escuro: "versão escura",
+  "variante_uma-cor": "uma cor",
+  tema_botao: "Tema da página: {tema}",
+  tema_auto: "automático",
+  tema_claro: "claro",
+  tema_escuro: "escuro",
+  rodape: "DSG-07 · 24/11/2026 · arquivos em SVG e PNG de 1024 × 1024 em cada pasta de opção.",
+  opcoes: [
+    { n: "01", pasta: "01-mascote", rec: 1, escolhida: true, nome: "Mascote", descricao: "O ícone do mascote, inteiro, o maior que cabe no círculo com o respiro do guia." },
+    { n: "02", pasta: "02-mascote-no-selo", rec: 3, nome: "Mascote no selo", descricao: "O mascote sobre o apoio de canto cortado do Rumo, com o traço do selo." },
+    { n: "03", pasta: "03-mascote-curvas", rec: 2, nome: "Mascote e curvas de nível", descricao: "A opção 01 com as curvas de nível do Rumo no fundo, em volta do mascote." },
+    { n: "04", pasta: "04-mascote-letreiro-abaixo", nome: "Mascote e letreiro abaixo", descricao: "O mascote com CAMPINGUIM embaixo, os dois dentro do círculo." },
+    { n: "05", pasta: "05-mascote-letreiro-ao-lado", nome: "Mascote e letreiro ao lado", descricao: "O mascote à esquerda e CAMPINGUIM à direita, numa linha só." },
+    { n: "06", pasta: "06-acento-mascote-letreiro", nome: "Sobre o acento", descricao: "Mascote e letreiro abaixo, no fundo da cor do botão principal." },
+    { n: "07", pasta: "07-monograma", nome: "Monograma C", descricao: "A letra C do letreiro, grande, na cor de acento." },
+    { n: "08", pasta: "08-monograma-no-selo", nome: "Monograma no selo", descricao: "A letra C dentro do selo de canto cortado, como o carimbo da caderneta." },
+    { n: "09", pasta: "09-letreiro-curvas", nome: "Letreiro e curvas de nível", descricao: "Só CAMPINGUIM, sobre as curvas de nível do Rumo." },
+    { n: "10", pasta: "10-uma-cor-sobre-acento", nome: "Uma cor sobre o acento", descricao: "O mascote em uma cor, claro sobre o fundo de acento." }
+  ]
+};

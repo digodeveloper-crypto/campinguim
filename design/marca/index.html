@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campinguim · logos para o perfil</title>
+  <style>
+    /* Paleta Eucalipto (docs/DESIGN.md, seção 3.1). Fonte local, sem nada da internet. */
+    @font-face { font-family: "Archivo"; src: url("../prototipos/_compartilhado/fontes/archivo/Archivo-variavel.ttf") format("truetype"); font-weight: 100 900; font-stretch: 62% 125%; }
+    :root { --fundo: #DCE8E2; --superficie: #F4F9F6; --texto: #10201C; --texto-suave: #3D514A; --linha: #66847A; --acento: #1F4B4D; --sobre-acento: #F4F9F6; color-scheme: light; }
+    :root[data-tema="escuro"] { --fundo: #0C1615; --superficie: #14211F; --texto: #E2EEEA; --texto-suave: #A6BBB4; --linha: #5F7A73; --acento: #B8D5C8; --sobre-acento: #0C1615; color-scheme: dark; }
+    @media (prefers-color-scheme: dark) { :root:not([data-tema="claro"]) { --fundo: #0C1615; --superficie: #14211F; --texto: #E2EEEA; --texto-suave: #A6BBB4; --linha: #5F7A73; --acento: #B8D5C8; --sobre-acento: #0C1615; color-scheme: dark; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--fundo); color: var(--texto); font: 400 17px/26px "Archivo", system-ui, sans-serif; font-variant-numeric: tabular-nums; }
+    .barra { position: sticky; top: 0; z-index: 2; background: var(--fundo); border-bottom: 1px solid var(--linha); }
+    .barra-in, main, header, footer { max-width: 1180px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+    .barra-in { display: flex; justify-content: flex-end; padding-top: 8px; padding-bottom: 8px; }
+    button { min-height: 44px; min-width: 44px; padding: 0 16px; border: 1.5px solid var(--texto); border-radius: 2px; background: var(--superficie); color: var(--texto); font: 700 15px/20px "Archivo", system-ui, sans-serif; cursor: pointer; }
+    button:focus-visible { outline: 3px solid var(--texto); outline-offset: 2px; }
+    header { padding-top: 24px; }
+    h1 { font: 700 26px/30px "Archivo", system-ui, sans-serif; font-stretch: 125%; text-transform: uppercase; letter-spacing: .04em; margin: 0 0 12px; }
+    h2 { font: 700 19px/24px "Archivo", system-ui, sans-serif; font-stretch: 125%; text-transform: uppercase; letter-spacing: .04em; margin: 0; }
+    p { max-width: 75ch; margin: 0 0 12px; }
+    .suave { color: var(--texto-suave); font-size: 15px; line-height: 20px; }
+    .opcao { background: var(--superficie); border: 1px solid var(--linha); border-radius: 2px; padding: 16px; margin: 24px 0; }
+    .opcao.rec { border: 1.5px solid var(--texto); box-shadow: inset 4px 0 0 var(--texto); }
+    .cabeca { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px; margin-bottom: 12px; }
+    .num { font: 800 26px/30px "Archivo", system-ui, sans-serif; font-stretch: 125%; }
+    .selo-rec { font: 700 15px/20px "Archivo", system-ui, sans-serif; padding: 2px 10px; background: var(--acento); color: var(--sobre-acento); border-radius: 2px; }
+    .selo-escolhida { font: 700 15px/20px "Archivo", system-ui, sans-serif; padding: 1px 10px; border: 1.5px solid var(--texto); background: var(--superficie); color: var(--texto); border-radius: 2px; text-transform: uppercase; letter-spacing: .06em; font-stretch: 125%; }
+    .paineis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+    .painel { border-radius: 2px; padding: 12px; }
+    .painel.tela-clara { background: #FFFFFF; color: #10201C; }
+    .painel.tela-escura { background: #000000; color: #E2EEEA; }
+    .painel-titulo { font: 600 15px/20px "Archivo", system-ui, sans-serif; margin: 0 0 8px; }
+    .tamanhos { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+    .tamanhos figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .tamanhos figcaption { font-size: 15px; line-height: 20px; }
+    .tamanhos img { display: block; border-radius: 50%; }
+    .g { width: 160px; height: 160px; }
+    .m { width: 80px; height: 80px; }
+    .p { width: 40px; height: 40px; }
+    .letreiro img { display: block; width: 100%; max-width: 1024px; height: auto; margin: 8px 0; }
+    footer { padding-top: 16px; padding-bottom: 48px; }
+  </style>
+</head>
+<body>
+  <div class="barra"><div class="barra-in"><button type="button" id="tema" data-texto="tema_botao"></button></div></div>
+  <header>
+    <h1 data-texto="titulo"></h1>
+    <p data-texto="intro"></p>
+    <p class="suave" data-texto="aviso"></p>
+  </header>
+  <main id="lista"></main>
+  <section class="letreiro">
+    <div class="opcao" style="max-width:1180px;margin:24px auto">
+      <h2 data-texto="letreiro_titulo"></h2>
+      <p class="suave" data-texto="letreiro_texto"></p>
+      <div id="letreiros"></div>
+    </div>
+  </section>
+  <footer class="suave" data-texto="rodape"></footer>
+  <script src="textos.js"></script>
+  <script>
+    (function () {
+      var T = window.TEXTOS_MARCA;
+      function f(chave, valores) {
+        var s = T[chave];
+        Object.keys(valores || {}).forEach(function (k) { s = s.split("{" + k + "}").join(valores[k]); });
+        return s;
+      }
+      function el(tag, classe, texto) {
+        var e = document.createElement(tag);
+        if (classe) e.className = classe;
+        if (texto) e.textContent = texto;
+        return e;
+      }
+      document.title = T.titulo_pagina;
+      document.querySelectorAll("[data-texto]").forEach(function (e) { if (e.id !== "tema") e.textContent = T[e.getAttribute("data-texto")]; });
+
+      var tamanhos = [["g", "rotulo_grande"], ["m", "rotulo_80"], ["p", "rotulo_40"]];
+      var paineis = [["claro", "tela-clara", "painel_claro"], ["escuro", "tela-escura", "painel_escuro"], ["uma-cor", "tela-clara", "painel_uma"]];
+      var lista = document.getElementById("lista");
+      T.opcoes.forEach(function (o) {
+        var art = el("article", "opcao" + (o.rec ? " rec" : ""));
+        art.id = "opcao-" + o.n;
+        var cab = el("div", "cabeca");
+        cab.appendChild(el("span", "num", o.n));
+        cab.appendChild(el("h2", "", o.nome));
+        if (o.escolhida) cab.appendChild(el("span", "selo-escolhida", T.escolhida));
+        if (o.rec) cab.appendChild(el("span", "selo-rec", f("recomendada", { r: o.rec })));
+        art.appendChild(cab);
+        art.appendChild(el("p", "", o.descricao));
+        var grade = el("div", "paineis");
+        paineis.forEach(function (p) {
+          var painel = el("div", "painel " + p[1]);
+          painel.appendChild(el("p", "painel-titulo", T[p[2]]));
+          var linha = el("div", "tamanhos");
+          tamanhos.forEach(function (t) {
+            var fig = el("figure");
+            var img = document.createElement("img");
+            img.className = t[0];
+            img.src = "opcoes/" + o.pasta + "/png/" + o.n + "-" + p[0] + "-1024.png";
+            img.alt = f("alt_opcao", { n: o.n, variante: T["variante_" + p[0]], tamanho: T[t[1]] });
+            fig.appendChild(img);
+            fig.appendChild(el("figcaption", "", T[t[1]]));
+            linha.appendChild(fig);
+          });
+          painel.appendChild(linha);
+          grade.appendChild(painel);
+        });
+        art.appendChild(grade);
+        lista.appendChild(art);
+      });
+
+      var letreiros = document.getElementById("letreiros");
+      ["claro", "escuro", "uma-cor"].forEach(function (v) {
+        var img = document.createElement("img");
+        img.src = "letreiro-horizontal/png/letreiro-horizontal-" + v + "-2048x512.png";
+        img.alt = f("alt_letreiro", { variante: T["variante_" + v] });
+        letreiros.appendChild(img);
+      });
+
+      var botao = document.getElementById("tema"), raiz = document.documentElement, ordem = ["tema_auto", "tema_escuro", "tema_claro"], i = 0;
+      function rotular() { botao.textContent = f("tema_botao", { tema: T[ordem[i]] }); }
+      rotular();
+      botao.addEventListener("click", function () {
+        i = (i + 1) % 3;
+        if (i === 0) raiz.removeAttribute("data-tema"); else raiz.setAttribute("data-tema", i === 1 ? "escuro" : "claro");
+        rotular();
+      });
+    })();
+  </script>
+</body>
+</html>

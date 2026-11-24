@@ -1,0 +1,438 @@
+{
+ "figura": {
+  "claro": {
+   "cx": 258.0,
+   "cy": 269.25,
+   "r": 235.88569795559883,
+   "caixa": [
+    51.5,
+    55.5,
+    460.5,
+    479.5
+   ]
+  },
+  "escuro": {
+   "cx": 257.5,
+   "cy": 269.0,
+   "r": 233.99252124800913,
+   "caixa": [
+    50.0,
+    55.0,
+    462.0,
+    480.0
+   ]
+  },
+  "uma": {
+   "cx": 258.0,
+   "cy": 269.25,
+   "r": 235.88569795559883,
+   "caixa": [
+    51.5,
+    55.5,
+    460.5,
+    479.5
+   ]
+  }
+ },
+ "tamanhos_png": [
+  1024
+ ],
+ "opcoes": {
+  "01": {
+   "nome": "mascote",
+   "variantes": {
+    "claro": {
+     "mascote": {
+      "arte": "icone claro",
+      "prancha_unidades": 978.6,
+      "contraste_corpo": 6.05
+     }
+    },
+    "escuro": {
+     "mascote": {
+      "arte": "icone escuro",
+      "prancha_unidades": 985.5,
+      "contraste_contorno_creme": 16.69,
+      "contraste_corpo_contorno": 6.9
+     }
+    },
+    "uma-cor": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 978.6,
+      "contraste_tinta": 18.88
+     }
+    }
+   }
+  },
+  "02": {
+   "nome": "mascote-no-selo",
+   "variantes": {
+    "claro": {
+     "mascote": {
+      "arte": "icone claro",
+      "prancha_unidades": 665.2,
+      "contraste_corpo": 7.15
+     },
+     "selo": {
+      "forma": "canto cortado",
+      "corte_fracao_lado": 0.1,
+      "traco": 20,
+      "contraste_traco_fundo": 6.6,
+      "contraste_apoio_fundo": 1.18
+     }
+    },
+    "escuro": {
+     "mascote": {
+      "arte": "icone claro",
+      "prancha_unidades": 665.2,
+      "contraste_corpo": 6.4
+     },
+     "selo": {
+      "forma": "canto cortado",
+      "corte_fracao_lado": 0.1,
+      "traco": 20,
+      "contraste_traco_fundo": 10.6,
+      "contraste_apoio_fundo": 15.47
+     }
+    },
+    "uma-cor": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 665.2,
+      "contraste_tinta": 18.88
+     },
+     "selo": {
+      "forma": "canto cortado",
+      "corte_fracao_lado": 0.1,
+      "traco": 20,
+      "contraste_traco_fundo": 18.88,
+      "contraste_apoio_fundo": 1.0
+     }
+    }
+   }
+  },
+  "03": {
+   "nome": "mascote-curvas",
+   "variantes": {
+    "claro": {
+     "mascote": {
+      "arte": "icone claro",
+      "prancha_unidades": 978.6,
+      "contraste_corpo": 6.05
+     },
+     "curvas": {
+      "cor": "linha",
+      "opacidade": 0.6,
+      "contraste_linha_cheia_fundo": 3.24
+     }
+    },
+    "escuro": {
+     "mascote": {
+      "arte": "icone escuro",
+      "prancha_unidades": 985.5,
+      "contraste_contorno_creme": 16.69,
+      "contraste_corpo_contorno": 6.9
+     },
+     "curvas": {
+      "cor": "linha",
+      "opacidade": 0.6,
+      "contraste_linha_cheia_fundo": 3.96
+     }
+    },
+    "uma-cor": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 978.6,
+      "contraste_tinta": 18.88
+     },
+     "curvas": {
+      "cor": "linha",
+      "opacidade": 0.35,
+      "contraste_linha_cheia_fundo": 18.88
+     }
+    }
+   }
+  },
+  "04": {
+   "nome": "mascote-letreiro-abaixo",
+   "variantes": {
+    "claro": {
+     "mascote": {
+      "arte": "icone claro",
+      "prancha_unidades": 457.1,
+      "contraste_corpo": 6.05
+     },
+     "letreiro": {
+      "altura_maiuscula": 59.6,
+      "largura": 818.6,
+      "contraste": 13.4
+     }
+    },
+    "escuro": {
+     "mascote": {
+      "arte": "icone escuro",
+      "prancha_unidades": 457.0,
+      "contraste_contorno_creme": 16.69,
+      "contraste_corpo_contorno": 6.9
+     },
+     "letreiro": {
+      "altura_maiuscula": 59.6,
+      "largura": 818.4,
+      "contraste": 15.47
+     }
+    },
+    "uma-cor": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 457.1,
+      "contraste_tinta": 18.88
+     },
+     "letreiro": {
+      "altura_maiuscula": 59.6,
+      "largura": 818.6,
+      "contraste": 18.88
+     }
+    }
+   }
+  },
+  "05": {
+   "nome": "mascote-letreiro-ao-lado",
+   "variantes": {
+    "claro": {
+     "mascote": {
+      "arte": "icone claro",
+      "prancha_unidades": 349.2,
+      "contraste_corpo": 6.05
+     },
+     "letreiro": {
+      "altura_maiuscula": 45.5,
+      "largura": 625.3,
+      "contraste": 13.4
+     }
+    },
+    "escuro": {
+     "mascote": {
+      "arte": "icone escuro",
+      "prancha_unidades": 349.2,
+      "contraste_contorno_creme": 16.69,
+      "contraste_corpo_contorno": 6.9
+     },
+     "letreiro": {
+      "altura_maiuscula": 45.5,
+      "largura": 625.3,
+      "contraste": 15.47
+     }
+    },
+    "uma-cor": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 349.2,
+      "contraste_tinta": 18.88
+     },
+     "letreiro": {
+      "altura_maiuscula": 45.5,
+      "largura": 625.3,
+      "contraste": 18.88
+     }
+    }
+   }
+  },
+  "06": {
+   "nome": "acento-mascote-letreiro",
+   "variantes": {
+    "claro": {
+     "mascote": {
+      "arte": "icone escuro",
+      "prancha_unidades": 457.0,
+      "contraste_contorno_creme": 8.77,
+      "contraste_corpo_contorno": 6.9
+     },
+     "letreiro": {
+      "altura_maiuscula": 59.6,
+      "largura": 818.4,
+      "contraste": 9.08
+     }
+    },
+    "escuro": {
+     "mascote": {
+      "arte": "icone claro",
+      "prancha_unidades": 457.1,
+      "contraste_corpo": 4.85
+     },
+     "letreiro": {
+      "altura_maiuscula": 59.6,
+      "largura": 818.6,
+      "contraste": 11.73
+     }
+    },
+    "uma-cor": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 457.1,
+      "contraste_tinta": 18.88
+     },
+     "letreiro": {
+      "altura_maiuscula": 59.6,
+      "largura": 818.6,
+      "contraste": 18.88
+     }
+    }
+   }
+  },
+  "07": {
+   "nome": "monograma",
+   "variantes": {
+    "claro": {
+     "monograma": {
+      "altura_maiuscula": 534.0,
+      "contraste": 7.68,
+      "cor": "acento"
+     }
+    },
+    "escuro": {
+     "monograma": {
+      "altura_maiuscula": 534.0,
+      "contraste": 11.73,
+      "cor": "acento"
+     }
+    },
+    "uma-cor": {
+     "monograma": {
+      "altura_maiuscula": 534.0,
+      "contraste": 18.88,
+      "cor": "acento"
+     }
+    }
+   }
+  },
+  "08": {
+   "nome": "monograma-no-selo",
+   "variantes": {
+    "claro": {
+     "monograma": {
+      "altura_maiuscula": 410.8,
+      "contraste": 6.6,
+      "cor": "carro"
+     },
+     "selo": {
+      "forma": "canto cortado",
+      "corte_fracao_lado": 0.1,
+      "traco": 24,
+      "contraste_traco_fundo": 6.6
+     }
+    },
+    "escuro": {
+     "monograma": {
+      "altura_maiuscula": 410.8,
+      "contraste": 10.6,
+      "cor": "carro"
+     },
+     "selo": {
+      "forma": "canto cortado",
+      "corte_fracao_lado": 0.1,
+      "traco": 24,
+      "contraste_traco_fundo": 10.6
+     }
+    },
+    "uma-cor": {
+     "monograma": {
+      "altura_maiuscula": 410.8,
+      "contraste": 18.88,
+      "cor": "carro"
+     },
+     "selo": {
+      "forma": "canto cortado",
+      "corte_fracao_lado": 0.1,
+      "traco": 24,
+      "contraste_traco_fundo": 18.88
+     }
+    }
+   }
+  },
+  "09": {
+   "nome": "letreiro-curvas",
+   "variantes": {
+    "claro": {
+     "letreiro": {
+      "altura_maiuscula": 68.9,
+      "largura": 945.8,
+      "contraste": 13.4
+     },
+     "curvas": {
+      "cor": "linha",
+      "opacidade": 0.6,
+      "contraste_linha_cheia_fundo": 3.24
+     }
+    },
+    "escuro": {
+     "letreiro": {
+      "altura_maiuscula": 68.9,
+      "largura": 945.8,
+      "contraste": 15.47
+     },
+     "curvas": {
+      "cor": "linha",
+      "opacidade": 0.6,
+      "contraste_linha_cheia_fundo": 3.96
+     }
+    },
+    "uma-cor": {
+     "letreiro": {
+      "altura_maiuscula": 68.9,
+      "largura": 945.8,
+      "contraste": 18.88
+     },
+     "curvas": {
+      "cor": "linha",
+      "opacidade": 0.35,
+      "contraste_linha_cheia_fundo": 18.88
+     }
+    }
+   }
+  },
+  "10": {
+   "nome": "uma-cor-sobre-acento",
+   "variantes": {
+    "claro": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 978.6,
+      "contraste_tinta": 9.08
+     }
+    },
+    "escuro": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 978.6,
+      "contraste_tinta": 11.73
+     }
+    },
+    "uma-cor": {
+     "mascote": {
+      "arte": "icone uma cor",
+      "prancha_unidades": 978.6,
+      "contraste_tinta": 18.88
+     }
+    }
+   }
+  }
+ },
+ "letreiro_horizontal": {
+  "claro": {
+   "altura_maiuscula": 107.2,
+   "largura_letreiro": 1472.0,
+   "contraste_letreiro": 13.4
+  },
+  "escuro": {
+   "altura_maiuscula": 107.2,
+   "largura_letreiro": 1472.0,
+   "contraste_letreiro": 15.47
+  },
+  "uma-cor": {
+   "altura_maiuscula": 107.2,
+   "largura_letreiro": 1472.0,
+   "contraste_letreiro": 18.88
+  }
+ }
+}
