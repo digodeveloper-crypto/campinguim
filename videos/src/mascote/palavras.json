@@ -1,0 +1,62 @@
+[
+{
+"w": "Este",
+"s": -0.026,
+"e": 0.234,
+"cena": "apresenta"
+},
+{
+"w": "é",
+"s": 0.234,
+"e": 0.278,
+"cena": "apresenta"
+},
+{
+"w": "o",
+"s": 0.278,
+"e": 0.343,
+"cena": "apresenta"
+},
+{
+"w": "Campinguim.",
+"s": 0.343,
+"e": 0.952,
+"cena": "apresenta"
+},
+{
+"w": "Ele",
+"s": 1.245,
+"e": 1.452,
+"cena": "apresenta"
+},
+{
+"w": "mostra",
+"s": 1.452,
+"e": 1.876,
+"cena": "apresenta"
+},
+{
+"w": "o",
+"s": 1.876,
+"e": 1.93,
+"cena": "apresenta"
+},
+{
+"w": "camping",
+"s": 1.93,
+"e": 2.332,
+"cena": "apresenta"
+},
+{
+"w": "por",
+"s": 2.332,
+"e": 2.495,
+"cena": "apresenta"
+},
+{
+"w": "dentro.",
+"s": 2.495,
+"e": 2.876,
+"cena": "apresenta"
+}
+]

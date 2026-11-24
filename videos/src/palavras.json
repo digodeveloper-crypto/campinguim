@@ -1,0 +1,68 @@
+[
+{
+"w": "Sua",
+"s": -0.025,
+"e": 0.214,
+"cena": "gancho"
+},
+{
+"w": "barraca",
+"s": 0.214,
+"e": 0.67,
+"cena": "gancho"
+},
+{
+"w": "molha",
+"s": 0.67,
+"e": 0.92,
+"cena": "gancho"
+},
+{
+"w": "por",
+"s": 0.92,
+"e": 1.083,
+"cena": "gancho"
+},
+{
+"w": "dentro,",
+"s": 1.083,
+"e": 1.453,
+"cena": "gancho"
+},
+{
+"w": "mesmo",
+"s": 1.649,
+"e": 1.975,
+"cena": "gancho"
+},
+{
+"w": "sem",
+"s": 1.975,
+"e": 2.17,
+"cena": "gancho"
+},
+{
+"w": "chuva.",
+"s": 2.17,
+"e": 2.594,
+"cena": "gancho"
+},
+{
+"w": "É",
+"s": 2.909,
+"e": 2.996,
+"cena": "gancho"
+},
+{
+"w": "a",
+"s": 2.996,
+"e": 3.062,
+"cena": "gancho"
+},
+{
+"w": "condensação.",
+"s": 3.062,
+"e": 3.92,
+"cena": "gancho"
+}
+]
