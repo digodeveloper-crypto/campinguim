@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 01 · Corpo de barraca · vista de três quartos (45° para a esquerda: porta girada, olho de lá menor, asa de cá) -->
+  <path d="M139 480 C139 444, 175 444, 199 444 L225 444 Q243 444 243 480 Z" fill="#E39B2D"/>
+  <path d="M253 480 C253 444, 289 444, 313 444 L339 444 Q357 444 357 480 Z" fill="#E39B2D"/>
+  <path d="M364.9 244 L373.5 240.8 A14 14 0 0 0 386.7 250 L399.1 250 A14 14 0 0 1 409 254.1 L462.9 308 L385.8 308 Z" fill="#2F6B4F"/>
+  <path d="M202.6 64.7 A60 60 0 0 1 312.4 71.6 L427.6 390.4 A40 40 0 0 1 390 444 L122 444 A40 40 0 0 1 83 395.2 A1400 1400 0 0 1 202.6 64.7 Z" fill="#2F6B4F"/>
+  <path d="M138 444 L153 372 C153 318, 184 272, 230 272 C282 272, 283 318, 283 372 L266 444 Z" fill="#F3E7CF"/>
+  <rect x="192" y="116" width="28" height="64" rx="14" fill="#F3E7CF"/>
+  <rect x="232" y="116" width="44" height="64" rx="22" fill="#F3E7CF"/>
+  <rect x="197" y="124" width="16" height="48" rx="8" fill="#1B1F24"/>
+  <rect x="236" y="124" width="28" height="48" rx="14" fill="#1B1F24"/>
+  <path d="M210 204 L232 222 L210 248 L176 222 Z" fill="#E39B2D"/>
+</svg>

@@ -1,0 +1,238 @@
+### index
+teste-index-celular-claro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-index-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-index-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-index-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### comparacao
+teste-comparacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=4  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/icone.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/uma-cor.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-comparacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=4  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/icone.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/uma-cor.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-comparacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=4  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/icone.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/uma-cor.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-comparacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=4  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/icone.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/uma-cor.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### avaliacao
+teste-avaliacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-avaliacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-avaliacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-avaliacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/40/arte/principal.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### recomendacao
+teste-recomendacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-recomendacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-recomendacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-recomendacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/03/index
+teste-03-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-03-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-03-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-03-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/04/index
+teste-04-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-04-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-04-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-04-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/05/index
+teste-05-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-05-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-05-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-05-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/06/index
+teste-06-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-06-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-06-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-06-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/07/index
+teste-07-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-07-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-07-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-07-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/08/index
+teste-08-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-08-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-08-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-08-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/09/index
+teste-09-celular-claro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-09-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-09-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+teste-09-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/leiame/apresentacao/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 09 · Caminhante de botas · icone (arte própria para 48 px: figura inteira no passo, pés-bota e cabeça maiores, sem linha, nada menor que 43) -->
+  <!-- pé e perna de cá, atrás, erguido: a sola aparece de frente, curta e quadrada -->
+  <rect x="330" y="335" width="88" height="62" rx="22" fill="#C8613A" transform="rotate(-24 374 366)"/>
+  <path d="M275.3 308.6 L335.3 362.4 A22 22 0 0 0 365.9 330.8 L310.0 272.7 A25 25 0 1 0 275.3 308.6 Z" fill="#1C2B3A"/>
+  <!-- pé e perna de lá, à frente, pousado -->
+  <path d="M106 418 C96 418 90 410 90 400 L90 384 C90 374 96 368 106 368 L178 362 C196 352 228 352 244 366 C254 374 260 386 260 398 C260 410 252 418 242 418 Z" fill="#C8613A" transform="translate(-4 -2)"/>
+  <path d="M210.2 280.3 L189.1 345.2 A22 22 0 0 0 230.2 360.6 L257.0 297.8 A25 25 0 1 0 210.2 280.3 Z" fill="#1C2B3A"/>
+  <g transform="rotate(-6 256 340)">
+    <!-- asa de cá, para trás -->
+    <path d="M303.7 219.0 L384.9 297.5 A16 16 0 0 0 409.9 278.0 L353.8 180.1 A32 32 0 1 0 303.7 219.0 Z" fill="#1C2B3A"/>
+    <!-- peça escura: cabeça grande, pescoço e tronco curto -->
+    <path d="M188 164 C170 150 160 132 160 112 C160 78 188 54 224 54 C260 54 288 78 288 112 C288 132 280 148 272 158 C298 166 330 178 344 200 C358 222 360 252 352 278 C342 308 318 326 288 330 C262 334 214 334 194 320 C170 304 158 276 158 244 C158 208 170 180 188 164 Z" fill="#1C2B3A"/>
+    <!-- barriga em pera -->
+    <path d="M198 176 C228 188 256 226 268 262 C280 298 276 322 258 334 C240 346 204 344 186 330 C166 314 160 288 162 258 C164 218 176 188 198 176 Z" fill="#F4EEE2"/>
+    <!-- bico em cunha -->
+    <path d="M244 112 C206 112 168 114 122 118 C110 120 108 132 118 136 C158 146 192 156 222 164 C238 150 246 132 244 112 Z" fill="#C8613A"/>
+    <!-- olhos colados -->
+    <ellipse cx="196" cy="102" rx="18" ry="25" fill="#F4EEE2"/>
+    <circle cx="240" cy="102" r="26" fill="#F4EEE2"/>
+    <ellipse cx="190" cy="104" rx="10" ry="14" fill="#1C2B3A"/>
+    <circle cx="230" cy="104" r="15" fill="#1C2B3A"/>
+  </g>
+</svg>

@@ -1,0 +1,178 @@
+== saida-avaliacao.html.txt
+avaliacao.html-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao.html-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao.html-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao.html-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-comparacao.html.txt
+comparacao.html-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao.html-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao.html-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao.html-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-index.html.txt
+index.html-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index.html-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index.html-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index.html-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-opcoes_00-exemplo_index.html.txt
+opcoes_00-exemplo_index.html-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+opcoes_00-exemplo_index.html-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+opcoes_00-exemplo_index.html-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+opcoes_00-exemplo_index.html-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-opcoes_05_index.html.txt
+opcoes_05_index.html-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+opcoes_05_index.html-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+opcoes_05_index.html-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+opcoes_05_index.html-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-recomendacao.html.txt
+recomendacao.html-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+recomendacao.html-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+recomendacao.html-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+recomendacao.html-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-t03.txt
+t03-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t03-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t03-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t03-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-t05.txt
+t05-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t05-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t05-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t05-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-t07.txt
+t07-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t07-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t07-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t07-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+== saida-t09.txt
+t09-celular-claro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/cp/a/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t09-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/cp/a/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t09-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///<pasta temporaria>/cp/a/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+t09-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///<pasta temporaria>/cp/a/opcoes/09/arte/vista-lado.svg
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0

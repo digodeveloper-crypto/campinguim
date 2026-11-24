@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 05 · Topete de chama · pose-alerta (sobrancelhas sobem, pupilas pequenas, corpo inclina para o que viu, asa aponta, topete inclina na direção do olhar) -->
+  <!-- figura deslocada 38 para a direita para a asa que aponta caber na prancha -->
+  <g transform="translate(38 0)">
+    <!-- pés plantados -->
+    <g fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+      <ellipse cx="118" cy="450" rx="58" ry="25"/>
+      <ellipse cx="394" cy="450" rx="58" ry="25"/>
+    </g>
+    <g fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round">
+      <path d="M 90 428 L 94 442"/>
+      <path d="M 422 428 L 418 442"/>
+    </g>
+    <!-- corpo inclinado 5° para a esquerda, girando sobre a base -->
+    <g transform="rotate(-5 256 469)">
+      <!-- corpo e topete: a chama inclina para a esquerda, na direção do olhar -->
+      <path d="M 86 196 C 86 146 108 120 150 116 C 162 112 166 102 168 96 C 170 90 166 82 164 72 C 162 64 170 62 176 67 C 182 72 190 75 196 72 C 204 68 204 58 200 51 C 196 44 202 38 212 39 C 226 40 240 46 248 56 C 254 66 256 80 262 78 C 270 76 270 70 270 63 C 270 56 278 56 282 62 C 286 68 294 74 300 78 C 308 84 314 94 318 98 C 328 106 346 114 362 116
+               C 404 120 426 146 426 196
+               C 426 270 394 335 396 400
+               C 398 428 398 452 376 462
+               C 346 468 300 469 256 469
+               C 212 469 166 468 136 462
+               C 114 452 114 428 116 400
+               C 118 335 86 270 86 196 Z"
+            fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+      <g fill="#E86A2A">
+        <path d="M 300 78 C 294 74 286 68 282 62 C 278 56 270 56 270 63 C 270 70 270 76 262 78 C 274 86 290 88 300 78 Z"/>
+        <path d="M 248 56 C 240 46 226 40 212 39 C 202 38 196 44 200 51 C 204 58 204 68 196 72 C 212 78 234 74 248 56 Z"/>
+        <path d="M 196 72 C 190 75 182 72 176 67 C 170 62 162 64 164 72 C 172 84 188 84 196 72 Z"/>
+      </g>
+      <path d="M 150 116 C 162 112 166 102 168 96 C 170 90 166 82 164 72 C 162 64 170 62 176 67 C 182 72 190 75 196 72 C 204 68 204 58 200 51 C 196 44 202 38 212 39 C 226 40 240 46 248 56 C 254 66 256 80 262 78 C 270 76 270 70 270 63 C 270 56 278 56 282 62 C 286 68 294 74 300 78 C 308 84 314 94 318 98 C 328 106 346 114 362 116"
+            fill="none" stroke="#141B2E" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+      <g fill="#384F7E">
+        <path d="M 150 116 C 108 120 86 146 86 196 L 87 218 C 96 168 116 142 150 136 Z"/>
+        <path d="M 362 116 C 404 120 426 146 426 196 L 425 218 C 416 168 396 142 362 136 Z"/>
+      </g>
+      <path d="M 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 388 372 322 422 278 446 C 266 452 246 452 234 446 C 190 422 124 372 131 312 Z" fill="#141B2E"/>
+      <path d="M 256 270 C 248 244 224 226 198 226 C 162 226 132 262 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 380 262 350 226 314 226 C 288 226 264 244 256 270 Z" fill="#FFF4E0"/>
+      <!-- asa que aponta (mais curta porque vem na direção de quem olha) -->
+      <g transform="rotate(120 104 276)">
+        <path d="M 104 276 C 130 276 150 296 148 322 C 146 346 122 376 106 388 C 90 376 62 346 60 322 C 58 296 78 276 104 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+        <path d="M 104 276 C 78 276 58 296 60 322 C 64 302 80 290 104 290 Z" fill="#384F7E"/>
+      </g>
+      <!-- outra asa recolhida -->
+      <g transform="rotate(-8 408 276)">
+        <path d="M 408 276 C 434 276 454 300 452 334 C 450 366 426 404 410 418 C 394 404 366 366 364 334 C 362 300 382 276 408 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+        <path d="M 408 276 C 434 276 454 300 452 334 C 448 308 432 292 408 292 Z" fill="#384F7E"/>
+      </g>
+      <path d="M 220 258 C 234 276 278 276 292 258 C 284 282 228 282 220 258 Z" fill="#141B2E"/>
+      <path d="M 220 228 C 232 224 280 224 292 228 C 302 232 302 244 296 252 C 290 262 272 268 256 268 C 240 268 222 262 216 252 C 210 244 210 232 220 228 Z" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M 218 250 C 236 250 276 250 294 250" fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round"/>
+      <!-- olhos bem abertos, pupilas pequenas olhando para o que viu -->
+      <g fill="#FFF4E0">
+        <circle cx="201" cy="185" r="30"/>
+        <circle cx="311" cy="185" r="30"/>
+      </g>
+      <g fill="#141B2E">
+        <circle cx="193" cy="182" r="11"/>
+        <circle cx="303" cy="191" r="11"/>
+      </g>
+      <g fill="none" stroke="#141B2E" stroke-width="10">
+        <circle cx="201" cy="185" r="30"/>
+        <circle cx="311" cy="185" r="30"/>
+      </g>
+      <!-- sobrancelhas sobem -->
+      <g fill="#384F7E" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+        <path d="M 164 134 C 180 126 212 120 238 122 C 248 124 248 136 238 140 C 214 138 188 136 172 138 C 168 138 164 136 164 134 Z"/>
+        <path d="M 348 134 C 332 126 300 120 274 122 C 264 124 264 136 274 140 C 298 138 324 136 340 138 C 344 138 348 136 348 134 Z"/>
+      </g>
+    </g>
+  </g>
+</svg>

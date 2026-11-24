@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" stroke-linejoin="round">
+  <!-- Campinguim · opção 10 Boneco de lanterna · icone -->
+  <defs>
+    <clipPath id="cabeca-rosto"><path d="M148 140a108 108 0 1 0 216 0a108 108 0 1 0 -216 0Z"/></clipPath>
+  </defs>
+  <path fill="#E98A2E" d="M166 392H214A20 20 0 0 1 234 412V412A20 20 0 0 1 214 432H166A20 20 0 0 1 146 412V412A20 20 0 0 1 166 392Z"/>
+  <path fill="#E98A2E" d="M244 392H292A20 20 0 0 1 312 412V412A20 20 0 0 1 292 432H244A20 20 0 0 1 224 412V412A20 20 0 0 1 244 392Z"/>
+  <path fill="#3A4C6A" d="M210 270H246A64 64 0 0 1 310 334V338A64 64 0 0 1 246 402H210A64 64 0 0 1 146 338V334A64 64 0 0 1 210 270Z"/>
+  <path fill="#FFFFFF" d="M182 344a46 46 0 1 0 92 0a46 46 0 1 0 -92 0Z"/>
+  <path transform="rotate(12 158 300)" fill="#3A4C6A" d="M158 280H158A20 20 0 0 1 178 300V360A20 20 0 0 1 158 380H158A20 20 0 0 1 138 360V300A20 20 0 0 1 158 280Z"/>
+  <g>
+    <path fill="#565C66" d="M288 316A62 88 0 0 1 412 316H388A38 64 0 0 0 312 316Z"/>
+    <path fill="#F5C542" d="M324 322H376A12 12 0 0 1 388 334V392A12 12 0 0 1 376 404H324A12 12 0 0 1 312 392V334A12 12 0 0 1 324 322Z"/>
+    <path fill="#565C66" d="M305 328C305 312 320 304 336 304H364C380 304 395 312 395 328Z"/>
+    <path fill="#565C66" d="M314 398H386A9 9 0 0 1 395 407V407A9 9 0 0 1 386 416H314A9 9 0 0 1 305 407V407A9 9 0 0 1 314 398Z"/>
+    <circle fill="#565C66" cx="300" cy="316" r="14.4"/>
+    <circle fill="#565C66" cx="400" cy="316" r="14.4"/>
+  </g>
+  <path transform="rotate(-142.5 304 300)" fill="#3A4C6A" d="M304 280H304A20 20 0 0 1 324 300V375.6A20 20 0 0 1 304 395.6H304A20 20 0 0 1 284 375.6V300A20 20 0 0 1 304 280Z"/>
+  <path transform="translate(-75.4 0.1) scale(1.2)" fill="#3A4C6A" d="M148 140a108 108 0 1 0 216 0a108 108 0 1 0 -216 0Z"/>
+  <g transform="translate(-75.4 0.1) scale(1.2)">
+    <path clip-path="url(#cabeca-rosto)" fill="#FFFFFF" d="M256 110L306 110C325.9 110 342 126.1 342 146L342 170C342 200.9 316.9 226 286 226L226 226C195.1 226 170 200.9 170 170L170 146C170 126.1 186.1 110 206 110Z"/>
+    <rect fill="#141A24" x="180" y="125" width="46" height="46" rx="14"/>
+    <rect fill="#141A24" x="286" y="125" width="46" height="46" rx="14"/>
+    <path fill="#E98A2E" stroke="#E98A2E" stroke-width="8" d="M256 166.5L281.5 192L256 217.5L230.5 192Z"/>
+  </g>
+</svg>

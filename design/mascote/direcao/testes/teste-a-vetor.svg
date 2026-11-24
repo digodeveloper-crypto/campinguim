@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Personagem de TESTE da técnica (descartável, não é nenhuma das 10 opções).
+       Pinguim pera com tapete enrolado nas costas e lanterna na asa. Linha 12 px em 512. -->
+  <g stroke="#1b2430" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+    <!-- tapete enrolado (acessório, atrás do corpo) -->
+    <rect x="300" y="190" width="120" height="70" rx="35" fill="#e0742b"/>
+    <!-- pés -->
+    <ellipse cx="206" cy="448" rx="52" ry="22" fill="#f2a33a"/>
+    <ellipse cx="306" cy="448" rx="52" ry="22" fill="#f2a33a"/>
+    <!-- corpo pera -->
+    <path d="M256 80 C 150 80, 110 190, 118 300 C 125 400, 180 450, 256 450 C 332 450, 387 400, 394 300 C 402 190, 362 80, 256 80 Z" fill="#2b4a6f"/>
+    <!-- barriga escudo -->
+    <path d="M256 170 C 200 170, 176 240, 180 310 C 184 380, 214 420, 256 420 C 298 420, 328 380, 332 310 C 336 240, 312 170, 256 170 Z" fill="#fff6e6"/>
+    <!-- asa esquerda -->
+    <path d="M128 250 C 90 290, 85 360, 110 390 C 130 395, 150 360, 150 300 Z" fill="#2b4a6f"/>
+    <!-- asa direita segurando lanterna -->
+    <path d="M384 250 C 422 290, 427 360, 402 390 C 382 395, 362 360, 362 300 Z" fill="#2b4a6f"/>
+    <!-- lanterna -->
+    <rect x="380" y="372" width="56" height="70" rx="10" fill="#f2c94c"/>
+    <path d="M396 372 v-18 h24 v18" fill="none"/>
+    <!-- bico -->
+    <path d="M226 150 L286 150 L256 186 Z" fill="#f2a33a"/>
+    <!-- olhos -->
+    <circle cx="222" cy="122" r="16" fill="#ffffff"/>
+    <circle cx="290" cy="122" r="16" fill="#ffffff"/>
+  </g>
+  <circle cx="226" cy="124" r="7" fill="#1b2430"/>
+  <circle cx="294" cy="124" r="7" fill="#1b2430"/>
+</svg>

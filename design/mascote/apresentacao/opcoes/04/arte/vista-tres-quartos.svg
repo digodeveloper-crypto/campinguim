@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 04 · Pictograma de trilha · vista de três quartos (45° para a esquerda). Chão y=480, altura 448, olhos em y=102. Centro do tronco x=208. -->
+  <!-- mochila: a caixa girada 45° aparece deslocada para trás (direita), com a faixa clara da aba -->
+  <rect x="198" y="150" width="236" height="170" rx="24" fill="#E8601C"/>
+  <rect x="214" y="166" width="204" height="24" rx="12" fill="#FFFFFF"/>
+  <!-- asa de lá: recuada, só a parte de baixo aparece atrás do tronco -->
+  <rect x="122" y="226" width="36" height="170" rx="18" fill="#404246" transform="rotate(15 140 226)"/>
+  <!-- cabeça (esfera r=70) e pescoço -->
+  <circle cx="208" cy="102" r="70" fill="#404246"/>
+  <rect x="183" y="150" width="50" height="50" fill="#404246"/>
+  <!-- tronco (cilindro) e barriga girada para o lado de cá -->
+  <rect x="118" y="196" width="180" height="212" rx="40" fill="#404246"/>
+  <rect x="120" y="212" width="70" height="180" rx="24" fill="#FFFFFF"/>
+  <!-- asa de cá, 15° para fora, à frente da mochila -->
+  <rect x="268" y="226" width="36" height="170" rx="18" fill="#404246" transform="rotate(-15 286 226)"/>
+  <!-- pernas e pés (o de lá aponta para a esquerda, o de cá para a direita) -->
+  <rect x="168" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="214" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="124" y="450" width="78" height="30" rx="15" fill="#E8601C"/>
+  <rect x="214" y="450" width="78" height="30" rx="15" fill="#E8601C"/>
+  <!-- olhos (o de lá menor, perto da borda) e bico apontando para a esquerda -->
+  <circle cx="150" cy="102" r="9" fill="#FFFFFF"/>
+  <circle cx="184" cy="102" r="12" fill="#FFFFFF"/>
+  <path d="M145 118 L177 118 L136 150 Z" fill="#E8601C"/>
+</svg>

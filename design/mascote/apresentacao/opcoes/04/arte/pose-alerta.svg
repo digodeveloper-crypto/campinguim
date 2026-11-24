@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 04 · Pictograma de trilha · pose-alerta: tronco inclinado 10° para o lado que aponta, asa reta na horizontal, olhos em traço vertical (atenção). Edição do principal, figura deslocada 60 para a direita para a asa caber. -->
+  <!-- corpo inclinado 10° sobre o quadril (316,408): mochila, aba, cabeça, pescoço, tronco, barriga, olhos e bico -->
+  <g transform="rotate(-10 316 408)">
+    <rect x="176" y="150" width="280" height="170" rx="24" fill="#E8601C"/>
+    <rect x="196" y="166" width="240" height="24" rx="12" fill="#FFFFFF"/>
+    <circle cx="316" cy="102" r="70" fill="#404246"/>
+    <rect x="291" y="150" width="50" height="50" fill="#404246"/>
+    <rect x="226" y="196" width="180" height="212" rx="40" fill="#404246"/>
+    <rect x="266" y="212" width="100" height="180" rx="30" fill="#FFFFFF"/>
+    <rect x="285" y="86" width="12" height="32" rx="6" fill="#FFFFFF"/>
+    <rect x="335" y="86" width="12" height="32" rx="6" fill="#FFFFFF"/>
+    <path d="M294 118 L338 118 L316 150 Z" fill="#E8601C"/>
+  </g>
+  <!-- asa que aponta: reta na horizontal, saindo do ombro já inclinado -->
+  <rect x="223" y="247" width="36" height="170" rx="18" fill="#404246" transform="rotate(90 241 247)"/>
+  <!-- asa de trás: pendurada a 15° do corpo (25° no mundo, por causa da inclinação) -->
+  <rect x="343" y="215" width="36" height="170" rx="18" fill="#404246" transform="rotate(-25 361 215)"/>
+  <!-- pernas e pés firmes no chão -->
+  <rect x="266" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="332" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="210" y="450" width="90" height="30" rx="15" fill="#E8601C"/>
+  <rect x="332" y="450" width="90" height="30" rx="15" fill="#E8601C"/>
+</svg>

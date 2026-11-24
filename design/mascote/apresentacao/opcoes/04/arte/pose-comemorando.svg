@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 04 · Pictograma de trilha · pose-comemorando: asas a 45° para cima, pé direito a 30° fora do chão, olhos em traço horizontal (sorriso geométrico). Edição do principal. -->
+  <!-- mochila e aba -->
+  <rect x="116" y="150" width="280" height="170" rx="24" fill="#E8601C"/>
+  <rect x="136" y="166" width="240" height="24" rx="12" fill="#FFFFFF"/>
+  <!-- cabeça e pescoço -->
+  <circle cx="256" cy="102" r="70" fill="#404246"/>
+  <rect x="231" y="150" width="50" height="50" fill="#404246"/>
+  <!-- tronco e barriga -->
+  <rect x="166" y="196" width="180" height="212" rx="40" fill="#404246"/>
+  <rect x="206" y="212" width="100" height="180" rx="30" fill="#FFFFFF"/>
+  <!-- asas erguidas a 45°, giradas no ombro -->
+  <rect x="182" y="240" width="36" height="170" rx="18" fill="#404246" transform="rotate(135 200 240)"/>
+  <rect x="294" y="240" width="36" height="170" rx="18" fill="#404246" transform="rotate(-135 312 240)"/>
+  <!-- perna esquerda no chão; perna direita girada 30° no quadril, pé fora do chão -->
+  <rect x="206" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="150" y="450" width="90" height="30" rx="15" fill="#E8601C"/>
+  <rect x="272" y="380" width="34" height="80" fill="#404246" transform="rotate(-30 289 408)"/>
+  <rect x="272" y="450" width="90" height="30" rx="15" fill="#E8601C" transform="rotate(-30 289 408)"/>
+  <!-- olhos em traço horizontal e bico -->
+  <rect x="215" y="96" width="32" height="12" rx="6" fill="#FFFFFF"/>
+  <rect x="265" y="96" width="32" height="12" rx="6" fill="#FFFFFF"/>
+  <path d="M234 118 L278 118 L256 150 Z" fill="#E8601C"/>
+</svg>

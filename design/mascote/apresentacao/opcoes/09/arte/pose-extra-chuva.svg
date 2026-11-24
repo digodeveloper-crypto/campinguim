@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 09 · Caminhante de botas · pose-extra-chuva (anda inclinado contra a chuva, asa pousada no alto da cabeça, cabeça baixa, passo curto) -->
+  <defs>
+    <clipPath id="corte">
+      <path clip-rule="evenodd" d="M0 0H512V512H0Z M365.3 178.7 L297.3 47.0 A24 24 0 0 0 252.7 63.6 L287.2 207.8 A42 42 0 1 0 365.3 178.7 Z"/>
+    </clipPath>
+  </defs>
+  <!-- chuva em traços diagonais -->
+  <rect x="58" y="40" width="12" height="48" rx="6" fill="#1C2B3A" transform="rotate(-24 64 64)"/>
+  <rect x="44" y="176" width="12" height="48" rx="6" fill="#1C2B3A" transform="rotate(-24 50 200)"/>
+  <rect x="58" y="300" width="12" height="48" rx="6" fill="#1C2B3A" transform="rotate(-24 64 324)"/>
+  <rect x="396" y="28" width="12" height="48" rx="6" fill="#1C2B3A" transform="rotate(-24 402 52)"/>
+  <rect x="436" y="150" width="12" height="48" rx="6" fill="#1C2B3A" transform="rotate(-24 442 174)"/>
+  <rect x="440" y="290" width="12" height="48" rx="6" fill="#1C2B3A" transform="rotate(-24 446 314)"/>
+  <!-- pé e perna de cá, atrás -->
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A" transform="translate(128 -8) rotate(-10 94 480)"/>
+  <path d="M277.8 380.8 L327.7 435.4 A14 14 0 0 0 350.1 419.0 L313.0 355.0 A22 22 0 1 0 277.8 380.8 Z" fill="#1C2B3A"/>
+  <!-- pé e perna de lá, à frente, passo curto -->
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A"/>
+  <path d="M218.5 361.3 L202.3 435.0 A14 14 0 0 0 228.7 443.8 L260.0 375.1 A22 22 0 1 0 218.5 361.3 Z" fill="#1C2B3A"/>
+  <g transform="rotate(-14 262 372)">
+    <g clip-path="url(#corte)">
+      <!-- peça escura: cabeça baixa e à frente, pescoço e tronco -->
+      <path d="M196 146 C184 134 172 118 172 102 C172 72 196 50 226 50 C256 50 280 72 280 102 C280 122 274 136 272 146 C290 150 316 156 334 166 C360 180 372 208 370 244 C368 296 350 338 326 364 C304 392 238 398 212 380 C184 356 164 304 164 246 C164 200 180 164 196 146 Z" fill="#1C2B3A"/>
+      <!-- barriga em pera, com fenda no topo -->
+      <path d="M210 146 L222 160 L232 146 C250 164 266 214 276 270 C286 326 288 372 270 394 C256 410 214 412 194 396 C172 378 164 334 166 286 C168 222 186 168 210 146 Z" fill="#F4EEE2"/>
+      <!-- bico em cunha -->
+      <path d="M228 102 C198 102 170 104 148 106 C138 107 136 115 143 118 C168 126 192 134 210 140 C222 128 228 116 228 102 Z" fill="#C8613A"/>
+      <!-- olhos apertados contra a chuva, pálpebras caídas para fora -->
+      <ellipse cx="202" cy="92" rx="14" ry="21" fill="#F4EEE2"/>
+      <circle cx="238" cy="92" r="22" fill="#F4EEE2"/>
+      <ellipse cx="197" cy="96" rx="8" ry="11" fill="#1C2B3A"/>
+      <circle cx="230" cy="96" r="11" fill="#1C2B3A"/>
+      <path d="M190 68 L218 68 L218 82 L190 82 Z" fill="#1C2B3A"/>
+      <path d="M214 62 L264 62 L264 96 L214 76 Z" fill="#1C2B3A"/>
+    </g>
+    <!-- asa de cá erguida, pousada no alto da cabeça (papel sobreposto, com o corte) -->
+    <path d="M354.7 184.2 L286.7 52.5 A12 12 0 0 0 264.3 60.8 L298.8 205.0 A30 30 0 1 0 354.7 184.2 Z" fill="#1C2B3A"/>
+  </g>
+</svg>

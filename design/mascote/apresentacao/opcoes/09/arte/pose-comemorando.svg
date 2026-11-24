@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 09 · Caminhante de botas · pose-comemorando (salto, pernas recolhidas, asas para cima) -->
+  <defs>
+    <clipPath id="corte">
+      <path clip-rule="evenodd" d="M0 0H512V512H0Z M365.4 214.5 L440.3 96.9 A24 24 0 0 0 403.7 66.4 L301.4 161.2 A42 42 0 1 0 365.4 214.5 Z"/>
+    </clipPath>
+  </defs>
+  <!-- pés e pernas recolhidos no ar -->
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A" transform="translate(-2 -32) rotate(-14 212 404)"/>
+  <path d="M217.2 345.0 L198.7 399.5 A14 14 0 0 0 223.5 411.9 L256.1 364.5 A22 22 0 1 0 217.2 345.0 Z" fill="#1C2B3A"/>
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A" transform="translate(104 -30) rotate(-8 318 406)"/>
+  <path d="M273.6 364.1 L306.3 413.7 A14 14 0 0 0 331.3 401.7 L312.9 345.2 A22 22 0 1 0 273.6 364.1 Z" fill="#1C2B3A"/>
+  <g transform="translate(0 -14) rotate(4 262 372)">
+    <!-- asa de lá, erguida, atrás do corpo -->
+    <path d="M212.1 173.1 L110.9 102.2 A12 12 0 0 0 94.8 119.7 L174.6 214.1 A28 28 0 1 0 212.1 173.1 Z" fill="#1C2B3A"/>
+    <g clip-path="url(#corte)">
+      <!-- peça escura: cabeça, pescoço e tronco -->
+      <path d="M204 128 C192 116 180 100 180 84 C180 54 204 32 234 32 C264 32 288 54 288 84 C288 104 282 118 280 128 C292 144 316 152 334 162 C360 178 372 208 370 244 C368 296 350 338 326 364 C304 392 238 398 212 380 C184 356 164 304 164 246 C164 196 186 152 204 128 Z" fill="#1C2B3A"/>
+    </g>
+    <!-- barriga em pera, com fenda no topo -->
+    <path d="M210 146 L222 160 L232 146 C250 164 266 214 276 270 C286 326 288 372 270 394 C256 410 214 412 194 396 C172 378 164 334 166 286 C168 222 186 168 210 146 Z" fill="#F4EEE2"/>
+    <!-- asa de cá, erguida em V (papel sobreposto, com o corte) -->
+    <path d="M355.3 208.1 L430.1 90.4 A12 12 0 0 0 411.8 75.2 L309.6 170.0 A30 30 0 1 0 355.3 208.1 Z" fill="#1C2B3A"/>
+    <!-- bico aberto em cunha dupla -->
+    <path d="M236 82 C206 80 180 78 158 76 C148 76 146 84 152 88 C178 94 204 98 228 102 Z" fill="#C8613A"/>
+    <path d="M226 108 C206 112 186 118 166 124 C157 127 158 135 167 135 C188 133 208 128 224 124 Z" fill="#C8613A"/>
+    <!-- olhos fechados em meias-luas brancas -->
+    <path d="M197 86 A14 22 0 0 1 225 86 Q211 72 197 86 Z" fill="#F4EEE2"/>
+    <path d="M222 86 A24 24 0 0 1 270 86 Q246 68 222 86 Z" fill="#F4EEE2"/>
+  </g>
+</svg>

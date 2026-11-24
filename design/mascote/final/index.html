@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campinguim · mascote final</title>
+  <style>
+    :root { --fundo: #F4F1EA; --texto: #1F252B; --suave: #545F69; --cartao: #FFFFFF; --linha: #DDD6C8; }
+    @media (prefers-color-scheme: dark) { :root { --fundo: #181C20; --texto: #EEE9DF; --suave: #A9B2BB; --cartao: #22282E; --linha: #3A424A; } }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    header, main { max-width: 1180px; margin: 0 auto; padding: 24px 16px; }
+    main { padding-top: 0; }
+    h1 { font-size: 1.7rem; margin: 0 0 4px; }
+    h2 { font-size: 1.25rem; margin: 32px 0 4px; }
+    .desc, header p { color: var(--suave); margin: 0 0 16px; }
+    .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); gap: 16px; }
+    .par { margin: 0; background: var(--cartao); border: 1px solid var(--linha); border-radius: 14px; overflow: hidden; }
+    .duas { display: grid; grid-template-columns: 1fr 1fr; }
+    .fundo { display: flex; align-items: center; justify-content: center; padding: 12px; min-height: 190px; }
+    .fundo.claro { background: #FFFFFF; }
+    .fundo.escuro { background: #121212; }
+    .fundo img { width: 100%; max-width: 200px; height: auto; display: block; }
+    .icones { gap: 10px; flex-wrap: wrap; }
+    .icones img.g { width: 96px; height: 96px; }
+    .icones img.p { width: 48px; height: 48px; }
+    img.loja { border-radius: 30%; }
+    .adapt { position: relative; width: 96px; height: 96px; overflow: hidden; display: inline-block; flex: none; }
+    .adapt img { position: absolute; width: 144px; height: 144px; max-width: none; left: -24px; top: -24px; }
+    .adapt.p48 { width: 48px; height: 48px; }
+    .adapt.p48 img { width: 72px; height: 72px; left: -12px; top: -12px; }
+    .redondo { border-radius: 50%; }
+    .quadrado { border-radius: 30%; }
+    .tema { border-radius: 50%; background: #1E3C42; }
+    figcaption { padding: 10px 14px; font-size: .95rem; }
+    .nova { display: inline-block; background: #E4A33A; color: #1F252B; font-size: .75rem; font-weight: 700; padding: 1px 8px; border-radius: 99px; text-transform: uppercase; letter-spacing: .04em; }
+    .origem { color: var(--suave); font-size: .85rem; }
+    .paleta { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 12px; }
+    .paleta li { background: var(--cartao); border: 1px solid var(--linha); border-radius: 12px; padding: 12px 12px 12px 72px; position: relative; min-height: 64px; }
+    .amostra { position: absolute; left: 12px; top: 12px; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--linha); }
+    code { font-size: .9rem; }
+    footer { max-width: 1180px; margin: 0 auto; padding: 8px 16px 40px; color: var(--suave); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Campinguim · mascote final</h1>
+    <p>Opção 03, Filhote de gorro, escolhida pelo responsável. Pacote final em vetor (MSC-08): cada arte aparece à esquerda sobre fundo claro e, à direita, na versão para fundo escuro.</p>
+  </header>
+  <main>
+    <section>
+      <h2>Principal e vistas</h2>
+      <p class="desc">Cópia sem alteração da arte aprovada. Vistas de frente, de lado e de três quartos para o modelo 3D.</p>
+      <div class="grade">
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/principal.svg" alt="Principal, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/principal.svg" alt="Principal, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Principal</figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/vista-frente.svg" alt="Vista de frente, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/vista-frente.svg" alt="Vista de frente, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Vista de frente</figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/vista-lado.svg" alt="Vista de lado, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/vista-lado.svg" alt="Vista de lado, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Vista de lado</figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/vista-tres-quartos.svg" alt="Vista de três quartos, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/vista-tres-quartos.svg" alt="Vista de três quartos, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Vista de três quartos</figcaption>
+      </figure>
+      </div>
+    </section>
+    <section>
+      <h2>Poses aprovadas</h2>
+      <p class="desc">Cópia sem alteração. A pose de camping é a de frio.</p>
+      <div class="grade">
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/pose-neutro.svg" alt="Neutro, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/pose-neutro.svg" alt="Neutro, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Neutro</figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/pose-comemorando.svg" alt="Comemorando, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/pose-comemorando.svg" alt="Comemorando, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Comemorando</figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/pose-alerta.svg" alt="Em alerta, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/pose-alerta.svg" alt="Em alerta, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Em alerta</figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/pose-camping.svg" alt="Camping (frio), versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/pose-camping.svg" alt="Camping (frio), versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Camping (frio)</figcaption>
+      </figure>
+      </div>
+    </section>
+    <section>
+      <h2>Sem acessório</h2>
+      <p class="desc">O filhote sem o gorro: continua o mesmo personagem.</p>
+      <div class="grade">
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/sem-acessorio.svg" alt="Sem o gorro, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/sem-acessorio.svg" alt="Sem o gorro, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Sem o gorro</figcaption>
+      </figure>
+      </div>
+    </section>
+    <section>
+      <h2>Uma cor</h2>
+      <p class="desc">Uma tinta só, com face, barriga e olhos recortados. Positivo (tinta #111111) no fundo claro; negativo (tinta branca) no fundo escuro.</p>
+      <div class="grade">
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/uma-cor.svg" alt="Positivo e negativo, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/uma-cor.svg" alt="Positivo e negativo, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Positivo e negativo</figcaption>
+      </figure>
+      </div>
+    </section>
+    <section>
+      <h2>As 7 expressões para o modelo 3D</h2>
+      <p class="desc">Referência 2D do MSC-11, na mesma construção. As marcadas como <span class="nova">nova</span> foram desenhadas agora e ainda não foram vistas pelo responsável nem pelo QA.</p>
+      <div class="grade">
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/expressoes/expressao-neutro.svg" alt="Neutro, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/expressoes/expressao-neutro.svg" alt="Neutro, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Neutro <span class="origem">(= pose neutra)</span></figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/expressoes/expressao-alegre.svg" alt="Alegre, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/expressoes/expressao-alegre.svg" alt="Alegre, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Alegre <span class="origem">(= pose comemorando)</span></figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/expressoes/expressao-preocupado.svg" alt="Preocupado, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/expressoes/expressao-preocupado.svg" alt="Preocupado, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Preocupado <span class="nova">nova</span></figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/expressoes/expressao-alerta.svg" alt="Em alerta, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/expressoes/expressao-alerta.svg" alt="Em alerta, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Em alerta <span class="origem">(= pose em alerta)</span></figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/expressoes/expressao-frio.svg" alt="Com frio, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/expressoes/expressao-frio.svg" alt="Com frio, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Com frio <span class="origem">(= pose de camping)</span></figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/expressoes/expressao-calor.svg" alt="Com calor, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/expressoes/expressao-calor.svg" alt="Com calor, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Com calor <span class="nova">nova</span></figcaption>
+      </figure>
+      <figure class="par">
+        <div class="duas">
+          <div class="fundo claro"><img src="vetor/claro/expressoes/expressao-surpreso.svg" alt="Surpreso, versão para fundo claro" width="200" height="200"></div>
+          <div class="fundo escuro"><img src="vetor/escuro/expressoes/expressao-surpreso.svg" alt="Surpreso, versão para fundo escuro" width="200" height="200"></div>
+        </div>
+        <figcaption>Surpreso <span class="nova">nova</span></figcaption>
+      </figure>
+      </div>
+    </section>
+    <section>
+      <h2>Ícone do app</h2>
+      <p class="desc">O ícone grande ao lado do mesmo ícone em 48 px reais.</p>
+      <div class="grade">
+        <figure class="par">
+          <div class="duas">
+            <div class="fundo claro icones"><img class="g" src="vetor/claro/icone.svg" alt="Ícone, fundo claro" width="96" height="96"><img class="p icone-48" src="vetor/claro/icone.svg" alt="Ícone em 48 px, fundo claro" width="48" height="48"></div>
+            <div class="fundo escuro icones"><img class="g" src="vetor/escuro/icone.svg" alt="Ícone, fundo escuro" width="96" height="96"><img class="p icone-48" src="vetor/escuro/icone.svg" alt="Ícone em 48 px, fundo escuro" width="48" height="48"></div>
+          </div>
+          <figcaption>Ícone da interface (fundo transparente)</figcaption>
+        </figure>
+        <figure class="par">
+          <div class="duas">
+            <div class="fundo claro icones"><img class="g loja" src="icone/play/icone-play-512.png" alt="Ícone da Google Play" width="96" height="96"><img class="p icone-48 loja" src="icone/play/icone-play-512.png" alt="Ícone da Google Play em 48 px" width="48" height="48"></div>
+            <div class="fundo escuro icones"><img class="g loja" src="icone/ios/icone-app-store-1024.png" alt="Ícone da App Store" width="96" height="96"><img class="p icone-48 loja" src="icone/ios/icone-app-store-1024.png" alt="Ícone da App Store em 48 px" width="48" height="48"></div>
+          </div>
+          <figcaption>Lojas: Google Play 512 px (claro) e App Store 1024 px (escuro). Os cantos arredondados são só da prévia; os arquivos são quadrados.</figcaption>
+        </figure>
+        <figure class="par">
+          <div class="duas">
+            <div class="fundo claro icones">
+              <span class="adapt redondo"><img src="icone/android/expo-1024/ic_launcher_background.png" alt=""><img src="icone/android/expo-1024/ic_launcher_foreground.png" alt="Ícone adaptativo do Android, máscara redonda"></span>
+              <span class="adapt redondo p48 icone-48"><img src="icone/android/expo-1024/ic_launcher_background.png" alt=""><img src="icone/android/expo-1024/ic_launcher_foreground.png" alt="Ícone adaptativo do Android em 48 px"></span>
+            </div>
+            <div class="fundo escuro icones">
+              <span class="adapt quadrado"><img src="icone/android/expo-1024/ic_launcher_background.png" alt=""><img src="icone/android/expo-1024/ic_launcher_foreground.png" alt="Ícone adaptativo do Android, máscara quadrada arredondada"></span>
+              <span class="adapt tema p48 icone-48"><img src="icone/android/expo-1024/ic_launcher_monochrome.png" alt="Camada monocromática em 48 px, como ícone com tema"></span>
+            </div>
+          </div>
+          <figcaption>Android adaptativo: máscara redonda e quadrada, e a camada monocromática como ícone com tema (prévias)</figcaption>
+        </figure>
+      </div>
+    </section>
+    <section>
+      <h2>Paleta oficial</h2>
+      <ul class="paleta">
+        <li><span class="amostra" style="background:#4A5560"></span><b>Ardósia</b> <code>#4A5560</code><br><small>penugem (corpo)</small></li>
+        <li><span class="amostra" style="background:#333C45"></span><b>Ardósia-escura</b> <code>#333C45</code><br><small>sombra, nadadeiras, olhos</small></li>
+        <li><span class="amostra" style="background:#FBF3E4"></span><b>Creme</b> <code>#FBF3E4</code><br><small>face, barriga, fundo do ícone, contorno da versão escura</small></li>
+        <li><span class="amostra" style="background:#E4A33A"></span><b>Âmbar</b> <code>#E4A33A</code><br><small>bico e pés</small></li>
+        <li><span class="amostra" style="background:#3EA8AE"></span><b>Verde-azulado</b> <code>#3EA8AE</code><br><small>gorro (acento)</small></li>
+        <li><span class="amostra" style="background:#111111"></span><b>Tinta única</b> <code>#111111</code><br><small>versão em uma cor, positivo</small></li>
+        <li><span class="amostra" style="background:#FFFFFF"></span><b>Branco</b> <code>#FFFFFF</code><br><small>versão em uma cor, negativo</small></li>
+      </ul>
+    </section>
+  </main>
+  <footer>Lista de arquivos, contrastes medidos e fontes consultadas: LEIA-ME.md, nesta mesma pasta.</footer>
+</body>
+</html>

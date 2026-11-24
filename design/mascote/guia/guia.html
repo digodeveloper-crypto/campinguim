@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Campinguim · guia de uso do mascote</title>
+  <style>
+    :root { --fundo: #F4F1EA; --texto: #1F252B; --suave: #545F69; --cartao: #FFFFFF; --linha: #D9D1C2; --ok: #1F6B3A; --erro: #A3261B; --marca: #3EA8AE; }
+    :root[data-tema="escuro"] { --fundo: #181C20; --texto: #EEE9DF; --suave: #A9B2BB; --cartao: #22282E; --linha: #3A424A; --ok: #7FD39B; --erro: #FF9C8F; }
+    @media (prefers-color-scheme: dark) { :root:not([data-tema="claro"]) { --fundo: #181C20; --texto: #EEE9DF; --suave: #A9B2BB; --cartao: #22282E; --linha: #3A424A; --ok: #7FD39B; --erro: #FF9C8F; } }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    .barra { position: sticky; top: 0; z-index: 5; background: var(--fundo); border-bottom: 1px solid var(--linha); }
+    .barra-in { max-width: 1120px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 12px; align-items: center; justify-content: space-between; }
+    .barra b { font-size: 1rem; }
+    .btn-fundo { min-height: 44px; min-width: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid var(--linha); background: var(--cartao); color: var(--texto); font: inherit; cursor: pointer; }
+    header, main, footer { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+    header { padding-top: 28px; }
+    h1 { font-size: 1.9rem; line-height: 1.2; margin: 0 0 8px; }
+    h2 { font-size: 1.4rem; margin: 48px 0 8px; padding-top: 8px; border-top: 1px solid var(--linha); }
+    h3 { font-size: 1.1rem; margin: 24px 0 6px; }
+    p, li { max-width: 78ch; }
+    .suave { color: var(--suave); }
+    .fonte { color: var(--suave); font-size: .9rem; }
+    nav.indice ol { columns: 2 240px; padding-left: 20px; margin: 12px 0 0; }
+    nav.indice a { color: var(--texto); display: inline-flex; align-items: center; min-height: 44px; }
+    code { font-size: .92em; }
+    .tabela { overflow-x: auto; margin: 8px 0 12px; }
+    table { border-collapse: collapse; width: 100%; min-width: 480px; background: var(--cartao); border: 1px solid var(--linha); border-radius: 10px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--linha); vertical-align: top; }
+    th { font-size: .9rem; color: var(--suave); font-weight: 600; }
+    .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 14px; margin: 12px 0; }
+    .grade.larga { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+    .lado { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 14px; margin: 12px 0; align-items: start; }
+    .lado table { min-width: 0; }
+    figure { margin: 0; background: var(--cartao); border: 1px solid var(--linha); border-radius: 12px; overflow: hidden; }
+    figcaption { padding: 8px 12px 10px; font-size: .92rem; }
+    .palco { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 12px; min-height: 180px; }
+    .palco img { display: block; }
+    .palco img.fluida { max-width: 100%; height: auto; }
+    td code { overflow-wrap: anywhere; }
+    .claro { background: #FFFFFF; }
+    .escuro { background: #121212; }
+    .creme { background: #FBF3E4; }
+    .limiar { background: #A4A4A4; }
+    .cinza80 { background: #808080; }
+    .duas { display: grid; grid-template-columns: 1fr 1fr; }
+    .amostra { display: inline-block; width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--linha); vertical-align: middle; }
+    .selo { display: inline-block; font-size: .78rem; font-weight: 700; padding: 1px 8px; border-radius: 99px; letter-spacing: .03em; }
+    .selo.ok { background: #DDF3E4; color: #14532D; }
+    .selo.nao { background: #FBE0DC; color: #7F1D12; }
+    .selo.prov { background: #FCEBC8; color: #6B4A06; }
+    .selo.nova { background: #E4A33A; color: #1F252B; }
+    .caixa { background: var(--cartao); border: 1px solid var(--linha); border-left: 4px solid var(--marca); border-radius: 10px; padding: 12px 14px; margin: 12px 0; }
+    .caixa.prov { border-left-color: #E4A33A; }
+    .errado .palco { position: relative; }
+    .errado .palco::after { content: "\2715"; position: absolute; top: 8px; right: 8px; width: 28px; height: 28px; border-radius: 50%; background: #A3261B; color: #FFFFFF; font-weight: 700; font-size: 15px; line-height: 28px; text-align: center; }
+    .esticar { width: 230px; height: 104px; object-fit: fill; }
+    .girar { transform: rotate(24deg); }
+    .espelhar { transform: scaleX(-1); }
+    .recorte { width: 150px; height: 110px; overflow: hidden; border-radius: 0; }
+    .recorte img { width: 150px; height: 150px; }
+    .apagado { opacity: .45; }
+    .apoio { background: #F3D9B8; border-radius: 28px; padding: 10px; }
+    .tamanhos { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; padding: 14px; }
+    .tamanhos span { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: .78rem; }
+    .claro .tamanhos span, .tamanhos.claro span { color: #1F252B; }
+    .tamanhos.escuro span { color: #EEE9DF; }
+    .diagrama { width: 100%; max-width: 420px; height: auto; display: block; margin: 0 auto; }
+    .icone-loja { border-radius: 22%; }
+    .adapt { position: relative; width: 96px; height: 96px; overflow: hidden; display: inline-block; flex: none; border-radius: 50%; }
+    .adapt img { position: absolute; width: 144px; height: 144px; max-width: none; left: -24px; top: -24px; }
+    footer { padding: 32px 16px 48px; }
+    @media (max-width: 600px) { table { min-width: 0; font-size: .9rem; } th, td { padding: 6px 7px; } code { word-break: break-word; } }
+  </style>
+</head>
+<body>
+  <div class="barra"><div class="barra-in"><b>Mascote do Campinguim · guia de uso</b><button class="btn-fundo" type="button" aria-label="Trocar o tema da página entre claro e escuro">Tema: automático</button></div></div>
+  <header>
+    <h1>Guia de uso do mascote</h1>
+    <p>O mascote do Campinguim é o <b>Filhote de gorro</b> (opção 03, escolhida pelo responsável). Este guia diz como usar os arquivos do pacote final aprovado (MSC-08): cores, versões, proporções, área de respiro, tamanhos mínimos, poses, expressões, ícone e o que o mascote nunca faz. A seção 12 traz o modelo 3D aprovado e o uso em vídeo.</p>
+    <p class="suave">Requisito MSC-13 do PRD. Cobre o mascote em 2D (seções 1 a 11) e em 3D e vídeo (seção 12). Cada número traz a origem: medição feita para este guia, medição do QA ou documento do projeto.</p>
+    <nav class="indice" aria-label="Seções">
+      <ol>
+        <li><a href="#arquivos">De onde vêm os arquivos</a></li>
+        <li><a href="#cores">Cores oficiais</a></li>
+        <li><a href="#versoes">Qual versão usar e contraste</a></li>
+        <li><a href="#proporcoes">Proporções</a></li>
+        <li><a href="#respiro">Área de respiro</a></li>
+        <li><a href="#tamanhos">Tamanhos mínimos</a></li>
+        <li><a href="#poses">Poses e onde usar</a></li>
+        <li><a href="#expressoes">As 7 expressões</a></li>
+        <li><a href="#vistas">Vistas e versão sem gorro</a></li>
+        <li><a href="#icone">Ícone do app</a></li>
+        <li><a href="#nunca">O que o mascote nunca faz</a></li>
+        <li><a href="#tresd">3D e vídeo</a></li>
+        <li><a href="#abertas">Decisões provisórias e perguntas</a></li>
+      </ol>
+    </nav>
+  </header>
+  <main>
+
+    <h2 id="arquivos">1. De onde vêm os arquivos</h2>
+    <p>A única fonte do mascote é o pacote final aprovado pelo QA em <code>design/mascote/final/</code> (relatório <code>qa/relatorios/final-rodada-2</code>). As imagens deste guia são cópias byte a byte desse pacote (pasta <code>arte/</code>, conferidas por SHA-256), menos os exemplos de erro da seção 11, que ficam em <code>errado/</code> e nunca devem ser usados.</p>
+    <ul>
+      <li><b>Versão clara</b> (<code>vetor/claro/</code>): a arte aprovada, sem nenhuma mudança. Para fundo claro.</li>
+      <li><b>Versão escura</b> (<code>vetor/escuro/</code>): a mesma arte com um contorno creme de separação por fora. Para fundo escuro.</li>
+      <li><b>Uma cor</b>: positivo (tinta <code>#111111</code>) e negativo (tinta branca).</li>
+      <li>Ícone do app, PNG em vários tamanhos e as 7 expressões, no mesmo pacote.</li>
+    </ul>
+
+    <h2 id="cores">2. Cores oficiais</h2>
+    <div class="tabela"><table>
+      <thead><tr><th>Cor</th><th>Nome</th><th>Hex</th><th>Papel</th></tr></thead>
+      <tbody>
+        <tr><td><span class="amostra" style="background:#4A5560"></span></td><td>Ardósia</td><td><code>#4A5560</code></td><td>penugem (corpo)</td></tr>
+        <tr><td><span class="amostra" style="background:#333C45"></span></td><td>Ardósia-escura</td><td><code>#333C45</code></td><td>sombra do fundo do corpo, nadadeiras, olhos</td></tr>
+        <tr><td><span class="amostra" style="background:#FBF3E4"></span></td><td>Creme</td><td><code>#FBF3E4</code></td><td>face e barriga; fundo do ícone; contorno da versão escura</td></tr>
+        <tr><td><span class="amostra" style="background:#E4A33A"></span></td><td>Âmbar</td><td><code>#E4A33A</code></td><td>bico e pés</td></tr>
+        <tr><td><span class="amostra" style="background:#3EA8AE"></span></td><td>Verde-azulado</td><td><code>#3EA8AE</code></td><td>gorro (acento); gotas de calor <span class="selo prov">gorro fixo · provisório</span></td></tr>
+        <tr><td><span class="amostra" style="background:#111111"></span></td><td>Tinta única</td><td><code>#111111</code></td><td>versão em uma cor, positivo</td></tr>
+        <tr><td><span class="amostra" style="background:#FFFFFF"></span></td><td>Branco</td><td><code>#FFFFFF</code></td><td>versão em uma cor, negativo; camada monocromática do ícone Android</td></tr>
+      </tbody>
+    </table></div>
+    <p class="fonte">Origem: <code>design/mascote/final/LEIA-ME.md</code>, seção 3, e <code>design/prototipos/direcao/direcoes.md</code>, bloco "O mascote (DSG-13)", que fixa as mesmas cinco cores da versão colorida.</p>
+    <div class="caixa prov"><b>Decisão provisória: o gorro não muda de cor.</b> Ele é sempre <code>#3EA8AE</code>, e nenhuma cor da versão colorida muda. Assim respondeu a pergunta P-20 dos protótipos (<code>design/prototipos/direcao/telas.md</code>). O responsável ainda pode decidir que o gorro mude de cor; enquanto isso, vale o fixo. O verde-azulado entrou no lugar do vermelho da ficha justamente para o gorro não lembrar o gorro vermelho de outro pinguim conhecido (<code>apresentacao/opcoes/03/dados.js</code>, checagem de originalidade).</div>
+
+    <h2 id="versoes">3. Qual versão usar e contraste</h2>
+    <p>Regra de partida: o mascote precisa se separar do fundo. A medida usada no projeto é de pelo menos <b>3:1</b> entre o corpo e o que está atrás dele (<code>design/prototipos/direcao/padrao-producao.md</code>, seção 6, para o apoio; é também o mínimo da WCAG 2.2, critério 1.4.11, para elementos gráficos).</p>
+    <div class="grade larga">
+      <figure><div class="palco claro"><img src="arte/claro/principal.svg" width="150" height="150" alt="Versão clara sobre branco"></div><figcaption><span class="selo ok">usar</span> <b>Fundo claro: versão clara.</b> Corpo contra branco: 7,61:1.</figcaption></figure>
+      <figure><div class="palco creme"><img src="arte/claro/principal.svg" width="150" height="150" alt="Versão clara sobre creme"></div><figcaption><span class="selo ok">usar</span> <b>Sobre creme</b> <code>#FBF3E4</code>: corpo 6,90:1.</figcaption></figure>
+      <figure><div class="palco escuro"><img src="arte/escuro/principal.svg" width="150" height="150" alt="Versão escura sobre fundo escuro"></div><figcaption><span class="selo ok">usar</span> <b>Fundo escuro: versão escura.</b> O contorno creme fica a 16,99:1 do fundo <code>#121212</code> e a 6,90:1 do corpo.</figcaption></figure>
+      <figure><div class="palco escuro"><span class="apoio"><img src="arte/claro/principal.svg" width="130" height="130" alt="Versão clara sobre apoio claro em fundo escuro"></span></div><figcaption><span class="selo ok">usar</span> <b>Fundo escuro: versão clara sobre apoio claro</b> (exemplo <code>#F3D9B8</code>, da direção Brasa): corpo 5,59:1. É a regra dos protótipos.</figcaption></figure>
+      <figure><div class="palco escuro"><img src="arte/claro/principal.svg" width="150" height="150" alt="Versão clara direto sobre fundo escuro, errado"></div><figcaption><span class="selo nao">não usar</span> Versão clara direto sobre o escuro: o corpo fica a 2,46:1 e some.</figcaption></figure>
+      <figure><div class="palco cinza80"><img src="arte/claro/principal.svg" width="150" height="150" alt="Versão clara sobre cinza médio, errado"></div><figcaption><span class="selo nao">não usar</span> Sobre cinza médio <code>#808080</code>: corpo 1,93:1. O fundo mais escuro que ainda passa é <code>#A4A4A4</code> (3,05:1).</figcaption></figure>
+      <figure><div class="duas"><div class="palco claro"><img src="arte/claro/uma-cor.svg" width="110" height="110" alt="Uma cor, positivo"></div><div class="palco escuro"><img src="arte/escuro/uma-cor.svg" width="110" height="110" alt="Uma cor, negativo"></div></div><figcaption><span class="selo ok">usar</span> <b>Uma cor.</b> Positivo (<code>#111111</code>) em fundo de <code>#606060</code> para cima, inclusive branco (18,88:1). Negativo (branco) em fundo de <code>#949494</code> para baixo (18,73:1 no <code>#121212</code>).</figcaption></figure>
+    </div>
+    <div class="tabela"><table>
+      <thead><tr><th>Situação</th><th>Versão</th><th>Por quê</th></tr></thead>
+      <tbody>
+        <tr><td>Fundo claro com luminância a partir da de <code>#A4A4A4</code> (branco, creme, papel)</td><td>clara</td><td>o corpo fica com 3:1 ou mais (7,61:1 no branco)</td></tr>
+        <tr><td>Fundo escuro</td><td>escura; ou clara sobre um apoio claro com 3:1 ou mais contra o corpo; ou uma cor em cor clara</td><td>nenhum fundo escuro chega a 3:1 contra o corpo <code>#4A5560</code>: a conta exigiria luminância negativa</td></tr>
+        <tr><td>Uma tinta só (carimbo, gravação, impressão de uma cor)</td><td>uma cor, positivo ou negativo</td><td>a versão em uma cor é a prova de identidade do personagem (<code>direcao/padrao-producao.md</code>)</td></tr>
+        <tr><td>Interface que pinta o mascote com a cor da própria paleta</td><td>só a <code>uma-cor</code>, trocando o preenchimento</td><td>única troca de cor permitida (<code>prototipos/direcao/padrao-producao.md</code>, seção 6); a tinta escolhida mantém 3:1 contra o fundo</td></tr>
+      </tbody>
+    </table></div>
+    <div class="caixa"><b>Observação: gorro e pés sobre branco puro.</b> Na versão clara sobre <code>#FFFFFF</code>, o gorro fica a 2,83:1 e os pés a 2,19:1, abaixo de 3:1. Sobre creme, ficam a 2,57:1 e 1,98:1. A silhueta continua inteira porque o corpo faz o contorno (7,61:1), e o gorro e os pés leem pela forma, encostados no corpo. É a arte aprovada e não muda. Consequência prática: não use o gorro nem os pés sozinhos, recortados do corpo, como sinal; e não ponha o mascote sobre um fundo da mesma família de cor do gorro ou dos pés.</div>
+    <p class="fonte">Contrastes calculados pela fórmula da WCAG a partir dos hex, para este guia e para o pacote final (<code>final/LEIA-ME.md</code>, seção 4). Os apoios dos protótipos (5,59:1 a 6,12:1) vêm de <code>prototipos/direcao/direcoes.md</code>. A versão escura do pacote final atende à mesma regra dos protótipos, porque traz o próprio apoio claro: o contorno creme, a 6,90:1 do corpo.</p>
+
+    <h2 id="proporcoes">4. Proporções</h2>
+    <p>Medidas na prancha de 512 da arte <code>principal</code>, pelas coordenadas do SVG e pela caixa renderizada (<code>captura.py conferir</code>). Valem para qualquer tamanho, porque o mascote só muda de tamanho proporcionalmente.</p>
+    <div class="lado">
+      <figure>
+        <div class="palco claro">
+          <svg class="diagrama" viewBox="0 0 512 512" role="img" aria-label="Diagrama de proporções sobre a arte principal">
+            <image href="arte/claro/principal.svg" x="0" y="0" width="512" height="512"/>
+            <rect x="64" y="46" width="384" height="434" fill="none" stroke="#A3261B" stroke-width="3" stroke-dasharray="10 8"/>
+            <line x1="0" y1="480" x2="512" y2="480" stroke="#1F6B3A" stroke-width="3"/>
+            <line x1="106" y1="158" x2="406" y2="158" stroke="#1D3C93" stroke-width="3"/>
+            <circle cx="256" cy="172" r="90" fill="none" stroke="#1D3C93" stroke-width="3" stroke-dasharray="6 6"/>
+            <rect x="146" y="304" width="220" height="140" rx="70" fill="none" stroke="#6B4A06" stroke-width="3" stroke-dasharray="6 6"/>
+          </svg>
+        </div>
+        <figcaption>Tracejado vermelho: caixa da figura (384 × 434). Linha verde: chão (y = 480). Linha azul: largura da aba do gorro (300). Círculo azul: face (180). Oval marrom: barriga (220 × 140).</figcaption>
+      </figure>
+      <div class="tabela"><table>
+        <thead><tr><th>Parte</th><th>Medida (prancha 512)</th><th>Proporção</th></tr></thead>
+        <tbody>
+          <tr><td>Figura inteira</td><td>384 × 434</td><td>largura = 0,88 da altura</td></tr>
+          <tr><td>Gorro (copa e aba)</td><td>da linha 46 à 150: 104 de altura; aba com 300 de largura</td><td>24% da altura; aba com 78% da largura</td></tr>
+          <tr><td>Face</td><td>círculo de 180, centro em y = 172</td><td>41% da altura</td></tr>
+          <tr><td>Olhos</td><td>arcos de 50 de largura, centros a 70 um do outro, traço de 14</td><td>—</td></tr>
+          <tr><td>Bico</td><td>32 × 23</td><td>—</td></tr>
+          <tr><td>Barriga</td><td>220 × 140</td><td>57% da largura</td></tr>
+          <tr><td>Nadadeiras</td><td>61 × 112 cada</td><td>—</td></tr>
+          <tr><td>Pés</td><td>98 × 48 cada</td><td>—</td></tr>
+          <tr><td>Chão</td><td>y = 480 em todas as artes em pé</td><td>alinhe por ele</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+    <p class="fonte">A ficha de origem descreve a construção: ovo de cabeça e corpo de 1 para 1, sem pescoço (<code>direcao/conceitos.md</code>, ficha 03). As vistas, as poses e o <code>sem-acessorio</code> mantêm a mesma altura e o mesmo chão. Os desvios aceitos pelo QA estão em <code>qa/relatorios/03-rodada-1.md</code>.</p>
+
+    <h2 id="respiro">5. Área de respiro</h2>
+    <p>O respiro já vem dentro do arquivo: <b>use sempre o quadrado inteiro da prancha</b>. Nunca recorte o <code>viewBox</code> nem aproxime a figura da borda, e não deixe texto, botão, borda de cartão ou outra figura entrar nesse quadrado. Um apoio (halo, etiqueta) pode ficar atrás do mascote, sem cobrir a figura.</p>
+    <div class="lado">
+      <figure>
+        <div class="palco claro">
+          <svg class="diagrama" viewBox="0 0 512 512" role="img" aria-label="Diagrama da área de respiro">
+            <rect x="0" y="0" width="512" height="512" fill="#FCEBC8"/>
+            <rect x="64" y="46" width="384" height="434" fill="#FFFFFF"/>
+            <image href="arte/claro/principal.svg" x="0" y="0" width="512" height="512"/>
+            <rect x="1.5" y="1.5" width="509" height="509" fill="none" stroke="#6B4A06" stroke-width="3"/>
+          </svg>
+        </div>
+        <figcaption>Em amarelo: o respiro da arte principal, de 64 nos lados, 46 em cima e 32 embaixo.</figcaption>
+      </figure>
+      <div>
+        <div class="tabela"><table>
+          <thead><tr><th>Medida</th><th>Valor</th><th>Origem</th></tr></thead>
+          <tbody>
+            <tr><td>Respiro mínimo de qualquer arte em pé</td><td>32 de 512 = 1/16 do lado, nos quatro lados</td><td>margem de segurança do padrão de produção (<code>direcao/padrao-producao.md</code>, seção 3)</td></tr>
+            <tr><td>Poses com parte para fora (pulo, nadadeira erguida)</td><td>16 de 512 = 1/32 do lado</td><td>mesma seção</td></tr>
+            <tr><td>Respiro medido na arte principal</td><td>64 · 46 · 32 (lados · em cima · embaixo)</td><td>caixa medida pelo <code>captura.py conferir</code></td></tr>
+            <tr><td>Versão escura</td><td>o contorno ocupa 8 desse respiro; embaixo sobram 24</td><td><code>final/LEIA-ME.md</code>, seção 2.2</td></tr>
+          </tbody>
+        </table></div>
+        <p>Na prática, se o mascote aparece com 96 px, o quadrado ocupa 96 × 96 px, e o mínimo de respiro em volta da figura é de 6 px (1/16 de 96).</p>
+      </div>
+    </div>
+
+    <h2 id="tamanhos">6. Tamanhos mínimos</h2>
+    <p>Medidos para este guia: cada arte foi desenhada pelo Chrome em 16, 20, 24, 32, 40, 48, 64 e 96 px reais (densidade 1, sem reduzir depois), sobre branco e sobre <code>#121212</code>. As capturas estão em <code>medidas/</code>: <code>tamanhos-*-real.png</code> em tamanho real e <code>tamanhos-*-x4.png</code> ampliadas 4 vezes sem suavizar. Os 48 px batem com as capturas do QA (<code>qa/relatorios/03-r2</code> e <code>final-r1</code>).</p>
+    <div class="tabela"><table>
+      <thead><tr><th>Uso</th><th>Arte</th><th>Mínimo</th><th>O que se viu nas capturas</th></tr></thead>
+      <tbody>
+        <tr><td>Marca pequena (cabeçalho, "você está aqui", favicon)</td><td><code>icone</code> claro</td><td><b>24 px</b></td><td>em 24 px lê "pinguim de gorro": gorro, corpo, barriga e pés; o rosto aparece a partir de 32 px. Em 16 e 20 px vira uma mancha.</td></tr>
+        <tr><td>Marca pequena em fundo escuro</td><td><code>icone</code> escuro</td><td><b>32 px</b></td><td>abaixo de 32 px o contorno creme fica com menos de 1 px e a separação do fundo se perde</td></tr>
+        <tr><td>Uma tinta só</td><td><code>uma-cor</code> (positivo ou negativo)</td><td><b>24 px</b></td><td>em 24 px a face e a barriga recortadas ainda aparecem; em 16 px fecham</td></tr>
+        <tr><td>Figura inteira na interface (principal e poses)</td><td><code>principal</code>, <code>pose-*</code></td><td><b>48 px</b></td><td>em 48 px lê bem, e o gesto da pose de alerta aparece; abaixo disso, use o <code>icone</code>, que é a arte feita para tamanho pequeno</td></tr>
+        <tr><td>Figura inteira em fundo escuro</td><td>versão escura</td><td><b>48 px</b></td><td>em 48 px o contorno de 8 vira cerca de 1 px e ainda separa a figura; em 32 px some</td></tr>
+        <tr><td>Quando a expressão é a mensagem</td><td><code>expressao-*</code>, <code>pose-alerta</code>, <code>pose-camping</code></td><td><b>64 px</b></td><td>sobrancelhas, pupilas, pálpebras e gotas leem a partir de 64 px; em 48 px sobra a postura, não a expressão</td></tr>
+        <tr><td>Impressão</td><td>as mesmas regras</td><td><b>6,4 mm</b> (ícone e uma cor) · <b>12,7 mm</b> (figura inteira) · <b>16,9 mm</b> (expressão)</td><td>convertido de 24, 48 e 64 px a 1 px = 1/96 de polegada (definição do CSS). <span class="selo prov">não testado em papel</span> O PRD só cita impressão no cartaz do camping, que está guardado para depois.</td></tr>
+      </tbody>
+    </table></div>
+    <h3>Os mesmos tamanhos, ao vivo nesta página</h3>
+    <div class="grade larga">
+      <figure><div class="tamanhos claro"><span><img src="arte/claro/icone.svg" width="24" height="24" alt="Ícone em 24 px">24</span><span><img src="arte/claro/icone.svg" width="32" height="32" alt="Ícone em 32 px">32</span><span><img src="arte/claro/principal.svg" width="48" height="48" alt="Principal em 48 px">48</span><span><img src="arte/claro/expressoes/expressao-preocupado.svg" width="64" height="64" alt="Preocupado em 64 px">64</span><span><img src="arte/claro/uma-cor.svg" width="24" height="24" alt="Uma cor em 24 px">24</span></div><figcaption>Mínimos sobre fundo claro: ícone 24, ícone 32, figura 48, expressão 64, uma cor 24.</figcaption></figure>
+      <figure><div class="tamanhos escuro"><span><img src="arte/escuro/icone.svg" width="32" height="32" alt="Ícone escuro em 32 px">32</span><span><img src="arte/escuro/principal.svg" width="48" height="48" alt="Principal escuro em 48 px">48</span><span><img src="arte/escuro/expressoes/expressao-preocupado.svg" width="64" height="64" alt="Preocupado escuro em 64 px">64</span><span><img src="arte/escuro/uma-cor.svg" width="24" height="24" alt="Uma cor negativa em 24 px">24</span></div><figcaption>Mínimos sobre fundo escuro: ícone 32, figura 48, expressão 64, uma cor negativa 24.</figcaption></figure>
+    </div>
+    <p class="fonte">A direção Mapa dos protótipos já usa o <code>icone</code> em 24 px como "você está aqui" (<code>prototipos/direcao/direcoes.md</code>), dentro do mínimo medido. Os tamanhos são em px de CSS; numa tela de densidade 3, 24 px são 72 pixels físicos.</p>
+
+    <h2 id="poses">7. Poses e onde usar</h2>
+    <div class="grade">
+      <figure><div class="duas"><div class="palco claro"><img src="arte/claro/principal.svg" width="120" height="120" alt="Principal"></div><div class="palco escuro"><img src="arte/escuro/principal.svg" width="120" height="120" alt="Principal, versão escura"></div></div><figcaption><b>Principal.</b> Abertura do app e site.</figcaption></figure>
+      <figure><div class="duas"><div class="palco claro"><img src="arte/claro/pose-neutro.svg" width="120" height="120" alt="Neutro"></div><div class="palco escuro"><img src="arte/escuro/pose-neutro.svg" width="120" height="120" alt="Neutro, versão escura"></div></div><figcaption><b>Neutro.</b> "Em casa", telas sem acontecimento.</figcaption></figure>
+      <figure><div class="duas"><div class="palco claro"><img src="arte/claro/pose-alerta.svg" width="120" height="120" alt="Em alerta"></div><div class="palco escuro"><img src="arte/escuro/pose-alerta.svg" width="120" height="120" alt="Em alerta, versão escura"></div></div><figcaption><b>Em alerta</b> ("achei", não medo). Alertas do camping, aviso de saída, camping sem dados.</figcaption></figure>
+      <figure><div class="duas"><div class="palco claro"><img src="arte/claro/pose-comemorando.svg" width="120" height="120" alt="Comemorando"></div><div class="palco escuro"><img src="arte/escuro/pose-comemorando.svg" width="120" height="120" alt="Comemorando, versão escura"></div></div><figcaption><b>Comemorando.</b> Quando tudo está no carro.</figcaption></figure>
+      <figure><div class="duas"><div class="palco claro"><img src="arte/claro/pose-camping.svg" width="120" height="120" alt="Camping, com frio"></div><div class="palco escuro"><img src="arte/escuro/pose-camping.svg" width="120" height="120" alt="Camping, com frio, versão escura"></div></div><figcaption><b>Camping (com frio).</b> Estadia.</figcaption></figure>
+    </div>
+    <p class="fonte">O "onde usar" é o padrão de partida de <code>prototipos/direcao/direcoes.md</code>; cada direção tem a sua tabela de poses por tela. Regras dos protótipos que valem para todo uso: no máximo um mascote por tela, e nunca dentro de linha de lista, tabela de gastos ou campo de formulário.</p>
+
+    <h2 id="expressoes">8. As 7 expressões</h2>
+    <p>São a referência 2D do modelo 3D (MSC-11) e estão no pacote final aprovado. Quatro são as próprias poses; três foram desenhadas no pacote final, na mesma construção.</p>
+    <div class="grade">
+      <figure><div class="palco claro"><img src="arte/claro/expressoes/expressao-neutro.svg" width="130" height="130" alt="Neutro"></div><figcaption><b>Neutro</b> = pose neutra. Uso: o da pose.</figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/expressoes/expressao-alegre.svg" width="130" height="130" alt="Alegre"></div><figcaption><b>Alegre</b> = comemorando. Uso: o da pose.</figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/expressoes/expressao-alerta.svg" width="130" height="130" alt="Em alerta"></div><figcaption><b>Em alerta</b> = pose de alerta. Uso: o da pose.</figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/expressoes/expressao-frio.svg" width="130" height="130" alt="Com frio"></div><figcaption><b>Com frio</b> = pose de camping. Uso: o da pose.</figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/expressoes/expressao-preocupado.svg" width="130" height="130" alt="Preocupado"></div><figcaption><b>Preocupado.</b> Sobrancelhas com as pontas de dentro erguidas. <span class="selo prov">uso em tela a definir</span></figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/expressoes/expressao-calor.svg" width="130" height="130" alt="Com calor"></div><figcaption><b>Com calor.</b> Gorro empurrado para trás, pálpebras caídas, gotas. <span class="selo prov">uso em tela a definir</span></figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/expressoes/expressao-surpreso.svg" width="130" height="130" alt="Surpreso"></div><figcaption><b>Surpreso.</b> Olhos grandes, bico aberto, gorro "pulando". <span class="selo prov">uso em tela a definir</span></figcaption></figure>
+    </div>
+    <p>Nenhum documento do projeto define ainda em que tela entram preocupado, com calor e surpreso. A única ligação documentada é o clima da viagem: o PRD (E1-01) pergunta "frio, ameno, calor", e os protótipos usam a pose de frio na estadia. Usar "com calor" numa viagem de clima quente é o paralelo natural, mas fica para o responsável decidir (seção 13). Até lá, essas três servem de referência para o 3D e para vídeo. Em tela, use o tamanho mínimo de 64 px da seção 6.</p>
+
+    <h2 id="vistas">9. Vistas e versão sem gorro</h2>
+    <div class="grade">
+      <figure><div class="palco claro"><img src="arte/claro/vista-frente.svg" width="120" height="120" alt="Vista de frente"></div><figcaption>Vista de frente</figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/vista-lado.svg" width="120" height="120" alt="Vista de lado"></div><figcaption>Vista de lado (olha para a esquerda)</figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/vista-tres-quartos.svg" width="120" height="120" alt="Vista de três quartos"></div><figcaption>Vista de três quartos</figcaption></figure>
+      <figure><div class="palco claro"><img src="arte/claro/sem-acessorio.svg" width="120" height="120" alt="Sem o gorro"></div><figcaption>Sem o gorro</figcaption></figure>
+    </div>
+    <p>As vistas são referência de volume para o modelo 3D (MSC-09) e não entram nos protótipos (<code>prototipos/direcao/padrao-producao.md</code>, seção 6). A versão sem gorro existe para provar que o personagem não depende do acessório (regra do <code>direcao/padrao-producao.md</code>). Nenhum documento prevê usá-la em tela. A vista de lado é a única que olha para um lado: não a espelhe para "olhar para o outro lado" (seção 11).</p>
+
+    <h2 id="icone">10. Ícone do app</h2>
+    <div class="grade">
+      <figure><div class="palco claro"><img class="icone-loja" src="arte/icone/play/icone-play-512.png" width="112" height="112" alt="Ícone da loja"><img class="icone-loja icone-48" src="arte/icone/play/icone-play-512.png" width="48" height="48" alt="Ícone da loja em 48 px"></div><figcaption>Lojas: Google Play 512 px e App Store 1024 px, quadrado cheio, creme, opaco. O canto arredondado é aplicado pela loja; o arquivo é quadrado.</figcaption></figure>
+      <figure><div class="palco escuro"><span class="adapt"><img width="144" height="144" src="arte/icone/android/expo-1024/ic_launcher_background.png" alt=""><img width="144" height="144" src="arte/icone/android/expo-1024/ic_launcher_foreground.png" alt="Ícone adaptativo do Android com máscara redonda"></span><span class="adapt" style="background:#1E3C42"><img width="144" height="144" src="arte/icone/android/expo-1024/ic_launcher_monochrome.png" alt="Ícone com tema do Android"></span></div><figcaption>Android adaptativo: a figura fica dentro do círculo seguro de 66 dp; a camada monocromática é usada no ícone com tema.</figcaption></figure>
+    </div>
+    <ul>
+      <li>O ícone do app usa a arte <code>icone</code> (feita para tamanho pequeno), sobre fundo creme <code>#FBF3E4</code> (corpo a 6,90:1). Nunca usa a <code>principal</code> reduzida.</li>
+      <li>Não acrescente texto, selo, borda, sombra nem cantos ao arquivo: as lojas proíbem texto que sugira ranking ou promoção e aplicam máscara e sombra sozinhas (fontes em <code>final/LEIA-ME.md</code>, seção 6).</li>
+      <li>Os arquivos, tamanhos e a configuração para o Expo estão em <code>final/LEIA-ME.md</code>, seção 2.3.</li>
+    </ul>
+
+    <h2 id="nunca">11. O que o mascote nunca faz</h2>
+    <p>Cada exemplo abaixo foi feito a partir da própria arte, só para mostrar o erro. Base: <code>prototipos/direcao/direcoes.md</code> (bloco DSG-13), <code>prototipos/direcao/padrao-producao.md</code> (seção 6), <code>direcao/originalidade.md</code> e <code>CLAUDE.md</code> (sem marcas de terceiros).</p>
+    <div class="grade">
+      <figure class="errado"><div class="palco claro"><img width="230" height="104" class="esticar" src="arte/claro/principal.svg" alt="Errado: mascote esticado"></div><figcaption><b>Esticar ou achatar.</b> O tamanho muda sempre na proporção.</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img class="girar" src="arte/claro/principal.svg" width="140" height="140" alt="Errado: mascote girado"></div><figcaption><b>Girar ou inclinar.</b> O mascote fica sempre de pé, no chão.</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img class="espelhar" src="arte/claro/principal.svg" width="140" height="140" alt="Errado: mascote espelhado"></div><figcaption><b>Espelhar.</b> O pompom fica sempre à direita de quem olha, e a vista de lado olha para a esquerda.</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><div class="recorte"><img width="150" height="150" src="arte/claro/principal.svg" alt="Errado: mascote recortado"></div></div><figcaption><b>Recortar.</b> A figura aparece inteira, com o respiro da prancha.</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img src="errado/errado-cor-trocada.svg" width="140" height="140" alt="Errado: cores trocadas"></div><figcaption><b>Trocar as cores da versão colorida.</b> Só a <code>uma-cor</code> muda de tinta.</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img src="errado/errado-gorro-vermelho.svg" width="140" height="140" alt="Errado: gorro vermelho"></div><figcaption><b>Gorro de outra cor.</b> O gorro é <code>#3EA8AE</code>. O vermelho, além disso, aproxima o mascote de outro filhote de gorro vermelho já conhecido.</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img src="errado/errado-disco-azul.svg" width="140" height="140" alt="Errado: disco azul atrás"></div><figcaption><b>Disco azul atrás.</b> Lembra o emblema de uma marca de equipamentos de camping (<code>direcao/originalidade.md</code>).</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img src="errado/errado-balao.svg" width="140" height="140" alt="Errado: balão de fala na arte"></div><figcaption><b>Balão de fala sobre a arte.</b> O texto fica na interface, fora do quadrado do mascote.</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img src="errado/errado-texto.svg" width="140" height="140" alt="Errado: texto escrito na arte"></div><figcaption><b>Texto, letreiro ou marca na arte.</b> Nunca, nem o nome do app.</figcaption></figure>
+      <figure class="errado"><div class="palco escuro"><img src="arte/claro/principal.svg" width="140" height="140" alt="Errado: versão clara no escuro sem apoio"></div><figcaption><b>Versão clara em fundo escuro sem apoio.</b> O corpo some (2,46:1).</figcaption></figure>
+      <figure class="errado"><div class="palco claro"><img class="apagado" src="arte/claro/principal.svg" width="140" height="140" alt="Errado: mascote transparente"></div><figcaption><b>Transparência, sombra, brilho ou filtro.</b> O mascote é sempre opaco e chapado.</figcaption></figure>
+    </div>
+    <p>E também, sem exemplo desenhado:</p>
+    <ul>
+      <li>Não é redesenhado, nem ganha roupa, objeto, cenário ou outra pose fora do pacote.</li>
+      <li>Não tem partes do corpo animadas na interface; o movimento vem do modelo 3D aprovado (seção 12).</li>
+      <li>Não aparece mais de uma vez por tela, nem dentro de linha de lista, de tabela de gastos ou de campo de formulário.</li>
+      <li>Não usa laranja-avermelhado no corpo, nem a dupla azul-royal com laranja (<code>direcao/originalidade.md</code>).</li>
+    </ul>
+
+    <h2 id="tresd">12. 3D e vídeo</h2>
+    <p>O modelo 3D (MSC-10 a MSC-12) e o teste de 5 segundos em vídeo (MSC-14) foram aprovados pelo QA: o modelo na rodada 3 (<code>qa/relatorios/modelo3d-rodada-3.md</code>) e o vídeo na rodada 2 (<code>videos/qa/relatorios/VID-01-etapa2-rodada-2.md</code>). O PRD pede o mascote como personagem dos vídeos 3D de divulgação (seção "Mascote pronto para os vídeos"). Cada regra abaixo diz de onde vem.</p>
+
+    <h3>12.1 Onde está o modelo e qual é o arquivo oficial</h3>
+    <div class="tabela"><table>
+      <thead><tr><th>Item</th><th>Valor</th><th>Origem</th></tr></thead>
+      <tbody>
+        <tr><td>Arquivo oficial</td><td><code>design/mascote/3d/campinguim.glb</code></td><td><code>3d/LEIA-ME.md</code>, cabeçalho: "o que o vídeo e o app usam"</td></tr>
+        <tr><td>Arquivo-fonte</td><td><code>campinguim.blend</code> e os scripts de <code>3d/fonte/</code></td><td><code>3d/LEIA-ME.md</code>, seção 1</td></tr>
+        <tr><td>Formato</td><td>GLB binário único, sem textura, sem imagem, sem Draco, sem meshopt e sem KTX2; 1.080.632 bytes; 23.056 triângulos (teto de 25.000)</td><td><code>3d/LEIA-ME.md</code>, seção 4</td></tr>
+        <tr><td>SHA-256 aprovado</td><td><code>a51fb8af333b4658e43691eda5000944dcb39945d9dc8db4c4ad3ec090ec4597</code></td><td><code>qa/relatorios/modelo3d-rodada-3.md</code> e <code>3d/LEIA-ME.md</code>, seção 6. O SHA anterior (<code>dd9a7820…</code>) não vale mais</td></tr>
+        <tr><td>Altura</td><td><b>0,40 m</b>, do chão ao topo do gorro; largura com as nadadeiras 0,388 m; profundidade 0,368 m</td><td><code>3d/PARTES.md</code>, seção 7. A altura foi aprovada pelo responsável em 24/11/2026 (<code>3d/LEIA-ME.md</code>, seção 3)</td></tr>
+        <tr><td>Eixos e unidade</td><td><b>+Y para cima</b>, mascote de frente para <b>+Z</b>, unidade em <b>metros</b> (1 unidade = 1 m)</td><td><code>3d/PARTES.md</code>, início, e <code>3d/LEIA-ME.md</code>, seção 2</td></tr>
+        <tr><td>Origem</td><td>no chão, no meio entre os centros dos dois pés; nenhum nó de topo tem translação, rotação nem escala</td><td><code>3d/LEIA-ME.md</code>, seção 2</td></tr>
+        <tr><td>Peças</td><td>10 malhas, 10 materiais, 9 ossos</td><td><code>3d/PARTES.md</code>, seções 1 a 3</td></tr>
+      </tbody>
+    </table></div>
+    <div class="caixa"><b>O 2D continua sendo a referência do personagem.</b> A única referência de forma do modelo é o desenho aprovado (<code>3d/LEIA-ME.md</code>, início), e o 2D do pacote final não muda por causa do 3D (<code>3d/LEIA-ME.md</code>, seção 5.1). O desvio aceito é um só, a variante C da máscara, escolhida pelo responsável: <b>de frente, face +24%, barriga +23% e olhos +12% contra o vetor</b>. O que sair além disso (outra forma, outra cor, outra altura, traço novo) é reprovável (<code>3d/LEIA-ME.md</code>, seção 5.1).</div>
+    <figure>
+      <div class="palco claro"><img class="fluida" src="../3d/previas/giro.png" width="1024" height="306" alt="O modelo 3D em quatro vistas: frente, três quartos, lado e costas, na pose neutra"></div>
+      <figcaption>O modelo 3D de frente, em três quartos, de lado e de costas, no neutro (<code>3d/previas/giro.png</code>).</figcaption>
+    </figure>
+    <figure>
+      <div class="palco claro"><img class="fluida" src="../3d/previas/comparar-frente.png" width="1024" height="306" alt="Comparação de frente entre o desenho aprovado e o modelo 3D, com o contorno do desenho em vermelho sobre o 3D"></div>
+      <figcaption>Desenho aprovado contra o 3D, de frente (<code>3d/previas/comparar-frente.png</code>). O contorno do corpo, do gorro, dos pés e das nadadeiras coincide; face e barriga ficam mais largas na medida do desvio acima (<code>3d/LEIA-ME.md</code>, seção 6).</figcaption>
+    </figure>
+
+    <h3>12.2 As 7 expressões, os 7 clipes e as 2 âncoras</h3>
+    <p><b>Expressões</b> (alvos de forma), com estes nomes exatos, sem prefixo: <code>neutro</code>, <code>alegre</code>, <code>preocupado</code>, <code>alerta</code>, <code>frio</code>, <code>calor</code>, <code>surpreso</code>. A forma de base é o <code>neutro</code>. Use uma expressão por vez, ou misture com os pesos somando 1 (<code>3d/PARTES.md</code>, seção 5). Cada uma segue o SVG de mesmo nome em <code>final/vetor/claro/expressoes/</code> (seção 8 deste guia).</p>
+    <figure>
+      <div class="palco claro"><img class="fluida" src="../3d/previas/expressoes.png" width="1152" height="878" alt="Folha com as 7 expressões do modelo 3D, cada uma ao lado do desenho de mesmo nome"></div>
+      <figcaption>As 7 expressões do 3D ao lado do vetor (<code>3d/previas/expressoes.png</code>).</figcaption>
+    </figure>
+    <p><b>Clipes</b> (animações de osso, 30 quadros por segundo), com estes nomes exatos:</p>
+    <div class="tabela"><table>
+      <thead><tr><th>Clipe</th><th>Quadros</th><th>Tipo</th><th>Expressão que combina</th></tr></thead>
+      <tbody>
+        <tr><td><code>parado-respirando</code></td><td>60 (2,0 s)</td><td>ciclo</td><td>qualquer</td></tr>
+        <tr><td><code>andar</code></td><td>30 (1,0 s)</td><td>ciclo; anda no lugar. Para deslocar, mova o nó raiz a <b>0,088 m/s</b> para a frente (+Z)</td><td>qualquer</td></tr>
+        <tr><td><code>acenar</code></td><td>60 (2,0 s)</td><td>pontual</td><td><code>alegre</code></td></tr>
+        <tr><td><code>apontar</code></td><td>48 (1,6 s)</td><td>pontual; aponta com a nadadeira direita do personagem</td><td><code>alerta</code></td></tr>
+        <tr><td><code>olhar-para-cima</code></td><td>48 (1,6 s)</td><td>pontual</td><td><code>surpreso</code> ou <code>neutro</code></td></tr>
+        <tr><td><code>tremer-de-frio</code></td><td>30 (1,0 s)</td><td>ciclo</td><td><code>frio</code></td></tr>
+        <tr><td><code>comemorar</code></td><td>45 (1,5 s)</td><td>pontual; pula 5,5 cm</td><td><code>alegre</code></td></tr>
+      </tbody>
+    </table></div>
+    <p class="fonte">Origem: <code>3d/PARTES.md</code>, seção 6. Os clipes só mexem em ossos, por isso combinam com qualquer expressão. Nos 3 ciclos, o último quadro emenda no primeiro sem repetir a pose; nos 4 pontuais, o primeiro e o último quadro são o repouso (quadro 0 de <code>parado-respirando</code>), para emendar sem salto. Verificado nas emendas (<code>3d/LEIA-ME.md</code>, seção 6).</p>
+    <figure>
+      <div class="palco claro"><img class="fluida" src="../3d/previas/clipes/comemorar.png" width="768" height="454" alt="Oito quadros do clipe comemorar: o mascote agacha, pula com as nadadeiras para cima e cai"></div>
+      <figcaption>Exemplo de clipe: oito quadros do <code>comemorar</code> (<code>3d/previas/clipes/comemorar.png</code>). Há uma folha igual para cada um dos 7 clipes na mesma pasta.</figcaption>
+    </figure>
+    <p><b>Âncoras</b> (nós vazios, filhos de osso, que acompanham o movimento) (<code>3d/PARTES.md</code>, seção 4):</p>
+    <ul>
+      <li><code>campinguim.ancora-rotulo</code>, filha do osso <code>cabeca</code>, 3 cm acima do topo do gorro. Serve para prender um rótulo; fica acima do gorro também no <code>surpreso</code>.</li>
+      <li><code>campinguim.ancora-mao</code>, filha do osso <code>nadadeira-direita</code>, na ponta da nadadeira que aponta. Serve para prender algo à mão do mascote (a nadadeira que levanta no <code>apontar</code>).</li>
+    </ul>
+    <p>No three.js, o nome do nó perde o ponto (<code>campinguimancora-rotulo</code>). Ache as peças pelo nome original, em <code>userData.name</code>, com a função <code>peca()</code> da seção 8 do <code>3d/PARTES.md</code>. Nomes de clipes, de alvos de forma e de materiais não mudam.</p>
+
+    <h3>12.3 Regras de uso em vídeo</h3>
+    <p>Valem para quem renderiza o mascote em vídeo. Os números vêm do teste de 5 segundos (MSC-14, <code>videos/NOTAS.md</code>, seção "etapa 2") e das medições do QA.</p>
+    <div class="tabela"><table>
+      <thead><tr><th>Regra</th><th>Origem</th></tr></thead>
+      <tbody>
+        <tr><td><b>O render copia o modelo de <code>design/mascote/3d/</code> no início de todo render e confere o SHA-256.</b> Se a cópia diferir da fonte, o render para. Nunca se usa uma cópia antiga: <code>videos/public/modelos/</code> não é versionado. <code>design/</code> é só leitura.</td><td><code>videos/NOTAS.md</code> (etapa 2, "Modelo"); QA <code>VID-01-etapa2-rodada-2.md</code>, "GLB"</td></tr>
+        <tr><td><b>Nenhum material do modelo é sobrescrito na cena fora da janela do destaque.</b> A cada quadro, a cor de cada material é recalculada a partir da cor original; com o efeito em 0, volta a original. O material dos olhos nunca é mexido pela cena: defeito de pupila se corrige no modelo.</td><td>QA <code>VID-01-etapa2-rodada-2.md</code>, "Nenhum material sobrescrito"; <code>videos/NOTAS.md</code>, "Divergências (etapa 2)"</td></tr>
+        <tr><td><b>Destaque ("por dentro"): uma peça por plano.</b> No teste, só o gorro: fica translúcido (opacidade de 1 a 0,3), sobe 2,5 cm e ganha contorno e brilho <code>#4FD1FF</code>. Sobe de 2,1 s a 3,0 s e volta de 3,8 s a 4,3 s.</td><td><code>videos/NOTAS.md</code> (etapa 2, "Por dentro"); <code>docs/TECNICA-3D.md</code>, seção 6 ("uma peça por plano")</td></tr>
+        <tr><td><b>O resto perde no máximo 25% de saturação e 15% de brilho.</b> Com 60% e 35% o corpo ficava quase preto e o QA reprovou.</td><td><code>videos/NOTAS.md</code>; QA <code>VID-01-etapa2-rodada-2.md</code>, item 2 (a rodada 1 reprovou)</td></tr>
+        <tr><td><b>As cores originais voltam antes do fim.</b> Do quadro 129 ao 149 (último), o mascote está nas cores do desenho e o gorro opaco e no lugar.</td><td><code>videos/NOTAS.md</code>; QA <code>VID-01-etapa2-rodada-2.md</code>, item 2 (q149)</td></tr>
+        <tr><td><b>Enquanto o gorro está translúcido, <code>boca</code> e <code>gotas</code> ficam escondidas</b> (<code>visible = false</code>). Olhos e bico ficam, porque no <code>alegre</code> são o rosto.</td><td><code>videos/NOTAS.md</code>, "Divergências (etapa 2)"; <code>3d/PARTES.md</code>, seção 8</td></tr>
+        <tr><td><b>Tamanho no quadro:</b> no teste, 1080 × 1920, o mascote ocupou de <b>38,1% a 40,5%</b> da altura (731 px, 758 px e 777 px de 1920, do topo do gorro à base dos pés), como o responsável pediu.</td><td>QA <code>VID-01-etapa2-rodada-1.md</code>, item "Tamanho"; sem mudança na rodada 2</td></tr>
+        <tr><td><b>Luz usada no teste:</b> ambiente de estúdio gerado em código (<code>RoomEnvironment</code> do three.js, intensidade 0,3), uma luz direcional principal e uma de contra-luz; sombra de contato por textura gerada em código; mapeamento de tons ACES e saída em sRGB. Nada de HDRI baixado.</td><td><code>videos/NOTAS.md</code>, "Divergências da TECNICA-3D.md", seção 7</td></tr>
+        <tr><td><b>Animação como função do quadro:</b> um <code>AnimationMixer</code>, uma ação por vez, <code>setTime</code> calculado do quadro, ações em <code>LoopOnce</code> com <code>clampWhenFinished</code>. Nada anda sozinho: sem <code>useFrame</code>, sem relógio, sem <code>Math.random</code>.</td><td><code>videos/NOTAS.md</code> (etapa 2, "Animação"); <code>docs/TECNICA-3D.md</code>, seção 4</td></tr>
+        <tr><td><b>Rótulo e legenda são HTML por cima do vídeo, não 3D.</b> O rótulo é preso à âncora <code>campinguim.ancora-rotulo</code>.</td><td><code>docs/TECNICA-3D.md</code>, seções 4 e 5; <code>videos/NOTAS.md</code></td></tr>
+        <tr><td><b>Antes de entregar, confira todos os quadros do vídeo final.</b> O conferidor <code>checa_mascote.py</code> mede o rosto e a barriga claros em <b>cada</b> quadro e acusa quadro abaixo de 3% ou abaixo da metade da mediana dos vizinhos. No teste: 150 de 150 quadros com o mascote (mínimo 0,431, mediana 0,540). Uma amostra de poucos quadros não pega falha de carga que acontece de vez em quando.</td><td><code>videos/NOTAS.md</code>, "Como rodar (etapa 2)" e "Repetibilidade"; QA <code>VID-01-etapa2-rodada-2.md</code>, item 1</td></tr>
+        <tr><td><b>Antes de entregar, faça a folha de fidelidade ao desenho</b> (<code>fidelidade.py</code>): os quadros do vídeo ao lado do desenho aprovado de <code>final/png/claro</code>. Cor mais escura por luz e sombra não é perda de cor; compare o lado iluminado.</td><td><code>videos/NOTAS.md</code>; MSC-14 no PRD ("o QA confere fidelidade ao desenho escolhido"); QA <code>VID-01-etapa2-rodada-2.md</code>, "Pedidos do piloto"</td></tr>
+      </tbody>
+    </table></div>
+    <p class="fonte">Formato do teste: H.264, 1080 × 1920, 30 fps, 150 quadros (5,000 s). Quadros 0, 75 e 149 renderizados 3 vezes ficaram iguais a olho (no máximo 1 em 255 por canal, em 41 pixels no quadro 75). Esses números descrevem o teste de 5 segundos; o guia não os transforma em regra para outros planos (seção 13).</p>
+    <figure>
+      <div class="palco claro"><img class="fluida" src="../3d/previas/olhos-luz-lateral.png" width="710" height="797" alt="Folha das pupilas do modelo 3D sob luz forte da esquerda, da direita, de frente e de estúdio, nas 7 expressões, com a cor medida de cada pupila"></div>
+      <figcaption>As duas pupilas leem o mesmo tom sob qualquer luz: diferença de cor (ΔE) de 0,00 a 0,14 depois da correção, contra 14,8 antes sob luz lateral (<code>3d/previas/olhos-luz-lateral.png</code>; <code>3d/LEIA-ME.md</code>, seção 6.2).</figcaption>
+    </figure>
+
+    <h3>12.4 O que o modelo nunca faz em 3D</h3>
+    <p>No mesmo espírito da seção 11, só com o que as fontes sustentam:</p>
+    <ul>
+      <li>Não é redesenhado: nenhuma forma, cor, altura ou traço novo além do desvio aceito da variante C (<code>3d/LEIA-ME.md</code>, seção 5.1).</li>
+      <li>Não ganha dentes, bochecha, brilho de olho nem sobrancelha fora das expressões que a têm (<code>3d/LEIA-ME.md</code>, seção 5.2, item 13).</li>
+      <li>O gorro do modelo é sempre <code>#3EA8AE</code> (<code>3d/LEIA-ME.md</code>, seção 5.2, item 13). Só o destaque do vídeo o muda por um instante, e as cores originais voltam antes do fim.</li>
+      <li>Não troca de altura: os 0,40 m foram aprovados pelo responsável. Mudar é regerar o modelo (seção 12.5).</li>
+      <li>Não mostra duas expressões inteiras ao mesmo tempo: uma por vez, ou mistura com pesos somando 1 (<code>3d/PARTES.md</code>, seção 5).</li>
+      <li>Não tem o material dos olhos trocado na cena, e o destaque não leva o resto além de 25% de saturação e 15% de brilho.</li>
+      <li>Não tem mais de uma peça em destaque por plano (<code>docs/TECNICA-3D.md</code>, seção 6).</li>
+      <li>Não leva texto, selo nem rótulo dentro do 3D: texto é HTML por cima (<code>docs/TECNICA-3D.md</code>, seção 4).</li>
+      <li>Não usa modelo, textura, HDRI, esqueleto ou animação de terceiros (<code>3d/LEIA-ME.md</code>, seção 8; <code>CLAUDE.md</code>, regra 6).</li>
+      <li>Não usa nada que ande sozinho no vídeo: animação só como função do número do quadro (<code>docs/TECNICA-3D.md</code>, seção 4).</li>
+    </ul>
+
+    <h3>12.5 Como corrigir o modelo</h3>
+    <ol>
+      <li>Corrija só o script-fonte, <code>design/mascote/3d/fonte/construir.py</code>. Não se edita o <code>.glb</code> nem o <code>.blend</code> à mão.</li>
+      <li>Regere com o Blender 5.3.0, sem janela: <code>blender.exe -b --factory-startup -P construir.py</code>, de dentro de <code>3d/fonte</code>. Regerar dá o mesmo arquivo, byte a byte (<code>3d/LEIA-ME.md</code>, seção 1).</li>
+      <li>O QA confere de novo (regera do zero, compara com o aprovado e olha o que mudou) e registra o <b>novo SHA-256</b>. Foi assim na correção das pupilas: o SHA foi de <code>dd9a7820…</code> para <code>a51fb8af…</code>, e o QA mostrou que só mudaram as 402 normais das pupilas e a rugosidade do material dos olhos (<code>qa/relatorios/modelo3d-rodada-3.md</code>).</li>
+      <li>Com o SHA novo, atualize o <code>3d/LEIA-ME.md</code> e a tabela da seção 12.1 deste guia. O render de vídeo pega o arquivo novo sozinho, porque copia e confere o SHA a cada execução.</li>
+    </ol>
+
+    <h2 id="abertas">13. Decisões provisórias e perguntas</h2>
+    <div class="tabela"><table>
+      <thead><tr><th>Assunto</th><th>Como está agora</th><th>Quem decide</th></tr></thead>
+      <tbody>
+        <tr><td>O gorro pode mudar de cor?</td><td><span class="selo prov">provisório</span> Não: fixo em <code>#3EA8AE</code> (P-20 dos protótipos)</td><td>responsável pelo produto</td></tr>
+        <tr><td>Em que telas entram preocupado, com calor e surpreso?</td><td>não definido; existem no 2D e no 3D, sem uso previsto em tela nem em vídeo</td><td>responsável e direção do protótipo escolhido</td></tr>
+        <tr><td>Tamanhos mínimos para impressão</td><td><span class="selo prov">provisório</span> convertidos dos mínimos de tela, sem prova em papel</td><td>testar quando houver peça impressa</td></tr>
+        <tr><td>O 3D entra no app? Em que telas?</td><td>não definido. O PRD só pede o mascote como personagem dos vídeos 3D de divulgação; o modelo foi feito leve para rodar no app e no vídeo (<code>3d/LEIA-ME.md</code>)</td><td>responsável e direção do protótipo escolhido</td></tr>
+        <tr><td>Tamanho no quadro, luz e destaque em outros planos de vídeo</td><td>o guia só traz o que foi medido no teste de 5 segundos (38,1% a 40,5% da altura, luz de estúdio em código, destaque no gorro). Não há regra para planos abertos, com barraca ou carro, nem para outras luzes</td><td>responsável, ao aprovar o próximo plano de vídeo</td></tr>
+        <tr><td>Quais clipes e expressões entram nos vídeos?</td><td>o teste usou só <code>neutro</code> e <code>alegre</code>, com <code>acenar</code> e <code>parado-respirando</code>. As outras 5 expressões e os outros 5 clipes foram aprovados no modelo, mas não foram testados em vídeo</td><td>responsável, com o roteiro de cada vídeo</td></tr>
+        <tr><td>Cor do destaque (<code>#4FD1FF</code>) nos vídeos</td><td>valor do teste. A definitiva sai da identidade escolhida (<code>docs/TECNICA-3D.md</code>, seção 15)</td><td>responsável, depois da escolha do protótipo</td></tr>
+      </tbody>
+    </table></div>
+  </main>
+  <footer class="suave">Guia de uso do mascote · MSC-13 · 24/11/2026. A lista de arquivos e a origem de cada número estão em <code>LEIA-ME.md</code>, nesta pasta.</footer>
+  <script>
+    (function () {
+      var b = document.querySelector(".btn-fundo"), r = document.documentElement, ordem = ["automático", "escuro", "claro"], i = 0;
+      b.addEventListener("click", function () {
+        i = (i + 1) % 3;
+        if (i === 0) r.removeAttribute("data-tema"); else r.setAttribute("data-tema", ordem[i]);
+        b.textContent = "Tema: " + ordem[i];
+      });
+    })();
+  </script>
+</body>
+</html>

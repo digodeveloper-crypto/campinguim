@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 05 · Topete de chama · pose-neutro (mesmo desenho do principal: em pé, parado, bico fechado) -->
+  <!-- pés, bem abertos, atrás do corpo -->
+  <g fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+    <ellipse cx="118" cy="450" rx="58" ry="25"/>
+    <ellipse cx="394" cy="450" rx="58" ry="25"/>
+  </g>
+  <g fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round">
+    <path d="M 90 428 L 94 442"/>
+    <path d="M 422 428 L 418 442"/>
+  </g>
+  <!-- corpo e topete: uma silhueta só (pera invertida com a chama de três línguas) -->
+  <path d="M 86 196 C 86 146 108 120 150 116 C 166 114 184 106 194 98 C 198 94 204 84 212 78 C 218 74 226 68 230 62 C 234 56 242 56 242 63 C 242 70 242 76 250 78 C 256 80 258 66 264 56 C 272 46 286 40 300 39 C 310 38 316 44 312 51 C 308 58 308 68 316 72 C 322 75 330 72 336 67 C 342 62 350 64 348 72 C 346 82 342 90 344 96 C 346 102 350 112 362 116
+           C 404 120 426 146 426 196
+           C 426 270 394 335 396 400
+           C 398 428 398 452 376 462
+           C 346 468 300 469 256 469
+           C 212 469 166 468 136 462
+           C 114 452 114 428 116 400
+           C 118 335 86 270 86 196 Z"
+        fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+  <!-- pontas do topete (pena de ponta clara, cor de brasa) -->
+  <g fill="#E86A2A">
+    <path d="M 212 78 C 218 74 226 68 230 62 C 234 56 242 56 242 63 C 242 70 242 76 250 78 C 238 86 222 88 212 78 Z"/>
+    <path d="M 264 56 C 272 46 286 40 300 39 C 310 38 316 44 312 51 C 308 58 308 68 316 72 C 300 78 278 74 264 56 Z"/>
+    <path d="M 316 72 C 322 75 330 72 336 67 C 342 62 350 64 348 72 C 340 84 324 84 316 72 Z"/>
+  </g>
+  <path d="M 150 116 C 166 114 184 106 194 98 C 198 94 204 84 212 78 C 218 74 226 68 230 62 C 234 56 242 56 242 63 C 242 70 242 76 250 78 C 256 80 258 66 264 56 C 272 46 286 40 300 39 C 310 38 316 44 312 51 C 308 58 308 68 316 72 C 322 75 330 72 336 67 C 342 62 350 64 348 72 C 346 82 342 90 344 96 C 346 102 350 112 362 116"
+        fill="none" stroke="#141B2E" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- luz de cima: fio claro na borda alta da cabeça -->
+  <g fill="#384F7E">
+    <path d="M 150 116 C 108 120 86 146 86 196 L 87 218 C 96 168 116 142 150 136 Z"/>
+    <path d="M 362 116 C 404 120 426 146 426 196 L 425 218 C 416 168 396 142 362 136 Z"/>
+  </g>
+  <!-- sombra sob a barriga -->
+  <path d="M 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 388 372 322 422 278 446 C 266 452 246 452 234 446 C 190 422 124 372 131 312 Z" fill="#141B2E"/>
+  <!-- barriga: coração invertido suavizado -->
+  <path d="M 256 270 C 248 244 224 226 198 226 C 162 226 132 262 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 380 262 350 226 314 226 C 288 226 264 244 256 270 Z" fill="#FFF4E0"/>
+  <!-- asas em gota, 20° afastadas do corpo -->
+  <g transform="rotate(20 104 276)">
+    <path d="M 104 276 C 130 276 150 300 148 334 C 146 366 122 404 106 418 C 90 404 62 366 60 334 C 58 300 78 276 104 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 104 276 C 78 276 58 300 60 334 C 64 308 80 292 104 292 Z" fill="#384F7E"/>
+  </g>
+  <g transform="rotate(-20 408 276)">
+    <path d="M 408 276 C 434 276 454 300 452 334 C 450 366 426 404 410 418 C 394 404 366 366 364 334 C 362 300 382 276 408 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 408 276 C 434 276 454 300 452 334 C 448 308 432 292 408 292 Z" fill="#384F7E"/>
+  </g>
+  <!-- sombra sob o bico -->
+  <path d="M 220 258 C 234 276 278 276 292 258 C 284 282 228 282 220 258 Z" fill="#141B2E"/>
+  <!-- bico curto e largo, com a linha divisória -->
+  <path d="M 220 228 C 232 224 280 224 292 228 C 302 232 302 244 296 252 C 290 262 272 268 256 268 C 240 268 222 262 216 252 C 210 244 210 232 220 228 Z" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M 218 252 C 236 248 276 248 294 252" fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round"/>
+  <!-- olhos abertos e redondos: branco, pupila, contorno -->
+  <g fill="#FFF4E0">
+    <circle cx="201" cy="185" r="30"/>
+    <circle cx="311" cy="185" r="30"/>
+  </g>
+  <g fill="#141B2E">
+    <circle cx="204" cy="188" r="16"/>
+    <circle cx="308" cy="188" r="16"/>
+  </g>
+  <g fill="none" stroke="#141B2E" stroke-width="10">
+    <circle cx="201" cy="185" r="30"/>
+    <circle cx="311" cy="185" r="30"/>
+  </g>
+  <!-- sobrancelhas de pena (relevo), altas e afastadas do olho, ponta de dentro levemente erguida: atento e simpático -->
+  <g fill="#384F7E" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+    <path d="M 162 127 C 174 111 204 101 230 105 C 242 107 244 121 234 125 C 212 121 188 123 172 131 C 166 134 160 132 162 127 Z"/>
+    <path d="M 350 127 C 338 111 308 101 282 105 C 270 107 268 121 278 125 C 300 121 324 123 340 131 C 346 134 352 132 350 127 Z"/>
+  </g>
+</svg>

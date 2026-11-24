@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 04 · Pictograma de trilha · sem-acessorio (o principal sem a mochila, mesmo enquadramento). -->
+  <!-- cabeça (círculo r=70) e pescoço (50 × 24 visível) -->
+  <circle cx="256" cy="102" r="70" fill="#404246"/>
+  <rect x="231" y="150" width="50" height="50" fill="#404246"/>
+  <!-- asas: barras 36 × 170 saindo do ombro, 15° para fora -->
+  <rect x="160" y="226" width="36" height="170" rx="18" fill="#404246" transform="rotate(15 178 226)"/>
+  <rect x="316" y="226" width="36" height="170" rx="18" fill="#404246" transform="rotate(-15 334 226)"/>
+  <!-- tronco 180 × 212 e barriga 100 × 180 -->
+  <rect x="166" y="196" width="180" height="212" rx="40" fill="#404246"/>
+  <rect x="206" y="212" width="100" height="180" rx="30" fill="#FFFFFF"/>
+  <!-- pernas 34 de largura e pés 90 × 30 apontando para fora -->
+  <rect x="206" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="272" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="150" y="450" width="90" height="30" rx="15" fill="#E8601C"/>
+  <rect x="272" y="450" width="90" height="30" rx="15" fill="#E8601C"/>
+  <!-- olhos: dois pontos r=12; bico: triângulo 44 × 32 para baixo -->
+  <circle cx="231" cy="102" r="12" fill="#FFFFFF"/>
+  <circle cx="281" cy="102" r="12" fill="#FFFFFF"/>
+  <path d="M234 118 L278 118 L256 150 Z" fill="#E8601C"/>
+</svg>

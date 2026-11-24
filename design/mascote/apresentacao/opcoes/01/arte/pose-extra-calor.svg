@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 01 · Corpo de barraca · com calor (topo derretido mais largo, olhos caídos, gota grande na lateral, asas afastadas para ventilar) -->
+  <path d="M150.7 444 A44 44 0 0 0 132 480 L220 480 A44 44 0 0 0 201.3 444 Z" fill="#E39B2D"/>
+  <path d="M310.7 444 A44 44 0 0 0 292 480 L380 480 A44 44 0 0 0 361.3 444 Z" fill="#E39B2D"/>
+  <path d="M122.8 244 L114.2 240.9 A14 14 0 0 1 101.1 250 L82.6 250 A14 14 0 0 0 72.7 254.1 L26.8 300 L104.1 300 Z" fill="#2F6B4F"/>
+  <path d="M389.2 244 L397.8 240.9 A14 14 0 0 0 410.9 250 L429.4 250 A14 14 0 0 1 439.3 254.1 L485.2 300 L407.9 300 Z" fill="#2F6B4F"/>
+  <path d="M169.8 91.8 A92 92 0 0 1 342.2 91.8 L453.5 390 A40 40 0 0 1 416 444 L96 444 A40 40 0 0 1 58.5 390 Z" fill="#2F6B4F"/>
+  <path d="M156 444 L156 372 A100 100 0 0 1 356 372 L356 444 Z" fill="#F3E7CF"/>
+  <path d="M199 146.1 L243 130.1 V158 A22 22 0 0 1 199 158 Z" fill="#F3E7CF"/>
+  <path d="M207 143.2 L235 133 V158 A14 14 0 0 1 207 158 Z" fill="#1B1F24"/>
+  <path d="M269 130.1 L313 146.1 V158 A22 22 0 0 1 269 158 Z" fill="#F3E7CF"/>
+  <path d="M277 133 L305 143.2 V158 A14 14 0 0 1 277 158 Z" fill="#1B1F24"/>
+  <path d="M256 204 L286 222 L256 248 L226 222 Z" fill="#E39B2D"/>
+  <path d="M348.8 165 L363.8 200 A15 15 0 0 1 333.8 200 Z" fill="#F3E7CF"/>
+</svg>

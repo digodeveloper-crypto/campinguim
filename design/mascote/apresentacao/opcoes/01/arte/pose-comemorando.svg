@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 01 · Corpo de barraca · comemorando (asas na horizontal, olhos em arco de alegria, corpo inclinado 8°) -->
+  <path d="M150.7 444 A44 44 0 0 0 132 480 L220 480 A44 44 0 0 0 201.3 444 Z" fill="#E39B2D"/>
+  <path d="M310.7 444 A44 44 0 0 0 292 480 L380 480 A44 44 0 0 0 361.3 444 Z" fill="#E39B2D"/>
+  <path d="M157.7 240 L149 237.1 A14 14 0 0 1 133.6 243.5 L66.1 226.6 L123.1 304 Z" fill="#2F6B4F"/>
+  <path d="M398.2 240 L408.5 233 A14 14 0 0 0 425.3 242.7 L489.8 226.6 L414.9 304 Z" fill="#2F6B4F"/>
+  <path d="M253.9 61.3 A60 60 0 0 1 363.1 75.4 L454.4 392.9 A40 40 0 0 1 416 444 L96 444 A40 40 0 0 1 61.7 383.5 Z" fill="#2F6B4F"/>
+  <path d="M156 444 L166.1 372 A100 100 0 0 1 366.1 372 L356 444 Z" fill="#F3E7CF"/>
+  <path d="M238.6 154 A24 24 0 0 1 286.6 154 H274.6 A12 12 0 0 0 250.6 154 Z" fill="#F3E7CF"/>
+  <path d="M308.6 154 A24 24 0 0 1 356.6 154 H344.6 A12 12 0 0 0 320.6 154 Z" fill="#F3E7CF"/>
+  <path d="M287.2 204 L317.2 222 L287.2 248 L257.2 222 Z" fill="#E39B2D"/>
+</svg>

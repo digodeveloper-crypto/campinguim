@@ -1,0 +1,220 @@
+== opção 05
+arquivos: 10  faltam: nenhum  fora do contrato: nenhum
+arquivo                caixa(x0,y0,x1,y1)     larg  alt   chao  margem  avisos
+principal              (34, 33, 478, 480)      444   447   480  ok      -
+vista-frente           (34, 33, 478, 480)      444   447   480  ok      -
+vista-lado             (69, 32, 431, 480)      362   448   480  ok      -
+vista-tres-quartos     (69, 35, 480, 480)      411   445   480  ok      -
+pose-neutro            (34, 33, 478, 480)      444   447   480  ok      -
+pose-comemorando       (34, 17, 478, 480)      444   463   480  ok      -
+pose-alerta            (18, 37, 495, 480)      477   443   480  ok      -
+pose-camping           (30, 40, 478, 480)      448   440   480  ok      -
+icone                  (76, 54, 436, 453)      360   399   453  ok      -
+uma-cor                (39, 33, 473, 480)      434   447   480  ok      -
+altura em pé (principal=447): iguais
+principal-48-cinza-claro.png
+principal-48-cinza-escuro.png
+principal-48-claro.png
+principal-48-entre-apps-claro.png
+principal-48-entre-apps-escuro.png
+principal-48-escuro.png
+principal-48-redondo-claro.png
+principal-48-redondo-escuro.png
+principal-48-silhueta.png
+principal-48-sol-claro.png
+principal-48-sol-escuro.png
+principal-48x8-claro.png
+principal-48x8-escuro.png
+principal-512-claro.png
+principal-512-escuro.png
+principal-512-transparente.png
+principal-cinza-claro.png
+principal-cinza-escuro.png
+principal-silhueta.png
+vista-frente-48-cinza-claro.png
+vista-frente-48-cinza-escuro.png
+vista-frente-48-claro.png
+vista-frente-48-entre-apps-claro.png
+vista-frente-48-entre-apps-escuro.png
+vista-frente-48-escuro.png
+vista-frente-48-redondo-claro.png
+vista-frente-48-redondo-escuro.png
+vista-frente-48-silhueta.png
+vista-frente-48-sol-claro.png
+vista-frente-48-sol-escuro.png
+vista-frente-48x8-claro.png
+vista-frente-48x8-escuro.png
+vista-frente-512-claro.png
+vista-frente-512-escuro.png
+vista-frente-512-transparente.png
+vista-frente-cinza-claro.png
+vista-frente-cinza-escuro.png
+vista-frente-silhueta.png
+vista-lado-48-cinza-claro.png
+vista-lado-48-cinza-escuro.png
+vista-lado-48-claro.png
+vista-lado-48-entre-apps-claro.png
+vista-lado-48-entre-apps-escuro.png
+vista-lado-48-escuro.png
+vista-lado-48-redondo-claro.png
+vista-lado-48-redondo-escuro.png
+vista-lado-48-silhueta.png
+vista-lado-48-sol-claro.png
+vista-lado-48-sol-escuro.png
+vista-lado-48x8-claro.png
+vista-lado-48x8-escuro.png
+vista-lado-512-claro.png
+vista-lado-512-escuro.png
+vista-lado-512-transparente.png
+vista-lado-cinza-claro.png
+vista-lado-cinza-escuro.png
+vista-lado-silhueta.png
+vista-tres-quartos-48-cinza-claro.png
+vista-tres-quartos-48-cinza-escuro.png
+vista-tres-quartos-48-claro.png
+vista-tres-quartos-48-entre-apps-claro.png
+vista-tres-quartos-48-entre-apps-escuro.png
+vista-tres-quartos-48-escuro.png
+vista-tres-quartos-48-redondo-claro.png
+vista-tres-quartos-48-redondo-escuro.png
+vista-tres-quartos-48-silhueta.png
+vista-tres-quartos-48-sol-claro.png
+vista-tres-quartos-48-sol-escuro.png
+vista-tres-quartos-48x8-claro.png
+vista-tres-quartos-48x8-escuro.png
+vista-tres-quartos-512-claro.png
+vista-tres-quartos-512-escuro.png
+vista-tres-quartos-512-transparente.png
+vista-tres-quartos-cinza-claro.png
+vista-tres-quartos-cinza-escuro.png
+vista-tres-quartos-silhueta.png
+pose-neutro-48-cinza-claro.png
+pose-neutro-48-cinza-escuro.png
+pose-neutro-48-claro.png
+pose-neutro-48-entre-apps-claro.png
+pose-neutro-48-entre-apps-escuro.png
+pose-neutro-48-escuro.png
+pose-neutro-48-redondo-claro.png
+pose-neutro-48-redondo-escuro.png
+pose-neutro-48-silhueta.png
+pose-neutro-48-sol-claro.png
+pose-neutro-48-sol-escuro.png
+pose-neutro-48x8-claro.png
+pose-neutro-48x8-escuro.png
+pose-neutro-512-claro.png
+pose-neutro-512-escuro.png
+pose-neutro-512-transparente.png
+pose-neutro-cinza-claro.png
+pose-neutro-cinza-escuro.png
+pose-neutro-silhueta.png
+pose-comemorando-48-cinza-claro.png
+pose-comemorando-48-cinza-escuro.png
+pose-comemorando-48-claro.png
+pose-comemorando-48-entre-apps-claro.png
+pose-comemorando-48-entre-apps-escuro.png
+pose-comemorando-48-escuro.png
+pose-comemorando-48-redondo-claro.png
+pose-comemorando-48-redondo-escuro.png
+pose-comemorando-48-silhueta.png
+pose-comemorando-48-sol-claro.png
+pose-comemorando-48-sol-escuro.png
+pose-comemorando-48x8-claro.png
+pose-comemorando-48x8-escuro.png
+pose-comemorando-512-claro.png
+pose-comemorando-512-escuro.png
+pose-comemorando-512-transparente.png
+pose-comemorando-cinza-claro.png
+pose-comemorando-cinza-escuro.png
+pose-comemorando-silhueta.png
+pose-alerta-48-cinza-claro.png
+pose-alerta-48-cinza-escuro.png
+pose-alerta-48-claro.png
+pose-alerta-48-entre-apps-claro.png
+pose-alerta-48-entre-apps-escuro.png
+pose-alerta-48-escuro.png
+pose-alerta-48-redondo-claro.png
+pose-alerta-48-redondo-escuro.png
+pose-alerta-48-silhueta.png
+pose-alerta-48-sol-claro.png
+pose-alerta-48-sol-escuro.png
+pose-alerta-48x8-claro.png
+pose-alerta-48x8-escuro.png
+pose-alerta-512-claro.png
+pose-alerta-512-escuro.png
+pose-alerta-512-transparente.png
+pose-alerta-cinza-claro.png
+pose-alerta-cinza-escuro.png
+pose-alerta-silhueta.png
+pose-camping-48-cinza-claro.png
+pose-camping-48-cinza-escuro.png
+pose-camping-48-claro.png
+pose-camping-48-entre-apps-claro.png
+pose-camping-48-entre-apps-escuro.png
+pose-camping-48-escuro.png
+pose-camping-48-redondo-claro.png
+pose-camping-48-redondo-escuro.png
+pose-camping-48-silhueta.png
+pose-camping-48-sol-claro.png
+pose-camping-48-sol-escuro.png
+pose-camping-48x8-claro.png
+pose-camping-48x8-escuro.png
+pose-camping-512-claro.png
+pose-camping-512-escuro.png
+pose-camping-512-transparente.png
+pose-camping-cinza-claro.png
+pose-camping-cinza-escuro.png
+pose-camping-silhueta.png
+icone-48-cinza-claro.png
+icone-48-cinza-escuro.png
+icone-48-claro.png
+icone-48-entre-apps-claro.png
+icone-48-entre-apps-escuro.png
+icone-48-escuro.png
+icone-48-redondo-claro.png
+icone-48-redondo-escuro.png
+icone-48-silhueta.png
+icone-48-sol-claro.png
+icone-48-sol-escuro.png
+icone-48x8-claro.png
+icone-48x8-escuro.png
+icone-512-claro.png
+icone-512-escuro.png
+icone-512-transparente.png
+icone-cinza-claro.png
+icone-cinza-escuro.png
+icone-silhueta.png
+uma-cor-48-cinza-claro.png
+uma-cor-48-cinza-escuro.png
+uma-cor-48-claro.png
+uma-cor-48-entre-apps-claro.png
+uma-cor-48-entre-apps-escuro.png
+uma-cor-48-escuro.png
+uma-cor-48-redondo-claro.png
+uma-cor-48-redondo-escuro.png
+uma-cor-48-silhueta.png
+uma-cor-48-sol-claro.png
+uma-cor-48-sol-escuro.png
+uma-cor-48x8-claro.png
+uma-cor-48x8-escuro.png
+uma-cor-512-claro.png
+uma-cor-512-escuro.png
+uma-cor-512-transparente.png
+uma-cor-cinza-claro.png
+uma-cor-cinza-escuro.png
+uma-cor-silhueta.png
+pagina-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+pagina-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+pagina-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+pagina-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0

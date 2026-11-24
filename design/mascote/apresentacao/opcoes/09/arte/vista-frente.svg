@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 09 · Caminhante de botas · vista-frente (em pé, pés para fora) -->
+  <defs>
+    <clipPath id="corte">
+      <path clip-rule="evenodd" d="M0 0H512V512H0Z M124.8 214.1 L98.4 351.5 A24 24 0 0 0 143.7 366.3 L203.9 240.1 A42 42 0 1 0 124.8 214.1 Z M308.1 240.1 L368.3 366.3 A24 24 0 0 0 413.6 351.5 L387.2 214.1 A42 42 0 1 0 308.1 240.1 Z"/>
+    </clipPath>
+  </defs>
+  <!-- pés para fora e pernas -->
+  <path d="M238 470 C238 458 232 450 220 448 L128 436 C118 435 112 442 112 452 L112 470 C112 476 116 480 122 480 L228 480 C234 480 238 476 238 470 Z" fill="#C8613A"/>
+  <path d="M274 470 C274 458 280 450 292 448 L384 436 C394 435 400 442 400 452 L400 470 C400 476 396 480 390 480 L284 480 C278 480 274 476 274 470 Z" fill="#C8613A"/>
+  <path d="M206.0 367.4 L204.0 443.6 A14 14 0 0 0 231.6 447.3 L249.4 373.1 A22 22 0 1 0 206.0 367.4 Z" fill="#1C2B3A"/>
+  <path d="M262.6 373.1 L280.4 447.3 A14 14 0 0 0 308.0 443.6 L306.0 367.4 A22 22 0 1 0 262.6 373.1 Z" fill="#1C2B3A"/>
+  <g clip-path="url(#corte)">
+    <!-- peça escura: cabeça, pescoço e tronco em gota invertida -->
+    <path d="M256 32 C288 32 311 54 311 84 C311 104 302 118 294 128 C306 146 330 160 344 178 C358 196 362 214 360 236 C356 286 336 334 314 362 C296 386 216 386 198 362 C176 334 156 286 152 236 C150 214 154 196 168 178 C182 160 206 146 218 128 C210 118 201 104 201 84 C201 54 224 32 256 32 Z" fill="#1C2B3A"/>
+  </g>
+  <!-- barriga em pera, com fenda no topo -->
+  <path d="M246 150 L256 164 L266 150 C282 162 296 204 306 256 C316 310 324 354 316 382 C308 404 284 412 256 412 C228 412 204 404 196 382 C188 354 196 310 206 256 C216 204 230 162 246 150 Z" fill="#F4EEE2"/>
+  <!-- asas em gota, soltas do tronco pelo corte -->
+  <path d="M136.5 216.4 L110.2 353.7 A12 12 0 0 0 132.8 361.2 L193.1 234.9 A30 30 0 1 0 136.5 216.4 Z" fill="#1C2B3A"/>
+  <path d="M318.9 234.9 L379.2 361.2 A12 12 0 0 0 401.8 353.7 L375.5 216.4 A30 30 0 1 0 318.9 234.9 Z" fill="#1C2B3A"/>
+  <!-- bico visto de frente: pipa curta, ponta para o observador -->
+  <path d="M256 94 L276 112 L256 142 L236 112 Z" fill="#C8613A" stroke="#C8613A" stroke-width="10" stroke-linejoin="round"/>
+  <!-- olhos colados -->
+  <circle cx="234" cy="76" r="22" fill="#F4EEE2"/>
+  <circle cx="278" cy="76" r="22" fill="#F4EEE2"/>
+  <circle cx="236" cy="78" r="12" fill="#1C2B3A"/>
+  <circle cx="276" cy="78" r="12" fill="#1C2B3A"/>
+</svg>

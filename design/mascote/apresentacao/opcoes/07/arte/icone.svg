@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 07 · Veterano da caneca · ícone (arte própria para 48 px: busto com ombros, nadadeiras e peito claro) -->
+  <path d="M256 58 C350 58 412 92 418 172 C422 222 440 262 466 300 C500 352 508 430 508 512 L4 512 C4 430 12 352 46 300 C72 262 90 222 94 172 C100 92 162 58 256 58 Z" fill="#4E3D33" stroke="#1F1714" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M76 306 C100 314 118 352 124 404 C128 444 126 484 122 512 L30 512 C30 470 38 420 50 372 C58 340 64 318 76 306 Z" fill="#4E3D33" stroke="#1F1714" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M436 306 C412 314 394 352 388 404 C384 444 386 484 390 512 L482 512 C482 470 474 420 462 372 C454 340 448 318 436 306 Z" fill="#4E3D33" stroke="#1F1714" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M186 270 L326 270 C362 270 386 290 388 326 L384 404 C380 458 344 500 306 524 L206 524 C168 500 132 458 128 404 L124 326 C126 290 150 270 186 270 Z" fill="#F1E6D0"/>
+  <path d="M150 118 L222 118 C242 118 242 170 222 170 L150 170 C130 170 130 118 150 118 Z" fill="#D9CCB6" stroke="#1F1714" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M290 118 L362 118 C382 118 382 170 362 170 L290 170 C270 170 270 118 290 118 Z" fill="#D9CCB6" stroke="#1F1714" stroke-width="24" stroke-linejoin="round"/>
+  <path d="M144 182 L228 182 C228 214 210 232 186 232 C162 232 144 214 144 182 Z" fill="#F1E6D0"/>
+  <path d="M284 182 L368 182 C368 214 350 232 326 232 C302 232 284 214 284 182 Z" fill="#F1E6D0"/>
+  <circle cx="186" cy="204" r="22" fill="#1F1714"/>
+  <circle cx="326" cy="204" r="22" fill="#1F1714"/>
+  <path d="M194 240 L318 240 C340 240 346 258 334 274 L276 326 C266 336 246 336 236 326 L178 274 C166 258 172 240 194 240 Z" fill="#D08A2E"/>
+  <path d="M184 270 C212 282 236 290 256 292 C276 290 300 282 328 270" fill="none" stroke="#1F1714" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M298 386 C384 374 384 474 298 462" fill="none" stroke="#1F1714" stroke-width="44" stroke-linecap="round"/>
+  <path d="M298 386 C384 374 384 474 298 462" fill="none" stroke="#3E7D5A" stroke-width="18" stroke-linecap="round"/>
+  <path d="M200 370 L308 370 L306 470 C306 482 202 482 202 470 Z" fill="#3E7D5A" stroke="#1F1714" stroke-width="24" stroke-linejoin="round"/>
+  <ellipse cx="254" cy="370" rx="58" ry="16" fill="#1F1714"/>
+  <ellipse cx="254" cy="371" rx="42" ry="7" fill="#2A1D17"/>
+</svg>

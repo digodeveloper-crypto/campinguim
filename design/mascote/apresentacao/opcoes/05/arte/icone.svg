@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 05 · Topete de chama · icone (arte própria para 48 px: cabeça e topete em dois terços, sem linha, nada menor que 43) -->
+  <!-- pés -->
+  <ellipse cx="176" cy="430" rx="44" ry="23" fill="#E86A2A"/>
+  <ellipse cx="336" cy="430" rx="44" ry="23" fill="#E86A2A"/>
+  <!-- cabeça larga e corpo curto numa silhueta só, com a chama de três línguas (bases 90, 108 e 80; a chama lê pela assimetria: língua principal grande, lóbulos menores) -->
+  <path d="M 76 256 C 76 200 96 172 120 166
+           C 122 152 128 136 136 124 C 144 112 156 106 168 104 C 180 102 190 108 192 118 C 194 132 190 144 186 150 C 194 152 204 152 210 152
+           C 220 128 236 102 254 84 C 266 72 284 60 300 56 C 322 50 338 68 330 92 C 324 106 320 128 318 146
+           C 322 140 325 135 328 132 C 334 126 338 124 342 122 C 352 116 364 118 368 128 C 372 138 370 148 366 154 C 376 156 388 160 398 164
+           C 424 174 436 206 436 256
+           C 436 312 412 358 380 386
+           C 350 412 300 434 256 434
+           C 212 434 162 412 132 386
+           C 100 358 76 312 76 256 Z"
+        fill="#1E2A44"/>
+  <!-- pontas da chama, cor de brasa (46, 90 e 38 de altura) -->
+  <g fill="#E86A2A">
+    <path d="M 136 124 C 144 112 156 106 168 104 C 180 102 190 108 192 118 C 194 132 190 144 186 150 C 166 148 148 140 136 124 Z"/>
+    <path d="M 254 84 C 266 72 284 60 300 56 C 322 50 338 68 330 92 C 324 106 320 128 318 146 C 290 140 262 120 254 84 Z"/>
+    <path d="M 328 132 C 334 126 338 124 342 122 C 352 116 364 118 368 128 C 372 138 370 148 366 154 C 350 152 336 144 328 132 Z"/>
+  </g>
+  <!-- barriga em coração invertido -->
+  <path d="M 256 334 C 250 314 232 302 212 302 C 184 302 164 324 166 354 C 168 382 212 408 236 422 C 244 426 268 426 276 422 C 300 408 344 382 346 354 C 348 324 328 302 300 302 C 280 302 262 314 256 334 Z" fill="#FFF4E0"/>
+  <!-- bico curto e largo -->
+  <path d="M 206 292 C 220 286 292 286 306 292 C 316 298 316 312 310 320 C 300 332 276 338 256 338 C 236 338 212 332 202 320 C 196 312 196 298 206 292 Z" fill="#E86A2A"/>
+  <!-- olhos abertos e redondos, com pupila -->
+  <circle cx="190" cy="242" r="31" fill="#FFF4E0"/>
+  <circle cx="322" cy="242" r="31" fill="#FFF4E0"/>
+  <circle cx="192" cy="244" r="14" fill="#141B2E"/>
+  <circle cx="320" cy="244" r="14" fill="#141B2E"/>
+</svg>

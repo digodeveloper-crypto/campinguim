@@ -1,0 +1,84 @@
+01-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+01-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+01-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+01-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+02-celular-claro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0
+    erro: falhou: file:///C:/campinguim/design/mascote/apresentacao/opcoes/02/estudo/estudo-ilustrado.png
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+02-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=2  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    erro: falhou: file:///C:/campinguim/design/mascote/apresentacao/opcoes/02/estudo/estudo-ilustrado.png
+    erro: Failed to load resource: net::ERR_FILE_NOT_FOUND
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+02-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+02-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+comparacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48', '48x48', '48x48', '48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+index-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+avaliacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 01 · Corpo de barraca · vista de lado (perfil para a esquerda: dorso reto, barriga saliente, bico projetado 40, asa como aba plana) -->
+  <path d="M118 480 C118 442, 154 442, 178 442 L238 442 Q256 442 256 480 Z" fill="#E39B2D"/>
+  <path d="M98 480 C98 442, 134 442, 158 442 L218 442 Q236 442 236 480 Z" fill="#E39B2D"/>
+  <path d="M348.8 244 L358 239.7 A14 14 0 0 0 371.6 250 L379 250 A14 14 0 0 1 388.9 254.1 L432.8 298 L361.8 298 Z" fill="#2F6B4F"/>
+  <path d="M206.3 58.4 A60 60 0 0 1 313.9 76.4 L399.6 393.6 A40 40 0 0 1 361 444 L151 444 A40 40 0 0 1 111.1 406.4 A560 560 0 0 1 206.3 58.4 Z" fill="#2F6B4F"/>
+  <path d="M112.7 318 A560 560 0 0 0 111.1 406.4 A40 40 0 0 0 151 444 H206.6 A560 560 0 0 1 204.7 318 A46 46 0 0 0 112.7 318 Z" fill="#F3E7CF"/>
+  <rect x="186.9" y="116" width="44" height="64" rx="22" fill="#F3E7CF"/>
+  <rect x="190.9" y="124" width="28" height="48" rx="14" fill="#1B1F24"/>
+  <path d="M144.6 204 L90.6 222 L144.6 248 Z" fill="#E39B2D"/>
+</svg>

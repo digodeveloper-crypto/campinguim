@@ -1,0 +1,24 @@
+file index.html status 200 h1: 10 opções de mascote
+file comparacao.html status 200 h1: Comparação
+file avaliacao.html status 200 h1: Folha de avaliação
+file recomendacao.html status 200 h1: Recomendação da Cinema
+file opcoes/00-exemplo/index.html status 200 h1: Exemplo de marcação
+file opcoes/03/index.html status 200 h1: Teste 03
+file notas apos recarregar: ['4', '2'] | total cartao: 6 de 35
+file estado copia: Copiado. | caixa visivel: True
+   texto: ['Avaliação dos mascotes do Campinguim', '', '01 em produção: Reconhecimento –, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu – | total –', '02 em produção: Reconhecimento –, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu – | total –', '03 Teste 03: Reconhecimento 4, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu 2 | total 6/35']
+file links diretos p/ recomendacao antes do aviso: 1 | aviso aberto: 1
+file depois de confirmar: recomendacao.html
+file fundo persistiu: escuro | erros: []
+http index.html status 200 h1: 10 opções de mascote
+http comparacao.html status 200 h1: Comparação
+http avaliacao.html status 200 h1: Folha de avaliação
+http recomendacao.html status 200 h1: Recomendação da Cinema
+http opcoes/00-exemplo/index.html status 200 h1: Exemplo de marcação
+http opcoes/03/index.html status 200 h1: Teste 03
+http notas apos recarregar: ['4', '2'] | total cartao: 6 de 35
+http estado copia: Copiado. | caixa visivel: True
+   texto: ['Avaliação dos mascotes do Campinguim', '', '01 em produção: Reconhecimento –, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu – | total –', '02 em produção: Reconhecimento –, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu – | total –', '03 Teste 03: Reconhecimento 4, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu 2 | total 6/35']
+http links diretos p/ recomendacao antes do aviso: 1 | aviso aberto: 1
+http depois de confirmar: recomendacao.html
+http fundo persistiu: escuro | erros: []

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 05 · Topete de chama · pose-comemorando (pulo: pés fora do chão, asas abertas para o alto, bico aberto em meia-lua, topete esticado) -->
+  <!-- sombra de contato no chão: diz que ele está no ar -->
+  <ellipse cx="256" cy="474" rx="128" ry="6" fill="#141B2E"/>
+  <!-- pés soltos no ar, pontas para baixo -->
+  <g transform="rotate(-25 118 438)">
+    <ellipse cx="118" cy="438" rx="58" ry="25" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 90 416 L 94 430" fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g transform="rotate(25 394 438)">
+    <ellipse cx="394" cy="438" rx="58" ry="25" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 422 416 L 418 430" fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <!-- corpo inteiro 12 acima do chão -->
+  <g transform="translate(0 -12)">
+    <!-- corpo e topete esticado (línguas mais altas) -->
+    <path d="M 86 196 C 86 146 108 120 150 116 C 166 113.9 184 105.4 194 96.9 C 198 92.7 204 82.1 212 75.7 C 218 71.5 226 65.1 230 58.8 C 234 52.4 242 52.4 242 59.8 C 242 67.2 242 73.6 250 75.7 C 256 77.8 258 63 264 52.4 C 272 41.8 286 35.4 300 34.4 C 310 33.3 316 39.7 312 47.1 C 308 54.5 308 65.1 316 69.4 C 322 72.5 330 69.4 336 64.1 C 342 58.8 350 60.9 348 69.4 C 346 80 342 88.4 344 94.8 C 346 101.2 350 111.8 362 116
+             C 404 120 426 146 426 196
+             C 426 270 394 335 396 400
+             C 398 428 398 452 376 462
+             C 346 468 300 469 256 469
+             C 212 469 166 468 136 462
+             C 114 452 114 428 116 400
+             C 118 335 86 270 86 196 Z"
+          fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <g fill="#E86A2A">
+      <path d="M 212 75.7 C 218 71.5 226 65.1 230 58.8 C 234 52.4 242 52.4 242 59.8 C 242 67.2 242 73.6 250 75.7 C 238 84.2 222 86.3 212 75.7 Z"/>
+      <path d="M 264 52.4 C 272 41.8 286 35.4 300 34.4 C 310 33.3 316 39.7 312 47.1 C 308 54.5 308 65.1 316 69.4 C 300 75.7 278 71.5 264 52.4 Z"/>
+      <path d="M 316 69.4 C 322 72.5 330 69.4 336 64.1 C 342 58.8 350 60.9 348 69.4 C 340 82.1 324 82.1 316 69.4 Z"/>
+    </g>
+    <path d="M 150 116 C 166 113.9 184 105.4 194 96.9 C 198 92.7 204 82.1 212 75.7 C 218 71.5 226 65.1 230 58.8 C 234 52.4 242 52.4 242 59.8 C 242 67.2 242 73.6 250 75.7 C 256 77.8 258 63 264 52.4 C 272 41.8 286 35.4 300 34.4 C 310 33.3 316 39.7 312 47.1 C 308 54.5 308 65.1 316 69.4 C 322 72.5 330 69.4 336 64.1 C 342 58.8 350 60.9 348 69.4 C 346 80 342 88.4 344 94.8 C 346 101.2 350 111.8 362 116"
+          fill="none" stroke="#141B2E" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+    <g fill="#384F7E">
+      <path d="M 150 116 C 108 120 86 146 86 196 L 87 218 C 96 168 116 142 150 136 Z"/>
+      <path d="M 362 116 C 404 120 426 146 426 196 L 425 218 C 416 168 396 142 362 136 Z"/>
+    </g>
+    <path d="M 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 388 372 322 422 278 446 C 266 452 246 452 234 446 C 190 422 124 372 131 312 Z" fill="#141B2E"/>
+    <path d="M 256 270 C 248 244 224 226 198 226 C 162 226 132 262 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 380 262 350 226 314 226 C 288 226 264 244 256 270 Z" fill="#FFF4E0"/>
+    <!-- asas abertas para o alto -->
+    <g transform="rotate(160 104 276)">
+      <path d="M 104 276 C 130 276 150 300 148 334 C 146 366 122 404 106 418 C 90 404 62 366 60 334 C 58 300 78 276 104 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M 104 276 C 78 276 58 300 60 334 C 64 308 80 292 104 292 Z" fill="#384F7E"/>
+    </g>
+    <g transform="rotate(-160 408 276)">
+      <path d="M 408 276 C 434 276 454 300 452 334 C 450 366 426 404 410 418 C 394 404 366 366 364 334 C 362 300 382 276 408 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+      <path d="M 408 276 C 434 276 454 300 452 334 C 448 308 432 292 408 292 Z" fill="#384F7E"/>
+    </g>
+    <!-- bico aberto em meia-lua para cima: boca escura, mandíbula de baixo e a de cima -->
+    <path d="M 216 250 C 220 296 292 296 296 250 Z" fill="#141B2E" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 230 270 C 240 264 272 264 282 270 C 284 294 228 294 230 270 Z" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 220 228 C 232 224 280 224 292 228 C 302 232 302 244 296 250 L 216 250 C 210 244 210 232 220 228 Z" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <!-- olhos de alegria: pálpebra de baixo sobe -->
+    <g fill="#FFF4E0">
+      <circle cx="201" cy="185" r="30"/>
+      <circle cx="311" cy="185" r="30"/>
+    </g>
+    <g fill="#141B2E">
+      <circle cx="203" cy="184" r="16"/>
+      <circle cx="309" cy="184" r="16"/>
+    </g>
+    <g fill="#1E2A44">
+      <path d="M 173.1 196 A 30 30 0 0 0 228.9 196 C 216 190 186 190 173.1 196 Z"/>
+      <path d="M 283.1 196 A 30 30 0 0 0 338.9 196 C 326 190 296 190 283.1 196 Z"/>
+    </g>
+    <g fill="none" stroke="#141B2E" stroke-width="10">
+      <circle cx="201" cy="185" r="30"/>
+      <circle cx="311" cy="185" r="30"/>
+    </g>
+    <!-- sobrancelhas erguidas -->
+    <g fill="#384F7E" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+      <path d="M 164 132 C 178 120 210 110 236 118 C 246 122 248 134 238 138 C 214 134 188 130 172 134 C 168 136 164 134 164 132 Z"/>
+      <path d="M 348 132 C 334 120 302 110 276 118 C 266 122 264 134 274 138 C 298 134 324 130 340 134 C 344 136 348 134 348 132 Z"/>
+    </g>
+  </g>
+</svg>

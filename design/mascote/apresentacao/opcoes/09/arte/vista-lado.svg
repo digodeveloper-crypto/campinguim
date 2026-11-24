@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 09 · Caminhante de botas · vista-lado (perfil para a esquerda, no passo) -->
+  <defs>
+    <clipPath id="corte">
+      <path clip-rule="evenodd" d="M0 0H512V512H0Z M268.8 233.1 L367.2 342.1 A24 24 0 0 0 406.2 314.7 L337.1 185.2 A42 42 0 1 0 268.8 233.1 Z"/>
+    </clipPath>
+  </defs>
+  <!-- pé e perna de apoio, atrás, chapado no chão -->
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A" transform="translate(136 0)"/>
+  <path d="M283.4 382.4 L339.4 447.2 A14 14 0 0 0 362.1 431.0 L319.0 356.9 A22 22 0 1 0 283.4 382.4 Z" fill="#1C2B3A"/>
+  <!-- pé e perna da frente, no ar, sola à mostra -->
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A" transform="translate(-18 -14) rotate(16 222 466)"/>
+  <path d="M217.4 356.2 L195.9 413.0 A14 14 0 0 0 220.4 426.2 L255.9 376.8 A22 22 0 1 0 217.4 356.2 Z" fill="#1C2B3A"/>
+  <g transform="rotate(-8 262 372)">
+    <g clip-path="url(#corte)">
+      <!-- peça escura: cabeça, pescoço, tronco e cauda -->
+      <path d="M202 130 C190 116 184 100 184 84 C184 54 208 32 238 32 C270 32 292 54 292 84 C292 104 286 118 284 128 C290 146 304 156 320 166 C348 184 360 214 358 250 C356 300 344 336 328 360 L354 382 C348 392 332 394 316 388 C296 398 238 398 214 384 C186 362 168 304 170 244 C172 194 188 152 202 130 Z" fill="#1C2B3A"/>
+    </g>
+    <!-- barriga em perfil: a frente do corpo -->
+    <path d="M206 146 L216 158 L224 148 C240 172 252 230 254 290 C256 344 250 384 228 402 C214 410 196 406 186 392 C166 362 156 312 158 262 C160 208 180 166 206 146 Z" fill="#F4EEE2"/>
+    <!-- asa de cá, para trás (papel sobreposto, com o corte em volta) -->
+    <path d="M277.7 225.1 L376.1 334.0 A12 12 0 0 0 395.6 320.3 L326.5 190.9 A30 30 0 1 0 277.7 225.1 Z" fill="#1C2B3A"/>
+    <!-- bico em cunha, a base nasce sob o olho -->
+    <path d="M226 80 C192 80 150 82 122 84 C112 85 110 93 117 96 C150 106 182 116 210 126 C220 112 226 96 226 80 Z" fill="#C8613A"/>
+    <!-- olho -->
+    <circle cx="224" cy="72" r="22" fill="#F4EEE2"/>
+    <circle cx="215" cy="72" r="12" fill="#1C2B3A"/>
+  </g>
+</svg>

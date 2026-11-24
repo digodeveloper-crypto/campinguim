@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 04 · Pictograma de trilha · icone: arte própria para 48 px. Figura inteira; olhos altos e afastados, bico grande, barriga ocupando o tronco, mochila como uma caixa só atrás do corpo. Nada abaixo de 43; dentro do círculo de 440. -->
+  <!-- mochila: caixa 344 × 186 atrás do corpo, 62 além de cada lado do tronco, com a aba clara passando por trás da cabeça -->
+  <rect x="84" y="156" width="344" height="186" rx="36" fill="#E8601C"/>
+  <rect x="106" y="174" width="300" height="44" rx="22" fill="#FFFFFF"/>
+  <!-- asas: barras 44 × 118 a 8°, rentes ao tronco para não cortar as laterais da caixa -->
+  <rect x="146" y="230" width="44" height="118" rx="22" fill="#404246" transform="rotate(8 168 230)"/>
+  <rect x="322" y="230" width="44" height="118" rx="22" fill="#404246" transform="rotate(-8 344 230)"/>
+  <!-- cabeça r=88 -->
+  <circle cx="256" cy="128" r="88" fill="#404246"/>
+  <!-- tronco 220 × 184 e barriga 140 × 146 -->
+  <rect x="146" y="204" width="220" height="184" rx="52" fill="#404246"/>
+  <rect x="186" y="226" width="140" height="146" rx="44" fill="#FFFFFF"/>
+  <!-- pernas 46 de largura, vão de 54, e pés 84 × 44 -->
+  <rect x="183" y="372" width="46" height="40" fill="#404246"/>
+  <rect x="283" y="372" width="46" height="40" fill="#404246"/>
+  <rect x="145" y="408" width="84" height="44" rx="22" fill="#E8601C"/>
+  <rect x="283" y="408" width="84" height="44" rx="22" fill="#E8601C"/>
+  <!-- olhos r=22 altos e afastados (centros a 96 um do outro); bico 76 × 56 saindo da metade de baixo da cabeça -->
+  <circle cx="208" cy="110" r="22" fill="#FFFFFF"/>
+  <circle cx="304" cy="110" r="22" fill="#FFFFFF"/>
+  <path d="M218 136 L294 136 L256 192 Z" fill="#E8601C"/>
+</svg>

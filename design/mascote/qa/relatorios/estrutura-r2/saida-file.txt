@@ -1,0 +1,126 @@
+### index
+file-index-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-index-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-index-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-index-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### comparacao
+file-comparacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-comparacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-comparacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-comparacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### avaliacao
+file-avaliacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-avaliacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-avaliacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-avaliacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### recomendacao
+file-recomendacao-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-recomendacao-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-recomendacao-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-recomendacao-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/00-exemplo/index
+file-00-exemplo-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-00-exemplo-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-00-exemplo-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-00-exemplo-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: ['48x48', '48x48']
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/01/index
+file-01-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-01-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-01-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-01-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0
+### opcoes/10/index
+file-10-celular-claro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-10-celular-escuro.png  rolagem_horizontal=nao (390px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-10-computador-claro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+file-10-computador-escuro.png  rolagem_horizontal=nao (1440px)  erros=0  pedidos_externos=0 botao_fundo=Fundo da arte: Escuro
+    icones_48: nenhum
+    alvos_menores_que_44: 0
+    textos_abaixo_de_AA: 0
+exit=0

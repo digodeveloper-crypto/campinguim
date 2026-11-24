@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 01 · Corpo de barraca · ícone (arte própria para 48 px: sem detalhe menor que 43, figura dentro do círculo de 440) -->
+  <path d="M154 452 A44 44 0 0 1 242 452 Z" fill="#E39B2D"/>
+  <path d="M270 452 A44 44 0 0 1 358 452 Z" fill="#E39B2D"/>
+  <path d="M142.5 230 L133.6 228.8 A12 12 0 0 1 122.7 236 L109.4 236 A12 12 0 0 0 101 239.5 L48.5 292 L117.8 292 Z" fill="#2F6B4F"/>
+  <path d="M369.5 230 L378.4 228.8 A12 12 0 0 0 389.3 236 L402.6 236 A12 12 0 0 1 411 239.5 L463.5 292 L394.2 292 Z" fill="#2F6B4F"/>
+  <path d="M201.1 75.8 A60 60 0 0 1 310.9 75.8 L432.6 351.9 A40 40 0 0 1 396 408 L116 408 A40 40 0 0 1 79.4 351.9 Z" fill="#2F6B4F"/>
+  <path d="M176 408 L176 372 A80 80 0 0 1 336 372 L336 408 Z" fill="#F3E7CF"/>
+  <rect x="196" y="113" width="46" height="54" rx="23" fill="#F3E7CF"/>
+  <rect x="270" y="113" width="46" height="54" rx="23" fill="#F3E7CF"/>
+  <rect x="207" y="122" width="24" height="36" rx="12" fill="#1B1F24"/>
+  <rect x="281" y="122" width="24" height="36" rx="12" fill="#1B1F24"/>
+  <path d="M256 209 L286 225 L256 249 L226 225 Z" fill="#E39B2D"/>
+</svg>

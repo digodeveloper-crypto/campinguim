@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 09 · Caminhante de botas · pose-alerta (para, pés juntos, asa apontando, corpo à frente) -->
+  <defs>
+    <clipPath id="corte">
+      <path clip-rule="evenodd" d="M0 0H512V512H0Z M292.1 226.1 L354.3 356.3 A24 24 0 0 0 399.5 341.3 L371.2 199.8 A42 42 0 1 0 292.1 226.1 Z"/>
+    </clipPath>
+  </defs>
+  <!-- pé e perna de lá -->
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A" transform="translate(16 -8)"/>
+  <path d="M216.0 368.0 L216.0 436.0 A14 14 0 0 0 243.6 439.2 L259.4 373.1 A22 22 0 1 0 216.0 368.0 Z" fill="#1C2B3A"/>
+  <!-- pé e perna de cá -->
+  <path d="M108 480 C99 480 94 474 94 466 L94 460 C94 453 99 448 106 448 L176 442 C196 434 222 434 236 446 C243 452 246 460 246 468 C246 476 240 480 232 480 Z" fill="#C8613A" transform="translate(82 0)"/>
+  <path d="M268.4 372.0 L282.2 446.6 A14 14 0 0 0 310.0 444.4 L312.0 368.6 A22 22 0 1 0 268.4 372.0 Z" fill="#1C2B3A"/>
+  <g transform="rotate(-6 262 372)">
+    <!-- asa de lá, estendida, apontando à frente -->
+    <path d="M197.2 184.0 L65.6 188.0 A12 12 0 0 0 63.5 211.7 L192.1 239.4 A28 28 0 1 0 197.2 184.0 Z" fill="#1C2B3A"/>
+    <g clip-path="url(#corte)">
+      <!-- peça escura: cabeça, pescoço e tronco -->
+      <path d="M204 128 C192 116 180 100 180 84 C180 54 204 32 234 32 C264 32 288 54 288 84 C288 104 282 118 280 128 C292 144 316 152 334 162 C360 178 372 208 370 244 C368 296 350 338 326 364 C304 392 238 398 212 380 C184 356 164 304 164 246 C164 196 186 152 204 128 Z" fill="#1C2B3A"/>
+    </g>
+    <!-- barriga em pera, com fenda no topo -->
+    <path d="M210 146 L222 160 L232 146 C250 164 266 214 276 270 C286 326 288 372 270 394 C256 410 214 412 194 396 C172 378 164 334 166 286 C168 222 186 168 210 146 Z" fill="#F4EEE2"/>
+    <!-- asa de cá, pendente para trás (papel sobreposto, com o corte) -->
+    <path d="M302.9 220.9 L365.2 351.2 A12 12 0 0 0 387.8 343.6 L359.4 202.1 A30 30 0 1 0 302.9 220.9 Z" fill="#1C2B3A"/>
+    <!-- bico em cunha -->
+    <path d="M236 84 C206 84 178 86 156 88 C146 89 144 97 151 100 C176 108 200 116 218 122 C230 110 236 98 236 84 Z" fill="#C8613A"/>
+    <!-- olhos bem abertos, pupilas menores viradas para onde a asa aponta -->
+    <ellipse cx="210" cy="74" rx="14" ry="21" fill="#F4EEE2"/>
+    <circle cx="246" cy="74" r="22" fill="#F4EEE2"/>
+    <ellipse cx="203" cy="74" rx="6" ry="9" fill="#1C2B3A"/>
+    <circle cx="235" cy="74" r="9" fill="#1C2B3A"/>
+  </g>
+</svg>

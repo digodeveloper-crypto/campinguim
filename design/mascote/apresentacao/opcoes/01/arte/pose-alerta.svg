@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 01 · Corpo de barraca · em alerta (corpo inclinado para a frente, olhos abertos com a pupila menor virada para onde a asa aponta) -->
+  <path d="M150.7 444 A44 44 0 0 0 132 480 L220 480 A44 44 0 0 0 201.3 444 Z" fill="#E39B2D"/>
+  <path d="M310.7 444 A44 44 0 0 0 292 480 L380 480 A44 44 0 0 0 361.3 444 Z" fill="#E39B2D"/>
+  <path d="M107.9 240 L97.6 231.4 A14 14 0 0 1 79.7 241.4 L19.8 221.9 L93.6 304 Z" fill="#2F6B4F"/>
+  <path d="M353.5 244 L361.4 243.5 A14 14 0 0 0 373.2 250 L387.7 250 A14 14 0 0 1 397.6 254.1 L451.5 308 L390.4 308 Z" fill="#2F6B4F"/>
+  <path d="M135.7 77.6 A60 60 0 0 1 244.6 59.8 L449.8 382.5 A40 40 0 0 1 416 444 L96 444 A40 40 0 0 1 57.2 394.4 Z" fill="#2F6B4F"/>
+  <path d="M156 444 L143.3 372 A100 100 0 0 1 343.3 372 L356 444 Z" fill="#F3E7CF"/>
+  <rect x="146.8" y="116" width="44" height="64" rx="22" fill="#F3E7CF"/>
+  <rect x="216.8" y="116" width="44" height="64" rx="22" fill="#F3E7CF"/>
+  <rect x="149.8" y="127" width="22" height="36" rx="11" fill="#1B1F24"/>
+  <rect x="219.8" y="127" width="22" height="36" rx="11" fill="#1B1F24"/>
+  <path d="M216.9 204 L246.9 222 L216.9 248 L186.9 222 Z" fill="#E39B2D"/>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 04 · Pictograma de trilha · uma-cor: o principal numa tinta só (#111111). Barriga, olhos e bico são recortes transparentes; a mochila aparece só onde não é coberta pelo corpo, com um vão de 24 em volta dele (as duas orelhas acima dos ombros, desenhadas como caminhos). -->
+  <g fill="#111111">
+    <!-- orelhas da mochila: a caixa atrás dos ombros, afastada 24 da cabeça, do pescoço, do tronco e das asas -->
+    <path d="M116 174 A24 24 0 0 1 140 150 H175.2 A94 94 0 0 0 194.5 173 A64 64 0 0 0 147.6 210 A42 42 0 0 0 139.9 218 H116 Z"/>
+    <path d="M396 174 A24 24 0 0 0 372 150 H336.8 A94 94 0 0 1 317.5 173 A64 64 0 0 1 364.4 210 A42 42 0 0 1 372.1 218 H396 Z"/>
+    <!-- cabeça com olhos e bico recortados; pescoço -->
+    <path fill-rule="evenodd" d="M256 32 A70 70 0 1 0 256 172 A70 70 0 1 0 256 32 Z M219 102 A12 12 0 1 0 243 102 A12 12 0 1 0 219 102 Z M269 102 A12 12 0 1 0 293 102 A12 12 0 1 0 269 102 Z M234 118 L278 118 L256 150 Z"/>
+    <rect x="231" y="150" width="50" height="50"/>
+    <!-- asas -->
+    <rect x="160" y="226" width="36" height="170" rx="18" transform="rotate(15 178 226)"/>
+    <rect x="316" y="226" width="36" height="170" rx="18" transform="rotate(-15 334 226)"/>
+    <!-- tronco com a barriga recortada -->
+    <path fill-rule="evenodd" d="M206 196 H306 A40 40 0 0 1 346 236 V368 A40 40 0 0 1 306 408 H206 A40 40 0 0 1 166 368 V236 A40 40 0 0 1 206 196 Z M236 212 H276 A30 30 0 0 1 306 242 V362 A30 30 0 0 1 276 392 H236 A30 30 0 0 1 206 362 V242 A30 30 0 0 1 236 212 Z"/>
+    <!-- pernas e pés -->
+    <rect x="206" y="380" width="34" height="80"/>
+    <rect x="272" y="380" width="34" height="80"/>
+    <rect x="150" y="450" width="90" height="30" rx="15"/>
+    <rect x="272" y="450" width="90" height="30" rx="15"/>
+  </g>
+</svg>

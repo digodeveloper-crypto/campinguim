@@ -1,0 +1,24 @@
+file index.html status 200 h1: 10 opções de mascote
+file comparacao.html status 200 h1: Comparação
+file avaliacao.html status 200 h1: Folha de avaliação
+file recomendacao.html status 200 h1: Recomendação da Cinema
+file opcoes/00-exemplo/index.html status 200 h1: Exemplo de marcação
+file opcoes/03/index.html status 200 h1: Teste 03
+file notas apos recarregar: ['4', '2'] | total: 6 de 35
+file copia: Copiado. | caixa visivel: True
+    03 Teste 03: Reconhecimento 4, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu 2 | total 6/35
+file aviso aberto antes da recomendacao: 1
+file recomendacao: ['05 · Teste 05', '03 · Teste 03', '08 · Teste 08']
+file fundo persistiu: escuro | erros: ['Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND', 'Failed to load resource: net::ERR_FILE_NOT_FOUND']
+http index.html status 200 h1: 10 opções de mascote
+http comparacao.html status 200 h1: Comparação
+http avaliacao.html status 200 h1: Folha de avaliação
+http recomendacao.html status 200 h1: Recomendação da Cinema
+http opcoes/00-exemplo/index.html status 200 h1: Exemplo de marcação
+http opcoes/03/index.html status 200 h1: Teste 03
+http notas apos recarregar: ['4', '2'] | total: 6 de 35
+http copia: Copiado. | caixa visivel: True
+    03 Teste 03: Reconhecimento 4, Ícone –, Simpatia –, Premium –, Alcance –, Vídeo –, Só seu 2 | total 6/35
+http aviso aberto antes da recomendacao: 1
+http recomendacao: ['05 · Teste 05', '03 · Teste 03', '08 · Teste 08']
+http fundo persistiu: escuro | erros: ['Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)', 'Failed to load resource: the server responded with a status of 404 (File not found)']

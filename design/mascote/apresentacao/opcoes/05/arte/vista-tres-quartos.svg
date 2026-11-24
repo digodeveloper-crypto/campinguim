@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 05 · Topete de chama · vista-tres-quartos (45° para a esquerda, pose neutra) -->
+  <!-- asa de lá, atrás do corpo -->
+  <g transform="rotate(8 126 282)">
+    <path d="M 126 282 C 152 282 172 306 170 340 C 168 372 144 410 128 424 C 112 410 84 372 82 340 C 80 306 100 282 126 282 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+  </g>
+  <!-- pés: o de lá menor e apontando para a esquerda, o de cá para a direita -->
+  <g fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+    <ellipse cx="146" cy="450" rx="52" ry="24"/>
+    <ellipse cx="380" cy="450" rx="58" ry="25"/>
+  </g>
+  <g fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round">
+    <path d="M 118 430 L 122 444"/>
+    <path d="M 408 428 L 404 442"/>
+  </g>
+  <!-- corpo e topete: a mesma pera invertida, lado de lá comprimido, chama inclinada para trás e para a direita -->
+  <path d="M 100 200 C 100 150 122 122 160 116 C 175.4 114.2 192.7 106.3 202.3 98.4 C 206.2 94.5 212 84.5 219.7 78.6 C 225.4 74.6 233.1 68.7 237 62.8 C 240.8 56.8 248.5 56.9 248.5 63.9 C 248.5 70.9 248.5 76.9 256.2 78.9 C 262 81 263.9 67 269.7 57.1 C 277.4 47.2 290.9 41.3 304.3 40.4 C 314 39.5 319.7 45.6 315.9 52.5 C 312 59.5 312 69.5 319.7 73.6 C 325.5 76.6 333.2 73.7 339 68.8 C 344.8 63.8 352.5 65.9 350.5 73.9 C 348.6 83.8 344.8 91.8 346.7 97.8 C 348.6 103.8 352.5 113.9 364 118
+           C 404 122 428 148 428 200
+           C 428 272 400 335 402 400
+           C 404 428 404 452 382 462
+           C 352 468 304 469 258 469
+           C 214 469 170 468 142 462
+           C 120 452 118 428 120 400
+           C 122 335 100 270 100 200 Z"
+        fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+  <!-- pontas do topete -->
+  <g fill="#E86A2A">
+    <path d="M 219.7 78.6 C 225.4 74.6 233.1 68.7 237 62.8 C 240.8 56.8 248.5 56.9 248.5 63.9 C 248.5 70.9 248.5 76.9 256.2 78.9 C 244.7 86.8 229.3 88.7 219.7 78.6 Z"/>
+    <path d="M 269.7 57.1 C 277.4 47.2 290.9 41.3 304.3 40.4 C 314 39.5 319.7 45.6 315.9 52.5 C 312 59.5 312 69.5 319.7 73.6 C 304.3 79.4 283.2 75.2 269.7 57.1 Z"/>
+    <path d="M 319.7 73.6 C 325.5 76.6 333.2 73.7 339 68.8 C 344.8 63.8 352.5 65.9 350.5 73.9 C 342.8 85.8 327.4 85.6 319.7 73.6 Z"/>
+  </g>
+  <path d="M 160 116 C 175.4 114.2 192.7 106.3 202.3 98.4 C 206.2 94.5 212 84.5 219.7 78.6 C 225.4 74.6 233.1 68.7 237 62.8 C 240.8 56.8 248.5 56.9 248.5 63.9 C 248.5 70.9 248.5 76.9 256.2 78.9 C 262 81 263.9 67 269.7 57.1 C 277.4 47.2 290.9 41.3 304.3 40.4 C 314 39.5 319.7 45.6 315.9 52.5 C 312 59.5 312 69.5 319.7 73.6 C 325.5 76.6 333.2 73.7 339 68.8 C 344.8 63.8 352.5 65.9 350.5 73.9 C 348.6 83.8 344.8 91.8 346.7 97.8 C 348.6 103.8 352.5 113.9 364 118"
+        fill="none" stroke="#141B2E" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- luz de cima: fio claro na borda alta da cabeça -->
+  <g fill="#384F7E">
+    <path d="M 160 116 C 122 122 100 150 100 200 L 101 222 C 110 170 130 142 160 136 Z"/>
+    <path d="M 364 118 C 404 122 428 148 428 200 L 427 222 C 418 170 398 144 364 138 Z"/>
+  </g>
+  <!-- sombra sob a barriga -->
+  <path d="M 116 312 C 116 366 174 408 204 430 C 212 436 228 436 238 430 C 282 408 344 366 342 312 C 350 372 286 422 244 446 C 232 452 212 452 200 446 C 160 422 110 372 116 312 Z" fill="#141B2E"/>
+  <!-- barriga: o coração deslocado para a frente, metade de lá mais estreita -->
+  <path d="M 224 272 C 218 246 198 228 176 228 C 146 228 116 262 116 312 C 116 366 174 408 204 430 C 212 436 228 436 238 430 C 282 408 344 366 342 312 C 340 262 314 226 284 226 C 256 226 232 246 224 272 Z" fill="#FFF4E0"/>
+  <!-- asa de cá, inteira -->
+  <g transform="rotate(-20 410 276)">
+    <path d="M 410 276 C 436 276 456 300 454 334 C 452 366 428 404 412 418 C 396 404 368 366 366 334 C 364 300 384 276 410 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 410 276 C 436 276 456 300 454 334 C 450 308 434 292 410 292 Z" fill="#384F7E"/>
+  </g>
+  <!-- sombra sob o bico -->
+  <path d="M 184 258 C 200 276 240 280 258 268 C 246 290 198 286 184 258 Z" fill="#141B2E"/>
+  <!-- bico apontando para a frente e para a esquerda -->
+  <path d="M 250 228 C 230 224 198 228 176 240 C 168 245 168 252 176 256 C 196 266 230 270 252 266 C 266 262 270 236 250 228 Z" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M 182 252 C 202 250 236 252 258 254" fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round"/>
+  <!-- olhos abertos e redondos, o de lá menor: branco, pupila, contorno -->
+  <circle cx="160" cy="185" r="26" fill="#FFF4E0"/>
+  <circle cx="272" cy="185" r="30" fill="#FFF4E0"/>
+  <g fill="#141B2E">
+    <circle cx="156" cy="187" r="14"/>
+    <circle cx="266" cy="187" r="16"/>
+  </g>
+  <g fill="none" stroke="#141B2E" stroke-width="10">
+    <circle cx="160" cy="185" r="26"/>
+    <circle cx="272" cy="185" r="30"/>
+  </g>
+  <!-- sobrancelhas de pena em relevo, altas e afastadas do olho, ponta de dentro levemente erguida -->
+  <g fill="#384F7E" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+    <path d="M 140 130 C 150 116 170 108 190 114 C 200 118 202 128 194 132 C 176 128 158 130 148 136 C 142 138 138 136 140 130 Z"/>
+    <path d="M 308 126 C 296 110 266 100 238 104 C 226 106 224 120 234 124 C 258 120 282 122 298 130 C 304 133 310 131 308 126 Z"/>
+  </g>
+</svg>

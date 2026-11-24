@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 04 · Pictograma de trilha · vista de lado (perfil puro, olhando para a esquerda). Chão y=480, altura 448, olhos em y=102. Centro do corpo x=216. -->
+  <!-- mochila: caixa 110 de fundo × 170, encostada nas costas (os 20 da frente ficam escondidos atrás do tronco), com a faixa clara da aba -->
+  <rect x="281" y="150" width="110" height="170" rx="24" fill="#E8601C"/>
+  <rect x="317" y="166" width="58" height="24" rx="12" fill="#FFFFFF"/>
+  <!-- cabeça (esfera r=70) e pescoço -->
+  <circle cx="216" cy="102" r="70" fill="#404246"/>
+  <rect x="191" y="150" width="50" height="50" fill="#404246"/>
+  <!-- tronco (cilindro de 170 de fundo) e a frente clara em perfil -->
+  <rect x="131" y="196" width="170" height="212" rx="40" fill="#404246"/>
+  <rect x="143" y="212" width="74" height="180" rx="24" fill="#FFFFFF"/>
+  <!-- asa: barra 36 × 170 pendurada do ombro, à frente, sobre a borda da frente clara -->
+  <rect x="190" y="196" width="36" height="170" rx="18" fill="#404246"/>
+  <!-- perna (as duas sobrepostas) e pé 90 × 30 para a frente -->
+  <rect x="199" y="380" width="34" height="80" fill="#404246"/>
+  <rect x="143" y="450" width="90" height="30" rx="15" fill="#E8601C"/>
+  <!-- olho de cá e bico em cunha projetado 32 para a frente -->
+  <circle cx="176" cy="102" r="12" fill="#FFFFFF"/>
+  <path d="M190 106 L116 152 L190 152 Z" fill="#E8601C"/>
+</svg>

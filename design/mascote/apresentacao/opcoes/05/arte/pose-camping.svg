@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Opção 05 · Topete de chama · pose-camping (desconforto: chuva; topete murcho caído para o lado, olhos semicerrados, sobrancelha reta, asas abraçando o corpo, gotas) -->
+  <!-- pés -->
+  <g fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+    <ellipse cx="118" cy="450" rx="58" ry="25"/>
+    <ellipse cx="394" cy="450" rx="58" ry="25"/>
+  </g>
+  <g fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round">
+    <path d="M 90 428 L 94 442"/>
+    <path d="M 422 428 L 418 442"/>
+  </g>
+  <!-- corpo com a cabeça em cúpula lisa (o topete caído é desenhado por cima) -->
+  <path d="M 86 196 C 86 146 108 120 150 116
+           C 190 100 322 100 362 116
+           C 404 120 426 146 426 196
+           C 426 270 394 335 396 400
+           C 398 428 398 452 376 462
+           C 346 468 300 469 256 469
+           C 212 469 166 468 136 462
+           C 114 452 114 428 116 400
+           C 118 335 86 270 86 196 Z"
+        fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+  <g fill="#384F7E">
+    <path d="M 150 116 C 108 120 86 146 86 196 L 87 218 C 96 168 116 142 150 136 Z"/>
+    <path d="M 362 116 C 404 120 426 146 426 196 L 425 218 C 416 168 396 142 362 136 Z"/>
+  </g>
+  <!-- topete murcho: a chama apagada, caída para a direita -->
+  <g fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+    <path d="M 150 118 C 154 106 166 98 180 102 C 188 104 190 112 184 118 Z"/>
+    <path d="M 176 114 C 190 92 236 84 268 92 C 300 100 330 108 342 130 C 348 142 340 152 330 148 C 322 144 318 132 312 126 C 296 112 262 110 236 112 C 216 114 196 118 176 114 Z"/>
+  </g>
+  <path d="M 312 126 C 320 118 334 120 342 130 C 348 142 340 152 330 148 C 322 144 318 132 312 126 Z" fill="#E86A2A"/>
+  <path d="M 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 388 372 322 422 278 446 C 266 452 246 452 234 446 C 190 422 124 372 131 312 Z" fill="#141B2E"/>
+  <path d="M 256 270 C 248 244 224 226 198 226 C 162 226 132 262 131 312 C 130 366 196 408 240 430 C 248 434 264 434 272 430 C 316 408 382 366 381 312 C 380 262 350 226 314 226 C 288 226 264 244 256 270 Z" fill="#FFF4E0"/>
+  <!-- asas abraçando o corpo -->
+  <g transform="rotate(-50 104 276)">
+    <path d="M 104 276 C 130 276 150 300 148 334 C 146 366 122 404 106 418 C 90 404 62 366 60 334 C 58 300 78 276 104 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 104 276 C 78 276 58 300 60 334 C 64 308 80 292 104 292 Z" fill="#384F7E"/>
+  </g>
+  <g transform="rotate(50 408 276)">
+    <path d="M 408 276 C 434 276 454 300 452 334 C 450 366 426 404 410 418 C 394 404 366 366 364 334 C 362 300 382 276 408 276 Z" fill="#1E2A44" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M 408 276 C 434 276 454 300 452 334 C 448 308 432 292 408 292 Z" fill="#384F7E"/>
+  </g>
+  <path d="M 220 258 C 234 276 278 276 292 258 C 284 282 228 282 220 258 Z" fill="#141B2E"/>
+  <path d="M 220 228 C 232 224 280 224 292 228 C 302 232 302 244 296 252 C 290 262 272 268 256 268 C 240 268 222 262 216 252 C 210 244 210 232 220 228 Z" fill="#E86A2A" stroke="#141B2E" stroke-width="10" stroke-linejoin="round"/>
+  <path d="M 218 251 C 236 250 276 250 294 251" fill="none" stroke="#141B2E" stroke-width="8" stroke-linecap="round"/>
+  <!-- olhos semicerrados, olhar resignado de lado -->
+  <g fill="#FFF4E0">
+    <circle cx="201" cy="185" r="30"/>
+    <circle cx="311" cy="185" r="30"/>
+  </g>
+  <g fill="#1E2A44">
+    <path d="M 171.2 188 A 30 30 0 0 1 230.8 188 C 220 193 182 193 171.2 188 Z"/>
+    <path d="M 281.2 188 A 30 30 0 0 1 340.8 188 C 330 193 292 193 281.2 188 Z"/>
+  </g>
+  <g fill="#141B2E">
+    <circle cx="206" cy="196" r="16"/>
+    <circle cx="312" cy="196" r="16"/>
+  </g>
+  <g fill="none" stroke="#141B2E" stroke-width="10">
+    <circle cx="201" cy="185" r="30"/>
+    <circle cx="311" cy="185" r="30"/>
+  </g>
+  <!-- sobrancelhas retas -->
+  <g fill="#384F7E" stroke="#141B2E" stroke-width="10" stroke-linejoin="round">
+    <path d="M 164 152 C 180 146 212 144 238 148 C 246 150 246 160 238 162 C 214 162 186 162 172 160 C 166 160 162 156 164 152 Z"/>
+    <path d="M 348 152 C 332 146 300 144 274 148 C 266 150 266 160 274 162 C 298 162 326 162 340 160 C 346 160 350 156 348 152 Z"/>
+  </g>
+  <!-- chuva: poucos traços e gotas grandes, no tom de luz da paleta -->
+  <g fill="none" stroke="#384F7E" stroke-width="8" stroke-linecap="round">
+    <path d="M 96 96 L 84 146"/>
+    <path d="M 458 104 L 446 154"/>
+    <path d="M 46 250 L 34 300"/>
+    <path d="M 474 250 L 462 300"/>
+  </g>
+  <g fill="#384F7E">
+    <path d="M 60 178 C 68 190 71 196 71 201 C 71 207 66 212 60 212 C 54 212 49 207 49 201 C 49 196 52 190 60 178 Z"/>
+    <path d="M 136 44 C 144 56 147 62 147 67 C 147 73 142 78 136 78 C 130 78 125 73 125 67 C 125 62 128 56 136 44 Z"/>
+    <path d="M 420 40 C 428 52 431 58 431 63 C 431 69 426 74 420 74 C 414 74 409 69 409 63 C 409 58 412 52 420 40 Z"/>
+    <path d="M 118 150 C 126 162 129 168 129 173 C 129 179 124 184 118 184 C 112 184 107 179 107 173 C 107 168 110 162 118 150 Z"/>
+    <path d="M 400 196 C 408 208 411 214 411 219 C 411 225 406 230 400 230 C 394 230 389 225 389 219 C 389 214 392 208 400 196 Z"/>
+  </g>
+</svg>

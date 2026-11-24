@@ -1,0 +1,9 @@
+# Estudo ilustrado · opção 04
+
+Data: 2026-11-24. Ferramenta: geração nativa de imagem do Codex (image_gen); modelo de imagem não informado pela ferramenta. Tentativas: 1.
+
+Pedido exato enviado:
+
+> Transforme a imagem de referência no MESMO personagem, de frente, corpo inteiro, com enquadramento, silhueta, proporções e posição de cada elemento rigorosamente iguais à referência, como uma sobreposição exata. Acrescente apenas volume suave de brinquedo de madeira pintada, acabamento liso e fosco, sem veios marcados nem verniz brilhante. Cabeça circular grafite neutro, pescoço curto, tronco retangular de cantos arredondados, barriga branca retangular de cantos arredondados, dois olhos brancos em ponto sem pupila, bico triangular laranja para baixo, asas em barras retas inclinadas com pontas arredondadas, pernas retas grafite e pés em barras laranja. Mochila laranja em caixa atrás do tronco, visível dos dois lados dos ombros, com barra branca horizontal no topo interrompida pelo pescoço, exatamente como na referência. Mantenha as cores exatas do vetor: grafite neutro sem azul, branco e laranja de sinalização. Geometria só de retas, círculos e cantos arredondados. Fundo liso claro, sem cenário, texto, logotipo ou moldura. Não acrescente boca, sorriso, sobrancelhas, pupilas, mãos, dedos, braços humanos, roupas, alças, fivelas, bolsos, marcas ou qualquer traço ausente da referência.
+
+Desvios observados: a iluminação e as sombras alteram localmente os valores das cores; as peças têm bordas arredondadas e relevo, particularmente olhos, bico e barra da mochila. A barriga parece ligeiramente mais larga na parte inferior e as asas mais espessas que no vetor; a coincidência precisa de proporções deve ser conferida pelo QA por sobreposição. O fundo é claro opaco. O vetor continua sendo a arte oficial; esta imagem é um estudo gerado por IA.
