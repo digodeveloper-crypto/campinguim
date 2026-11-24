@@ -1,0 +1,51 @@
+# Overclock
+.overclock-app/
+
+# Sistema e editor
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Dependencias
+node_modules/
+
+# Ambiente e segredos
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+secrets/
+google-services.json
+GoogleService-Info.plist
+
+# Saidas geradas
+dist/
+build/
+out/
+coverage/
+.expo/
+.next/
+*.log
+*.apk
+*.aab
+*.ipa
+
+# Temporarios
+tmp/
+temp/
+.tmp/
+*.tmp
