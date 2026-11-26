@@ -50,9 +50,14 @@ function rodar(comando, argumentos, env = {}) {
   return r.status === 0;
 }
 
+/**
+ * @param {string} nome
+ * @param {() => { estado: Resultado['estado'], detalhe?: string }} fn
+ */
 function etapa(nome, fn) {
   titulo(nome);
   const inicio = Date.now();
+  /** @type {Resultado['estado']} */
   let estado = 'FALHOU';
   let detalhe = '';
   try {
@@ -71,6 +76,11 @@ function contagemVitest(arquivo) {
   return `${j.numPassedTests} de ${j.numTotalTests} testes passaram` + (j.numPendingTests ? ` (${j.numPendingTests} pulados)` : '');
 }
 
+/**
+ * @param {string[]} projetos
+ * @param {string} nomeArquivo
+ * @returns {{ estado: Resultado['estado'], detalhe: string }}
+ */
 function vitest(projetos, nomeArquivo) {
   const saida = path.join(RESULTADOS, nomeArquivo);
   fs.rmSync(saida, { force: true });

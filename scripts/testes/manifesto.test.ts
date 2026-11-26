@@ -10,8 +10,8 @@ import { APK, permissoesDoApk } from '../app.mjs';
 // acrescentada aqui de propósito, com o motivo.
 const PERMITIDAS = {
   'android.permission.INTERNET': 'sincronização e funções do servidor',
-  'android.permission.ACCESS_NETWORK_STATE': 'saber se há internet (sincronização)',
   'android.permission.SCHEDULE_EXACT_ALARM': 'lembrete na hora certa (decisão D2, feature 1.6)',
+  'android.permission.VIBRATE': 'vem do modelo do Expo; não lê dado da pessoa. Fica fora da lista do ponto J9; a feature 1.6 confirma se o aviso vibra',
   'com.campinguim.prova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION': 'interna do Android (receptores do próprio app)',
 };
 

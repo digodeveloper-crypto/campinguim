@@ -1,0 +1,28 @@
+# npm run ambiente:subir, 26/11/2026 14:38 (partindo do ambiente parado)
+
+> campinguim@0.0.0 ambiente:subir
+> node scripts/ambiente/ambiente.mjs subir
+
+[ambiente] subindo o Supabase local
+[ambiente] .env.local atualizado (valores não exibidos)
+[ambiente] subindo o serviço de sincronização (PowerSync)
+--- estado do ambiente local ---
+contêineres do ambiente rodando: 7
+  campinguim-sincronizacao-powersync-1	Up 12 seconds (healthy)
+  campinguim-sincronizacao-mongo-1	Up 15 seconds
+  supabase_edge_runtime_campinguim	Up 21 seconds
+  supabase_rest_campinguim	Up 22 seconds
+  supabase_auth_campinguim	Up 22 seconds (healthy)
+  supabase_kong_campinguim	Up 23 seconds (healthy)
+  supabase_db_campinguim	Up 24 seconds (healthy)
+[ambiente] pronto: Supabase local e PowerSync no ar
+(código de saída: 0)
+
+# docker ps (contêineres do ambiente, com a saúde)
+campinguim-sincronizacao-powersync-1	journeyapps/powersync-service:1.29.1	Up 13 seconds (healthy)
+campinguim-sincronizacao-mongo-1	mongo:7.0	Up 16 seconds
+supabase_edge_runtime_campinguim	public.ecr.aws/supabase/edge-runtime:v1.79.5	Up 22 seconds
+supabase_rest_campinguim	public.ecr.aws/supabase/postgrest:v16.6	Up 23 seconds
+supabase_auth_campinguim	public.ecr.aws/supabase/gotrue:v2.198.0	Up 23 seconds (healthy)
+supabase_kong_campinguim	public.ecr.aws/supabase/kong:2.8.1	Up 24 seconds (healthy)
+supabase_db_campinguim	public.ecr.aws/supabase/postgres:17.12.0.002	Up 25 seconds (healthy)

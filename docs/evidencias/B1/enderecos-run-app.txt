@@ -1,0 +1,33 @@
+# Prova do teste do endereço provisório (SPEC, seção 14), 26/11/2026 14:32
+
+# 1. árvore do repositório como está: passa
+$ npm run enderecos
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+(código de saída: 0)
+
+# 2. um arquivo de código com o domínio do Cloud Run: falha
+$ cat apps/web/src/endereco-de-teste.ts
+export const site = 'https://campinguim-abc123-rj.a.run.app';
+$ npm run enderecos
+[enderecos] FALHOU: 1 endereço(s) fora de config/enderecos.json
+  apps/web/src/endereco-de-teste.ts:1  run.app
+[enderecos] O endereço fica só em config/enderecos.json; o código lê de lá.
+(código de saída: 1)
+
+# 3. o mesmo, dentro da suíte (teste 'a árvore do repositório está limpa')
+$ npx vitest run --project scripts scripts/testes/enderecos.test.ts
+   ❯ endereços fora do arquivo de configuração (7)
+     × a árvore do repositório está limpa 2340ms
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+ FAIL   scripts  scripts/testes/enderecos.test.ts > endereços fora do arquivo de configuração > a árvore do repositório está limpa
++     "arquivo": "apps/web/src/endereco-de-teste.ts",
++     "linha": 1,
++     "trecho": "run.app",
+     24| describe('endereços fora do arquivo de configuração', () => {
+      Tests  1 failed | 6 passed (7)
+
+# 4. desfeito: arquivo apagado; passa de novo
+$ npm run enderecos
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+(código de saída: 0)
+(nenhuma linha: nada sobrou em apps/)

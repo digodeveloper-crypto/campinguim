@@ -18,7 +18,7 @@ const MAESTRO = process.env.MAESTRO_BIN || (process.platform === 'win32' ? 'maes
 
 /** Troca {{pacote}} e {{textos.a.b}} no roteiro. Marcador desconhecido é erro, nunca texto vazio. */
 export function prepararRoteiro(texto, { pacote = PACOTE, textos = JSON.parse(fs.readFileSync(TEXTOS_DO_APP, 'utf8')) } = {}) {
-  return texto.replace(/\{\{\s*([A-Za-z0-9_.]+)\s*\}\}/g, (_, chave) => {
+  return texto.replace(/\{\{\s*([A-Za-z][A-Za-z0-9_.]*)\s*\}\}/g, (_, chave) => {
     if (chave === 'pacote') return pacote;
     if (chave.startsWith('textos.')) {
       const valor = chave
@@ -49,9 +49,11 @@ export function rodarRoteiro(serial, roteiro, { saida, variaveis = {} }) {
   for (const [k, v] of Object.entries(variaveis)) args.push('-e', `${k}=${v}`);
   const inicio = Date.now();
   return new Promise((resolve) => {
-    const p = spawn(MAESTRO, args, {
+    // No Windows o Maestro é um .bat, que só roda pelo shell: a linha vai pronta, com aspas.
+    const linha = [MAESTRO, ...args].map((a) => (/[\s"]/.test(a) ? `"${a.replace(/"/g, '\\"')}"` : a)).join(' ');
+    const p = spawn(linha, {
       cwd: saida,
-      shell: process.platform === 'win32',
+      shell: true,
       windowsHide: true,
       env: {
         ...process.env,

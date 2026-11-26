@@ -1,0 +1,18 @@
+# npm run testar:sincronizacao (só a estrutura do executor na B1), 26/11/2026 14:45
+
+> campinguim@0.0.0 testar:sincronizacao
+> node e2e/sincronizacao/rodar.mjs
+
+[sincronizacao] cenários da SPEC, seção 4:
+  S1   pendente (feature 2.12)  A marca 10 itens em modo avião, fecha o app, reabre e reconecta
+  S2   pendente (feature 2.12)  A e B, offline, assumem o mesmo item do grupo; reconectam
+  S3   pendente (feature 2.12)  A marca in_car offline; B, online, marca set_aside depois
+  S4   pendente (feature 2.12)  A remove um item offline; B edita a quantidade do mesmo item
+  S5   pendente (feature 2.12)  A e B criam offline um item chamado "isqueiro"
+  S6   pendente (feature 2.12)  A altera o valor de um gasto; B altera a regra de divisão, quase juntos
+  S7   pendente (feature 2.12)  A fica 7 dias offline com 200 alterações e reconecta
+  S8   pendente (feature 2.12)  O envio é interrompido no meio e repetido
+  S9   pendente (feature 2.12)  Uma pessoa sem conta cria 2 viagens e depois faz login
+  S10  pendente (feature 2.12)  B é removido do grupo enquanto está offline com alterações pendentes
+[sincronizacao] 0 de 10 cenários implementados: nada a rodar (não é aprovação).
+(código de saída: 0)

@@ -61,7 +61,7 @@ const PADROES = [
 /** Senha ou chave atribuída em arquivo de configuração (não em código, onde gera ruído). */
 const RE_ARQUIVO_DE_CONFIGURACAO = /(^|\/)(\.env[^/]*|[^/]+\.(ya?ml|toml|ini|cfg|conf|properties|jsonc?))$/i;
 const RE_ATRIBUICAO_SENSIVEL =
-  /(?:^|[\s"'{,])((?:[A-Za-z0-9_-]*?)(?:password|passwd|senha|secret|segredo|token|api[_-]?key|chave[_-]?(?:secreta|servico|privada)|private[_-]?key))["']?\s*[:=]\s*["']?([^\s"',#}]+)/gi;
+  /(?:^|[\s"'{,])((?:[A-Za-z0-9_-]*?)(?:password|passwd|senha|secret|segredo|token|api[_-]?key|chave[_-]?(?:secreta|servico|privada)|private[_-]?key)[A-Za-z0-9_-]*)["']?\s*[:=]\s*["']?([^\s"',#}]+)/gi;
 const VALOR_DE_MODELO = /^(?:\*+|<[^>]*>|\$\{[^}]*\}|\$[A-Z_]+|env\(.*\)|!env|process\.env.*|true|false|null|none|""|''|x+|exemplo|example|changeme|sua?-.*|seu-.*)$/i;
 
 /** E-mails permitidos: domínios reservados para exemplo e teste, e endereços públicos de serviço. */
@@ -119,8 +119,13 @@ function escaparRegex(texto) {
 // ---------------------------------------------------------------------------------------------
 // Conferência
 
+// Regras de dado pessoal: o achado nunca aparece, nem em parte (o começo de um nome ou e-mail já
+// identifica a pessoa). Nas de chave, o começo mostra só o formato (sb_sec, eyJhbG, -----B).
+const REGRAS_PESSOAIS = new Set(['email-pessoal', 'termo-pessoal', 'caminho-com-usuario']);
+
 /** Mostra só o começo do achado, para o segredo nunca ir para a tela nem para registro. */
-export function mascarar(trecho) {
+export function mascarar(trecho, regra = '') {
+  if (REGRAS_PESSOAIS.has(regra)) return '***';
   const limpo = trecho.replace(/\s+/g, ' ').trim();
   return limpo.length <= 6 ? '***' : `${limpo.slice(0, 6)}***`;
 }
@@ -157,7 +162,7 @@ export function verificarTexto(caminho, texto, opcoes = {}) {
 
   linhas.forEach((linha, i) => {
     const n = i + 1;
-    const achar = (regra, trecho) => achados.push({ arquivo: rel, linha: n, regra, trecho: mascarar(trecho) });
+    const achar = (regra, trecho) => achados.push({ arquivo: rel, linha: n, regra, trecho: mascarar(trecho, regra) });
 
     for (const { regra, re } of PADROES) {
       for (const m of linha.matchAll(re)) achar(regra, m[0]);

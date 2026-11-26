@@ -1,0 +1,14 @@
+# npm run ambiente:parar, 26/11/2026 14:46
+
+> campinguim@0.0.0 ambiente:parar
+> node scripts/ambiente/ambiente.mjs parar
+
+[ambiente] parando o serviço de sincronização (PowerSync)
+[ambiente] parando o Supabase local (os dados ficam guardados)
+--- estado do ambiente local ---
+contêineres do ambiente rodando: 0
+[ambiente] nada do ambiente ficou rodando
+(código de saída: 0)
+
+# docker ps -a com os nomes do ambiente (nada rodando)
+(nenhuma linha: nenhum contêiner do ambiente)

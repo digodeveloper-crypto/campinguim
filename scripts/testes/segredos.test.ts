@@ -96,3 +96,27 @@ describe('verificarNome', () => {
     expect(verificarNome(nome)).toEqual([]);
   });
 });
+
+describe('mascarar', () => {
+  it('nunca mostra nada de um dado pessoal, nem o começo', () => {
+    const achados = verificarTexto('docs/a.md', `${j('fulano', '@', 'gmail.com')} e o Fulano-PC`, { termosPessoais: ['Fulano-PC'] });
+    expect(achados.map((a: { trecho: string }) => a.trecho)).toEqual(['***', '***']);
+  });
+
+  it('mostra só o formato de uma chave (os 6 primeiros caracteres)', () => {
+    const [achado] = verificarTexto('a.ts', j('sb_', 'secret_', 'AbCdEfGhIjKlMnOpQrSt'));
+    expect(achado?.trecho).toBe('sb_sec***');
+  });
+});
+
+describe('senha em arquivo .env ou de configuração com o nome no meio da chave', () => {
+  it('barra SENHA_DO_BANCO=... e DB_PASSWORD_PROD=...', () => {
+    expect(regras('apps/web/.env.producao', j('SENHA', '_DO_BANCO=', 'valor-qualquer'))).toContain('senha-ou-chave-em-configuracao');
+    expect(regras('config/x.yaml', j('DB_PASS', 'WORD_PROD: ', 'umaSenhaLonga'))).toContain('senha-ou-chave-em-configuracao');
+  });
+
+  it('não acusa opção de configuração sem valor secreto', () => {
+    const config = ['"refresh_token_reuse_interval": 10,', '"enable_refresh_token_rotation": true,', '"secure_password_change": false,', '"password_requirements": "",'].join('\n');
+    expect(regras('supabase/config.jsonc', config)).toEqual([]);
+  });
+});

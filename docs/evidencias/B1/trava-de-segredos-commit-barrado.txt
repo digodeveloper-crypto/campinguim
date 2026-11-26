@@ -1,0 +1,30 @@
+# Prova da trava de segredos no pré-commit (GIT-08), 26/11/2026 14:31
+# O hook .githooks/pre-commit roda: node scripts/seguranca/verificar-segredos.mjs --preparados
+
+# 1. chave falsa no formato das chaves secretas do Supabase
+$ git add scripts/segredo-falso-de-teste.ts && git commit -m 'teste: segredo falso'
+[segredos] BARRADO: 1 achado(s) em 1 arquivo(s) conferido(s)
+  scripts/segredo-falso-de-teste.ts:1  chave-supabase  sb_sec***
+[segredos] Tire o segredo do arquivo (credencial local vai em .env.local, fora do git) e tente de novo.
+(código de saída do commit: 1)
+$ git log --oneline -1   # o commit não aconteceu
+467e5d5 B1: estrutura do monorepo, ambiente local em Docker e suíte local de testes
+
+# 2. dado pessoal (caminho C:\Users\<usuário real>, nome do usuário do Windows, e-mail pessoal) e um .env com valor
+$ git add -f scripts/dado-pessoal-de-teste.md apps/web/.env.producao && git commit -m 'teste: dado pessoal'
+[segredos] BARRADO: 5 achado(s) em 2 arquivo(s) conferido(s)
+  apps/web/.env.producao  arquivo-env  .env.producao
+  scripts/dado-pessoal-de-teste.md:1  caminho-com-usuario  ***
+  scripts/dado-pessoal-de-teste.md:1  termo-pessoal  ***
+  scripts/dado-pessoal-de-teste.md:2  termo-pessoal  ***
+  scripts/dado-pessoal-de-teste.md:3  email-pessoal  ***
+[segredos] Tire o segredo do arquivo (credencial local vai em .env.local, fora do git) e tente de novo.
+(código de saída do commit: 1)
+$ git log --oneline -1   # o commit não aconteceu
+467e5d5 B1: estrutura do monorepo, ambiente local em Docker e suíte local de testes
+
+# 3. desfeito: arquivos tirados do índice e apagados
+$ git status --short -- scripts apps
+ M scripts/seguranca/verificar-segredos.mjs
+ M scripts/testes/segredos.test.ts
+(nenhum dos três arquivos de teste sobrou; as linhas acima, se houver, são as mudanças da rodada em andamento)

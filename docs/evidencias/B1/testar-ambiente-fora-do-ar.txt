@@ -1,0 +1,64 @@
+# npm run testar com o ambiente parado, 26/11/2026 14:46
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1383 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/B1
+
+ ✓  core  packages/core/src/cotas.test.ts (5 tests) 7ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 37ms
+ ✓  scripts  scripts/testes/manifesto.test.ts (3 tests) 14ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 998ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 2237ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 2075ms
+
+ Test Files  5 passed (5)
+      Tests  76 passed (76)
+   Start at  14:47:16
+   Duration  3.26s (tests 72%, import 25%, transform 2%, worker 2%)
+
+JSON report written to C:/campinguim-wt/B1/test-results/suite/vitest-unitarios.json
+
+=== Testes do servidor (ambiente local) ===================================
+PULADO: o Supabase local ou o PowerSync não responde (rode npm run ambiente:subir)
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (645ms)
+  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (984ms)
+
+  2 passed (6.5s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 4.4 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          2.3 s  
+passou  Tipos (TypeScript estrito)                                14.4 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                          9.9 s  
+passou  Testes unitários: regras puras e travas do repositório     4.4 s  76 de 76 testes passaram
+PULADO  Testes do servidor (ambiente local)                        0.0 s  o Supabase local ou o PowerSync não responde (rode npm run ambiente:subir)
+passou  Página web (Chromium e WebKit)                             7.8 s  2 de 2 testes passaram
+
+SUÍTE INCOMPLETA: nada falhou, mas 1 etapa(s) foram puladas (43.3 s). Não serve para aprovar.
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+(código de saída: 0)

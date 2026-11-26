@@ -23,5 +23,7 @@ test('a página provisória abre com os textos do arquivo de textos', async ({ p
   expect(larguras.conteudo).toBeLessThanOrEqual(larguras.tela);
   expect(erros).toEqual([]);
 
-  await page.screenshot({ path: info.outputPath('pagina-provisoria.png'), fullPage: true });
+  // Captura da área visível (a página cabe na tela; a de página inteira falhou às vezes no Chromium
+  // com a máquina carregada: "Unable to capture screenshot").
+  await page.screenshot({ path: info.outputPath('pagina-provisoria.png') });
 });

@@ -1,0 +1,52 @@
+# Permissões do app no manifesto final mesclado (ponto J9 da prova; PRV-02; decisão D2), 26/11/2026 14:35
+# APK: apps/mobile/android/app/build/outputs/apk/release/app-release.apk (npm run app:gerar)
+
+## 1. Permissões que o APK gerado pede (aapt2 dump permissions, via node scripts/app.mjs permissoes)
+android.permission.INTERNET
+android.permission.SCHEDULE_EXACT_ALARM
+android.permission.VIBRATE
+com.campinguim.prova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+
+## 2. Manifesto final mesclado (build/intermediates/merged_manifests/release): todas as linhas uses-permission
+11:    <uses-permission android:name="android.permission.INTERNET" />
+12:    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+13:    <uses-permission android:name="android.permission.VIBRATE" />
+40:    <uses-permission android:name="com.campinguim.prova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+
+## 3. Manifesto do app gerado pelo expo prebuild (android/app/src/main/AndroidManifest.xml): o que o app.config.ts bloqueia (tools:node="remove")
+permissões bloqueadas: 24
+<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" tools:node="remove"/>
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" tools:node="remove"/>
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" tools:node="remove"/>
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:node="remove"/>
+<uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" tools:node="remove"/>
+<uses-permission android:name="android.permission.USE_EXACT_ALARM" tools:node="remove"/>
+<uses-permission android:name="android.permission.VIBRATE"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove"/>
+<uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" tools:node="remove"/>
+<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" tools:node="remove"/>
+<uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" tools:node="remove"/>
+<uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" tools:node="remove"/>
+<uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" tools:node="remove"/>
+<uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" tools:node="remove"/>
+<uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" tools:node="remove"/>
+<uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" tools:node="remove"/>
+<uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" tools:node="remove"/>
+<uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" tools:node="remove"/>
+<uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" tools:node="remove"/>
+<uses-permission android:name="com.sec.android.provider.badge.permission.READ" tools:node="remove"/>
+<uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" tools:node="remove"/>
+<uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" tools:node="remove"/>
+<uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" tools:node="remove"/>
+<uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_READ" tools:node="remove"/>
+<uses-permission android:name="me.everything.badger.permission.BADGE_COUNT_WRITE" tools:node="remove"/>
+
+## 4. Pacote (provisório, decisão D1) e SDK
+package: name='com.campinguim.prova' versionCode='1' versionName='0.0.0' platformBuildVersionName='17' platformBuildVersionCode='37' compileSdkVersion='37' compileSdkVersionCodename='17'
+targetSdkVersion:'36'
+
+## 5. Teste de lista fechada (scripts/testes/manifesto.test.ts)
+ Test Files  1 passed (1)
+      Tests  3 passed (3)

@@ -175,7 +175,7 @@ Referência: `docs/prova-tecnica/resultado.md`, seção "Pontos para a B1 (seç�
 | --- | --- |
 | J5 | Não vieram para a base o login por link com token (`campinguim://entrar?t=`), os botões de teste nem o roteiro que semeia viagens por link. Um teste do repositório falha se esses trechos aparecerem no código |
 | J6 | `jwt_expiry` volta a 3600 s (teste confere); o atraso artificial do P8 (`private.prova_ajuste`) não existe na base |
-| J9 | O `app.config.ts` bloqueia `SYSTEM_ALERT_WINDOW`, `READ/WRITE_EXTERNAL_STORAGE`, a do c2dm, a do install referrer, as 14 de selo de ícone de fabricantes, as de localização e `USE_EXACT_ALARM`; mantém `SCHEDULE_EXACT_ALARM` (decisão D2). O manifesto final mesclado é conferido pelo teste de lista fechada |
+| J9 | O `app.config.ts` bloqueia `SYSTEM_ALERT_WINDOW`, `READ/WRITE_EXTERNAL_STORAGE`, a do c2dm, a do install referrer, as 14 de selo de ícone de fabricantes, as de localização e `USE_EXACT_ALARM`; mantém `SCHEDULE_EXACT_ALARM` (decisão D2). Manifesto final mesclado: `INTERNET`, `SCHEDULE_EXACT_ALARM`, `VIBRATE` e a interna `DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION`, conferido pelo teste de lista fechada. `VIBRATE` vem do modelo do Expo, não estava na lista do ponto J9 e não lê dado da pessoa; a feature 1.6 confirma se o aviso vibra ou se ela sai |
 | J14 | Todo `package.json` declara `"type"`; um teste confere |
 | J23 | Nenhum script derruba ou reinicia o servidor do adb; todo adb passa por `scripts/android.mjs` com `-s emulator-<porta>`; um teste confere |
 | J24 | Integração só por squash, feita pelo orquestrador depois da aprovação do QA |
