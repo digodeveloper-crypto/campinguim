@@ -4,8 +4,9 @@
 # Os marcadores {{...}} são trocados pelo executor (scripts/jornadas.mjs).
 appId: "{{pacote}}"
 ---
-- launchApp:
-    clearState: true
+# O app abre a frio pelo link (com o app já aberto, o link não troca de tela; ver docs/componentes.md).
+- clearState
+- stopApp
 - openLink: "campinguim://galeria"
 - extendedWaitUntil:
     visible:
@@ -27,7 +28,14 @@ appId: "{{pacote}}"
       id: galeria-cores
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-cores
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cores-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cores-2
 # Seção tipografia
 - scrollUntilVisible:
     element:
@@ -40,7 +48,14 @@ appId: "{{pacote}}"
       id: galeria-tipografia
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-tipografia
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-tipografia-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-tipografia-2
 # Seção icones
 - scrollUntilVisible:
     element:
@@ -53,7 +68,14 @@ appId: "{{pacote}}"
       id: galeria-icones
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-icones
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-icones-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-icones-2
 # Seção rota
 - scrollUntilVisible:
     element:
@@ -66,7 +88,14 @@ appId: "{{pacote}}"
       id: galeria-rota
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-rota
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rota-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rota-2
 # Seção cabecalho
 - scrollUntilVisible:
     element:
@@ -79,7 +108,14 @@ appId: "{{pacote}}"
       id: galeria-cabecalho
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-cabecalho
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cabecalho-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cabecalho-2
 # Seção botoes
 - scrollUntilVisible:
     element:
@@ -92,7 +128,14 @@ appId: "{{pacote}}"
       id: galeria-botoes
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-botoes
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-botoes-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-botoes-2
 # Seção item
 - scrollUntilVisible:
     element:
@@ -105,7 +148,14 @@ appId: "{{pacote}}"
       id: galeria-item
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-item
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-item-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-item-2
 # Seção alerta
 - scrollUntilVisible:
     element:
@@ -118,7 +168,14 @@ appId: "{{pacote}}"
       id: galeria-alerta
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-alerta
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-alerta-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-alerta-2
 # Seção selo
 - scrollUntilVisible:
     element:
@@ -131,7 +188,14 @@ appId: "{{pacote}}"
       id: galeria-selo
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-selo
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-selo-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-selo-2
 # Seção legenda
 - scrollUntilVisible:
     element:
@@ -144,7 +208,14 @@ appId: "{{pacote}}"
       id: galeria-legenda
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-legenda
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-legenda-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-legenda-2
 # Seção rodape
 - scrollUntilVisible:
     element:
@@ -157,7 +228,14 @@ appId: "{{pacote}}"
       id: galeria-rodape
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-rodape
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rodape-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rodape-2
 # Seção campos
 - scrollUntilVisible:
     element:
@@ -170,7 +248,14 @@ appId: "{{pacote}}"
       id: galeria-campos
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-campos
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-campos-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-campos-2
 # Seção vazios
 - scrollUntilVisible:
     element:
@@ -183,7 +268,14 @@ appId: "{{pacote}}"
       id: galeria-vazios
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-vazios
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-vazios-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-vazios-2
 # Seção mascote
 - scrollUntilVisible:
     element:
@@ -196,7 +288,14 @@ appId: "{{pacote}}"
       id: galeria-mascote
     direction: DOWN
     centerElement: false
-- takeScreenshot: galeria-mascote
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-mascote-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-mascote-2
 # Legenda aberta: o painel abre de baixo, com o fechar de 48
 - scrollUntilVisible:
     element:

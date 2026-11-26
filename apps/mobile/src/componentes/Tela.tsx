@@ -1,6 +1,7 @@
 // Esqueleto de uma tela do Rumo: fundo `fundo`, curvas de nível no topo, conteúdo rolável com a margem
 // lateral de 16 mais a área segura, e o rodapé fixo fora da rolagem (o conteúdo termina sempre acima dele).
 import type { ReactNode } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -16,13 +17,15 @@ type Props = {
 };
 
 export function Tela({ children, rodape, curvas = true, testID }: Props) {
-  const { cores } = useTema();
+  const { cores, escuro } = useTema();
   const margens = useSafeAreaInsets();
   return (
-    <View testID={testID} style={[estilos.tela, { backgroundColor: cores.fundo }]}>
+    // A rolagem começa abaixo da barra de status: o conteúdo nunca passa por baixo dos ícones do sistema.
+    <View testID={testID} style={[estilos.tela, { backgroundColor: cores.fundo, paddingTop: margens.top }]}>
+      {/* Ícones da barra de status legíveis no tema da tela. */}
+      <StatusBar style={escuro ? 'light' : 'dark'} />
       <ScrollView
         contentContainerStyle={{
-          paddingTop: margens.top,
           paddingBottom: rodape ? 24 : 32 + margens.bottom,
           paddingLeft: tokens.espaco.margemTela + margens.left,
           paddingRight: tokens.espaco.margemTela + margens.right,

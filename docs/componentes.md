@@ -135,7 +135,7 @@ Todos têm: propriedades tipadas (TypeScript estrito), variação escura (leem `
 ## 8. Como conferir
 
 1. Gere e instale o app (`npm run app:gerar` e `npm run app:instalar`, com o `campinguim-a` ligado).
-2. Abra a galeria: `adb -s emulator-5554 shell am start -a android.intent.action.VIEW -d campinguim://galeria`.
+2. Abra a galeria com o app fechado: `adb -s emulator-5554 shell am start -S -a android.intent.action.VIEW -d campinguim://galeria` (o `-S` fecha o app antes). Observado na B2: com o app já aberto, o link chega ao app mas não troca de tela; isso vem da navegação da base e fica registrado para a feature que tratar links (SPEC §7).
 3. Na galeria: escolha a seção, force o tema (do aparelho, claro, escuro) e simule a letra (100, 130, 200 %). A simulação soma à letra do sistema.
 4. Condições reais do sistema (e devolva ao padrão no fim):
 

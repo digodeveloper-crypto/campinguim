@@ -19,10 +19,12 @@ const ARTES = path.join(APP, 'src', 'componentes', 'mascote', 'artes.ts');
 
 export const NOMES_ARTES = ['principal', 'icone', 'pose-alerta', 'pose-camping', 'pose-comemorando'];
 
+/** O git guarda os arquivos com LF; no Windows a cópia de trabalho pode vir com CRLF. */
+const lerLf = (arquivo) => fs.readFileSync(arquivo, 'utf8').split('\r\n').join('\n');
+
 export function artesTs() {
   const linhas = NOMES_ARTES.map((nome) => {
-    // O git guarda as artes com LF; no Windows a cópia de trabalho pode vir com CRLF.
-    const svg = fs.readFileSync(path.join(PASTA_MASCOTE, `${nome}.svg`), 'utf8').replaceAll('\r\n', '\n');
+    const svg = lerLf(path.join(PASTA_MASCOTE, `${nome}.svg`));
     return `  '${nome}': ${JSON.stringify(svg)},`;
   });
   return [
@@ -40,14 +42,14 @@ export function artesTs() {
 const conferir = process.argv.includes('--conferir');
 const tokens = JSON.parse(fs.readFileSync(path.join(AQUI, 'tokens.json'), 'utf8'));
 const saidas = [
-  [CSS_WEB, aplicarBloco(fs.readFileSync(CSS_WEB, 'utf8'), cssDosTokens(tokens))],
+  [CSS_WEB, aplicarBloco(lerLf(CSS_WEB), cssDosTokens(tokens))],
   [ARTES, artesTs()],
 ];
 
 let velhos = 0;
 for (const [arquivo, conteudo] of saidas) {
-  const atual = fs.existsSync(arquivo) ? fs.readFileSync(arquivo, 'utf8') : null;
-  const relativo = path.relative(RAIZ, arquivo).replaceAll('\\', '/');
+  const atual = fs.existsSync(arquivo) ? lerLf(arquivo) : null;
+  const relativo = path.relative(RAIZ, arquivo).split(path.sep).join('/');
   if (atual === conteudo) {
     console.log(`em dia: ${relativo}`);
   } else if (conferir) {
