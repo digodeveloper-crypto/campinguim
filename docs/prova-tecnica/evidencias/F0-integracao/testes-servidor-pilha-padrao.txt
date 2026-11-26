@@ -1,0 +1,164 @@
+$ npm run testar   (retomada, 26/11, Node do sistema v24.19.0, pilha padrão campinguim-prova logo depois do db reset; sem o dublê, que roda na pilha paralela)
+
+> campinguim-prova-servidor@0.0.0 testar
+> node --test --test-reporter=spec "testes/*.test.mjs"
+
+▶ A não lê nada da viagem de C pela API
+  ✔ trip: A vê só a viagem de grupo (22.7961ms)
+  ✔ trip: A pedindo a viagem de C pelo identificador recebe nada (10.692ms)
+  ✔ trip_member: A pedindo os membros da viagem de C recebe nada (15.4102ms)
+  ✔ trip_item: A pedindo os itens da viagem de C recebe nada (15.4586ms)
+  ✔ trip_item: tudo o que A vê é da viagem de grupo (16.5249ms)
+✔ A não lê nada da viagem de C pela API (278.1195ms)
+▶ escritas fora da própria viagem são recusadas
+  ✔ A não cria item na viagem de C (5.1651ms)
+  ✔ A não altera a viagem de C (5.9878ms)
+  ✔ A não se coloca como membro da viagem de C (19.0131ms)
+  ✔ B (membro, não organizador) não altera os dados da viagem de grupo (25.3051ms)
+✔ escritas fora da própria viagem são recusadas (56.0969ms)
+▶ membros da mesma viagem e sem login
+  ✔ B lê a viagem de grupo e os seus itens (36.1698ms)
+  ✔ C não lê nada da viagem de grupo (46.7652ms)
+  ✔ sem login não se lê nenhuma tabela (45.4113ms)
+✔ membros da mesma viagem e sem login (128.7653ms)
+✔ o domínio do Cloud Run não aparece em nenhum arquivo da prova (19.2201ms)
+✔ o endereço do servidor só aparece no arquivo de configuração (14.8196ms)
+✔ o endereço do site só aparece no arquivo de configuração (14.6989ms)
+✔ manifesto Android gerado: sem localização e sem USE_EXACT_ALARM; com o link do site (0.7312ms)
+✔ nenhum arquivo de credencial local está rastreado pelo git (77.4875ms)
+tabelas encontradas: private.prova_ajuste, private.sync_change, public.device, public.integrity_attempt, public.integrity_token_used, public.item_claim, public.trip, public.trip_item, public.trip_item_history, public.trip_member
+✔ toda tabela dos esquemas da aplicação tem RLS ativo (32.0373ms)
+✔ as tabelas da prova existem e estão na publicação do PowerSync (22.0317ms)
+▶ princípio 2: repetição é ignorada
+  ✔ o mesmo change_id enviado duas vezes é aplicado uma vez só (151.7772ms)
+  ✔ item novo reenviado não duplica (75.4808ms)
+✔ princípio 2: repetição é ignorada (431.6552ms)
+▶ S10: quem não é membro ativo tem a alteração recusada
+  ✔ C não altera item da viagem de A e B (93.3194ms)
+  ✔ B removido da viagem: 5 alterações recusadas, reenvio continua recusado (107.7908ms)
+  ✔ escrita direta em trip_item pela API é recusada (só pela função) (31.2749ms)
+✔ S10: quem não é membro ativo tem a alteração recusada (232.8741ms)
+▶ S3: pack_state mais avançado vence quando é concorrente
+  ✔ B (online) marca set_aside, depois chega A (offline) com in_car: in_car (77.0431ms)
+  ✔ ordem inversa: in_car chega antes, set_aside concorrente depois: in_car (78.1925ms)
+  ✔ desmarcar sobre o valor atual (não concorrente) é aplicado (62.4627ms)
+✔ S3: pack_state mais avançado vence quando é concorrente (218.1693ms)
+▶ S2: duas famílias assumem o mesmo item do grupo
+  ✔ duas linhas em item_claim, cada uma com a família de quem enviou (64.508ms)
+✔ S2: duas famílias assumem o mesmo item do grupo (64.7321ms)
+▶ quantidade, nome e nota: vale a última a chegar
+  ✔ item do grupo: o valor perdido fica no histórico (94.3821ms)
+  ✔ item de uma família: vale o último, sem histórico (78.9224ms)
+✔ quantidade, nome e nota: vale a última a chegar (173.5732ms)
+▶ S4: remoção vence edição, e o item pode ser restaurado
+  ✔ ordem de chegada: remove-primeiro (74.5945ms)
+  ✔ ordem de chegada: edita-primeiro (108.698ms)
+✔ S4: remoção vence edição, e o item pode ser restaurado (183.5377ms)
+▶ S5: dois itens novos com o mesmo nome ficam os dois
+  ✔ A e B criam "isqueiro" (93.2949ms)
+✔ S5: dois itens novos com o mesmo nome ficam os dois (93.4952ms)
+▶ S9: viagem criada no aparelho sobe com o mesmo identificador
+  ✔ A envia a viagem e os itens; vira dona e organizadora (46.2032ms)
+✔ S9: viagem criada no aparelho sobe com o mesmo identificador (46.4139ms)
+▶ o relógio do aparelho não decide
+  ✔ updated_at é do servidor, mesmo com relógio do aparelho errado (77.2272ms)
+✔ o relógio do aparelho não decide (77.4738ms)
+▶ segunda barreira: C não recebe nada da viagem de A e B pela sincronização
+  ✔ C recebe só a própria viagem (1586.7256ms)
+  ✔ controle: A recebe a viagem de grupo, os itens, quem assumiu e o histórico (1616.4437ms)
+✔ segunda barreira: C não recebe nada da viagem de A e B pela sincronização (3203.5246ms)
+(node:4088) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///<raiz>/prova/app/src/verificacao/resumo.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to <raiz>\prova\app\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ só src/verificacao/expo.ts importa @expo/app-integrity (6.7455ms)
+✔ fora da pasta da interface, ninguém carrega a implementação da biblioteca (6.1897ms)
+✔ o resumo do pedido do app é igual ao do servidor e ao SHA-256 do Node (11.7819ms)
+▶ servidor local: chamada sem verificação válida recebe integrity_required
+  ✔ sem prova (146.8751ms)
+  ✔ prova de desenvolvimento com a aceitação desligada (configuração padrão) (28.0962ms)
+  ✔ pedido malformado: validation (10.2956ms)
+  ﹣ token inválido (0.192ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ assinatura do token errada (0.0862ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ token vencido (0.0825ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ pacote errado (0.0971ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ assinatura do app errada (outro certificado) (0.0815ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ app UNRECOGNIZED_VERSION (0.0844ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ licença UNLICENSED (0.0828ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ veredito do aparelho vazio (0.0495ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ prova de outro pedido (token de um pedido usado em outro) (0.0398ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ repetição (replay): o mesmo token duas vezes (0.036ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+  ﹣ aparelho verificado com o prazo vencido (0.037ms) # pilha sem o dublê de teste (suba com scripts/pilha-paralela.mjs)
+✔ servidor local: chamada sem verificação válida recebe integrity_required (204.2633ms)
+▶ servidor local: o app não chega às tabelas da verificação
+  ✔ com a chave pública, a API não lê nem grava nessas tabelas (61.8264ms)
+  ✔ RLS ativo, nenhuma política e nenhuma permissão para anon e authenticated (3.3574ms)
+✔ servidor local: o app não chega às tabelas da verificação (65.4705ms)
+▶ configuração: aceitação de desenvolvimento e dublê só no local
+  ✔ sem nenhuma variável: produção, tudo desligado (falha fechado) (1.3732ms)
+  ✔ local sem ligar a chave: prova de desenvolvimento recusada (padrão desligado) (0.3776ms)
+  ✔ local com a chave ligada: aceita a prova de desenvolvimento (0.2667ms)
+  ✔ produção com as chaves ligadas por engano: continua tudo desligado (0.1969ms)
+  ✔ o modelo de configuração de PRODUÇÃO deixa a prova de desenvolvimento e o dublê desligados (0.5724ms)
+  ✔ dublê exige segredo local com pelo menos 32 caracteres (0.1316ms)
+  ✔ certificado aceito no formato da Play Console (hexadecimal com dois-pontos) (0.2631ms)
+✔ configuração: aceitação de desenvolvimento e dublê só no local (4.5316ms)
+▶ veredito da Play Integrity (formato oficial)
+  ✔ veredito bom de EXEMPLO: aceito (o servidor não recusa tudo) (0.751ms)
+  ✔ MEETS_STRONG_INTEGRITY junto de MEETS_DEVICE_INTEGRITY: aceito (0.317ms)
+  ✔ recusa: pacote do pedido diferente (0.2502ms)
+  ✔ recusa: resumo do pedido diferente (prova de outro pedido) (0.1072ms)
+  ✔ recusa: token vencido (pedido há 1 dia) (0.0986ms)
+  ✔ recusa: horário no futuro (0.0713ms)
+  ✔ recusa: horário ilegível (0.0879ms)
+  ✔ recusa: sem requestDetails (0.111ms)
+  ✔ recusa: app UNRECOGNIZED_VERSION (0.0862ms)
+  ✔ recusa: app UNEVALUATED (0.063ms)
+  ✔ recusa: app com veredito desconhecido (0.0968ms)
+  ✔ recusa: pacote do app diferente (0.0911ms)
+  ✔ recusa: assinatura do app diferente (outro certificado) (0.0914ms)
+  ✔ recusa: certificado do app ausente (0.0822ms)
+  ✔ recusa: licença UNLICENSED (instalado por fora) (0.0694ms)
+  ✔ recusa: licença UNEVALUATED (0.0709ms)
+  ✔ recusa: sem accountDetails (0.101ms)
+  ✔ recusa: veredito do aparelho vazio (campo ausente) (0.0655ms)
+  ✔ recusa: veredito do aparelho lista vazia (0.0486ms)
+  ✔ recusa: aparelho só MEETS_BASIC_INTEGRITY (0.0624ms)
+  ✔ recusa: aparelho MEETS_VIRTUAL_INTEGRITY (emulador) (0.0496ms)
+  ✔ recusa: veredito limpo pelo Google ao decodificar o mesmo token de novo (0.0398ms)
+  ✔ recusa: nenhum certificado configurado no servidor (0.0809ms)
+✔ veredito da Play Integrity (formato oficial) (3.7504ms)
+▶ chamada protegida: casos negativos devolvem integrity_required
+  ✔ sem prova e aparelho nunca verificado (0.5911ms)
+  ✔ a recusa não revela o motivo a quem chamou (0.1742ms)
+  ✔ pedido malformado: validation (não chega à verificação) (0.154ms)
+  ✔ token inválido (não é um token) (14.9931ms)
+  ✔ token com assinatura errada (montado com outro segredo) (2.6924ms)
+  ✔ token adulterado depois de assinado (1.1594ms)
+  ✔ token vencido (1.0036ms)
+  ✔ pacote errado (pedido e app de outro pacote) (0.7748ms)
+  ✔ assinatura do app errada (certificado diferente do nosso) (0.8991ms)
+  ✔ prova de outro pedido (mesmo token com outros dados) (0.625ms)
+  ✔ repetição (replay): o mesmo token na segunda vez é recusado (0.8102ms)
+  ✔ cada veredito ruim, pelo caminho inteiro da chamada (11.8245ms)
+  ✔ prova de desenvolvimento com a aceitação desligada (padrão) (0.5575ms)
+  ✔ prova de desenvolvimento ligada, mas de outro pedido (0.4349ms)
+  ✔ prova de desenvolvimento em produção, mesmo com a chave ligada por engano (0.4877ms)
+  ✔ produção hoje (sem a conta do Google Play): todo token da Play é recusado (0.5236ms)
+  ✔ servidor sem pacote ou certificado configurado: recusa (0.9378ms)
+  ✔ aparelho verificado, mas com o prazo vencido (0.2238ms)
+✔ chamada protegida: casos negativos devolvem integrity_required (39.8872ms)
+▶ chamada protegida: o que é aceito (para mostrar que nem tudo é recusado)
+  ✔ DUBLÊ: veredito bom de exemplo aceito e o aparelho fica marcado (1.8988ms)
+  ✔ aparelho verificado dentro do prazo: chamada sem prova aceita pela marca (0.214ms)
+  ✔ prova de desenvolvimento com a aceitação ligada, só no local (0.8771ms)
+✔ chamada protegida: o que é aceito (para mostrar que nem tudo é recusado) (3.2264ms)
+ℹ tests 107
+ℹ suites 19
+ℹ pass 96
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 11
+ℹ todo 0
+ℹ duration_ms 4966.4828
+exit 0

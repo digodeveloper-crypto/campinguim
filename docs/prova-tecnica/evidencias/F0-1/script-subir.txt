@@ -1,0 +1,22 @@
+$ node prova/prova.mjs subir
+[prova] subindo o Supabase local
+[prova] prova/.env.local atualizado (valores não exibidos)
+[prova] subindo o serviço de sincronização (PowerSync)
+[prova] criando os usuários e as viagens de teste
+[prova] [semear] usuários A, B e C prontos; viagem de grupo (A e B) e viagem de C com itens
+[prova] ligando campinguim-a (emulator-5554)
+[prova] ligando campinguim-b (emulator-5556)
+[prova] campinguim-a pronto (emulator-5554)
+[prova] campinguim-b pronto (emulator-5556)
+--- estado da prova ---
+contêineres da prova: 7
+  campinguim-prova-sincronizacao-powersync-1	Up 39 seconds (healthy)
+  campinguim-prova-sincronizacao-mongo-1	Up 40 seconds
+  supabase_edge_runtime_campinguim-prova	Up 45 seconds
+  supabase_rest_campinguim-prova	Up 45 seconds
+  supabase_auth_campinguim-prova	Up 46 seconds (healthy)
+  supabase_kong_campinguim-prova	Up 46 seconds (healthy)
+  supabase_db_campinguim-prova	Up 47 seconds (healthy)
+emuladores (processos): 4; aparelhos no adb: emulator-5554, emulator-5556
+servidor adb: rodando
+código de saída: 0

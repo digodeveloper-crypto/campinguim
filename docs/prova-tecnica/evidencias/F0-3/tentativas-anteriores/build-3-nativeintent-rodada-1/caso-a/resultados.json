@@ -1,0 +1,62 @@
+[
+  {
+    "caso": "a",
+    "execucao": 1,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 2,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 3,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 4,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 5,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 6,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 7,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 8,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 9,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  },
+  {
+    "caso": "a",
+    "execucao": 10,
+    "ok": false,
+    "falha_de_roteiro": "o app não fechou pela lista de recentes"
+  }
+]

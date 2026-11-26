@@ -1,0 +1,26 @@
+    NotificationRecord(0x08f95e15: pkg=com.campinguim.prova user=UserHandle{0} id=0 tag=0|com.campinguim.prova|g:Aggregate_AlertingSection importance=4 key=0|com.campinguim.prova|0|0|com.campinguim.prova|g:Aggregate_AlertingSection|10216|0|com.campinguim.prova|g:Aggregate_AlertingSection: Notification(channel=lembretes shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL|LOCAL_ONLY|GROUP_SUMMARY|AUTOGROUP_SUMMARY color=0xff1f4b4d groupKey=0|com.campinguim.prova|g:Aggregate_AlertingSection vis=PRIVATE))
+            when=1795580290051/1795580290051
+    NotificationRecord(0x0f27b4b5: pkg=com.campinguim.prova user=UserHandle{0} id=0 tag=7e0a6b66-e877-4b97-b249-1e5a7257ff17 importance=4 key=0|com.campinguim.prova|0|7e0a6b66-e877-4b97-b249-1e5a7257ff17|10216: Notification(channel=lembretes shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL|SILENT color=0xff1f4b4d vis=PRIVATE))
+            when=1795580608433/1795580608433
+                android.title=String (Campinguim)
+                android.text=String (Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás)
+    NotificationRecord(0x032cd7d8: pkg=com.campinguim.prova user=UserHandle{0} id=0 tag=48e1fd94-21c0-4663-87bd-aa3bf0f27997 importance=4 key=0|com.campinguim.prova|0|48e1fd94-21c0-4663-87bd-aa3bf0f27997|10216: Notification(channel=lembretes shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL|SILENT color=0xff1f4b4d vis=PRIVATE))
+            when=1795580608413/1795580608413
+                android.title=String (Campinguim)
+                android.text=String (Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás)
+    NotificationRecord(0x00ac18b8: pkg=com.campinguim.prova user=UserHandle{0} id=0 tag=113a2336-e160-4588-b380-2bf6917a42d3 importance=4 key=0|com.campinguim.prova|0|113a2336-e160-4588-b380-2bf6917a42d3|10216: Notification(channel=lembretes shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL|SILENT color=0xff1f4b4d vis=PRIVATE))
+            when=1795580289835/1795580289835
+                android.title=String (Campinguim)
+                android.text=String (Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás)
+    NotificationRecord(0x04b0c1f7: pkg=com.campinguim.prova user=UserHandle{0} id=0 tag=29f41891-9adc-4fc0-8d1a-1e5dc862da88 importance=4 key=0|com.campinguim.prova|0|29f41891-9adc-4fc0-8d1a-1e5dc862da88|10216: Notification(channel=lembretes shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL|SILENT color=0xff1f4b4d vis=PRIVATE))
+            when=1795580289824/1795580289824
+                android.title=String (Campinguim)
+                android.text=String (Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás)
+    NotificationRecord(0x01583acd: pkg=com.campinguim.prova user=UserHandle{0} id=0 tag=6799f091-17b0-414f-8dbc-18a44833ae73 importance=4 key=0|com.campinguim.prova|0|6799f091-17b0-414f-8dbc-18a44833ae73|10216: Notification(channel=lembretes shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL|SILENT color=0xff1f4b4d vis=PRIVATE))
+            when=1795580289809/1795580289809
+                android.title=String (Campinguim)
+                android.text=String (Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás)
+    NotificationRecord(0x0f8ba612: pkg=android user=UserHandle{-1} id=55 tag=null importance=2 key=-1|android|55|null|1000: Notification(channel=DEVELOPER shortcut=null contentView=null vibrate=null sound=null tick defaults=0 flags=ONGOING_EVENT|CAN_COLORIZE color=0x00000000 vis=PUBLIC))
+            when=0/1795577076299
+                android.title=String (Serial console enabled)
+                android.text=String (Performance is impacted. To disable, check bootloader.)

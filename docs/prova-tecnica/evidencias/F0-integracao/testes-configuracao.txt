@@ -1,0 +1,15 @@
+$ cd prova/servidor && node --test --test-reporter=spec testes/configuracao.test.mjs   (retomada, 26/11)
+✔ o domínio do Cloud Run não aparece em nenhum arquivo da prova (21.4177ms)
+✔ o endereço do servidor só aparece no arquivo de configuração (16.487ms)
+✔ o endereço do site só aparece no arquivo de configuração (17.1327ms)
+✔ manifesto Android gerado: sem localização e sem USE_EXACT_ALARM; com o link do site (0.9808ms)
+✔ nenhum arquivo de credencial local está rastreado pelo git (73.2293ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 244.6532
+exit 0

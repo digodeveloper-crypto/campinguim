@@ -1,0 +1,11 @@
+# P9 (S10), B depois de reconectar: a viagem saiu do aparelho e a pessoa vê o aviso.
+appId: com.campinguim.prova
+---
+- openLink: campinguim://lista/${TRIP}
+- extendedWaitUntil:
+    visible:
+      id: aviso-recusadas
+    timeout: 30000
+- assertVisible:
+    id: aviso-recusadas
+    text: "5 altera.*"

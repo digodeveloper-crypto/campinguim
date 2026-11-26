@@ -1,0 +1,36 @@
+$ npm run testar   (node --test testes/*.test.mjs, Node 24.19.0 do sistema; logo depois de "node prova/prova.mjs subir")
+▶ A não lê nada da viagem de C pela API
+  ✔ trip: A vê só a viagem de grupo (71.048ms)
+  ✔ trip: A pedindo a viagem de C pelo identificador recebe nada (6.9182ms)
+  ✔ trip_member: A pedindo os membros da viagem de C recebe nada (18.9041ms)
+  ✔ trip_item: A pedindo os itens da viagem de C recebe nada (15.1557ms)
+  ✔ trip_item: tudo o que A vê é da viagem de grupo (15.0839ms)
+✔ A não lê nada da viagem de C pela API (373.2677ms)
+▶ escritas fora da própria viagem são recusadas
+  ✔ A não cria item na viagem de C (8.303ms)
+  ✔ A não altera a viagem de C (6.5035ms)
+  ✔ A não se coloca como membro da viagem de C (12.9062ms)
+  ✔ B (membro, não organizador) não altera os dados da viagem de grupo (35.9613ms)
+✔ escritas fora da própria viagem são recusadas (64.2617ms)
+▶ membros da mesma viagem e sem login
+  ✔ B lê a viagem de grupo e os seus itens (12.039ms)
+  ✔ C não lê nada da viagem de grupo (47.7921ms)
+  ✔ sem login não se lê nenhuma tabela (44.8923ms)
+✔ membros da mesma viagem e sem login (105.0841ms)
+✔ o domínio do Cloud Run não aparece em nenhum arquivo da prova (48.8367ms)
+✔ o endereço do servidor só aparece no arquivo de configuração (22.6587ms)
+✔ o endereço do site só aparece no arquivo de configuração (23.1545ms)
+✔ manifesto Android gerado: sem localização e sem USE_EXACT_ALARM; com o link do site (3.2793ms)
+✔ nenhum arquivo de credencial local está rastreado pelo git (88.5111ms)
+tabelas encontradas: public.trip, public.trip_item, public.trip_member
+✔ toda tabela dos esquemas da aplicação tem RLS ativo (39.2325ms)
+✔ as tabelas da prova existem e estão na publicação do PowerSync (17.8286ms)
+ℹ tests 19
+ℹ suites 3
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 878.1207
+código de saída: 0

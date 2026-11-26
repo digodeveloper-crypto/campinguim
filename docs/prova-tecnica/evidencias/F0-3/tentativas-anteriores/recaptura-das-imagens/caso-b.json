@@ -1,0 +1,22 @@
+[
+  {
+    "caso": "b",
+    "execucao": 1,
+    "minutos": 30,
+    "horario_do_lembrete": "2026-11-25T05:35:58.135Z",
+    "trigger_ms": 1795584958135,
+    "tipo_do_alarme": "permission",
+    "janela_do_alarme": "0",
+    "app_em_segundo_plano": true,
+    "aviao_ligado": true,
+    "relogio_adiantado_para_ms": 1795585018000,
+    "aviso_chegou": true,
+    "aviso_postado_ms": 1795585018332,
+    "atraso_s": 0.3,
+    "aviao_no_momento_do_aviso": true,
+    "aviso_achado_na_barra": true,
+    "tocar_no_aviso_abre_a_viagem": true,
+    "id_na_tela": "1f0a0b00-0000-4000-8000-0000000000c3",
+    "ok": true
+  }
+]

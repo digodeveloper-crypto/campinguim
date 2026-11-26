@@ -1,0 +1,8 @@
+﻿Memória física total:                      32.682 MB
+Memória física disponível:                 10.027 MB
+Memória Virtual: Tamanho Máximo:           36.522 MB
+Memória Virtual: Disponível:               7.165 MB
+Memória Virtual: Em Uso:                   29.357 MB
+Segurança baseada em virtualização:        Status: Executando
+                                                 Suporte para Virtualização de Base
+Requisitos do Hyper-V:                     Hipervisor detectado. Recursos necessários para o Hyper-V não serão exibidos.

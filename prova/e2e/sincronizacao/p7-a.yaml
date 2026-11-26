@@ -1,0 +1,17 @@
+# P7 (S7 reduzido), A em modo avião: gera 200 alterações (40 itens novos e 160 mudanças de
+# separação, quantidade e nota, cada uma na sua transação) e espera a fila mostrar 200.
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: gerar-200
+- extendedWaitUntil:
+    visible:
+      id: fila
+      text: "200 altera.*"
+    timeout: 120000

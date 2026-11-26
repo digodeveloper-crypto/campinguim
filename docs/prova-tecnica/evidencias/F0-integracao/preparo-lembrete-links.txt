@@ -1,0 +1,12 @@
+$ adb -s emulator-5554 install -r app-release.apk
+Success
+$ adb -s emulator-5554 shell pm clear com.campinguim.prova
+Success
+$ adb -s emulator-5556 install -r app-release.apk
+Success
+$ adb -s emulator-5556 shell pm clear com.campinguim.prova
+Success
+$ adb -s emulator-5554 shell pm grant com.campinguim.prova android.permission.POST_NOTIFICATIONS
+exit 0
+$ adb -s emulator-5554 shell cmd appops set --uid com.campinguim.prova SCHEDULE_EXACT_ALARM allow
+exit 0

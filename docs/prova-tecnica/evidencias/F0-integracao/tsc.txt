@@ -1,0 +1,2 @@
+$ cd prova/app && npx tsc --noEmit   (retomada, 26/11, árvore com o ajuste EVIDENCIAS_DIR nos roteiros)
+exit 0

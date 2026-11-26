@@ -1,0 +1,21 @@
+# Memória com tudo da prova ligado (2 emuladores, Supabase com 5 contêineres, PowerSync e MongoDB), sem Gradle aberto
+total: 32682 MB; livre: 5609 MB
+
+# Maiores processos no momento (a máquina é dividida com a missão de vídeos: ffmpeg e navegador sem tela são dela)
+qemu-system-x86_64       4610 MB
+qemu-system-x86_64       3429 MB
+vmmemWSL                 3346 MB
+ffmpeg                    901 MB
+MsMpEng                   656 MB
+msedgewebview2            624 MB
+Memory Compression        609 MB
+chrome-headless-shell     474 MB
+
+# Contêineres da prova (docker stats)
+campinguim-prova-sincronizacao-powersync-1	96.79MiB / 15.58GiB
+campinguim-prova-sincronizacao-mongo-1	192.2MiB / 15.58GiB
+supabase_edge_runtime_campinguim-prova	86.43MiB / 15.58GiB
+supabase_rest_campinguim-prova	35.18MiB / 15.58GiB
+supabase_auth_campinguim-prova	13.57MiB / 15.58GiB
+supabase_kong_campinguim-prova	102.8MiB / 15.58GiB
+supabase_db_campinguim-prova	72MiB / 15.58GiB

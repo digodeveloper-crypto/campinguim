@@ -1,0 +1,3 @@
+Primeira tentativa dos testes da pilha padrão na retomada (26/11), com o Node v22.16.0 que estava antes no PATH do terminal (não é o Node do sistema, v24.19.0, exigido pela prova).
+Resultado: 40 testes, 37 ok, 3 falhas — os 3 arquivos verificacao*.test.mjs não carregaram: ERR_UNKNOWN_FILE_EXTENSION para .ts (o Node 22 não lê TypeScript sem opção).
+Repetido com o Node v24.19.0: ver testes-servidor-pilha-padrao.txt. Reproduzido no ramo de origem: ver falha-node22-no-ramo-de-origem-F0-5.txt.

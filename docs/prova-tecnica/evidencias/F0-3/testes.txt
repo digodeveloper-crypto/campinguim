@@ -1,0 +1,18 @@
+# Saída dos testes (F0-3)
+
+## 1. Tipos do app (tsc --noEmit)
+saída: 0 (0 = sem erro)
+
+## 2. Regras de configuração da prova (node --test prova/servidor/testes/configuracao.test.mjs)
+✔ o domínio do Cloud Run não aparece em nenhum arquivo da prova (21.318ms)
+✔ o endereço do servidor só aparece no arquivo de configuração (18.4284ms)
+✔ o endereço do site só aparece no arquivo de configuração (16.8311ms)
+✔ manifesto Android gerado: sem localização e sem USE_EXACT_ALARM; com o link do site (0.9162ms)
+✔ nenhum arquivo de credencial local está rastreado pelo git (53.5492ms)
+ℹ tests 5
+ℹ pass 5
+ℹ fail 0
+
+## 3. Textos de tela fora do arquivo de textos (busca em app/lembretes.tsx, src/lembretes e app/_layout.tsx)
+Texto entre aspas ou JSX com letras acentuadas ou frases em português fora de textos.ts:
+(nenhum achado)

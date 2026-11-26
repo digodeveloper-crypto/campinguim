@@ -1,0 +1,46 @@
+# Maestro 2.12.1, roteiro prova/e2e/abre-app.yaml, app release instalado por adb (com.campinguim.prova)
+# $ maestro --device <emulador> test -e APARELHO=<a|b> prova/e2e/abre-app.yaml
+
+=== emulator-5554 (APARELHO=a)
+Running on campinguim-a
+código de saída: 1
+=== emulator-5554 (APARELHO=a)
+Running on campinguim-a
+Launch app "com.campinguim.prova" with clear state... COMPLETED
+Assert that id: titulo is visible... COMPLETED
+Assert that "Prova técnica" is visible... COMPLETED
+Assert that "pronto.*" is visible... COMPLETED
+Assert that "Viagens neste aparelho" is visible... COMPLETED
+Take screenshot ${APARELHO}-inicio... COMPLETED
+Open campinguim://viagem/1f0a0b00-0000-4000-8000-0000000000ab... COMPLETED
+Assert that id: viagem-id is visible... COMPLETED
+Assert that "1f0a0b00-0000-4000-8000-0000000000ab" is visible... COMPLETED
+Assert that "Esta viagem não está neste aparelho." is visible... COMPLETED
+Take screenshot ${APARELHO}-viagem... COMPLETED
+código de saída: 0
+=== emulator-5556 (APARELHO=b)
+Running on campinguim-b
+Launch app "com.campinguim.prova" with clear state... COMPLETED
+Assert that id: titulo is visible... COMPLETED
+Assert that "Prova técnica" is visible... COMPLETED
+Assert that "pronto.*" is visible... COMPLETED
+Assert that "Viagens neste aparelho" is visible... COMPLETED
+Take screenshot ${APARELHO}-inicio... COMPLETED
+Open campinguim://viagem/1f0a0b00-0000-4000-8000-0000000000ab... COMPLETED
+Assert that id: viagem-id is visible... COMPLETED
+Assert that "1f0a0b00-0000-4000-8000-0000000000ab" is visible... COMPLETED
+Assert that "Esta viagem não está neste aparelho." is visible... COMPLETED
+Take screenshot ${APARELHO}-viagem... COMPLETED
+código de saída: 0
+
+# Repetições seguidas logo depois:
+A rodada 1: código 0
+A rodada 2: código 0
+A rodada 3: código 0
+B rodada 1: código 0
+B rodada 2: código 0
+
+# Total desta sessão: campinguim-b 4 de 4; campinguim-a 4 de 6.
+# As 2 falhas do campinguim-a foram na primeira execução de cada série, no passo launchApp (clearState):
+# "Command failed (host:transport:emulator-5554): device offline" (o adb perdeu o aparelho por instantes; o app não chegou a abrir).
+# Registrado para F0-2: tratar como falha de roteiro (refazer), não de sincronização.

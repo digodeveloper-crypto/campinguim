@@ -1,0 +1,9 @@
+$ (ramo de origem feature/F0-5-verificacao, 01fa6de, só leitura) node --test testes/verificacao.test.mjs testes/verificacao-app.test.mjs   com Node v22.16.0
+exit 1
+      2 ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".ts"
+# tests 2
+# pass 0
+# fail 2
+$ mesmo comando com Node v24.19.0
+exit 0
+(saída completa resumida: só as linhas de erro e a contagem; o caminho da máquina foi omitido)

@@ -1,0 +1,10 @@
+$ am start -W -a android.intent.action.VIEW -c android.intent.category.BROWSABLE -d 'https://campinguim.test/viagem/1f0a0b00-0000-4000-8000-00000000f401'
+Starting: Intent { act=android.intent.action.VIEW cat=[android.intent.category.BROWSABLE] dat=https://campinguim.test/... }
+Status: ok
+LaunchState: COLD
+Activity: com.campinguim.prova/.MainActivity
+TotalTime: 442
+WaitTime: 461
+Complete
+T0=1795702188449
+T1=1795702188953

@@ -1,0 +1,72 @@
+[
+  {
+    "caso": "d",
+    "execucao": 1,
+    "minutos": 30,
+    "como_negou": "tela do sistema (Não permitir), primeira vez",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "agendou_com_a_permissao_negada": true,
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  },
+  {
+    "caso": "d",
+    "execucao": 2,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "agendou_com_a_permissao_negada": true,
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  },
+  {
+    "caso": "d",
+    "execucao": 3,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "agendou_com_a_permissao_negada": true,
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  },
+  {
+    "caso": "d",
+    "execucao": 4,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "agendou_com_a_permissao_negada": true,
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  },
+  {
+    "caso": "d",
+    "execucao": 5,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "agendou_com_a_permissao_negada": true,
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  }
+]

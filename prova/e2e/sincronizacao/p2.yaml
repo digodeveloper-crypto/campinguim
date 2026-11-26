@@ -1,0 +1,15 @@
+# P2 (S2), A e B em modo avião: cada um assume o mesmo item do grupo ("Item 01").
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "assumir-Item 01"
+- extendedWaitUntil:
+    visible:
+      id: "assumido-Item 01"
+    timeout: 10000

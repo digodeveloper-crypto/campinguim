@@ -1,0 +1,20 @@
+# F0-5 · Captura do app recebendo a recusa
+# 2026-11-24 21:16 · emulador campinguim-c (system-images;android-36;google_apis;x86_64, 2 GB), porta 5560; APK release do ramo feature/F0-5-verificacao apontando para a pilha campinguim-f0-5 (API 55321)
+
+$ adb -s emulator-5560 shell am start -W -a android.intent.action.VIEW -d "campinguim://verificacao" com.campinguim.prova
+Status: ok (Complete)
+
+1) Toque em "Chamar com a prova deste aparelho" (prova de desenvolvimento; aceitação desligada no servidor) -> captura-recusa.png
+   Textos lidos na tela (uiautomator):
+   text="Este aparelho não passou na verificação. Por segurança, esta função não fica disponível aqui."
+   text="Código: integrity_required"
+
+2) Toque em "Chamar sem prova" (o servidor do adb caiu uma vez nesse momento, reiniciado por outro processo da máquina; a tela foi lida de novo em seguida)
+   text="Este aparelho não passou na verificação. Por segurança, esta função não fica disponível aqui."
+   text="Código: integrity_required"
+
+Registro interno do servidor (tabela integrity_attempt, só leitura, as duas tentativas do emulador):
+   refused | sem_prova
+   refused | prova_desenvolvimento_desligada
+
+Memória livre antes de criar o campinguim-c: 4.339 MB (limite pedido: 3 GB).

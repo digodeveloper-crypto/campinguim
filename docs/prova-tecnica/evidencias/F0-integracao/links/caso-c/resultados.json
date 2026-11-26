@@ -1,0 +1,21 @@
+[
+  {
+    "i": 1,
+    "tipo": "esquema",
+    "link": "campinguim://viagem/1f0a0b00-0000-4000-8000-00000000f4ff",
+    "estado_inicial": "fechado",
+    "como_preparou": "remover a tarefa pelo sistema (mesma operação de tirar da lista de recentes)",
+    "resolvido_para": "com.campinguim.prova/.MainActivity",
+    "partida": "COLD",
+    "am_start_total_ms": 334,
+    "am_start_wait_ms": 336,
+    "toque_ate_tela_ms": 584,
+    "id_na_tela": "1f0a0b00-0000-4000-8000-00000000f4ff",
+    "nome_na_tela": null,
+    "mensagem_nao_encontrada": true,
+    "mensagem_invalida": false,
+    "certo": true,
+    "quebrou": false,
+    "erro_do_am": null
+  }
+]

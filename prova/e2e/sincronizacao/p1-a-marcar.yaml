@@ -1,0 +1,53 @@
+# P1 para o vídeo (parte 1), aparelho A em modo avião: marca 10 itens "no carro" e confere a
+# fila com 10. O fechar e reabrir é feito pelo roteiro, com a gravação pausada.
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 01"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 02"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 03"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 04"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 05"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 06"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 07"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 08"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 09"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "carro-Item 10"
+- extendedWaitUntil:
+    visible:
+      id: fila
+      text: "10 altera.*"
+    timeout: 10000

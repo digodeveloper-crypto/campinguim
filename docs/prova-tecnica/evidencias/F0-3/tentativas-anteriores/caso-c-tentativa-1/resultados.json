@@ -1,0 +1,30 @@
+[
+  {
+    "caso": "c",
+    "execucao": 1,
+    "minutos": 30,
+    "horario_do_lembrete": "2026-11-25T01:51:10.587Z",
+    "trigger_ms": 1795571470587,
+    "reiniciou": true,
+    "alarme_depois_do_boot": false,
+    "aviao_ligado": true,
+    "relogio_adiantado_para_ms": 1795571530000,
+    "aviso_chegou": false,
+    "ok": false,
+    "observacao": "nenhum aviso em 120 s"
+  },
+  {
+    "caso": "c",
+    "execucao": 2,
+    "minutos": 30,
+    "horario_do_lembrete": "2026-11-25T01:55:08.984Z",
+    "trigger_ms": 1795571708984,
+    "reiniciou": true,
+    "alarme_depois_do_boot": false,
+    "aviao_ligado": true,
+    "relogio_adiantado_para_ms": 1795571768000,
+    "aviso_chegou": false,
+    "ok": false,
+    "observacao": "nenhum aviso em 120 s"
+  }
+]

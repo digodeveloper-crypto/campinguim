@@ -1,0 +1,15 @@
+# P10 (S9), A sem login (app recém-limpo): cria 2 viagens com itens e estados.
+appId: com.campinguim.prova
+---
+- openLink: campinguim://sem-conta
+- extendedWaitUntil:
+    visible:
+      id: criar-duas
+    timeout: 20000
+- tapOn:
+    id: criar-duas
+- extendedWaitUntil:
+    visible:
+      id: viagens-sem-conta
+      text: "2 viagens.*"
+    timeout: 10000

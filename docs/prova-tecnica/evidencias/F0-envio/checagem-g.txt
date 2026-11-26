@@ -1,0 +1,208 @@
+Checagem G · F0-ENVIO · 2026-11-26
+Commit conferido: árvore inteira de "F0: prova técnica" (ramo feature/F0-prova-tecnica-envio, pai 33ba082)
+Arquivos na árvore: 1275 · novos em relação ao main: 345 · alterados: 0 · apagados: 0
+Este arquivo (docs/prova-tecnica/evidencias/F0-envio/checagem-g.txt) fica fora das buscas de texto, porque contém os próprios padrões.
+Comando base: git grep -I -n -E <padrão> <commit> (só arquivos de texto) e git ls-tree -r --name-only <commit> (nomes).
+Padrões pessoais (nome real, e-mail pessoal, usuário do Windows) lidos em tempo de execução e mascarados aqui.
+
+== 1. Segredos (árvore inteira, texto) ==
+JWT (eyJ...)                                               saída=1 achados=0
+qualquer eyJ seguido de 10+ caracteres base64              saída=1 achados=0
+sb_secret_                                                 saída=0 achados=8
+    docs/prova-tecnica/evidencias/F0-1/apk-sem-segredo.txt:7:texto 'sb_secret_' sozinho: 1 (é o prefixo literal na tabela de textos do código da biblioteca do Supabase; a chave inteira deu 0 acima)
+    docs/prova-tecnica/qa/F0-1-rodada-1.md:31:| Checagem de G nos 3 commits | ok. Autor e quem gravou só com o noreply. 0 e-mail pessoal, 0 nome real, 0 usuário do Windows, 0 nome do computador. Os resultados de "AppData" 
+    docs/prova-tecnica/qa/F0-2-rodada-1.md:28:- **Checagem de G no diff dos 5 commits:** 0 ocorrências de usuário do Windows, e-mail, `C:\Users`, `AppData` literal, caminho do worktree, `sb_secret_`/`sb_publishable_` com v
+    docs/prova-tecnica/qa/F0-4-rodada-1.md:23:- **Checagem de G nos arquivos da F0-4:** 0 de cada: usuário do Windows, e-mail, `C:\Users`, `AppData`, caminho do worktree, chave `sb_secret_`/`sb_publishable_`, JWT, `service_
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:19:- **Checagem de G nos dois arquivos, feita pelo QA:** 0 ocorrências de `ghp_`, `github_pat_`, `sk-`, `sb_secret_`/`sb_publishable_` com valor, JWT, `AKIA`, `AIza`, chave privada
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:63:- **Checagem de G em `docs/`, feita pelo QA:** 0 valores de segredo (JWT, `sb_secret_`/`sb_publishable_` com valor, `ghp_`, `github_pat_`, `AKIA`, `AIza`, chave privada). 0 nome 
+    docs/prova-tecnica/qa/F0-INT-rodada-1.md:20:| Build | ok. O APK é de 25/11 às 04:49, depois do merge `b0aa168` (04:38). Nenhum arquivo do app é mais novo que o APK. SHA-256 começa por `0e55876efb72e2f2`, como diz a e
+    prova/servidor/supabase/functions/_verificacao/repositorio-rest.ts:21:    // A chave antiga é um JWT e vai também como Bearer; a nova (sb_secret_) só no apikey.
+chave privada (BEGIN ... PRIVATE KEY)                      saída=129 achados=0
+AWS (AKIA...)                                              saída=1 achados=0
+GitHub (ghp_/gho_/ghs_/github_pat_)                        saída=0 achados=3
+    docs/prova-tecnica/conferencia-publica.md:30:| `git grep -I -n -i -E '(AKIA[0-9A-Z]{16}\|AIza[0-9A-Za-z_-]{35}\|ghp_[0-9A-Za-z]{36}\|github_pat_\|gho_\|ghs_\|sk-[A-Za-z0-9]{20,}\|sk-ant-\|xox[baprs]-\|-----BEGIN [A-Z ]*P
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:19:- **Checagem de G nos dois arquivos, feita pelo QA:** 0 ocorrências de `ghp_`, `github_pat_`, `sk-`, `sb_secret_`/`sb_publishable_` com valor, JWT, `AKIA`, `AIza`, chave privada
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:63:- **Checagem de G em `docs/`, feita pelo QA:** 0 valores de segredo (JWT, `sb_secret_`/`sb_publishable_` com valor, `ghp_`, `github_pat_`, `AKIA`, `AIza`, chave privada). 0 nome 
+Slack (xox?-)                                              saída=1 achados=0
+Google API (AIza...)                                       saída=1 achados=0
+OpenAI/Anthropic (sk-...)                                  saída=1 achados=0
+conta de serviço Google (private_key_id)                  saída=1 achados=0
+service_role (menções, ver contexto)                     saída=0 achados=12
+  service_role seguida de valor literal                    saída=1 achados=0
+atribuição de senha/segredo/token com valor literal      saída=0 achados=4
+    prova/servidor/testes/verificacao-servidor.test.mjs:95:    ['token inválido', async (c) => ({ ...c, prova: { tipo: 'play_integrity', token: 'isto-nao-e-um-token' } }), 'token_invalido'],
+    prova/servidor/testes/verificacao.test.mjs:20:const SEGREDO = 'segredo-de-teste-unitario-com-mais-de-32-caracteres';
+    prova/servidor/testes/verificacao.test.mjs:195:    assert.deepEqual(await chamar(pedido({ prova: { tipo: 'play_integrity', token: 'isto-nao-e-um-token' } })), RESPOSTA_RECUSA);
+    prova/servidor/testes/verificacao.test.mjs:282:    assert.deepEqual(await chamar(pedido({ prova: { tipo: 'desenvolvimento', token: 'dev-falsa:outro' } })), RESPOSTA_RECUSA);
+
+== 2. Dados pessoais ==
+e-mail pessoal (completo)                                  saída=1 achados=0
+parte local do e-mail pessoal                              saída=1 achados=0
+provedores de e-mail pessoal (gmail/hotmail/outlook/yahoo) saída=1 achados=0
+nome real (nome ou sobrenome)                              saída=1 achados=0
+usuário do Windows                                        saída=1 achados=0
+caminho C:\Users\ ou C:/Users/                             saída=0 achados=22
+    docs/prova-tecnica/conferencia-publica.md:72:| `.blend` | `design/mascote/3d/campinguim.blend` nas **2 versões** (`bc62220`, `72f3acb`) | o arquivo é compactado com zstd; descompactado com o Python do Blender 5.3 e var
+    docs/prova-tecnica/conferencia-publica.md:82:| 3.1 | `design/mascote/evidencias/estrutura/auditoria-qa-r2.txt` | `49c9981` (única versão) | 4 (156, 162, 168, 174) | `erro: falhou: file:///C:/Users/<usuário>/AppData/Lo
+    docs/prova-tecnica/conferencia-publica.md:83:| 3.2 | `design/mascote/qa/relatorios/estrutura-r1/saida-teste-leiame.txt` | `49c9981` | 4 (157, 163, 169, 175) | `file:///C:/Users/<usuário>/AppData/Local/Temp/claude/<pasta
+    docs/prova-tecnica/conferencia-publica.md:85:| 3.4 | `design/mascote/3d/campinguim.blend` | `bc62220` e `72f3acb` | 1 em cada versão (binário) | `C:\Users\<usuário>\OneDrive\Documentos`, gravado pelo Blender (ver cate
+    docs/prova-tecnica/conferencia-publica.md:185:| a1 | `design/mascote/evidencias/estrutura/auditoria-qa-r2.txt` | Trocar o prefixo `file:///C:/Users/<usuário>/AppData/Local/Temp/` por `file:///<pasta temporária>/` nas 4
+    docs/prova-tecnica/conferencia-publica.md:186:| a2 | `design/mascote/qa/relatorios/estrutura-r1/saida-teste-leiame.txt` | Trocar `file:///C:/Users/<usuário>/AppData/Local/Temp/claude/<pasta da sessão>/scratchpad/` por 
+    docs/prova-tecnica/conferencia-publica.md:200:  $t = [regex]::Replace($t, 'file:///C:/Users/[^/]+/AppData/Local/Temp/(claude/[^/]+/[^/]+/scratchpad/)?', 'file:///<pasta temporaria>/')
+    docs/prova-tecnica/conferencia-publica.md:211:| b1 | `design/mascote/3d/campinguim.blend` | Guarda `C:\Users\<usuário>\OneDrive\Documentos` (memória da janela de salvar do Blender). Regerar com `construir.py` não reso
+    docs/prova-tecnica/conferencia-publica.md:345:1. **Conferência de `design/marca/`** (DSG-07, commit `c932b51` mais `design/marca/qa/`, ainda não rastreado), com as mesmas buscas: segredos (saída 1, 0), nome de usuári
+    docs/prova-tecnica/conferencia-publica.md:367:- **Buscas antes de incluir**, no disco: usuário, computador, nome real, e-mail pessoal, `C:\Users`, `.claude` e `.overclock` deram 0. `AppData` aparece só em `qa/dsg07-rod
+    docs/prova-tecnica/plano.md:261:  3. **Caminhos da máquina e nome de usuário do Windows:** busca por `C:\Users`, `C:/Users`, o nome de usuário do Windows, `AppData`, `.claude` e `.overclock` em arquivos e mensagens de
+    docs/prova-tecnica/plano.md:495:| Nenhum segredo em arquivo versionado, conversa, registro, captura ou commit | Senhas de teste, chave de serviço do Supabase local, segredo de assinatura de token do PowerSync, chave de 
+    docs/prova-tecnica/qa/F0-1-rodada-1.md:31:| Checagem de G nos 3 commits | ok. Autor e quem gravou só com o noreply. 0 e-mail pessoal, 0 nome real, 0 usuário do Windows, 0 nome do computador. Os resultados de "AppData" 
+    docs/prova-tecnica/qa/F0-2-rodada-1.md:28:- **Checagem de G no diff dos 5 commits:** 0 ocorrências de usuário do Windows, e-mail, `C:\Users`, `AppData` literal, caminho do worktree, `sb_secret_`/`sb_publishable_` com v
+    docs/prova-tecnica/qa/F0-3-rodada-1.md:29:- **Checagem de G no commit:** autor e quem gravou só com o noreply. Nos arquivos do commit, 0 de cada: usuário do Windows, e-mail pessoal, `C:\Users`, `AppData`, caminho do wo
+    docs/prova-tecnica/qa/F0-4-rodada-1.md:23:- **Checagem de G nos arquivos da F0-4:** 0 de cada: usuário do Windows, e-mail, `C:\Users`, `AppData`, caminho do worktree, chave `sb_secret_`/`sb_publishable_`, JWT, `service_
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:19:- **Checagem de G nos dois arquivos, feita pelo QA:** 0 ocorrências de `ghp_`, `github_pat_`, `sk-`, `sb_secret_`/`sb_publishable_` com valor, JWT, `AKIA`, `AIza`, chave privada
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:63:- **Checagem de G em `docs/`, feita pelo QA:** 0 valores de segredo (JWT, `sb_secret_`/`sb_publishable_` com valor, `ghp_`, `github_pat_`, `AKIA`, `AIza`, chave privada). 0 nome 
+    docs/prova-tecnica/qa/F0-G-rodada-1.md:23:- **Q4** segredos: 0. **Q5** `C:\Users`, usuário e computador: 0. **Q9** e-mail pessoal e nome real: 0 em arquivos, cabeçalhos e mensagens. **Q7** blobs antigos: 0. O `.blend` 
+    docs/prova-tecnica/qa/F0-INT-rodada-1.md:22:| Checagem G | ok. Nos 50 arquivos de `bc1a8fe` e no diff inteiro `fb54ca9..HEAD`: 0 usuário do Windows, 0 `C:\Users`, 0 e-mail pessoal (só os de teste `d@`/`e@usuarios-prova
+    docs/prova-tecnica/qa/F0-P-rodada-1.md:21:| Categoria 3, caminhos com usuário do Windows | ok: 4 achados | **QA repetiu:** `git grep -I -l -i -E "C:[\\/]+Users\|<usuário>" $(git rev-list $R)` = exatamente os 3 textos d
+    docs/prova-tecnica/qa/F0-P-rodada-2.md:16:| Q5 | `C:\Users`, nome de usuário do Windows e nome do computador em todas as versões e nas mensagens | **0** arquivos e **0** mensagens |
+caminho /c/Users/ ou /Users/<nome>                         saída=1 achados=0
+Endereços de e-mail distintos na árvore (mascarados quando não são genéricos):
+    ***+digodeveloper-crypto@users.noreply.github.com
+    ***@usuarios-prova.test
+    ***@email.com
+    ***@usuarios-prova.test
+    bruno@example.com
+    ***@usuarios-prova.test
+    ***@usuarios-prova.test
+    ***@usuarios-prova.test
+    ID+digodeveloper-crypto@users.noreply.github.com
+    ID+USERNAME@users.noreply.github.com
+    noreply@anthropic.com
+    RIO@users.noreply.github.com
+
+== 3. Endereços de hospedagem fora do valor único de configuração ==
+run.app                                                    saída=0 achados=25
+    CLAUDE.md:55:- O endereço do site vem de um único valor de configuração. `run.app` não aparece em nenhum outro lugar do código.
+    docs/SPEC.md:938:Nas versões 0.x, a página do convidado e o site ficam publicados no Cloud Run, com o endereço provisório `run.app` que o próprio serviço fornece. O domínio próprio entra só na versão 1.0.0.
+    docs/SPEC.md:941:- Um teste falha se `run.app` aparecer no repositório fora do arquivo de configuração.
+    docs/infra.md:67:- **O que a SPEC (seção 14) previa:** site/página do convidado no endereço provisório `run.app` do Cloud Run, até o domínio próprio na 1.0.0.
+    docs/infra.md:69:- **PROPOSTA ao orquestrador (não decidida):** pela regra do CLAUDE.md, esse endereço entra no código em UM único valor de configuração, e o teste "`run.app` não aparece em lugar nenhum" passa a v
+    docs/infra.md:125:1. **Agora (provisório):** hospedar a página do convidado e o site em `campinguim.pages.dev`, no lugar do `run.app` do Cloud Run (divergência acima). Arquivos estáticos: grátis e sem limite de pedi
+    docs/infra.md:146:O endereço do servidor e o do site de teste vêm de um único valor de configuração (`prova/config/enderecos.json`). O site de teste é `campinguim.test`, domínio reservado para teste que não exist
+    docs/prova-tecnica/evidencias/F0-4/testes.txt:6:$ busca de endereços fora da configuração (run.app, pages.dev, workers.dev, campinguim.test) em prova/, fora de node_modules e android
+    docs/prova-tecnica/plano.md:163:| Domínio `*.run.app` servir o `assetlinks.json` | **Não confirmado** | — |
+    docs/prova-tecnica/plano.md:209:| 3. App abrindo pelo link | Link com esquema próprio, link `https` com o vínculo forçado no emulador (`pm set-app-links … 2 <domínio>`), abertura a frio e com o app aberto. | A veri
+    docs/prova-tecnica/plano.md:497:| `run.app` só no arquivo de configuração | O endereço do servidor e o do link `https` vêm de um único valor de configuração. Na prova local ele aponta para o emulador (`10.0.2.2`)
+    docs/prova-tecnica/plano.md:608:12. O domínio `*.run.app` servir o `assetlinks.json`.
+    docs/prova-tecnica/qa/F0-1-rodada-1.md:27:| `run.app` | ok. 0 nos arquivos da prova e 0 no APK. Há teste automático para isso |
+    docs/prova-tecnica/qa/F0-3-rodada-1.md:26:- **O APK testado é o do commit.** `app-release.apk` foi gerado às 23:08:20, depois da última mudança em `_layout.tsx` e `+native-intent.ts` (23:06:36), e antes das rodadas f
+    docs/prova-tecnica/qa/F0-3-rodada-1.md:29:- **Checagem de G no commit:** autor e quem gravou só com o noreply. Nos arquivos do commit, 0 de cada: usuário do Windows, e-mail pessoal, `C:\Users`, `AppData`, caminho do wo
+    docs/prova-tecnica/qa/F0-4-rodada-1.md:21:- **Endereço único:** a tela de links monta o https com `config.site`. O `campinguim.test` aparece só na configuração (teste 3). `run.app` aparece só no texto de `testes.tx
+    docs/prova-tecnica/qa/F0-5-rodada-1.md:21:- **Segredos:** o segredo do dublê é aleatório, gerado pelo script em `functions/.env` (ignorado pelo git); nos testes de unidade há só um valor de teste. O modelo de produ�
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:19:- **Checagem de G nos dois arquivos, feita pelo QA:** 0 ocorrências de `ghp_`, `github_pat_`, `sk-`, `sb_secret_`/`sb_publishable_` com valor, JWT, `AKIA`, `AIza`, chave privada
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:63:- **Checagem de G em `docs/`, feita pelo QA:** 0 valores de segredo (JWT, `sb_secret_`/`sb_publishable_` com valor, `ghp_`, `github_pat_`, `AKIA`, `AIza`, chave privada). 0 nome 
+    docs/prova-tecnica/qa/F0-INT-rodada-1.md:20:| Build | ok. O APK é de 25/11 às 04:49, depois do merge `b0aa168` (04:38). Nenhum arquivo do app é mais novo que o APK. SHA-256 começa por `0e55876efb72e2f2`, como diz a e
+    docs/prova-tecnica/qa/F0-INT-rodada-1.md:22:| Checagem G | ok. Nos 50 arquivos de `bc1a8fe` e no diff inteiro `fb54ca9..HEAD`: 0 usuário do Windows, 0 `C:\Users`, 0 e-mail pessoal (só os de teste `d@`/`e@usuarios-prova
+    docs/prova-tecnica/qa/INF-01-rodada-1.md:13:| Fontes oficiais com data; "não confirmado" onde cabe | ok. Também está registrada a divergência com a SPEC (`run.app` → `pages.dev`), com PROPOSTA ao orquestrador | lei
+    docs/prova-tecnica/qa/INF-01-rodada-1.md:30:2. A PROPOSTA de estender o teste de "`run.app` em lugar nenhum" a `pages.dev` e `workers.dev` é do orquestrador. Hoje `prova/config/enderecos.json` aponta para `https://campi
+    docs/prova-tecnica/qa/SOC-01-rodada-1.md:13:| Registro e evidências sem dado pessoal nem segredo | ok. `docs/redes-sociais.md`: 0 e-mails, 0 telefones, 0 nome real, 0 usuário do Windows, 0 caminho de máquina, 0 `run.a
+    docs/prova-tecnica/qa/plano-rodada-1.md:34:| (4) Segurança | ok, a seção G cobre cada regra do `CLAUDE.md`, com teste: <ul><li>RLS na mesma migração, com teste que falha;</li><li>a segunda barreira (SPEC §11: "um m
+pages.dev                                                  saída=0 achados=18
+    docs/infra.md:62:- **Endereço provisório reservado:** https://campinguim.pages.dev (projeto Pages `campinguim`, envio direto, uma página em branco; HTTP 200 conferido).
+    docs/infra.md:68:- **O que muda:** só o endereço provisório do site, que passa a ser o endereço gratuito da Cloudflare (`*.pages.dev` ou `*.workers.dev`). O servidor de dados continua como na SPEC. A SPEC não foi al
+    docs/infra.md:69:- **PROPOSTA ao orquestrador (não decidida):** pela regra do CLAUDE.md, esse endereço entra no código em UM único valor de configuração, e o teste "`run.app` não aparece em lugar nenhum" passa a v
+    docs/infra.md:84:| Custo do subdomínio `*.pages.dev` / `*.workers.dev` | a documentação não cita cobrança; o `workers.dev` é tratado como "site Free" para projeto pessoal ou hobby, "não crítico para o negócio" |
+    docs/infra.md:90:2. **Formato do endereço.** Pages: `<nome-do-projeto>.pages.dev` (se o nome já existir, a Cloudflare acrescenta caracteres aleatórios). Workers: `<nome-do-worker>.<subdomínio-da-conta>.workers.dev`; 
+    docs/infra.md:96:- **Decidido:** reservar o nome por ENVIO DIRETO (uma página em branco), só para segurar `campinguim.pages.dev`. Não conectar o GitHub: isso daria à Cloudflare permissões sobre a conta do GitHub, e 
+    docs/infra.md:98:- **Apagar o projeto libera o mesmo nome para a própria conta?** NÃO CONFIRMADO. Fonte oficial lida em 24/11/2026 (`developers.cloudflare.com/pages/platform/known-issues/`): "`*.pages.dev` subdomains c
+    docs/infra.md:117:- Passos: Workers e Pages › criar › Pages › enviar arquivos (arrastar) › nome `campinguim` (o painel mostrou "será implantado em campinguim.pages.dev", sem sufixo aleatório, ou seja, o nome es
+    docs/infra.md:118:- Resultado: projeto `campinguim`, ambiente Production, domínio `campinguim.pages.dev`, uma implantação. Conferido de fora por `curl` com DNS público: HTTP 200 e a página em branco.
+    docs/infra.md:125:1. **Agora (provisório):** hospedar a página do convidado e o site em `campinguim.pages.dev`, no lugar do `run.app` do Cloud Run (divergência acima). Arquivos estáticos: grátis e sem limite de pedi
+    docs/infra.md:129:5. **Cuidado técnico:** o endereço `pages.dev` passa por verificação anti-robô que não dá para desligar; chamadas do app a esse endereço precisam de identificação própria (ver observação 3 
+    docs/prova-tecnica/evidencias/F0-4/testes.txt:6:$ busca de endereços fora da configuração (run.app, pages.dev, workers.dev, campinguim.test) em prova/, fora de node_modules e android
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:63:- **Checagem de G em `docs/`, feita pelo QA:** 0 valores de segredo (JWT, `sb_secret_`/`sb_publishable_` com valor, `ghp_`, `github_pat_`, `AKIA`, `AIza`, chave privada). 0 nome 
+    docs/prova-tecnica/qa/F0-INT-rodada-1.md:20:| Build | ok. O APK é de 25/11 às 04:49, depois do merge `b0aa168` (04:38). Nenhum arquivo do app é mais novo que o APK. SHA-256 começa por `0e55876efb72e2f2`, como diz a e
+    docs/prova-tecnica/qa/F0-INT-rodada-1.md:22:| Checagem G | ok. Nos 50 arquivos de `bc1a8fe` e no diff inteiro `fb54ca9..HEAD`: 0 usuário do Windows, 0 `C:\Users`, 0 e-mail pessoal (só os de teste `d@`/`e@usuarios-prova
+    docs/prova-tecnica/qa/INF-01-rodada-1.md:10:| Página reservada | ok. `https://campinguim.pages.dev` responde HTTP 200, `text/html`, 220 bytes. A página é em branco: `<title>` vazio, `<body>` vazio, `noindex`. Sem text
+    docs/prova-tecnica/qa/INF-01-rodada-1.md:13:| Fontes oficiais com data; "não confirmado" onde cabe | ok. Também está registrada a divergência com a SPEC (`run.app` → `pages.dev`), com PROPOSTA ao orquestrador | lei
+    docs/prova-tecnica/qa/INF-01-rodada-1.md:30:2. A PROPOSTA de estender o teste de "`run.app` em lugar nenhum" a `pages.dev` e `workers.dev` é do orquestrador. Hoje `prova/config/enderecos.json` aponta para `https://campi
+workers.dev                                                saída=0 achados=10
+    docs/infra.md:68:- **O que muda:** só o endereço provisório do site, que passa a ser o endereço gratuito da Cloudflare (`*.pages.dev` ou `*.workers.dev`). O servidor de dados continua como na SPEC. A SPEC não foi al
+    docs/infra.md:69:- **PROPOSTA ao orquestrador (não decidida):** pela regra do CLAUDE.md, esse endereço entra no código em UM único valor de configuração, e o teste "`run.app` não aparece em lugar nenhum" passa a v
+    docs/infra.md:84:| Custo do subdomínio `*.pages.dev` / `*.workers.dev` | a documentação não cita cobrança; o `workers.dev` é tratado como "site Free" para projeto pessoal ou hobby, "não crítico para o negócio" |
+    docs/infra.md:90:2. **Formato do endereço.** Pages: `<nome-do-projeto>.pages.dev` (se o nome já existir, a Cloudflare acrescenta caracteres aleatórios). Workers: `<nome-do-worker>.<subdomínio-da-conta>.workers.dev`; 
+    docs/infra.md:91:3. **workers.dev** passa por verificação anti-robô (Browser Integrity Check) que não dá para desligar; clientes automáticos com identificação genérica recebem erro 1010. Atenção se o app (não
+    docs/prova-tecnica/evidencias/F0-4/testes.txt:6:$ busca de endereços fora da configuração (run.app, pages.dev, workers.dev, campinguim.test) em prova/, fora de node_modules e android
+    docs/prova-tecnica/qa/F0-7-rodada-1.md:63:- **Checagem de G em `docs/`, feita pelo QA:** 0 valores de segredo (JWT, `sb_secret_`/`sb_publishable_` com valor, `ghp_`, `github_pat_`, `AKIA`, `AIza`, chave privada). 0 nome 
+    docs/prova-tecnica/qa/F0-INT-rodada-1.md:22:| Checagem G | ok. Nos 50 arquivos de `bc1a8fe` e no diff inteiro `fb54ca9..HEAD`: 0 usuário do Windows, 0 `C:\Users`, 0 e-mail pessoal (só os de teste `d@`/`e@usuarios-prova
+    docs/prova-tecnica/qa/INF-01-rodada-1.md:22:| 1 | "Estado da conta" e "Subdomínio da conta" | Descreve **outros projetos e a cobrança do responsável**: o nome de um Worker de outro projeto; os nomes de 3 tokens de API
+    docs/prova-tecnica/qa/INF-01-rodada-1.md:30:2. A PROPOSTA de estender o teste de "`run.app` em lugar nenhum" a `pages.dev` e `workers.dev` é do orquestrador. Hoje `prova/config/enderecos.json` aponta para `https://campi
+
+== 4. Arquivos sensíveis versionados (nomes) ==
+.env / .env.local / .env.* (exceto .example)               achados=0
+  (só modelos .example são aceitos; ver lista acima)
+.env sem .example                                          achados=1
+    prova/servidor/config/verificacao-producao.env.example
+keystore / jks / pem / key / p12 / google-services         achados=0
+
+== 5. Mídias novas neste commit (em relação ao main) e o relatório do QA que as aprovou ==
+    docs/evidencias/SOC-01/instagram-perfil-final.png                                             52571 B  SOC-01-rodada-1.md:13 (as 2 capturas do perfil)
+    docs/evidencias/SOC-01/tiktok-perfil-final.png                                                65717 B  SOC-01-rodada-1.md:13 (as 2 capturas do perfil)
+    docs/prova-tecnica/evidencias/F0-0/dois-emuladores.png                                       160806 B  F0-P-rodada-2.md:24 (troca D4, sem marca de terceiros)
+    docs/prova-tecnica/evidencias/F0-1/app-emulador-a-inicio.png                                 102534 B  F0-1-rodada-1.md:16 (app nos dois emuladores; PNG não listadas uma a uma; pasta citada no resultado aprovado na F0-7)
+    docs/prova-tecnica/evidencias/F0-1/app-emulador-a-viagem.png                                  76240 B  F0-1-rodada-1.md:16 (app nos dois emuladores; PNG não listadas uma a uma; pasta citada no resultado aprovado na F0-7)
+    docs/prova-tecnica/evidencias/F0-1/app-emulador-b-inicio.png                                 118903 B  F0-1-rodada-1.md:16 (app nos dois emuladores; PNG não listadas uma a uma; pasta citada no resultado aprovado na F0-7)
+    docs/prova-tecnica/evidencias/F0-1/app-emulador-b-viagem.png                                  82961 B  F0-1-rodada-1.md:16 (app nos dois emuladores; PNG não listadas uma a uma; pasta citada no resultado aprovado na F0-7)
+    docs/prova-tecnica/evidencias/F0-2/p1-1-antes.png                                            407716 B  F0-2-rodada-1.md:76 (2 vídeos, p9-estado-final e as 3 p1-*.png)
+    docs/prova-tecnica/evidencias/F0-2/p1-2-a-offline-com-fila.png                               413636 B  F0-2-rodada-1.md:76 (2 vídeos, p9-estado-final e as 3 p1-*.png)
+    docs/prova-tecnica/evidencias/F0-2/p1-3-depois-de-juntar.png                                 398946 B  F0-2-rodada-1.md:76 (2 vídeos, p9-estado-final e as 3 p1-*.png)
+    docs/prova-tecnica/evidencias/F0-2/p1-dois-emuladores.mp4                                    499291 B  F0-2-rodada-1.md:76 (2 vídeos, p9-estado-final e as 3 p1-*.png)
+    docs/prova-tecnica/evidencias/F0-2/p9-dois-emuladores.mp4                                    294856 B  F0-2-rodada-1.md:76 (2 vídeos, p9-estado-final e as 3 p1-*.png)
+    docs/prova-tecnica/evidencias/F0-2/p9-estado-final.png                                       241802 B  F0-2-rodada-1.md:76 (2 vídeos, p9-estado-final e as 3 p1-*.png)
+    docs/prova-tecnica/evidencias/F0-3/caso-a/barra-de-avisos.png                                131030 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-a/caso-a.mp4                                         150316 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-a/tela-da-viagem.png                                  86299 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-b/barra-de-avisos.png                                130418 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-b/tela-da-viagem.png                                  85113 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-c/barra-de-avisos.png                                126582 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-c/tela-da-viagem.png                                  85652 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-d/pedido-do-sistema.png                              114338 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-d/tela-avisos-desligados.png                         144673 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-e/barra-de-avisos.png                                131128 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-3/caso-e/falha-sem-aviso-na-barra-1795577277045.png        1345389 B  F0-3-rodada-1.md:93 (4 barras, 3 telas, 2 do caso d, falha do caso e) e caso-a.mp4 na linha 91
+    docs/prova-tecnica/evidencias/F0-4/caso-a-depois-da-fumaca-a/tela-da-viagem.png               73109 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-a/tela-da-viagem.png                                  70301 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-b-depois-da-fumaca-b/tela-da-viagem.png               72912 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-b-fundo/tela-da-viagem.png                            71050 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-b/tela-da-viagem.png                                  70266 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-c/id-invalido/tela.png                                60465 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-c/tela-da-viagem.png                                  82347 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-d/tela-da-viagem.png                                  70236 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/caso-semear/links-viagens-de-teste.png                    166581 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/fumaca-lembrete/caso-a/barra-de-avisos.png                167004 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/fumaca-lembrete/caso-a/tela-da-viagem.png                  85766 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/fumaca-lembrete/caso-b/barra-de-avisos.png                154540 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-4/fumaca-lembrete/caso-b/tela-da-viagem.png                  86566 B  F0-4-rodada-1.md:22 (casos e fumaça do lembrete)
+    docs/prova-tecnica/evidencias/F0-5/captura-recusa.png                                        210412 B  F0-5-rodada-1.md:13 (captura da recusa)
+    docs/prova-tecnica/evidencias/F0-integracao/lembrete/caso-a/barra-de-avisos.png              138006 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    docs/prova-tecnica/evidencias/F0-integracao/lembrete/caso-a/tela-da-viagem.png                87051 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    docs/prova-tecnica/evidencias/F0-integracao/links/caso-a/tela-da-viagem.png                   85349 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    docs/prova-tecnica/evidencias/F0-integracao/links/caso-b/tela-da-viagem.png                   85697 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    docs/prova-tecnica/evidencias/F0-integracao/links/caso-c/id-invalido/tela.png                 72747 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    docs/prova-tecnica/evidencias/F0-integracao/links/caso-c/tela-da-viagem.png                   93124 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    docs/prova-tecnica/evidencias/F0-integracao/links/caso-d/tela-da-viagem.png                   85239 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    docs/prova-tecnica/evidencias/F0-integracao/links/caso-semear/links-viagens-de-teste.png     185375 B  F0-INT-rodada-1.md:23 (as 8 PNG da junção)
+    prova/app/assets/icone-frente.png                                                             34324 B  cópia idêntica de design/mascote/final/icone/android/expo-1024/ic_launcher_foreground.png (já no main)
+    prova/app/assets/icone-fundo.png                                                               5695 B  cópia idêntica de design/mascote/final/icone/android/expo-1024/ic_launcher_background.png (já no main)
+    prova/app/assets/icone-uma-cor.png                                                            21808 B  cópia idêntica de design/mascote/final/icone/android/expo-1024/ic_launcher_monochrome.png (já no main)
+    prova/app/assets/icone.png                                                                    49992 B  cópia idêntica de design/mascote/final/png/claro/icone-1024.png (já no main)
+Total de mídias novas: 50 · sem relatório: 0
+Histórico: o envio é um commit só (squash); os commits locais com as capturas antigas (2dfa308, citados em F0-3 e F0-INT) não vão ao GitHub.
+
+== 6. Exceções do envio (outra missão) ==
+docs/evidencias/REELS-ep01/                                achados=0
+seção "Episódio 1 no Instagram" em docs/redes-sociais.md saída=1 achados=0
+menções a REELS-ep01 em texto                            saída=1 achados=0
+
+== 7. Autoria ==
+Autor e quem gravou do commit: digodeveloper-crypto <***+digodeveloper-crypto@users.noreply.github.com> | digodeveloper-crypto <***+digodeveloper-crypto@users.noreply.github.com>
+Workflows do GitHub na árvore: 0

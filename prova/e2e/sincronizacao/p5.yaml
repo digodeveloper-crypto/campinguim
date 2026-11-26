@@ -1,0 +1,21 @@
+# P5 (S5), A e B em modo avião: cada um cria um item "isqueiro".
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: novo-nome
+- inputText: isqueiro
+- hideKeyboard
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: adicionar
+- extendedWaitUntil:
+    visible:
+      id: item-isqueiro
+    timeout: 10000

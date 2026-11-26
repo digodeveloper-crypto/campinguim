@@ -1,0 +1,13 @@
+# F0-5 · Busca pelo nome da biblioteca de verificação no código do app
+# Data: 2026-11-24 20:57 · ramo feature/F0-5-verificacao · pasta prova/app (sem node_modules e android, que não são versionados)
+
+$ grep -rn --include=*.ts --include=*.tsx --include=*.js --include=*.mjs --include=*.json "@expo/app-integrity" prova/app --exclude-dir=node_modules --exclude-dir=android
+prova/app/package.json:7:    "@expo/app-integrity": "~58.0.2",
+prova/app/src/verificacao/expo.ts:1:import * as AppIntegrity from '@expo/app-integrity';
+(saída: 0 ; package-lock.json omitido: só registra a versão instalada)
+
+$ grep -rn "verificacao/expo\|from './expo'\|require('./expo')" prova/app --exclude-dir=node_modules --exclude-dir=android
+prova/app/src/verificacao/index.ts:15:  const { VerificacaoPlayIntegrity } = require('./expo') as typeof import('./expo');
+
+$ grep -rln "from '\.\./verificacao'\|from '\.\./src/verificacao'" prova/app (quem usa a interface própria)
+prova/app/src/servidor/chamadaProtegida.ts

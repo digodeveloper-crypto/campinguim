@@ -1,0 +1,15 @@
+# P6, B em modo avião: soma 1 duas vezes na quantidade do "Item 01" (item do grupo).
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "mais-Item 01"
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "mais-Item 01"

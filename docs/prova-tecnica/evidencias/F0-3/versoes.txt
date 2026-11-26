@@ -1,0 +1,14 @@
+# Versões usadas na F0-3 (24 a 25/11/2026)
+
+Emulador campinguim-c (AVD temporário, apagado ao fim): sdk_gphone64_x86_64, Android 16 (API 36), x86_64, imagem system-images;android-36;google_apis;x86_64 (sem Play Store; build userdebug: userdebug, debuggable=1)
+Emulador (programa): Android emulator version 37.3.10.0 (build_id 16970787) (CL:N/A)
+adb: Android Debug Bridge version 1.0.41
+Node do sistema: v24.19.0
+Java: openjdk version "17.0.21.1" 2026-11-17
+Maestro: não usado nesta tarefa (relógio e telas por adb + uiautomator)
+  "expo": "~58.0.26",
+  "expo-notifications": "~58.1.9",
+  "expo-router": "~58.0.32",
+  "react": "19.3.0",
+  "react-native": "0.88.1",
+  "typescript": "~6.0.3"

@@ -1,0 +1,137 @@
+# F0-5 · Saída dos testes · 2026-11-24 21:17 · ramo feature/F0-5-verificacao · Node v24.19.0
+# Pilha: campinguim-f0-5 (pilha-paralela.mjs, API 55321), com o dublê de teste local ligado e a prova de desenvolvimento desligada.
+
+================================================================
+$ node --test --test-reporter=spec testes/verificacao.test.mjs
+▶ configuração: aceitação de desenvolvimento e dublê só no local
+  ✔ sem nenhuma variável: produção, tudo desligado (falha fechado) (7.1706ms)
+  ✔ local sem ligar a chave: prova de desenvolvimento recusada (padrão desligado) (1.5295ms)
+  ✔ local com a chave ligada: aceita a prova de desenvolvimento (1.7546ms)
+  ✔ produção com as chaves ligadas por engano: continua tudo desligado (2.6874ms)
+  ✔ o modelo de configuração de PRODUÇÃO deixa a prova de desenvolvimento e o dublê desligados (14.4132ms)
+  ✔ dublê exige segredo local com pelo menos 32 caracteres (1.0323ms)
+  ✔ certificado aceito no formato da Play Console (hexadecimal com dois-pontos) (1.9509ms)
+✔ configuração: aceitação de desenvolvimento e dublê só no local (38.4556ms)
+▶ veredito da Play Integrity (formato oficial)
+  ✔ veredito bom de EXEMPLO: aceito (o servidor não recusa tudo) (1.5517ms)
+  ✔ MEETS_STRONG_INTEGRITY junto de MEETS_DEVICE_INTEGRITY: aceito (0.5989ms)
+  ✔ recusa: pacote do pedido diferente (0.9033ms)
+  ✔ recusa: resumo do pedido diferente (prova de outro pedido) (2.3368ms)
+  ✔ recusa: token vencido (pedido há 1 dia) (0.4806ms)
+  ✔ recusa: horário no futuro (0.2277ms)
+  ✔ recusa: horário ilegível (0.1431ms)
+  ✔ recusa: sem requestDetails (0.1135ms)
+  ✔ recusa: app UNRECOGNIZED_VERSION (0.0989ms)
+  ✔ recusa: app UNEVALUATED (0.0776ms)
+  ✔ recusa: app com veredito desconhecido (11.6896ms)
+  ✔ recusa: pacote do app diferente (0.3327ms)
+  ✔ recusa: assinatura do app diferente (outro certificado) (0.1969ms)
+  ✔ recusa: certificado do app ausente (0.1278ms)
+  ✔ recusa: licença UNLICENSED (instalado por fora) (0.1369ms)
+  ✔ recusa: licença UNEVALUATED (0.1959ms)
+  ✔ recusa: sem accountDetails (0.1809ms)
+  ✔ recusa: veredito do aparelho vazio (campo ausente) (0.1343ms)
+  ✔ recusa: veredito do aparelho lista vazia (1.0135ms)
+  ✔ recusa: aparelho só MEETS_BASIC_INTEGRITY (5.0524ms)
+  ✔ recusa: aparelho MEETS_VIRTUAL_INTEGRITY (emulador) (1.1385ms)
+  ✔ recusa: veredito limpo pelo Google ao decodificar o mesmo token de novo (0.1073ms)
+  ✔ recusa: nenhum certificado configurado no servidor (1.4848ms)
+✔ veredito da Play Integrity (formato oficial) (76.5396ms)
+▶ chamada protegida: casos negativos devolvem integrity_required
+  ✔ sem prova e aparelho nunca verificado (6.7626ms)
+  ✔ a recusa não revela o motivo a quem chamou (0.4344ms)
+  ✔ pedido malformado: validation (não chega à verificação) (0.3654ms)
+  ✔ token inválido (não é um token) (136.7383ms)
+  ✔ token com assinatura errada (montado com outro segredo) (9.7403ms)
+  ✔ token adulterado depois de assinado (2.3811ms)
+  ✔ token vencido (3.3019ms)
+  ✔ pacote errado (pedido e app de outro pacote) (2.4964ms)
+  ✔ assinatura do app errada (certificado diferente do nosso) (3.0639ms)
+  ✔ prova de outro pedido (mesmo token com outros dados) (1.6866ms)
+  ✔ repetição (replay): o mesmo token na segunda vez é recusado (2.5072ms)
+  ✔ cada veredito ruim, pelo caminho inteiro da chamada (77.2427ms)
+  ✔ prova de desenvolvimento com a aceitação desligada (padrão) (1.9535ms)
+  ✔ prova de desenvolvimento ligada, mas de outro pedido (2.8413ms)
+  ✔ prova de desenvolvimento em produção, mesmo com a chave ligada por engano (1.6416ms)
+  ✔ produção hoje (sem a conta do Google Play): todo token da Play é recusado (2.2873ms)
+  ✔ servidor sem pacote ou certificado configurado: recusa (13.1622ms)
+  ✔ aparelho verificado, mas com o prazo vencido (0.6058ms)
+✔ chamada protegida: casos negativos devolvem integrity_required (271.8122ms)
+▶ chamada protegida: o que é aceito (para mostrar que nem tudo é recusado)
+  ✔ DUBLÊ: veredito bom de exemplo aceito e o aparelho fica marcado (10.7808ms)
+  ✔ aparelho verificado dentro do prazo: chamada sem prova aceita pela marca (0.4581ms)
+  ✔ prova de desenvolvimento com a aceitação ligada, só no local (0.986ms)
+✔ chamada protegida: o que é aceito (para mostrar que nem tudo é recusado) (12.6388ms)
+ℹ tests 51
+ℹ suites 4
+ℹ pass 51
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1166.8094
+(código de saída: 0)
+================================================================
+$ node --test --test-reporter=spec testes/verificacao-servidor.test.mjs
+▶ servidor local: chamada sem verificação válida recebe integrity_required
+  ✔ sem prova (426.3598ms)
+  ✔ prova de desenvolvimento com a aceitação desligada (configuração padrão) (70.3146ms)
+  ✔ pedido malformado: validation (16.6311ms)
+  ✔ token inválido (71.8079ms)
+  ✔ assinatura do token errada (57.2923ms)
+  ✔ token vencido (38.685ms)
+  ✔ pacote errado (51.5791ms)
+  ✔ assinatura do app errada (outro certificado) (44.6327ms)
+  ✔ app UNRECOGNIZED_VERSION (58.8293ms)
+  ✔ licença UNLICENSED (43.5643ms)
+  ✔ veredito do aparelho vazio (42.0693ms)
+  ✔ prova de outro pedido (token de um pedido usado em outro) (65.6715ms)
+  ✔ repetição (replay): o mesmo token duas vezes (104.5687ms)
+  ✔ aparelho verificado com o prazo vencido (126.0203ms)
+✔ servidor local: chamada sem verificação válida recebe integrity_required (1304.4789ms)
+▶ servidor local: o app não chega às tabelas da verificação
+  ✔ com a chave pública, a API não lê nem grava nessas tabelas (118.5821ms)
+  ✔ RLS ativo, nenhuma política e nenhuma permissão para anon e authenticated (23.4084ms)
+✔ servidor local: o app não chega às tabelas da verificação (142.4997ms)
+ℹ tests 16
+ℹ suites 2
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2609.6927
+(código de saída: 0)
+================================================================
+$ node --test --test-reporter=spec testes/verificacao-app.test.mjs
+✔ só src/verificacao/expo.ts importa @expo/app-integrity (55.7389ms)
+✔ fora da pasta da interface, ninguém carrega a implementação da biblioteca (797.7334ms)
+✔ o resumo do pedido do app é igual ao do servidor e ao SHA-256 do Node (623.8901ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5211.6267
+(código de saída: 0)
+================================================================
+$ node --test --test-reporter=spec "testes/*.test.mjs"   (suíte inteira da prova, inclui os testes da F0-1)
+ℹ tests 89
+ℹ suites 9
+ℹ pass 89
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1959.9797
+(código de saída: 0)
+================================================================
+Conferência ao contrário: cada regra abaixo foi quebrada de propósito, uma por vez, e testes/verificacao.test.mjs rodou de novo. O arquivo voltou ao original depois de cada uma.
+  aceitar UNLICENSED (veredito.ts) -> # pass 49 # fail 2 
+  não conferir o vencimento do token (veredito.ts) -> # pass 48 # fail 3 
+  não conferir repetição (replay) (servico.ts) -> # pass 50 # fail 1 
+  aceitar prova de desenvolvimento fora do local (configuracao.ts) -> # pass 49 # fail 2 
+  aceitar aparelho sem integridade (veredito.ts) -> # pass 46 # fail 5 
+  original -> # pass 51 # fail 0 

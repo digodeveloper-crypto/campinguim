@@ -1,0 +1,26 @@
+# Roteiro mínimo (F0-1): abre o app a frio e confere a tela inicial e o banco local.
+# Rodar nos dois emuladores:
+#   maestro --device emulator-5554 test -e APARELHO=a prova/e2e/abre-app.yaml
+#   maestro --device emulator-5556 test -e APARELHO=b prova/e2e/abre-app.yaml
+appId: com.campinguim.prova
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: titulo
+    timeout: 20000
+- assertVisible: "Prova técnica"
+- extendedWaitUntil:
+    visible: "pronto.*"
+    timeout: 20000
+- assertVisible: "Viagens neste aparelho"
+- takeScreenshot: ${APARELHO}-inicio
+- openLink: campinguim://viagem/1f0a0b00-0000-4000-8000-0000000000ab
+- extendedWaitUntil:
+    visible:
+      id: viagem-id
+    timeout: 10000
+- assertVisible: "1f0a0b00-0000-4000-8000-0000000000ab"
+- assertVisible: "Esta viagem não está neste aparelho."
+- takeScreenshot: ${APARELHO}-viagem

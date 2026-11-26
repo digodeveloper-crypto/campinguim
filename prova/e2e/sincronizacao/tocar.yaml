@@ -1,0 +1,11 @@
+# Subroteiro: rola a lista até o elemento ${ID} e toca nele. A lista é percorrida de cima para
+# baixo; cada roteiro toca os itens na ordem em que aparecem.
+appId: com.campinguim.prova
+---
+- scrollUntilVisible:
+    element:
+      id: ${ID}
+    direction: DOWN
+    timeout: 20000
+- tapOn:
+    id: ${ID}

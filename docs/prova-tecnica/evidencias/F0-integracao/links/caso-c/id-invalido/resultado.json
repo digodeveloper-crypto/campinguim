@@ -1,0 +1,19 @@
+{
+  "i": 1,
+  "tipo": "esquema",
+  "link": "campinguim://viagem/isto-nao-e-uma-viagem",
+  "estado_inicial": "aberto",
+  "como_preparou": "app aberto na tela \"links\"",
+  "resolvido_para": "com.campinguim.prova/.MainActivity",
+  "partida": "UNKNOWN",
+  "am_start_total_ms": 0,
+  "am_start_wait_ms": 6,
+  "toque_ate_tela_ms": 33,
+  "id_na_tela": "isto-nao-e-uma-viagem",
+  "nome_na_tela": null,
+  "mensagem_nao_encontrada": false,
+  "mensagem_invalida": true,
+  "certo": true,
+  "quebrou": false,
+  "erro_do_am": null
+}

@@ -1,0 +1,2 @@
+alarme do app antes de forcar parada: true
+alarme do app depois: false

@@ -1,0 +1,6 @@
+    RTC_WAKEUP #13: Alarm{8e946da type 0 origWhen 1795575707959 whenElapsed 3486159 com.campinguim.prova}
+      tag=*walarm*:expo.modules.notifications.NOTIFICATION_EVENT
+      type=RTC_WAKEUP origWhen=2026-11-25 00:01:47.959 window=0 exactAllowReason=permission repeatInterval=0 count=0 flags=0x5
+      policyWhenElapsed: requester=+29m58s300ms app_standby=-713ms device_idle=-- battery_saver=-713ms
+      whenElapsed=+29m58s300ms maxWhenElapsed=+29m58s300ms
+      operation=PendingIntent{585c70b: PendingIntentRecord{a1d49e8 com.campinguim.prova broadcastIntent}}

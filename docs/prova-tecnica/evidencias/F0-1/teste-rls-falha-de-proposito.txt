@@ -1,0 +1,42 @@
+$ PROVA_RLS_FALHA_DE_PROPOSITO=1 node --test --test-reporter=spec testes/rls.test.mjs
+# (cria public.tabela_sem_rls_de_proposito sem RLS dentro de uma transação desfeita no fim)
+tabelas encontradas: public.tabela_sem_rls_de_proposito, public.trip, public.trip_item, public.trip_member
+✖ toda tabela dos esquemas da aplicação tem RLS ativo (34.9091ms)
+✔ as tabelas da prova existem e estão na publicação do PowerSync (19.1184ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 185.0188
+
+✖ failing tests:
+
+test at testes\rls.test.mjs:26:1
+✖ toda tabela dos esquemas da aplicação tem RLS ativo (34.9091ms)
+  AssertionError [ERR_ASSERTION]: tabelas sem RLS: public.tabela_sem_rls_de_proposito
+  + actual - expected
+  
+  + [
+  +   'public.tabela_sem_rls_de_proposito'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///C:/campinguim/prova/servidor/testes/rls.test.mjs:38:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'public.tabela_sem_rls_de_proposito' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+código de saída: 1
+
+$ psql: select count(*) from pg_class where relname = 'tabela_sem_rls_de_proposito'   # depois do teste
+0
+# 0 = a transação foi desfeita; o banco não mudou
