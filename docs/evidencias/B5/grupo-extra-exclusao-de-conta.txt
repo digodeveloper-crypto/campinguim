@@ -1,0 +1,11 @@
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  servidor  supabase/testes/exclusao-de-conta.test.ts > exclusão de conta > apagar o usuário do login apaga perfil e Pix, anonimiza membro e relato, e mantém o gasto 112ms
+ ✓  servidor  supabase/testes/exclusao-de-conta.test.ts > exclusão de conta > o dono da viagem apagado: a viagem fica para os outros membros 77ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  17:27:08
+   Duration  1.48s (tests 56%, import 28%, transform 13%, worker 3%)
+

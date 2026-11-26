@@ -1,0 +1,113 @@
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --exigir-completa
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1427 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 52ms
+ ✓  core  packages/core/src/cotas.test.ts (5 tests) 12ms
+ ↓  scripts  scripts/testes/manifesto.test.ts (3 tests | 3 skipped)
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 20ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 2836ms
+   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
+     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 351ms
+   ✓ .gitignore (GIT-08) (12)
+     ✓ ignora .env.local 357ms
+     ✓ ignora .env 301ms
+ ❯  scripts  scripts/testes/enderecos.test.ts (7 tests | 1 failed) 25144ms
+   ❯ endereços fora do arquivo de configuração (7)
+     × a árvore do repositório está limpa 24964ms
+     ✓ falha quando run.app aparece num arquivo de código 22ms
+     ✓ falha quando pages.dev aparece num arquivo de código 31ms
+     ✓ falha quando workers.dev aparece num arquivo de código 26ms
+     ✓ falha quando o domínio aparece fora das pastas de código (dados, configuração) 19ms
+     ✓ falha quando o endereço do servidor local é escrito no código 21ms
+     ✓ aceita o domínio dentro do arquivo de configuração e na documentação 39ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   scripts  scripts/testes/enderecos.test.ts > endereços fora do arquivo de configuração > a árvore do repositório está limpa
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ scripts/testes/enderecos.test.ts:25:3
+     23|
+     24| describe('endereços fora do arquivo de configuração', () => {
+     25|   it('a árvore do repositório está limpa', () => {
+       |   ^
+     26|     expect(conferirEnderecos()).toEqual([]);
+     27|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed | 1 skipped (6)
+      Tests  1 failed | 84 passed | 3 skipped (88)
+   Start at  17:34:25
+   Duration  26.79s (tests 88%, import 8%, transform 3%, worker 1%)
+
+JSON report written to <worktree B5>/test-results/suite/vitest-unitarios.json
+
+=== Testes do servidor (ambiente local) ===================================
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  servidor  supabase/testes/sync-apply.test.ts (49 tests) 4540ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts (5 tests) 2747ms
+   ✓ grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) (5)
+     ✓ C, membro só de W, não recebe nada da viagem V 731ms
+     ✓ S10: B removido da viagem deixa de receber tudo dela 676ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts (17 tests) 1786ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts (9 tests) 377ms
+ ✓  servidor  supabase/testes/aparelho.test.ts (8 tests) 502ms
+ ✓  servidor  supabase/testes/rls.test.ts (8 tests) 347ms
+ ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 242ms
+ ✓  servidor  supabase/testes/exclusao-de-conta.test.ts (2 tests) 242ms
+ ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 235ms
+ ✓  servidor  supabase/testes/contratos.test.ts (3 tests) 107ms
+
+ Test Files  10 passed (10)
+      Tests  109 passed (109)
+   Start at  17:34:53
+   Duration  20.05s (tests 77%, import 18%, transform 4%, worker 1%)
+
+JSON report written to <worktree B5>/test-results/suite/vitest-servidor.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.8s)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (2.2s)
+
+  2 passed (17.6s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                32.1 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          2.6 s  
+passou  Tipos (TypeScript estrito)                               139.7 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                        121.6 s  
+FALHOU  Testes unitários: regras puras e travas do repositório    29.8 s  84 de 88 testes passaram
+passou  Testes do servidor (ambiente local)                       21.9 s  109 de 109 testes passaram
+passou  Página web (Chromium e WebKit)                            22.2 s  2 de 2 testes passaram
+
+SUÍTE FALHOU: 1 etapa(s) com falha (369.9 s).
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+saida=1

@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) > quem não é membro não lê nada da viagem 104ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) > sem login, nenhuma leitura: permissão negada 67ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) > quem não é membro não escreve: viagem, família, pessoa, membro, item e marcação recusados 81ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) > membro que não é organizador não muda os dados da viagem nem remove membro 101ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) > membro escreve família, pessoa e item do grupo (controle da linha) 102ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) > escrita direta pela API (fora da função) é recusada, mesmo para o organizador 81ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) > perfil: cada pessoa lê e muda só o próprio 75ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 2: itens pessoais de uma família (lê e escreve: membros daquela família) > membro de outra família da mesma viagem não lê nem escreve o item pessoal 103ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 3: gastos (lê: membros da viagem; escreve: comprador e organizador) > quem não é membro não lê gastos, exclusões, pagamentos nem histórico 120ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 3: gastos (lê: membros da viagem; escreve: comprador e organizador) > membro que não é comprador nem organizador não muda valor, regra nem participantes 102ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 3: gastos (lê: membros da viagem; escreve: comprador e organizador) > "paguei" só pela família devedora: ninguém marca pela família dos outros 91ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 3: gastos (lê: membros da viagem; escreve: comprador e organizador) > escrita direta pela API em gastos é recusada 75ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 4: chave Pix (lê: membros logados de viagem em que o dono é comprador; escreve: o dono) > quem não divide viagem com o comprador não lê a chave; o membro da viagem lê (PRV-06) 92ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 4: chave Pix (lê: membros logados de viagem em que o dono é comprador; escreve: o dono) > ninguém cria, muda ou apaga a chave de outra pessoa; o dono consegue 78ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 5: campings, relatos, resumos e sugestões (ninguém diretamente; só as funções da seção 8) > nem com login nem sem login: ler ou escrever direto é recusado 149ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 5: campings, relatos, resumos e sugestões (ninguém diretamente; só as funções da seção 8) > a sincronização não aceita escrita nessas tabelas 67ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts > linha 6: eventos, config e fila de fusão (só operação interna) > nem com login nem sem login: ler ou escrever direto é recusado 119ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  17:25:44
+   Duration  2.09s (tests 91%, import 7%, transform 1%, worker 1%)
+

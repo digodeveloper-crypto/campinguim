@@ -1,0 +1,17 @@
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > toda tabela dos esquemas da aplicação tem RLS ativo 42ms
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > as tabelas da seção 3 existem todas 47ms
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > nenhuma tabela protegida tem política (nem de leitura) para o app 55ms
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > as políticas são exatamente as da tabela de autorização, e nenhuma é para quem não tem login 37ms
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > quem não tem login (anon) não tem privilégio em nenhuma tabela nem função da aplicação 47ms
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > o app (authenticated) não tem privilégio nas tabelas protegidas e só lê as sincronizadas 33ms
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > a publicação do PowerSync tem só as tabelas sincronizadas (nunca campings, relatos, resumos, sugestões) 30ms
+ ✓  servidor  supabase/testes/rls.test.ts > grupo 1: RLS em todas as tabelas (SPEC, seção 11) > controle: a conferência acha uma tabela protegida que ganhe política de leitura 29ms
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  17:24:42
+   Duration  2.19s (transform 44%, tests 38%, import 18%, worker 1%)
+
