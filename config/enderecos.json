@@ -1,0 +1,16 @@
+{
+  "_leia": "Único lugar com endereços do Campinguim (SPEC, seção 14, 'Endereço provisório'). App, página web, servidor, scripts e testes leem daqui; nenhum outro arquivo de código traz endereço escrito. 'local' é o ambiente em Docker na máquina: 10.0.2.2 é o computador visto de dentro do emulador Android e o site é um domínio reservado para teste (.test), que não existe nem é publicado. 'producao' fica vazio até o orquestrador decidir o endereço provisório do site (docs/infra.md, Cloudflare) e criar o servidor hospedado.",
+  "local": {
+    "servidorNoEmulador": "10.0.2.2",
+    "servidorNoComputador": "127.0.0.1",
+    "portaApi": 54321,
+    "portaBanco": 54322,
+    "portaSincronizacao": 8080,
+    "portaWeb": 5173,
+    "site": "https://campinguim.test"
+  },
+  "producao": {
+    "servidor": null,
+    "site": null
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "campinguim",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Campinguim: app de checklist para camping. Monorepo do app, da página do convidado, das regras e do servidor local.",
+  "type": "module",
+  "engines": {
+    "node": ">=24.19.0"
+  },
+  "workspaces": [
+    "apps/mobile",
+    "apps/web",
+    "packages/core",
+    "packages/content"
+  ],
+  "scripts": {
+    "prepare": "node scripts/instalar-hooks.mjs",
+    "testar": "node scripts/testar.mjs",
+    "testar:rapido": "node scripts/testar.mjs --sem-servidor --sem-web",
+    "testar:jornadas": "node scripts/jornadas.mjs",
+    "testar:sincronizacao": "node e2e/sincronizacao/rodar.mjs",
+    "tipos": "npm run tipos --workspaces --if-present && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.scripts.json",
+    "lint": "eslint --max-warnings=0 .",
+    "unitarios": "vitest run",
+    "web": "npm run dev --workspace apps/web",
+    "segredos": "node scripts/seguranca/verificar-segredos.mjs --tudo",
+    "enderecos": "node scripts/seguranca/verificar-enderecos.mjs",
+    "ambiente:subir": "node scripts/ambiente/ambiente.mjs subir",
+    "ambiente:parar": "node scripts/ambiente/ambiente.mjs parar",
+    "ambiente:zerar": "node scripts/ambiente/ambiente.mjs zerar",
+    "ambiente:estado": "node scripts/ambiente/ambiente.mjs estado",
+    "app:nativo": "npm run nativo --workspace apps/mobile",
+    "app:gerar": "node scripts/app.mjs gerar",
+    "app:instalar": "node scripts/app.mjs instalar"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.65.0",
+    "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
+    "eslint": "9.39.5",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.14.0",
+    "pg": "8.23.1",
+    "supabase": "3.4.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.2",
+    "vitest": "5.1.0"
+  }
+}

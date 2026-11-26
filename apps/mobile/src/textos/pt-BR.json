@@ -1,0 +1,11 @@
+{
+  "_leia": "Textos da interface do app em português do Brasil. Nenhum texto para a pessoa fica solto no código (CLAUDE.md, regra 5). Arquivo provisório da B1: a B6 define o arquivo de textos definitivo (NF-09).",
+  "app": {
+    "nome": "Campinguim"
+  },
+  "telaProvisoria": {
+    "titulo": "Campinguim",
+    "subtitulo": "O app está em construção.",
+    "detalhe": "Esta é a tela provisória da base. A lista de camping chega na etapa 1."
+  }
+}

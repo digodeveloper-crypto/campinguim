@@ -1,0 +1,16 @@
+# Fumaça da B1: abre o app a frio e confere a tela provisória.
+# Os marcadores {{...}} são trocados pelo executor (scripts/jornadas.mjs) antes de rodar:
+# {{pacote}} vem de scripts/android.mjs e {{textos.<caminho>}} do arquivo de textos do app
+# (apps/mobile/src/textos/pt-BR.json). Assim nenhum texto da interface é copiado para cá.
+appId: "{{pacote}}"
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: tela-provisoria
+    timeout: 30000
+- assertVisible: "{{textos.telaProvisoria.titulo}}"
+- assertVisible: "{{textos.telaProvisoria.subtitulo}}"
+- assertVisible: "{{textos.telaProvisoria.detalhe}}"
+- takeScreenshot: tela-provisoria

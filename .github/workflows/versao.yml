@@ -1,0 +1,47 @@
+# Esteira do GitHub: roda SÓ quando o orquestrador cria uma etiqueta de versão (v0.1.0, v0.2.0...),
+# com aprovação humana (GIT-05, GIT-06). A entrada de feature no main não dispara nada: os testes do
+# dia a dia rodam na máquina local (GIT-10). Um teste do repositório falha se este arquivo ganhar
+# outro gatilho (scripts/testes/repositorio.test.ts).
+name: versao
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  suite-local:
+    name: Suíte local na versão
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.19.0'
+          cache: npm
+
+      - name: Dependências
+        run: npm ci
+
+      - name: Navegadores dos testes da página web (Chromium e WebKit)
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Ambiente local em Docker (Supabase e PowerSync)
+        run: npm run ambiente:subir
+
+      - name: Suíte completa (sem pular o servidor)
+        run: npm run testar -- --exigir-servidor
+
+      - name: Parar o ambiente
+        if: always()
+        run: npm run ambiente:parar
+
+      # Rodada de lançamento (R1 a R4, SPEC seção 14): gerar o app Android e o do iPhone, a
+      # conferência de publicação (pacote sem mapas de código nem segredos) e o envio às lojas
+      # entram aqui, em passos novos, quando existirem as contas e as chaves no cofre de segredos
+      # do GitHub. Nenhum segredo é escrito neste arquivo.

@@ -66,3 +66,37 @@ videos/qa/relatorios/**/*.png
 __pycache__/
 # Capturas de tela do QA dos prototipos (ficam so no disco)
 design/prototipos/qa/relatorios/**/*.png
+
+# ------------------------------------------------------------------
+# Base do monorepo (B1)
+# ------------------------------------------------------------------
+# Modelo de credenciais locais, sem valores (o arquivo real fica fora do git)
+!.env.local.exemplo
+# Termos pessoais que a trava de segredos procura (só na máquina)
+.segredos-locais
+
+# App Expo: pastas nativas geradas por "expo prebuild" e saídas do Metro
+apps/mobile/android/
+apps/mobile/ios/
+.metro-health-check*
+expo-env.d.ts
+web-build/
+.kotlin/
+*.tsbuildinfo
+
+# Testes
+test-results/
+playwright-report/
+blob-report/
+.vite/
+.eslintcache
+
+# Supabase local
+supabase/.temp/
+supabase/.branches/
+
+# Rascunhos dos agentes (nunca entram no repositório)
+.claude/
+rascunho/
+rascunhos/
+*.rascunho.*

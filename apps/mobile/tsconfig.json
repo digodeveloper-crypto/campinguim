@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES2023"],
+    "types": ["node", "react-native"],
+    "allowJs": false,
+    "moduleResolution": "Bundler",
+    "customConditions": ["react-native"]
+  },
+  "include": ["app/**/*.ts", "app/**/*.tsx", "src/**/*.ts", "src/**/*.tsx", "app.config.ts", "expo-env.d.ts"]
+}
