@@ -1,5 +1,5 @@
-# Saída de npm run testar -- --exigir-completa no worktree da B4 (ramo sobre o main 8b97d5f, com o esquema alinhado ao B5),
-# depois de npm run ambiente:zerar a partir deste ramo, com o APK gerado depois das últimas mudanças de manifesto. 26/11/2026.
+# Saída de npm run testar -- --exigir-completa no worktree da B4, rebaseado sobre o main 730cdc4 (B3 e B5),
+# depois de npm run ambiente:zerar a partir deste ramo e com o APK gerado depois do rebase. 26/11/2026.
 
 
 > campinguim@0.0.0 testar
@@ -7,7 +7,7 @@
 
 
 === Trava de segredos (GIT-08) ============================================
-[segredos] 1455 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+[segredos] 1521 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
 
 === Endereços só no arquivo de configuração (SPEC 14) =====================
 [enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
@@ -25,29 +25,39 @@ tsc -p tsconfig.scripts.json
 
  RUN  v5.1.0 C:/campinguim-wt/B4
 
- ✓  core  packages/core/src/cotas.test.ts (5 tests) 6ms
- ✓  core  packages/core/src/eventos/eventos.test.ts (86 tests) 61ms
- ✓  core  apps/mobile/src/dados/__testes__/esquema.test.ts (17 tests) 14ms
- ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 27ms
- ✓  core  apps/mobile/src/dados/__testes__/acesso.test.ts (35 tests) 143ms
- ✓  core  apps/mobile/src/dados/__testes__/migracoes.test.ts (8 tests) 29ms
- ✓  core  apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts (2 tests) 16ms
- ✓  core  apps/mobile/src/medicao/medicao.test.ts (12 tests) 18ms
- ✓  core  apps/mobile/src/dados/__testes__/verificacao.test.ts (2 tests) 24ms
- ✓  scripts  scripts/testes/suite.test.ts (12 tests) 18ms
- ✓  core  apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts (8 tests) 11ms
- ✓  core  packages/core/src/formato/formato.test.ts (42 tests) 17ms
- ✓  core  apps/mobile/src/textos/textos.test.ts (27 tests) 91ms
- ✓  scripts  scripts/testes/manifesto.test.ts (3 tests) 6ms
- ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 1162ms
+ ✓  core  packages/core/src/duplicados.test.ts (11 tests) 13ms
+ ✓  core  packages/core/src/cotas.test.ts (13 tests) 69ms
+ ✓  core  packages/core/src/fatos.test.ts (23 tests) 16ms
+ ✓  core  packages/core/src/alertas.test.ts (24 tests) 30ms
+ ✓  core  packages/core/src/aprendizado.test.ts (18 tests) 42ms
+ ✓  core  packages/core/src/formato/formato.test.ts (42 tests) 20ms
+ ✓  core  packages/core/src/lista.test.ts (30 tests) 95ms
+ ✓  core  apps/mobile/src/dados/__testes__/migracoes.test.ts (8 tests) 45ms
+ ✓  core  apps/mobile/src/dados/__testes__/verificacao.test.ts (2 tests) 31ms
+ ✓  core  packages/core/src/catalogo.test.ts (110 tests) 45ms
+ ✓  core  apps/mobile/src/medicao/medicao.test.ts (12 tests) 16ms
+ ✓  core  packages/core/src/eventos/eventos.test.ts (86 tests) 62ms
+ ✓  core  apps/mobile/src/dados/__testes__/acesso.test.ts (35 tests) 140ms
+ ✓  core  apps/mobile/src/textos/textos.test.ts (27 tests) 87ms
+ ✓  core  apps/mobile/src/dados/__testes__/esquema.test.ts (17 tests) 16ms
+ ✓  core  apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts (8 tests) 16ms
+ ✓  core  packages/core/src/expressao.test.ts (7 tests) 15ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 30ms
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 22ms
+ ✓  core  packages/core/src/casos.test.ts (71 tests) 369ms
+ ✓  core  apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts (2 tests) 18ms
+ ✓  scripts  scripts/testes/manifesto.test.ts (3 tests) 7ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 1843ms
    ✓ endereços fora do arquivo de configuração (7)
-     ✓ a árvore do repositório está limpa 1115ms
- ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 791ms
+     ✓ a árvore do repositório está limpa 1787ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 1156ms
+   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
+     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 334ms
 
- Test Files  16 passed (16)
-      Tests  327 passed (327)
-   Start at  18:29:53
-   Duration  2.17s (tests 47%, import 40%, transform 10%, worker 3%)
+ Test Files  24 passed (24)
+      Tests  629 passed (629)
+   Start at  18:41:29
+   Duration  4.00s (transform 45%, tests 29%, import 24%, worker 2%)
 
 JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-unitarios.json
 
@@ -55,13 +65,24 @@ JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-unitarios.j
 
  RUN  v5.1.0 C:/campinguim-wt/B4
 
- ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 117ms
- ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 162ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts (49 tests) 3226ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts (17 tests) 1329ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts (5 tests) 2399ms
+   ✓ grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) (5)
+     ✓ C, membro só de W, não recebe nada da viagem V 756ms
+     ✓ S10: B removido da viagem deixa de receber tudo dela 622ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts (9 tests) 262ms
+ ✓  servidor  supabase/testes/aparelho.test.ts (8 tests) 337ms
+ ✓  servidor  supabase/testes/rls.test.ts (8 tests) 228ms
+ ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 177ms
+ ✓  servidor  supabase/testes/exclusao-de-conta.test.ts (2 tests) 155ms
+ ✓  servidor  supabase/testes/contratos.test.ts (3 tests) 47ms
+ ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 136ms
 
- Test Files  2 passed (2)
-      Tests  8 passed (8)
-   Start at  18:29:56
-   Duration  1.13s (import 55%, tests 40%, transform 3%, worker 2%)
+ Test Files  10 passed (10)
+      Tests  109 passed (109)
+   Start at  18:41:34
+   Duration  12.56s (tests 83%, import 13%, transform 3%, worker 1%)
 
 JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-servidor.json
 
@@ -69,19 +90,19 @@ JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-servidor.js
 
 Running 2 tests using 2 workers
 
-  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (512ms)
-  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (944ms)
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (896ms)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.5s)
 
-  2 passed (4.9s)
+  2 passed (8.2s)
 
 === Resumo da suíte local =================================================
 passou  Trava de segredos (GIT-08)                                 2.4 s  
 passou  Endereços só no arquivo de configuração (SPEC 14)          1.0 s  
-passou  Tipos (TypeScript estrito)                                10.0 s  5 de 5 projetos sem erro
-passou  Lint (ESLint, sem aviso tolerado)                          5.1 s  
-passou  Testes unitários: regras puras e travas do repositório     2.8 s  327 de 327 testes passaram
-passou  Testes do servidor (ambiente local)                        1.9 s  8 de 8 testes passaram
-passou  Página web (Chromium e WebKit)                             6.3 s  2 de 2 testes passaram
+passou  Tipos (TypeScript estrito)                                22.0 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                         19.1 s  
+passou  Testes unitários: regras puras e travas do repositório     5.2 s  629 de 629 testes passaram
+passou  Testes do servidor (ambiente local)                       13.4 s  109 de 109 testes passaram
+passou  Página web (Chromium e WebKit)                             9.3 s  2 de 2 testes passaram
 
-SUÍTE COMPLETA: todas as 7 etapas passaram (29.5 s).
+SUÍTE COMPLETA: todas as 7 etapas passaram (72.5 s).
 Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.

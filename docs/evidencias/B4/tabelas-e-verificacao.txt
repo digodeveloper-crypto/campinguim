@@ -1,15 +1,14 @@
-# B4: tabelas do banco local, listadas pela própria camada (listarTabelas, via sqlite_master), conferidas com a SPEC, seção 3
+# B4: tabelas do banco local, listadas pela própria camada (listarTabelas, via sqlite_master), conferidas com a SPEC, seção 3, e o B5
 # Fonte: registro do app (adb -s emulator-5554 logcat -s ReactNativeJS, etiqueta [campinguim:banco]), na fumaça
-# e2e/jornadas/fumaca-banco em 26/11/2026, 17:11 (horário do emulador), com o APK final da B4
-# (esquema com os campos pedidos pela B3; permissões de biometria bloqueadas).
+# e2e/jornadas/fumaca-banco em 26/11/2026, 18:44 (horário do emulador), com o APK final da B4 rebaseado sobre o main 730cdc4.
 
 ## Registro do app (3 linhas inteiras: 1ª abertura, verificação da camada no banco descartável, reabertura)
-11-26 17:11:21.806 I ReactNativeJS: [campinguim:banco] pronto {"arquivo":"campinguim.db","sqlcipher":true,"versaoDaCifra":"4.19.0 community","versaoLocal":2,"migracoesAplicadasAgora":[1,2],"recriado":false,"tabelas":[{"name":"estado_local","type":"table"},{"name":"evento_local","type":"table"},{"name":"expense","type":"view"},{"name":"expense_audit","type":"view"},{"name":"expense_exclusion","type":"view"},{"name":"expense_payment","type":"view"},{"name":"invite","type":"view"},{"name":"item_claim","type":"view"},{"name":"migracao_local","type":"table"},{"name":"pix_key","type":"view"},{"name":"profile","type":"view"},{"name":"trip","type":"view"},{"name":"trip_camping_snapshot","type":"view"},{"name":"trip_family","type":"view"},{"name":"trip_item","type":"view"},{"name":"trip_member","type":"view"},{"name":"trip_person","type":"view"}]}
-11-26 17:11:22.860 I ReactNativeJS: [campinguim:banco] verificacao {"ok":true,"versaoLocal":2,"tabelas":[{"name":"estado_local","type":"table"},{"name":"evento_local","type":"table"},{"name":"expense","type":"view"},{"name":"expense_audit","type":"view"},{"name":"expense_exclusion","type":"view"},{"name":"expense_payment","type":"view"},{"name":"invite","type":"view"},{"name":"item_claim","type":"view"},{"name":"migracao_local","type":"table"},{"name":"pix_key","type":"view"},{"name":"profile","type":"view"},{"name":"trip","type":"view"},{"name":"trip_camping_snapshot","type":"view"},{"name":"trip_family","type":"view"},{"name":"trip_item","type":"view"},{"name":"trip_member","type":"view"},{"name":"trip_person","type":"view"}],"passos":[{"passo":"tabelas da seção 3 e só locais presentes","ok":true,"detalhe":"17 tabelas"},{"passo":"nenhuma tabela de camping, relato ou resumo (DEF-11)","ok":true},{"passo":"criar viagem sem data, com família e pessoas","ok":true},{"passo":"valor fora da lista é recusado e nada é gravado","ok":true},{"passo":"gravar itens da lista (grupo e família)","ok":true},{"passo":"marcar \"está no carro\" e ignorar marcação repetida","ok":true},{"passo":"remover item da lista e restaurar (E1-04)","ok":true},{"passo":"pôr datas na viagem depois","ok":true},{"passo":"identificador da instalação estável","ok":true},{"passo":"eventos guardados, lidos em lote e apagados","ok":true},{"passo":"apagar a viagem (sem apagar de verdade)","ok":true}],"versaoDaCifra":"4.19.0 community"}
-11-26 17:11:28.752 I ReactNativeJS: [campinguim:banco] pronto {"arquivo":"campinguim.db","sqlcipher":true,"versaoDaCifra":"4.19.0 community","versaoLocal":2,"migracoesAplicadasAgora":[],"recriado":false,"tabelas":[{"name":"estado_local","type":"table"},{"name":"evento_local","type":"table"},{"name":"expense","type":"view"},{"name":"expense_audit","type":"view"},{"name":"expense_exclusion","type":"view"},{"name":"expense_payment","type":"view"},{"name":"invite","type":"view"},{"name":"item_claim","type":"view"},{"name":"migracao_local","type":"table"},{"name":"pix_key","type":"view"},{"name":"profile","type":"view"},{"name":"trip","type":"view"},{"name":"trip_camping_snapshot","type":"view"},{"name":"trip_family","type":"view"},{"name":"trip_item","type":"view"},{"name":"trip_member","type":"view"},{"name":"trip_person","type":"view"}]}
+11-26 18:44:47.602 I ReactNativeJS: [campinguim:banco] pronto {"arquivo":"campinguim.db","sqlcipher":true,"versaoDaCifra":"4.19.0 community","versaoLocal":2,"migracoesAplicadasAgora":[1,2],"recriado":false,"tabelas":[{"name":"estado_local","type":"table"},{"name":"evento_local","type":"table"},{"name":"expense","type":"view"},{"name":"expense_audit","type":"view"},{"name":"expense_exclusion","type":"view"},{"name":"expense_payment","type":"view"},{"name":"item_claim","type":"view"},{"name":"migracao_local","type":"table"},{"name":"profile","type":"view"},{"name":"trip","type":"view"},{"name":"trip_camping_snapshot","type":"view"},{"name":"trip_family","type":"view"},{"name":"trip_item","type":"view"},{"name":"trip_member","type":"view"},{"name":"trip_person","type":"view"}]}
+11-26 18:44:48.113 I ReactNativeJS: [campinguim:banco] verificacao {"ok":true,"versaoLocal":2,"tabelas":[{"name":"estado_local","type":"table"},{"name":"evento_local","type":"table"},{"name":"expense","type":"view"},{"name":"expense_audit","type":"view"},{"name":"expense_exclusion","type":"view"},{"name":"expense_payment","type":"view"},{"name":"item_claim","type":"view"},{"name":"migracao_local","type":"table"},{"name":"profile","type":"view"},{"name":"trip","type":"view"},{"name":"trip_camping_snapshot","type":"view"},{"name":"trip_family","type":"view"},{"name":"trip_item","type":"view"},{"name":"trip_member","type":"view"},{"name":"trip_person","type":"view"}],"passos":[{"passo":"tabelas da seção 3 e só locais presentes","ok":true,"detalhe":"15 tabelas"},{"passo":"nenhuma tabela de camping, relato ou resumo (DEF-11)","ok":true},{"passo":"criar viagem sem data, com família e pessoas","ok":true},{"passo":"valor fora da lista é recusado e nada é gravado","ok":true},{"passo":"gravar itens da lista (grupo e família)","ok":true},{"passo":"marcar \"está no carro\" e ignorar marcação repetida","ok":true},{"passo":"remover item da lista e restaurar (E1-04)","ok":true},{"passo":"pôr datas na viagem depois","ok":true},{"passo":"identificador da instalação estável","ok":true},{"passo":"eventos guardados, lidos em lote e apagados","ok":true},{"passo":"apagar a viagem (sem apagar de verdade)","ok":true}],"versaoDaCifra":"4.19.0 community"}
+11-26 18:44:54.896 I ReactNativeJS: [campinguim:banco] pronto {"arquivo":"campinguim.db","sqlcipher":true,"versaoDaCifra":"4.19.0 community","versaoLocal":2,"migracoesAplicadasAgora":[],"recriado":false,"tabelas":[{"name":"estado_local","type":"table"},{"name":"evento_local","type":"table"},{"name":"expense","type":"view"},{"name":"expense_audit","type":"view"},{"name":"expense_exclusion","type":"view"},{"name":"expense_payment","type":"view"},{"name":"item_claim","type":"view"},{"name":"migracao_local","type":"table"},{"name":"profile","type":"view"},{"name":"trip","type":"view"},{"name":"trip_camping_snapshot","type":"view"},{"name":"trip_family","type":"view"},{"name":"trip_item","type":"view"},{"name":"trip_member","type":"view"},{"name":"trip_person","type":"view"}]}
 
 ## Passos da verificação no aparelho
-- ok    tabelas da seção 3 e só locais presentes (17 tabelas)
+- ok    tabelas da seção 3 e só locais presentes (15 tabelas)
 - ok    nenhuma tabela de camping, relato ou resumo (DEF-11)
 - ok    criar viagem sem data, com família e pessoas
 - ok    valor fora da lista é recusado e nada é gravado
@@ -27,12 +26,30 @@
   ou seja, o banco reabriu com a mesma chave guardada no cofre.
 - A chave não aparece em nenhuma linha.
 
-## Tabelas no aparelho x SPEC, seção 3
-| No aparelho | Tipo | Na SPEC |
-| --- | --- | --- |
-| profile, trip, trip_family, trip_person, trip_member, trip_item, item_claim, trip_camping_snapshot, invite | vista do PowerSync | "Viagem e lista (sincronizam com o aparelho)": as 9 |
-| expense, expense_exclusion, expense_payment, expense_audit, pix_key | vista do PowerSync | "Gastos": as 5 |
-| estado_local, evento_local, migracao_local | tabela só local | não sincronizam (estado do app; eventos da seção 12; controle das migrações) |
-| city, camping, camping_alias, fact_report, fact_summary, suggestion, merge_candidate, list_feedback, device, event, config | — (ausentes) | "Campings (só no servidor)" e "Apoio": nunca no aparelho (DEF-11) |
+## Tabelas no aparelho (15)
+- estado_local (tabela só local)
+- evento_local (tabela só local)
+- expense (vista do PowerSync)
+- expense_audit (vista do PowerSync)
+- expense_exclusion (vista do PowerSync)
+- expense_payment (vista do PowerSync)
+- item_claim (vista do PowerSync)
+- migracao_local (tabela só local)
+- profile (vista do PowerSync)
+- trip (vista do PowerSync)
+- trip_camping_snapshot (vista do PowerSync)
+- trip_family (vista do PowerSync)
+- trip_item (vista do PowerSync)
+- trip_member (vista do PowerSync)
+- trip_person (vista do PowerSync)
 
-Total: 14 tabelas da seção 3 + 3 só locais = 17, iguais às 17 da lista acima. As tabelas internas do PowerSync (ps_*) e do SQLite (sqlite_*) ficam fora da listagem.
+## Conferência
+| No aparelho | Tipo | Referência |
+| --- | --- | --- |
+| profile, trip, trip_family, trip_person, trip_member, trip_item, item_claim, trip_camping_snapshot | vista do PowerSync | SPEC 3, "Viagem e lista"; B5, "O que chega ao aparelho" |
+| expense, expense_exclusion, expense_payment, expense_audit | vista do PowerSync | SPEC 3, "Gastos"; B5, "O que chega ao aparelho" |
+| estado_local, evento_local, migracao_local | tabela só local | não sincronizam (estado do app; eventos da seção 12; controle das migrações) |
+| invite, pix_key, city, camping, camping_alias, fact_report, fact_summary, suggestion, merge_candidate, list_feedback, device, event, config | ausentes | B5, "Nunca vão"; DEF-11 |
+
+12 tabelas sincronizadas (as 12 que o B5 manda ao aparelho) + 3 só locais = 15. As colunas de cada uma foram comparadas com as migrações
+do B5 no main: comparacao-com-B5.txt. As tabelas internas do PowerSync (ps_*) e do SQLite (sqlite_*) ficam fora da listagem.

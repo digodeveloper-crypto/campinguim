@@ -1,16 +1,16 @@
 # B4: prova da cifra do banco local (DEF-11)
-# Emulador campinguim-a (emulator-5554), Android 16 (API 36), app com.campinguim.prova (APK release gerado na B4).
-# Data: 2026-11-26T19:13:16Z, depois de o app criar o banco (roteiro e2e/jornadas/fumaca-banco).
+# Emulador campinguim-a (emulator-5554), Android 16 (API 36), app com.campinguim.prova: APK final da B4, rebaseado sobre o main 730cdc4.
+# Data: 2026-11-26T21:45:35Z, logo depois da fumaça e2e/jornadas/fumaca-banco (o app criou o banco a frio).
 # O APK release não é 'debuggable': 'run-as' responde 'run-as: package not debuggable: com.campinguim.prova'.
 # Por isso a leitura usa o shell de root da imagem de teste do emulador (Google APIs, build userdebug): 'su 0 cat'.
 # O resto do comando é o do cartão: exec-out ... | head -c 64 | xxd.
 
 ## 1. Banco do app (cifrado): os 64 primeiros bytes NÃO começam por 'SQLite format 3'
 $ adb -s emulator-5554 exec-out su 0 cat /data/user/0/com.campinguim.prova/databases/campinguim.db | head -c 64 | xxd
-00000000: eb12 0146 2bbc ba69 a6d3 a9b9 3d8f 9e38  ...F+..i....=..8
-00000010: 6919 7d4d 4471 1858 5af2 2064 683e 43b2  i.}MDq.XZ. dh>C.
-00000020: 72cf d8d9 afdb fa7f 2b9f ce67 905e 6aa1  r.......+..g.^j.
-00000030: 56a3 46d0 de2a 338a f3ae 4088 eb1c 37ab  V.F..*3...@...7.
+00000000: c1d6 4b1b 75f4 8241 5e1b 6b5b 11f0 9f4f  ..K.u..A^.k[...O
+00000010: c807 0bb4 58b0 29b3 c646 c0ef f57f 7e0b  ....X.)..F....~.
+00000020: b067 1a6e acdc 22cb 5a4d b223 a457 6407  .g.n..".ZM.#.Wd.
+00000030: a938 fc55 418e 6f7a 96d2 6f55 0176 1f31  .8.UA.oz..oU.v.1
 
 ## 2. Banco SQLite sem cifra, para comparação (criado no computador pelo SQLite do Node, enviado ao mesmo emulador)
 $ adb -s emulator-5554 exec-out su 0 cat /data/local/tmp/comparacao-sem-cifra.db | head -c 64 | xxd
