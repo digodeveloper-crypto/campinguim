@@ -334,6 +334,17 @@ describe('tabelas só locais', () => {
     expect(await contarEventos(ctx)).toBe(1);
   });
 
+  it('eventos com id e hora de quem registrou (porta da B6): repetir o mesmo id não duplica', async () => {
+    const { ctx } = await novoBancoDeTeste();
+    const id = randomUUID();
+    const evento = { id, at: '2026-11-26T15:00:00.000Z', name: 'app_opened', props: { origin: 'icon' } };
+    expect(await guardarEvento(ctx, evento)).toBe(id);
+    expect(await guardarEvento(ctx, evento)).toBe(id);
+    expect(await lerLoteDeEventos(ctx, 10)).toMatchObject([{ id, at: '2026-11-26T15:00:00.000Z' }]);
+    await expect(guardarEvento(ctx, { ...evento, id: 'nao-e-uuid' })).rejects.toMatchObject({ name: 'ValorInvalido' });
+    await expect(guardarEvento(ctx, { ...evento, id: randomUUID(), at: 'ontem' })).rejects.toMatchObject({ name: 'ValorInvalido' });
+  });
+
   it('eventos: só propriedades simples, sem objeto nem lista', async () => {
     const { ctx } = await novoBancoDeTeste();
     await expect(guardarEvento(ctx, { name: 'App Opened' })).rejects.toMatchObject({ name: 'ValorInvalido' });

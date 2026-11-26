@@ -72,15 +72,26 @@ function conferirPropriedades(props: PropriedadesDoEvento): string {
 /** Guarda o evento no aparelho para o envio em lote. Devolve o `id`. */
 export async function guardarEvento(
   ctx: ContextoDeAcesso,
-  evento: { name: string; props?: PropriedadesDoEvento; installId?: string | null },
+  evento: {
+    name: string;
+    props?: PropriedadesDoEvento;
+    installId?: string | null;
+    /** Identificador vindo de quem registrou o evento (a porta da B6); o mesmo `id` não é guardado duas vezes. */
+    id?: string;
+    /** Hora do evento (UTC, ISO 8601), quando já vem de quem registrou. */
+    at?: string;
+  },
 ): Promise<string> {
   if (!NOME_DE_EVENTO.test(evento.name)) throw new ValorInvalido('name', 'nome de evento inválido');
-  const id = ctx.gerarId();
-  await ctx.db.execute('insert into evento_local (id, name, props, at, install_id, profile_id) values (?, ?, ?, ?, ?, ?)', [
+  const id = evento.id === undefined ? ctx.gerarId() : identificador('id', evento.id);
+  if (evento.at !== undefined && Number.isNaN(Date.parse(evento.at))) throw new ValorInvalido('at', 'esperado carimbo de tempo ISO 8601');
+  await ctx.db.execute(
+    'insert into evento_local (id, name, props, at, install_id, profile_id) values (?, ?, ?, ?, ?, ?) on conflict (id) do nothing',
+    [
     id,
     evento.name,
     conferirPropriedades(evento.props ?? {}),
-    ctx.agora(),
+    evento.at ?? ctx.agora(),
     identificadorOpcional('install_id', evento.installId),
     ctx.perfilId,
   ]);

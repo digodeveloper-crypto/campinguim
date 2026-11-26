@@ -124,6 +124,7 @@ Funções com tipos, usadas pelas features da etapa 1:
 - **Valores conferidos antes de gravar** (`valores.ts`): listas fechadas da seção 3 (`kind`, `climate`, `status`, `age_band`, `origin`, `pack_state`, `return_state`...), datas `AAAA-MM-DD` que existem, volta não antes da ida, inteiros não negativos, UUID v4. Valor inválido gera `ValorInvalido` e nada é gravado. Motivo: um valor fora da lista seria recusado pelo servidor e travaria a fila do aparelho (ponto J1 da prova).
 - **Regras de negócio ficam fora**: quantas noites, quem entra na lista, quantidades e alertas são das features e de `packages/core`. A camada só grava e lê.
 - **Sem conta** (E1-14): `owner_profile_id` e `updated_by` nulos; `trip_member` não é criado pela camada (o vínculo com a conta é da 2.1 e o grupo, da 2.3).
+- **Eventos e a B6**: a B6 (já no main) definiu a porta `ArmazenamentoDeEventos` em `src/medicao/porta.ts`, hoje com armazenamento em memória. Ligar essa porta à tabela `evento_local` é uma tarefa posterior (como a própria B6 registra); `guardarEvento`, `lerLoteDeEventos`, `apagarEventos` e `contarEventos` cobrem `guardar`, `listarPendentes`, `marcarEnviados` e `contarPendentes` (o adaptador passa o `id` do evento da B6).
 - **Eventos**: a camada só garante a forma (nome `snake_case`, propriedades de um nível com valores simples). A lista de eventos e de propriedades aceitas é da B6.
 - **Escritas só pelas funções da camada**: ela é quem põe `updated_at`, `updated_by` e `_metadata`. Os tipos não deixam a camada escrever numa tabela que vem só do servidor.
 
@@ -148,7 +149,7 @@ O que a 2.1 e a 2.2 completam (está escrito no próprio `conector.ts`):
 
 | Onde | O que | Como roda |
 | --- | --- | --- |
-| `src/seguranca/__testes__/chaveDoBanco.test.ts` | Chave: criação, reuso, valor ilegível, erro do cofre, formato bruto, chave fora de mensagem de erro | Vitest, projeto `core`, dentro do `npm run testar` |
+| `src/seguranca/__testes__/chaveDoBanco.test.ts` | Chave: criação, reuso, valor ilegível, erro do cofre, formato bruto, chave fora de mensagem de erro | Vitest, projeto `core` (inclusão `apps/*/src/**/*.test.ts`), dentro do `npm run testar` |
 | `src/dados/__testes__/esquema.test.ts` | Esquema = SPEC, campo a campo; tabelas proibidas; tipos; quem escreve | idem |
 | `src/dados/__testes__/migracoes.test.ts` | Migrações em sequência, repetidas, de versão antiga, com erro, de versão futura; migração publicada não muda | idem, contra o SQLite do Node |
 | `src/dados/__testes__/acesso.test.ts` | Camada de acesso: viagens, pessoas, itens, estados, removidos, estado local, eventos, Pix | idem |
@@ -171,7 +172,7 @@ A verificação no emulador só existe no ambiente local (`config.ambiente`): o 
 | `android.allowBackup: false` | Backup do banco cifrado é inútil fora do aparelho e criaria o caso de chave perdida |
 | Tabelas só locais como tabelas comuns com migração, e não como tabelas "só locais" do PowerSync | O cartão pede migrações versionadas; tabela comum aceita índice, `strict` e `on conflict`, e não some ao sair da conta |
 | Banco descartável na verificação do emulador | O teste instrumentado não pode deixar dado de teste no banco da pessoa (ponto J1) |
-| Testes do app no projeto `core` do Vitest (mudança de uma linha em `vitest.config.ts`) | Assim rodam dentro do `npm run testar` sem mexer em `scripts/` (fora da pasta da B4). Se o orquestrador preferir um projeto `app` separado, é preciso acrescentá-lo em `scripts/testar.mjs` |
+| Testes do app no projeto `core` do Vitest | Rodam dentro do `npm run testar`. A inclusão `apps/*/src/**/*.test.ts` veio com a B6 (main `8b97d5f`); a B4 não muda mais `vitest.config.ts` |
 
 ## 9. Evidências da B4
 
