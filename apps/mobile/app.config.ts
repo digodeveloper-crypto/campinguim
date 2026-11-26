@@ -60,6 +60,10 @@ const config: ExpoConfig = {
       'android.permission.ACCESS_BACKGROUND_LOCATION',
       'com.google.android.c2dm.permission.RECEIVE',
       'com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE',
+      // Trazidas pelo expo-secure-store (B4) para a opção de exigir digital ou rosto ao ler o
+      // cofre. O app não usa essa opção: a chave do banco é lida sem pedir nada à pessoa.
+      'android.permission.USE_BIOMETRIC',
+      'android.permission.USE_FINGERPRINT',
       // Selos de ícone de fabricantes (ShortcutBadger)
       'com.anddoes.launcher.permission.UPDATE_COUNT',
       'com.htc.launcher.permission.READ_SETTINGS',

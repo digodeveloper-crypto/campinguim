@@ -11,6 +11,9 @@ export const ORIGENS_DO_ITEM = ['generated', 'manual', 'camping_adjust'] as cons
 export const ESTADOS_DE_SEPARACAO = ['todo', 'set_aside', 'in_car'] as const;
 export const ESTADOS_DA_VOLTA = ['unchecked', 'checked', 'dry_at_home', 'wash_at_home'] as const;
 export const REGRAS_DE_DIVISAO = ['shares', 'per_family', 'adults_teens'] as const;
+// Campos da B3 (`docs/regras.md`, seção 6).
+export const UNIDADES_DO_DETALHE = ['litro', 'metro'] as const;
+export const TIPOS_DE_APRENDIZADO = ['missing', 'reduced', 'flagged'] as const;
 
 export type TipoDeViagem = (typeof TIPOS_DE_VIAGEM)[number];
 export type Clima = (typeof CLIMAS)[number];
@@ -21,6 +24,8 @@ export type OrigemDoItem = (typeof ORIGENS_DO_ITEM)[number];
 export type EstadoDeSeparacao = (typeof ESTADOS_DE_SEPARACAO)[number];
 export type EstadoDaVolta = (typeof ESTADOS_DA_VOLTA)[number];
 export type RegraDeDivisao = (typeof REGRAS_DE_DIVISAO)[number];
+export type UnidadeDoDetalhe = (typeof UNIDADES_DO_DETALHE)[number];
+export type TipoDeAprendizado = (typeof TIPOS_DE_APRENDIZADO)[number];
 
 export class ValorInvalido extends Error {
   constructor(
@@ -63,6 +68,10 @@ export function numeroNaoNegativo(campo: string, valor: unknown): number {
     throw new ValorInvalido(campo, 'esperado número maior ou igual a zero');
   }
   return valor;
+}
+
+export function inteiroOpcional(campo: string, valor: unknown): number | null {
+  return valor === null || valor === undefined ? null : inteiroNaoNegativo(campo, valor);
 }
 
 /** Verdadeiro/falso vira 1/0 (o SQLite não tem tipo lógico). */

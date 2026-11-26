@@ -5,7 +5,9 @@ import { MIGRACOES } from '../migracoes';
 import { TABELAS_SO_LOCAIS } from '../verificacao';
 
 // O esquema local é contrato com o B5 (esquema do Postgres) e com a SPEC, seção 3: os campos
-// abaixo são os da SPEC, copiados um a um. Mudar um campo aqui exige mudar a SPEC antes.
+// abaixo são os da SPEC, copiados um a um, mais os pedidos pela B3 (`docs/regras.md` da B3,
+// seção 6, "Campos que o modelo de dados precisa", marcados "B3"). Mudar um campo aqui exige
+// mudar a SPEC (ou o documento da B3) antes.
 const CONTROLE = ['updated_at', 'updated_by', 'deleted_at'];
 const CAMPOS_DA_SPEC: Record<string, string[]> = {
   profile: ['display_name', 'nickname', 'anonymous_by_default', 'origin_channel', 'last_active_at'],
@@ -22,7 +24,8 @@ const CAMPOS_DA_SPEC: Record<string, string[]> = {
     'is_group',
     'status',
     'source_trip_id',
-    'created_at', // seção 11, FRD-02
+    'created_at', // seção 11, FRD-02; B3
+    'destination_name', // B3
   ],
   trip_family: ['trip_id', 'name', 'pets', 'is_organizer'],
   trip_person: ['family_id', 'age_band', 'label'],
@@ -44,9 +47,18 @@ const CAMPOS_DA_SPEC: Record<string, string[]> = {
     'return_state',
     'missing',
     'leftover',
+    // B3
+    'item_ref',
+    'qty_edited',
+    'qty_per_person',
+    'detail_qty',
+    'detail_unit',
+    'learning_kind',
+    'learning_qty_before',
+    'learning_percent',
   ],
   item_claim: ['item_id', 'family_id'],
-  trip_camping_snapshot: ['trip_id', 'camping_id', 'facts', 'alerts', 'adjustments', 'rules_ack_at', 'fetched_at'],
+  trip_camping_snapshot: ['trip_id', 'camping_id', 'facts', 'alerts', 'adjustments', 'rules_ack_at', 'fetched_at', 'undone_adjustment_ids'], // último: B3
   invite: ['token', 'trip_id', 'family_id', 'created_by', 'expires_at', 'revoked'],
   expense: ['trip_id', 'item_id', 'buyer_family_id', 'estimate_cents', 'amount_cents', 'split_rule', 'receipt_path'],
   expense_exclusion: ['expense_id', 'person_id'],
@@ -99,6 +111,11 @@ describe('esquema local = SPEC, seção 3 (viagem e lista, gastos)', () => {
       ['trip_item', 'leftover'],
       ['invite', 'revoked'],
       ['profile', 'anonymous_by_default'],
+      ['trip_item', 'qty_edited'],
+      ['trip_item', 'qty_per_person'],
+      ['trip_item', 'detail_qty'],
+      ['trip_item', 'learning_qty_before'],
+      ['trip_item', 'learning_percent'],
     ] as const) {
       expect(tipoDe(t, c), `${t}.${c}`).toBe('INTEGER');
     }

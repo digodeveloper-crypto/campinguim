@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 
 import { describe, expect, it } from 'vitest';
 
-import { inserirItens, listarItens, marcarSeparacao, obterItem, removerItem, restaurarItem, alterarItem } from '../acesso/itens';
+import { alterarItem, inserirItens, listarItens, marcarSeparacao, obterItem, referenciaDoItem, removerItem, restaurarItem } from '../acesso/itens';
 import { apagarEventos, contarEventos, gravarEstado, guardarEvento, lerEstado, lerLoteDeEventos, obterIdDaInstalacao } from '../acesso/local';
 import { lerChavesPixDoComprador } from '../acesso/pix';
 import {
@@ -218,6 +218,89 @@ describe('itens da lista (features 1.2 a 1.10 usam)', () => {
     expect(await obterItem(ctx, id)).toMatchObject({ return_state: 'dry_at_home', missing: 1, leftover: 0, need_buy: 1, note: 'lona rasgada' });
     await expect(alterarItem(ctx, id, { qty: -1 })).rejects.toMatchObject({ name: 'ValorInvalido' });
     await expect(alterarItem(ctx, id, { return_state: 'lavar' as never })).rejects.toMatchObject({ name: 'ValorInvalido' });
+  });
+});
+
+describe('campos pedidos pela B3 (docs/regras.md da B3, seção 6)', () => {
+  it('destino sem camping na viagem (E1-13)', async () => {
+    const { ctx } = await novoBancoDeTeste();
+    const { tripId } = await criarViagem(ctx, { ...viagemDeReferencia, destination_name: '  Serra do Cipó ' });
+    expect((await obterViagem(ctx, tripId))?.destination_name).toBe('Serra do Cipó');
+    expect(await alterarViagem(ctx, tripId, { destination_name: null })).toBe(true);
+    expect((await obterViagem(ctx, tripId))?.destination_name).toBeNull();
+  });
+
+  it('referência estável do item segue a regra da B3', async () => {
+    const { ctx } = await novoBancoDeTeste();
+    const { tripId, familyId } = await criarViagem(ctx, viagemDeReferencia);
+    const [gerado, grupo, ajuste, manual] = await inserirItens(ctx, tripId, [
+      { family_id: familyId, catalog_key: 'barraca', name: 'Barraca', qty: 1, origin: 'generated' },
+      { family_id: null, catalog_key: 'martelo', name: 'Martelo', qty: 1, origin: 'generated' },
+      { family_id: null, catalog_key: 'extensao', name: 'Extensão', qty: 1, origin: 'camping_adjust' },
+      { family_id: familyId, name: 'Violão', qty: 1, origin: 'manual' },
+    ]);
+    const ref = async (id: string | undefined) => (await obterItem(ctx, id ?? ''))?.item_ref;
+    expect(await ref(gerado)).toBe(`barraca@${familyId}`);
+    expect(await ref(grupo)).toBe('martelo@grupo');
+    expect(await ref(ajuste)).toBe('ajuste:extensao@grupo');
+    expect(await ref(manual)).toBe(manual);
+    expect(() => referenciaDoItem('generated', null, null, 'x')).toThrow('chave do catálogo');
+  });
+
+  it('referência repetida na mesma viagem é recusada, inclusive dentro do lote; item removido ainda conta', async () => {
+    const { ctx } = await novoBancoDeTeste();
+    const { tripId, familyId } = await criarViagem(ctx, viagemDeReferencia);
+    const [barraca] = await inserirItens(ctx, tripId, [{ family_id: familyId, catalog_key: 'barraca', name: 'Barraca', qty: 1, origin: 'generated' }]);
+    await removerItem(ctx, barraca ?? '');
+    await expect(
+      inserirItens(ctx, tripId, [{ family_id: familyId, catalog_key: 'barraca', name: 'Barraca', qty: 1, origin: 'generated' }]),
+    ).rejects.toMatchObject({ name: 'ValorInvalido' });
+    await expect(
+      inserirItens(ctx, tripId, [
+        { family_id: null, catalog_key: 'lanterna', name: 'Lanterna', qty: 1, origin: 'generated' },
+        { family_id: null, catalog_key: 'lanterna', name: 'Lanterna', qty: 2, origin: 'generated' },
+      ]),
+    ).rejects.toMatchObject({ name: 'ValorInvalido' });
+    expect(await listarItens(ctx, tripId, { incluirRemovidos: true })).toHaveLength(1);
+    // Em outra viagem, a mesma referência é aceita.
+    const outra = await criarViagem(ctx, { ...viagemDeReferencia, name: 'Outra' });
+    await inserirItens(ctx, outra.tripId, [{ family_id: null, catalog_key: 'martelo', name: 'Martelo', qty: 1, origin: 'generated' }]);
+    await inserirItens(ctx, tripId, [{ family_id: null, catalog_key: 'martelo', name: 'Martelo', qty: 1, origin: 'generated' }]);
+  });
+
+  it('tarefa sem quantidade, quantidade por pessoa, detalhe e edição à mão', async () => {
+    const { ctx } = await novoBancoDeTeste();
+    const { tripId, familyId } = await criarViagem(ctx, viagemDeReferencia);
+    const [tarefa, mudas, agua] = await inserirItens(ctx, tripId, [
+      { family_id: familyId, catalog_key: 'documentos', name: 'Documentos', qty: null, origin: 'generated' },
+      { family_id: familyId, catalog_key: 'mudas', name: 'Mudas de roupa', qty: 12, qty_per_person: 3, origin: 'generated' },
+      { family_id: null, catalog_key: 'agua', name: 'Água', qty: 8, unit: 'galao_5l', detalhe: { qty: 36, unit: 'litro' }, origin: 'generated' },
+    ]);
+    expect(await obterItem(ctx, tarefa ?? '')).toMatchObject({ qty: null, qty_edited: 0, qty_per_person: null, detail_qty: null, detail_unit: null });
+    expect(await obterItem(ctx, mudas ?? '')).toMatchObject({ qty: 12, qty_per_person: 3 });
+    expect(await obterItem(ctx, agua ?? '')).toMatchObject({ unit: 'galao_5l', detail_qty: 36, detail_unit: 'litro' });
+    expect(await alterarItem(ctx, agua ?? '', { qty: 10, qty_edited: true })).toBe(true);
+    expect(await obterItem(ctx, agua ?? '')).toMatchObject({ qty: 10, qty_edited: 1 });
+    expect(await alterarItem(ctx, agua ?? '', { detalhe: null })).toBe(true);
+    expect(await obterItem(ctx, agua ?? '')).toMatchObject({ detail_qty: null, detail_unit: null });
+    await expect(alterarItem(ctx, agua ?? '', { detalhe: { qty: 20, unit: 'pe' as never } })).rejects.toMatchObject({ name: 'ValorInvalido' });
+    await expect(alterarItem(ctx, agua ?? '', { qty_per_person: 1.5 })).rejects.toMatchObject({ name: 'ValorInvalido' });
+  });
+
+  it('marca do aprendizado: faltou, sinalizado e reduzido (com o que desfaz)', async () => {
+    const { ctx } = await novoBancoDeTeste();
+    const { tripId, familyId } = await criarViagem(ctx, viagemDeReferencia);
+    const [faltou, reduzido] = await inserirItens(ctx, tripId, [
+      { family_id: familyId, catalog_key: 'lanterna', name: 'Lanterna', qty: 1, origin: 'generated', aprendizado: { kind: 'missing' } },
+      { family_id: familyId, catalog_key: 'carvao', name: 'Carvão', qty: 3, origin: 'generated', aprendizado: { kind: 'reduced', qty_before: 4, percent: 25 } },
+    ]);
+    expect(await obterItem(ctx, faltou ?? '')).toMatchObject({ learning_kind: 'missing', learning_qty_before: null, learning_percent: null });
+    expect(await obterItem(ctx, reduzido ?? '')).toMatchObject({ learning_kind: 'reduced', learning_qty_before: 4, learning_percent: 25 });
+    expect(await alterarItem(ctx, reduzido ?? '', { aprendizado: { kind: 'flagged' } })).toBe(true);
+    expect(await obterItem(ctx, reduzido ?? '')).toMatchObject({ learning_kind: 'flagged', learning_qty_before: null, learning_percent: null });
+    for (const ruim of [{ kind: 'reduced', qty_before: 4, percent: 0 }, { kind: 'reduced', qty_before: 4, percent: 100 }, { kind: 'faltou' }]) {
+      await expect(alterarItem(ctx, faltou ?? '', { aprendizado: ruim as never })).rejects.toMatchObject({ name: 'ValorInvalido' });
+    }
   });
 });
 

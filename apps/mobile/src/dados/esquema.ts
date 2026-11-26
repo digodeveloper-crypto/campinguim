@@ -13,6 +13,10 @@ import { column, Schema, Table } from '@powersync/common';
 //     tipo lógico); datas da viagem como texto `AAAA-MM-DD`; carimbos de tempo em UTC (ISO 8601);
 //   - `facts`, `alerts` e `adjustments` guardam o JSON devolvido pelo servidor, como texto.
 //
+// Campos que vêm da B3 (motor de regras), além da seção 3 da SPEC: `docs/regras.md`, seção 6,
+// "Campos que o modelo de dados precisa" (pedido do orquestrador em 26/11/2026). Marcados com
+// "B3" abaixo; o B5 cria os mesmos no Postgres.
+//
 // Fora do aparelho, sempre (DEF-11; seção 3, "O que chega ao aparelho"): `city`, `camping`,
 // `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`,
 // `list_feedback`, `device`, `event` e `config`. Um teste confere que nenhuma delas existe aqui.
@@ -57,8 +61,11 @@ const trip = new Table(
     is_group: column.integer,
     status: column.text,
     source_trip_id: column.text,
-    // Citado na seção 11 (FRD-02: viagem criada antes da data de início).
+    // Citado na seção 11 (FRD-02) e pedido pela B3: viagem criada antes da data de ida; ordem do
+    // histórico para o aprendizado e a repetição. Sempre preenchido.
     created_at: column.text,
+    // B3: destino informado na etapa 1 sem camping do servidor (E1-13).
+    destination_name: column.text,
     ...controle,
   },
   { ...escritaPeloApp },
@@ -115,10 +122,23 @@ const trip_item = new Table(
     return_state: column.text,
     missing: column.integer,
     leftover: column.integer,
+    // B3: referência estável do item para o recálculo (única por viagem entre as não apagadas).
+    item_ref: column.text,
+    // B3: quantidade editada à mão (o recálculo não mexe mais nela).
+    qty_edited: column.integer,
+    // B3: quantidade por pessoa nos itens de escopo pessoa.
+    qty_per_person: column.integer,
+    // B3: quantidade secundária mostrada junto (36 L, 20 m) e a sua unidade (`litro` ou `metro`).
+    detail_qty: column.integer,
+    detail_unit: column.text,
+    // B3: marca do aprendizado (E1-11): `missing`, `reduced` ou `flagged`, e o que desfaz a redução.
+    learning_kind: column.text,
+    learning_qty_before: column.integer,
+    learning_percent: column.integer,
     ...controle,
   },
   {
-    indexes: { viagem: ['trip_id'], familia: ['family_id'] },
+    indexes: { viagem: ['trip_id'], familia: ['family_id'], referencia: ['trip_id', 'item_ref'] },
     ...escritaPeloApp,
     // Valor anterior destes campos vai junto na alteração: o servidor reconhece alteração
     // concorrente sem depender do relógio do aparelho (seção 4: `pack_state` mais avançado vence;
@@ -147,6 +167,9 @@ const trip_camping_snapshot = new Table(
     adjustments: column.text,
     rules_ack_at: column.text,
     fetched_at: column.text,
+    // B3: ajustes desfeitos pela pessoa (E3-08, A6). No Postgres é `text[]`; no aparelho, a lista
+    // chega como JSON em texto (o PowerSync guarda listas assim).
+    undone_adjustment_ids: column.text,
     ...controle,
   },
   { indexes: { viagem: ['trip_id'] } },

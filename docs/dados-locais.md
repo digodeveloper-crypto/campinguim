@@ -52,7 +52,7 @@ Isso só acontece quando a chave **acabou de ser criada**. Se o cofre devolve er
 
 ## 3. Esquema das tabelas que sincronizam (SPEC, seção 3)
 
-Todas as tabelas de "Viagem e lista" e de "Gastos", com os **mesmos nomes de tabela e de campo da SPEC** (o B5 cria o mesmo esquema no Postgres). Um teste (`__testes__/esquema.test.ts`) compara campo a campo com a lista copiada da SPEC.
+Todas as tabelas de "Viagem e lista" e de "Gastos", com os **mesmos nomes de tabela e de campo da SPEC** (o B5 cria o mesmo esquema no Postgres). Um teste (`__testes__/esquema.test.ts`) compara campo a campo com a lista copiada da SPEC e com os campos pedidos pela B3 (abaixo).
 
 | Tabela | Quem escreve no aparelho |
 | --- | --- |
@@ -65,8 +65,25 @@ Regras aplicadas a todas:
 - `updated_at`, `updated_by` e `deleted_at` em todo registro (seção 3, "Regras gerais"; seção 4). Nada é apagado de verdade: a camada marca `deleted_at` e as leituras escondem a linha.
 - `updated_at` é a hora do aparelho, só para mostrar; conflito quem decide é o servidor (seção 4, princípio 4). `updated_by` é o perfil logado, nulo sem conta.
 - `trip.created_at` existe porque a seção 11 (FRD-02) o usa.
-- Dinheiro em centavos (inteiro). Verdadeiro/falso como 0 ou 1 (o SQLite não tem tipo lógico). Datas da viagem como texto `AAAA-MM-DD`; carimbos de tempo em UTC (ISO 8601). `facts`, `alerts` e `adjustments` guardam o JSON do servidor, como texto. `qty` é número com casas (por exemplo, litros de água).
+- Dinheiro em centavos (inteiro). Verdadeiro/falso como 0 ou 1 (o SQLite não tem tipo lógico). Datas da viagem como texto `AAAA-MM-DD`; carimbos de tempo em UTC (ISO 8601). `facts`, `alerts` e `adjustments` guardam o JSON do servidor, como texto. `qty` é número com casas, ou nulo em item que é tarefa (B3).
 - Nas tabelas que o app escreve, cada escrita leva o identificador da alteração em `_metadata` (`{"c": "<uuid>"}`; seção 4, princípio 2) e escrita que não muda nada não é gravada nem entra na fila. Em `trip_item`, o valor anterior de `pack_state`, `removed` e `deleted_at` vai junto da alteração, para o servidor aplicar as regras de conflito sem usar o relógio do aparelho.
+
+### Campos que vêm da B3 (motor de regras)
+
+A pedido do orquestrador (26/11/2026), o esquema local inclui os campos que a B3 listou em `docs/regras.md` (worktree da B3), seção 6, "Campos que o modelo de dados precisa", com os mesmos nomes. **Não estão na SPEC, seção 3**: vêm da B3, e o B5 cria os mesmos no Postgres. Só entram aqui os campos de tabelas que chegam ao aparelho; `fact_summary.confirmed` e `merge_candidate.merge_record` são só do servidor.
+
+| Tabela | Campo | No aparelho | Conferência na camada de acesso |
+| --- | --- | --- | --- |
+| `trip` | `created_at` | texto ISO (UTC), sempre preenchido | `criarViagem` preenche com a hora do aparelho (já estava, pela seção 11) |
+| `trip` | `destination_name` | texto, nulo | `criarViagem` e `alterarViagem` (texto aparado; vazio vira nulo) |
+| `trip_item` | `item_ref` | texto | Regra da B3: `<catalog_key>@<family_id>` ou `<catalog_key>@grupo` (gerado), `ajuste:<...>` (ajuste do camping), o próprio `id` (manual); a função `referenciaDoItem` aplica a regra quando o motor não manda a referência. Única por viagem entre as linhas não apagadas (`inserirItens` recusa repetida, também dentro do mesmo lote; item removido continua contando) |
+| `trip_item` | `qty_edited` | 0 ou 1, padrão 0 | `alterarItem` aceita; quem decide marcar é a feature 1.3 |
+| `trip_item` | `qty_per_person` | inteiro, nulo | inteiro não negativo |
+| `trip_item` | `detail_qty`, `detail_unit` | inteiro e `litro`/`metro`, os dois nulos ou os dois preenchidos | gravados juntos pelo campo `detalhe` (`{ qty, unit }` ou nulo) |
+| `trip_item` | `learning_kind`, `learning_qty_before`, `learning_percent` | `missing`/`reduced`/`flagged`; inteiros | gravados juntos pelo campo `aprendizado`; quantidade anterior e percentual (1 a 99) só e sempre com `reduced` |
+| `trip_camping_snapshot` | `undone_adjustment_ids` | texto com a lista em JSON (no Postgres é `text[]`; o PowerSync entrega listas como JSON) | só leitura (vem do servidor) |
+
+Campos que já existiam e mudaram de regra pela B3: `trip_item.qty` aceita nulo (item que é tarefa); `trip_item.unit` e `trip_item.category` são chaves do catálogo (`packages/content`), conferidas pelo motor, não pela camada; `trip_family.pets` é sempre preenchido (a camada já exigia inteiro não negativo). Os índices locais de `trip_item` incluem (`trip_id`, `item_ref`) para o recálculo achar o item.
 
 **Nunca no aparelho** (DEF-11; seção 3, "O que chega ao aparelho"): `city`, `camping`, `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`, `list_feedback`, `device`, `event` e `config`. Um teste confere que nenhuma existe no esquema, e a verificação no emulador confere que nenhuma existe no banco. Do camping, o aparelho guarda só o retrato da viagem (`trip_camping_snapshot`).
 
@@ -150,7 +167,23 @@ A verificação no emulador só existe no ambiente local (`config.ambiente`): o 
 | Chave aleatória de 32 bytes no cofre, entregue como chave bruta | Nenhuma senha a lembrar ou derivar; abre rápido nas 6 conexões |
 | `expo-secure-store` 58.0.3 e `expo-crypto` 58.0.8 (publicadas até 12/11/2026, versão fixa) | Cofre do sistema e gerador seguro do próprio Expo, sem módulo nativo próprio |
 | `@powersync/common` 2.5.0 declarado no app (mesma versão que o PowerSync 2.4.1 usa) | O esquema importa dele para os testes rodarem no Node sem React Native |
+| `USE_BIOMETRIC` e `USE_FINGERPRINT` bloqueadas em `app.config.ts` | O `expo-secure-store` as traz para a opção de exigir digital ou rosto ao ler o cofre; o app não usa essa opção. O teste de lista fechada do manifesto (ponto J9) as pegou: o manifesto final continua com `INTERNET`, `SCHEDULE_EXACT_ALARM`, `VIBRATE` e a interna do app |
 | `android.allowBackup: false` | Backup do banco cifrado é inútil fora do aparelho e criaria o caso de chave perdida |
 | Tabelas só locais como tabelas comuns com migração, e não como tabelas "só locais" do PowerSync | O cartão pede migrações versionadas; tabela comum aceita índice, `strict` e `on conflict`, e não some ao sair da conta |
 | Banco descartável na verificação do emulador | O teste instrumentado não pode deixar dado de teste no banco da pessoa (ponto J1) |
 | Testes do app no projeto `core` do Vitest (mudança de uma linha em `vitest.config.ts`) | Assim rodam dentro do `npm run testar` sem mexer em `scripts/` (fora da pasta da B4). Se o orquestrador preferir um projeto `app` separado, é preciso acrescentá-lo em `scripts/testar.mjs` |
+
+## 9. Evidências da B4
+
+Em `docs/evidencias/B4/`:
+
+| Arquivo | O que mostra |
+| --- | --- |
+| `cifra-do-banco.txt` | Os 64 primeiros bytes do banco do app no emulador (aleatórios, sem `SQLite format 3`) e, para comparação, os de um banco SQLite sem cifra; busca de texto aberto nos arquivos `.db`, `-wal` e `-shm` (0 em todos) |
+| `chave-no-cofre.txt` | Todos os arquivos do app no aparelho; a chave está só no `SecureStore.xml` do cofre, cifrada pelo Keystore (valor omitido, só o tamanho); nenhum arquivo do app e nenhuma linha do app no registro do sistema com a forma da chave |
+| `tabelas-e-verificacao.txt` | Registro do app: SQLCipher 4.19.0, migrações 1 e 2 na primeira abertura e nenhuma na reabertura (mesma chave), as 17 tabelas listadas pela camada e conferidas com a seção 3, e os 11 passos da verificação da camada no aparelho |
+| `captura-verificacao-banco.png`, `captura-reaberto.png` | Tela do app no roteiro de fumaça (11/11 passos, versão local 2, tabelas) e o app reaberto |
+| `suite-exigir-completa.txt` | Saída de `npm run testar -- --exigir-completa` |
+| `fumaca-emulador.txt` | Saída de `npm run testar:jornadas -- fumaca` |
+
+O APK release não é "debuggable", então `run-as` não lê os arquivos do app (`run-as: package not debuggable`). As leituras no emulador usam o shell de root da imagem de teste (Google APIs, build `userdebug`): `adb -s emulator-5554 exec-out su 0 cat <arquivo>`. Num celular comum isso não existe.

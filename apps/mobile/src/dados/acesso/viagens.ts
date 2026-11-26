@@ -39,6 +39,8 @@ export type NovaViagem = {
   rain?: boolean | null;
   is_group?: boolean;
   source_trip_id?: string | null;
+  /** Destino informado sem camping do servidor (E1-13; campo da B3). */
+  destination_name?: string | null;
   /** A família de quem cria a viagem (a organizadora). */
   familia: { name: string; pets: number };
   pessoas: NovaPessoa[];
@@ -69,6 +71,7 @@ export async function criarViagem(ctx: ContextoDeAcesso, entrada: NovaViagem): P
     status: 'planning' satisfies SituacaoDaViagem,
     source_trip_id: identificadorOpcional('source_trip_id', entrada.source_trip_id),
     created_at: ctx.agora(),
+    destination_name: textoOpcional('destination_name', entrada.destination_name),
   };
   const familia = {
     name: textoObrigatorio('familia.name', entrada.familia.name),
@@ -107,6 +110,7 @@ export type AlteracaoDaViagem = Partial<{
   climate: Clima | null;
   rain: boolean | null;
   status: SituacaoDaViagem;
+  destination_name: string | null;
 }>;
 
 /** Altera só o que mudou. Devolve false se nada mudou ou a viagem não existe. */
@@ -120,6 +124,7 @@ export async function alterarViagem(ctx: ContextoDeAcesso, tripId: string, campo
   if (campos.climate !== undefined) c.climate = campos.climate === null ? null : umDe('climate', campos.climate, CLIMAS);
   if (campos.rain !== undefined) c.rain = campos.rain === null ? null : logico('rain', campos.rain);
   if (campos.status !== undefined) c.status = umDe('status', campos.status, SITUACOES_DA_VIAGEM);
+  if (campos.destination_name !== undefined) c.destination_name = textoOpcional('destination_name', campos.destination_name);
   return ctx.db.writeTransaction(async (tx) => {
     if (c.start_date !== undefined || c.end_date !== undefined) {
       const atual = await tx.getOptional<Viagem>('select * from trip where id = ?', [tripId]);
