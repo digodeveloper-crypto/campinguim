@@ -1,0 +1,234 @@
+# Fumaça da B2: abre a galeria dos componentes e captura cada seção, para o QA comparar com o protótipo
+# Rumo (DSG-06). A galeria só abre no ambiente local. Rode de novo com o aparelho em tema escuro e com a
+# letra do sistema em 130 % e 200 % (docs/componentes.md, "Como conferir"); as capturas saem com o mesmo nome.
+# Os marcadores {{...}} são trocados pelo executor (scripts/jornadas.mjs).
+appId: "{{pacote}}"
+---
+- launchApp:
+    clearState: true
+- openLink: "campinguim://galeria"
+- extendedWaitUntil:
+    visible:
+      id: galeria
+    timeout: 30000
+- assertVisible:
+    id: rota
+- assertVisible:
+    id: g-tema-sistema
+# Seção cores
+- scrollUntilVisible:
+    element:
+      id: g-secao-cores
+    direction: UP
+- tapOn:
+    id: g-secao-cores
+- scrollUntilVisible:
+    element:
+      id: galeria-cores
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-cores
+# Seção tipografia
+- scrollUntilVisible:
+    element:
+      id: g-secao-tipografia
+    direction: UP
+- tapOn:
+    id: g-secao-tipografia
+- scrollUntilVisible:
+    element:
+      id: galeria-tipografia
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-tipografia
+# Seção icones
+- scrollUntilVisible:
+    element:
+      id: g-secao-icones
+    direction: UP
+- tapOn:
+    id: g-secao-icones
+- scrollUntilVisible:
+    element:
+      id: galeria-icones
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-icones
+# Seção rota
+- scrollUntilVisible:
+    element:
+      id: g-secao-rota
+    direction: UP
+- tapOn:
+    id: g-secao-rota
+- scrollUntilVisible:
+    element:
+      id: galeria-rota
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-rota
+# Seção cabecalho
+- scrollUntilVisible:
+    element:
+      id: g-secao-cabecalho
+    direction: UP
+- tapOn:
+    id: g-secao-cabecalho
+- scrollUntilVisible:
+    element:
+      id: galeria-cabecalho
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-cabecalho
+# Seção botoes
+- scrollUntilVisible:
+    element:
+      id: g-secao-botoes
+    direction: UP
+- tapOn:
+    id: g-secao-botoes
+- scrollUntilVisible:
+    element:
+      id: galeria-botoes
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-botoes
+# Seção item
+- scrollUntilVisible:
+    element:
+      id: g-secao-item
+    direction: UP
+- tapOn:
+    id: g-secao-item
+- scrollUntilVisible:
+    element:
+      id: galeria-item
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-item
+# Seção alerta
+- scrollUntilVisible:
+    element:
+      id: g-secao-alerta
+    direction: UP
+- tapOn:
+    id: g-secao-alerta
+- scrollUntilVisible:
+    element:
+      id: galeria-alerta
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-alerta
+# Seção selo
+- scrollUntilVisible:
+    element:
+      id: g-secao-selo
+    direction: UP
+- tapOn:
+    id: g-secao-selo
+- scrollUntilVisible:
+    element:
+      id: galeria-selo
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-selo
+# Seção legenda
+- scrollUntilVisible:
+    element:
+      id: g-secao-legenda
+    direction: UP
+- tapOn:
+    id: g-secao-legenda
+- scrollUntilVisible:
+    element:
+      id: galeria-legenda
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-legenda
+# Seção rodape
+- scrollUntilVisible:
+    element:
+      id: g-secao-rodape
+    direction: UP
+- tapOn:
+    id: g-secao-rodape
+- scrollUntilVisible:
+    element:
+      id: galeria-rodape
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-rodape
+# Seção campos
+- scrollUntilVisible:
+    element:
+      id: g-secao-campos
+    direction: UP
+- tapOn:
+    id: g-secao-campos
+- scrollUntilVisible:
+    element:
+      id: galeria-campos
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-campos
+# Seção vazios
+- scrollUntilVisible:
+    element:
+      id: g-secao-vazios
+    direction: UP
+- tapOn:
+    id: g-secao-vazios
+- scrollUntilVisible:
+    element:
+      id: galeria-vazios
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-vazios
+# Seção mascote
+- scrollUntilVisible:
+    element:
+      id: g-secao-mascote
+    direction: UP
+- tapOn:
+    id: g-secao-mascote
+- scrollUntilVisible:
+    element:
+      id: galeria-mascote
+    direction: DOWN
+    centerElement: false
+- takeScreenshot: galeria-mascote
+# Legenda aberta: o painel abre de baixo, com o fechar de 48
+- scrollUntilVisible:
+    element:
+      id: g-secao-legenda
+    direction: UP
+- tapOn:
+    id: g-secao-legenda
+- scrollUntilVisible:
+    element:
+      id: legenda-botao
+    direction: DOWN
+- tapOn:
+    id: legenda-botao
+- assertVisible:
+    id: legenda-painel
+- takeScreenshot: galeria-legenda-aberta
+- tapOn:
+    id: legenda-fechar
+- assertNotVisible:
+    id: legenda-painel
+# Item: marcar "está no carro" no primeiro item muda o estado (ícone e texto)
+- scrollUntilVisible:
+    element:
+      id: g-secao-item
+    direction: UP
+- tapOn:
+    id: g-secao-item
+- scrollUntilVisible:
+    element:
+      id: g-item-0-carro
+    direction: DOWN
+- tapOn:
+    id: g-item-0-carro
+- assertVisible: "{{textos.componentes.estado.carro}}"
+- takeScreenshot: galeria-item-marcado
