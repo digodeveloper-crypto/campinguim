@@ -1,0 +1,22 @@
+# B4: colunas das tabelas sincronizadas no aparelho x migrações do B5 no main (730cdc4, supabase/migrations), 26/11/2026
+# 'faltam no aparelho' = coluna do Postgres que o esquema local não tem; 'só no aparelho' = o contrário. 'id' fica fora (o PowerSync cria).
+# Migrações lidas: 20261126180000_b1_publicacao_sincronizacao.sql 20261126190000_b5_viagem_e_lista.sql 20261126190100_b5_gastos.sql 20261126190200_b5_campings.sql 20261126190300_b5_apoio.sql 20261126190400_b5_sync_apply.sql 
+
+profile: faltam no aparelho []; só no aparelho []
+trip: faltam no aparelho []; só no aparelho []
+trip_family: faltam no aparelho []; só no aparelho []
+trip_person: faltam no aparelho []; só no aparelho []
+trip_member: faltam no aparelho []; só no aparelho []
+trip_item: faltam no aparelho []; só no aparelho []
+item_claim: faltam no aparelho []; só no aparelho []
+trip_camping_snapshot: faltam no aparelho []; só no aparelho []
+expense: faltam no aparelho []; só no aparelho []
+expense_exclusion: faltam no aparelho []; só no aparelho []
+expense_payment: faltam no aparelho []; só no aparelho []
+expense_audit: faltam no aparelho []; só no aparelho []
+
+# Tabelas que vão ao aparelho (docs/servidor.md, seção 2): as 12 acima. 'Nunca vão': invite, pix_key, city, camping, camping_alias,
+# fact_report, fact_summary, suggestion, merge_candidate, list_feedback, device, event, config (todas fora do esquema local).
+
+# Observação para o B5 (não é da B4): em supabase/sincronizacao/powersync/sync-config.yaml, a regra do trip_camping_snapshot
+# lista as colunas e não inclui undone_adjustment_ids; o campo existe no Postgres e no aparelho, mas não chega pela sincronização.

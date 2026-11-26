@@ -40,6 +40,10 @@ const config: ExpoConfig = {
       monochromeImage: './assets/icone-uma-cor.png',
     },
     predictiveBackGestureEnabled: false,
+    // Sem backup automático do Android (B4, DEF-11): o banco local é cifrado com uma chave do
+    // Keystore, que nunca sai do aparelho; uma cópia restaurada em outro aparelho seria ilegível.
+    // Os dados de quem tem conta voltam pela sincronização.
+    allowBackup: false,
     // Alarme exato para o lembrete local: mantido pela decisão D2 (26/11/2026). A regra de quando
     // pedir e o texto entram na feature 1.6.
     permissions: ['android.permission.SCHEDULE_EXACT_ALARM'],
@@ -56,6 +60,10 @@ const config: ExpoConfig = {
       'android.permission.ACCESS_BACKGROUND_LOCATION',
       'com.google.android.c2dm.permission.RECEIVE',
       'com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE',
+      // Trazidas pelo expo-secure-store (B4) para a opção de exigir digital ou rosto ao ler o
+      // cofre. O app não usa essa opção: a chave do banco é lida sem pedir nada à pessoa.
+      'android.permission.USE_BIOMETRIC',
+      'android.permission.USE_FINGERPRINT',
       // Selos de ícone de fabricantes (ShortcutBadger)
       'com.anddoes.launcher.permission.UPDATE_COUNT',
       'com.htc.launcher.permission.READ_SETTINGS',

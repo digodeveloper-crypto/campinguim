@@ -1,0 +1,12 @@
+# Saída de npm run testar:jornadas -- fumaca com o APK final da B4, rebaseado sobre o main 730cdc4 (26/11/2026, 18:43).
+# Os dois roteiros passaram: fumaca/abre-tela-provisoria (B1) e fumaca-banco/banco-cifrado (B4).
+
+
+> campinguim@0.0.0 testar:jornadas
+> node scripts/jornadas.mjs fumaca
+
+[jornadas] 2 roteiro(s) em emulator-5554; saída em test-results\jornadas\2026-11-26T21-43-43-681Z
+  passou  fumaca/abre-tela-provisoria  (35.6 s)
+  passou  fumaca-banco/banco-cifrado  (38.6 s)
+[jornadas] sem roteiro ainda (features futuras): J1-familia, J2-aviao, J3-lembretes, J4-grupo, J5-convidado, J6-gastos, J7-camping-com-dados, J8-camping-sem-dados, J9-volta-com-perguntas
+[jornadas] 2 de 2 passaram

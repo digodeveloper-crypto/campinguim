@@ -1,0 +1,45 @@
+# B4: prova da cifra do banco local (DEF-11)
+# Emulador campinguim-a (emulator-5554), Android 16 (API 36), app com.campinguim.prova: APK final da B4, rebaseado sobre o main 730cdc4.
+# Data: 2026-11-26T21:45:35Z, logo depois da fumaça e2e/jornadas/fumaca-banco (o app criou o banco a frio).
+# O APK release não é 'debuggable': 'run-as' responde 'run-as: package not debuggable: com.campinguim.prova'.
+# Por isso a leitura usa o shell de root da imagem de teste do emulador (Google APIs, build userdebug): 'su 0 cat'.
+# O resto do comando é o do cartão: exec-out ... | head -c 64 | xxd.
+
+## 1. Banco do app (cifrado): os 64 primeiros bytes NÃO começam por 'SQLite format 3'
+$ adb -s emulator-5554 exec-out su 0 cat /data/user/0/com.campinguim.prova/databases/campinguim.db | head -c 64 | xxd
+00000000: c1d6 4b1b 75f4 8241 5e1b 6b5b 11f0 9f4f  ..K.u..A^.k[...O
+00000010: c807 0bb4 58b0 29b3 c646 c0ef f57f 7e0b  ....X.)..F....~.
+00000020: b067 1a6e acdc 22cb 5a4d b223 a457 6407  .g.n..".ZM.#.Wd.
+00000030: a938 fc55 418e 6f7a 96d2 6f55 0176 1f31  .8.UA.oz..oU.v.1
+
+## 2. Banco SQLite sem cifra, para comparação (criado no computador pelo SQLite do Node, enviado ao mesmo emulador)
+$ adb -s emulator-5554 exec-out su 0 cat /data/local/tmp/comparacao-sem-cifra.db | head -c 64 | xxd
+00000000: 5351 4c69 7465 2066 6f72 6d61 7420 3300  SQLite format 3.
+00000010: 1000 0101 0040 2020 0000 0002 0000 0003  .....@  ........
+00000020: 0000 0000 0000 0000 0000 0001 0000 0004  ................
+00000030: 0000 0000 0000 0000 0000 0001 0000 0000  ................
+
+## 3. Texto aberto dentro dos arquivos do banco do app (deveria ser 0 em todos)
+campinguim.db  'SQLite format 3': 0 linha(s) com o termo
+campinguim.db  'CREATE TABLE': 0 linha(s) com o termo
+campinguim.db  'trip_item': 0 linha(s) com o termo
+campinguim.db  'pack_state': 0 linha(s) com o termo
+campinguim.db  'estado_local': 0 linha(s) com o termo
+campinguim.db  'install_id': 0 linha(s) com o termo
+campinguim.db-wal  'SQLite format 3': 0 linha(s) com o termo
+campinguim.db-wal  'CREATE TABLE': 0 linha(s) com o termo
+campinguim.db-wal  'trip_item': 0 linha(s) com o termo
+campinguim.db-wal  'pack_state': 0 linha(s) com o termo
+campinguim.db-wal  'estado_local': 0 linha(s) com o termo
+campinguim.db-wal  'install_id': 0 linha(s) com o termo
+campinguim.db-shm  'SQLite format 3': 0 linha(s) com o termo
+campinguim.db-shm  'CREATE TABLE': 0 linha(s) com o termo
+campinguim.db-shm  'trip_item': 0 linha(s) com o termo
+campinguim.db-shm  'pack_state': 0 linha(s) com o termo
+campinguim.db-shm  'estado_local': 0 linha(s) com o termo
+campinguim.db-shm  'install_id': 0 linha(s) com o termo
+
+Mesma busca no banco sem cifra (deveria achar):
+comparacao-sem-cifra.db  'SQLite format 3': 1 linha(s) com o termo
+comparacao-sem-cifra.db  'CREATE TABLE': 1 linha(s) com o termo
+comparacao-sem-cifra.db  'Viagem de exemplo': 1 linha(s) com o termo

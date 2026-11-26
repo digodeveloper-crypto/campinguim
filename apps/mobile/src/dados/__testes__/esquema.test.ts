@@ -1,0 +1,142 @@
+import { describe, expect, it } from 'vitest';
+
+import { esquema, TABELAS_PROIBIDAS_NO_APARELHO, TABELAS_SO_DO_SERVIDOR } from '../esquema';
+import { MIGRACOES } from '../migracoes';
+import { TABELAS_SO_LOCAIS } from '../verificacao';
+
+// O esquema local é contrato com o B5 (esquema do Postgres) e com a SPEC, seção 3: os campos
+// abaixo são os da SPEC, copiados um a um, mais os pedidos pela B3 (`docs/regras.md` da B3,
+// seção 6, "Campos que o modelo de dados precisa", marcados "B3"). Mudar um campo aqui exige
+// mudar a SPEC (ou o documento da B3) antes.
+const CONTROLE = ['created_at', 'updated_at', 'updated_by', 'deleted_at'];
+const CAMPOS_DA_SPEC: Record<string, string[]> = {
+  profile: ['display_name', 'nickname', 'anonymous_by_default', 'origin_channel', 'last_active_at'],
+  trip: [
+    'owner_profile_id',
+    'name',
+    'kind',
+    'start_date',
+    'end_date',
+    'nights',
+    'climate',
+    'rain',
+    'camping_id',
+    'is_group',
+    'status',
+    'source_trip_id',
+    'destination_name', // B3
+  ],
+  trip_family: ['trip_id', 'name', 'pets', 'is_organizer'],
+  trip_person: ['trip_id', 'family_id', 'age_band', 'label'], // trip_id: B5
+  trip_member: ['trip_id', 'family_id', 'profile_id', 'display_name', 'role'],
+  trip_item: [
+    'trip_id',
+    'family_id',
+    'catalog_key',
+    'name',
+    'category',
+    'qty',
+    'unit',
+    'note',
+    'origin',
+    'removed',
+    'pack_state',
+    'need_buy',
+    'depends_on_camping',
+    'return_state',
+    'missing',
+    'leftover',
+    // B3
+    'item_ref',
+    'qty_edited',
+    'qty_per_person',
+    'detail_qty',
+    'detail_unit',
+    'learning_kind',
+    'learning_qty_before',
+    'learning_percent',
+  ],
+  item_claim: ['trip_id', 'item_id', 'family_id'], // trip_id: B5
+  trip_camping_snapshot: ['trip_id', 'camping_id', 'facts', 'alerts', 'adjustments', 'rules_ack_at', 'fetched_at', 'undone_adjustment_ids'], // último: B3
+  expense: ['trip_id', 'item_id', 'buyer_family_id', 'estimate_cents', 'amount_cents', 'split_rule', 'receipt_path'],
+  expense_exclusion: ['trip_id', 'expense_id', 'person_id'], // trip_id: B5
+  expense_payment: ['trip_id', 'expense_id', 'family_id', 'paid_marked_at'], // trip_id: B5
+  expense_audit: ['trip_id', 'expense_id', 'actor_member_id', 'field', 'old_value', 'new_value', 'at'], // trip_id: B5; sem created_at
+};
+
+const tabela = (nome: string) => {
+  const t = esquema.tables.find((x) => x.name === nome);
+  if (!t) throw new Error(`tabela ${nome} ausente`);
+  return t;
+};
+const tipoDe = (nome: string, coluna: string) => tabela(nome).columns.find((c) => c.name === coluna)?.type;
+
+describe('esquema local = SPEC, seção 3 (viagem e lista, gastos)', () => {
+  it('tem exatamente as tabelas que sincronizam com o aparelho', () => {
+    expect(esquema.tables.map((t) => t.name).sort()).toEqual(Object.keys(CAMPOS_DA_SPEC).sort());
+  });
+
+  it.each(Object.entries(CAMPOS_DA_SPEC))('%s tem os campos da SPEC e os de controle, nada a mais', (nome, campos) => {
+    expect(
+      tabela(nome)
+        .columns.map((c) => c.name)
+        .sort(),
+    ).toEqual([...campos, ...CONTROLE.filter((c) => !(nome === 'expense_audit' && c === 'created_at'))].sort());
+  });
+
+  it('nenhuma tabela de camping, relato, resumo, sugestão, evento ou configuração (DEF-11)', () => {
+    const nomes = esquema.tables.map((t) => t.name);
+    for (const proibida of TABELAS_PROIBIDAS_NO_APARELHO) expect(nomes).not.toContain(proibida);
+    expect(TABELAS_PROIBIDAS_NO_APARELHO).toEqual(
+      expect.arrayContaining(['invite', 'pix_key', 'camping', 'fact_report', 'fact_summary', 'suggestion', 'city', 'camping_alias', 'merge_candidate']),
+    );
+  });
+
+  it('dinheiro em centavos inteiros; verdadeiro/falso e contagens como inteiros', () => {
+    expect(tipoDe('expense', 'estimate_cents')).toBe('INTEGER');
+    expect(tipoDe('expense', 'amount_cents')).toBe('INTEGER');
+    for (const [t, c] of [
+      ['trip', 'rain'],
+      ['trip', 'is_group'],
+      ['trip', 'nights'],
+      ['trip_family', 'pets'],
+      ['trip_family', 'is_organizer'],
+      ['trip_item', 'removed'],
+      ['trip_item', 'need_buy'],
+      ['trip_item', 'depends_on_camping'],
+      ['trip_item', 'missing'],
+      ['trip_item', 'leftover'],
+      ['profile', 'anonymous_by_default'],
+      ['trip_item', 'qty_edited'],
+      ['trip_item', 'qty_per_person'],
+      ['trip_item', 'detail_qty'],
+      ['trip_item', 'learning_qty_before'],
+      ['trip_item', 'learning_percent'],
+    ] as const) {
+      expect(tipoDe(t, c), `${t}.${c}`).toBe('INTEGER');
+    }
+    expect(tipoDe('trip_item', 'qty')).toBe('REAL');
+  });
+
+  it('o app escreve (com identificador da alteração) só nas tabelas que não vêm das funções do servidor', () => {
+    // Gastos: só pelas funções do servidor (seção 8). O retrato do camping vem do servidor, mas o
+    // membro muda `undone_adjustment_ids` pela sincronização (B5), então ele leva o identificador.
+    const soFuncoes = ['expense', 'expense_exclusion', 'expense_payment', 'expense_audit'];
+    for (const t of esquema.tables) {
+      expect(t.trackMetadata, t.name).toBe(!soFuncoes.includes(t.name));
+      expect(t.localOnly, t.name).toBe(false);
+    }
+    // A camada de acesso não escreve em nenhuma das duas (o retrato é da feature 3.3).
+    expect([...TABELAS_SO_DO_SERVIDOR].sort()).toEqual([...soFuncoes, 'trip_camping_snapshot'].sort());
+  });
+
+  it('nenhum nome reservado do PowerSync, e as tabelas só locais não colidem com o esquema', () => {
+    const nomes = esquema.tables.map((t) => t.name);
+    expect(nomes.filter((n) => n.startsWith('ps_'))).toEqual([]);
+    for (const local of TABELAS_SO_LOCAIS) expect(nomes).not.toContain(local);
+    const criadasPelasMigracoes = MIGRACOES.flatMap((m) => m.comandos)
+      .map((c) => /create table (\w+)/i.exec(c)?.[1])
+      .filter((n): n is string => Boolean(n));
+    expect(criadasPelasMigracoes.sort()).toEqual(TABELAS_SO_LOCAIS.filter((n) => n !== 'migracao_local').sort());
+  });
+});

@@ -1,0 +1,35 @@
+# B4: a chave do banco está no cofre do sistema, não em arquivo (DEF-11, DEF-09)
+# Emulador campinguim-a (emulator-5554), APK final da B4 (sobre o main 730cdc4). Data: 2026-11-26T21:45:45Z.
+# Leitura com 'su 0' (APK release não é debuggable). A chave nunca é mostrada: as buscas contam ocorrências, sem imprimir o que acharam.
+
+## 1. Todos os arquivos do app no aparelho (tamanho, data, caminho)
+$ adb -s emulator-5554 shell su 0 find /data/user/0/com.campinguim.prova -type f
+710848 2026-11-26 18:44 /data/user/0/com.campinguim.prova/cache/oat_primary/x86_64/base.art
+65 2026-11-26 18:44 /data/user/0/com.campinguim.prova/shared_prefs/expo.modules.kotlin.PersistentDataManager.xml
+490 2026-11-26 18:44 /data/user/0/com.campinguim.prova/shared_prefs/SecureStore.xml
+24 2026-11-26 18:44 /data/user/0/com.campinguim.prova/files/profileInstalled
+4096 2026-11-26 18:44 /data/user/0/com.campinguim.prova/databases/campinguim.db
+407912 2026-11-26 18:44 /data/user/0/com.campinguim.prova/databases/campinguim.db-wal
+32768 2026-11-26 18:44 /data/user/0/com.campinguim.prova/databases/campinguim.db-shm
+
+## 2. Onde está a chave: SharedPreferences do expo-secure-store (SecureStore.xml)
+# O valor guardado é o texto cifrado pelo Android Keystore (AES-GCM, chave que não sai do aparelho).
+# Estrutura do arquivo, com cada valor trocado pelo tamanho:
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="key_v1-campinguim.banco.chave.v1"><valor omitido: 358 caracteres></string>
+</map>
+
+## 3. Busca pela chave em todos os arquivos do app
+# A chave é guardada como 64 caracteres hexadecimais e entregue ao SQLCipher como x'<64 hex>'.
+arquivos com 64 hexadecimais seguidos: 0
+arquivos com x'<hexadecimal>: 0
+
+## 4. Busca pela chave no registro do sistema
+linhas do processo do app (pid 27939) com 64 hexadecimais seguidos: 0
+linhas da etiqueta ReactNativeJS (todo o JavaScript do app) com 64 hexadecimais seguidos: 0
+linhas do logcat inteiro com 64 hexadecimais seguidos: 12
+Origem dessas linhas (processo e etiqueta), se houver:
+     12   pid 1101 D StateManager:
+# Na primeira rodada da B4 as 12 linhas desse tipo eram todas do launcher do Android (com.google.android.apps.nexuslauncher,
+# etiqueta StateManager: identificador de build 'go/retraceme <64 hex>'), nenhuma do app.

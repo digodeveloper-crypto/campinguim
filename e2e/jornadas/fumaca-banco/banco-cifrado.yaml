@@ -1,0 +1,31 @@
+# Fumaça da B4: o banco local cifrado abre e a camada de acesso funciona no aparelho.
+# 1. Abre o app a frio (dados limpos): o app cria a chave no cofre do sistema e o banco cifrado.
+# 2. O link campinguim://?verificar-banco=1 (só no ambiente local) roda a verificação da camada
+#    num banco cifrado separado e descartável: criar viagem, itens, marcações, eventos, tabelas.
+#    O banco da pessoa não é tocado. O resultado detalhado vai para o registro do app
+#    (adb logcat, etiqueta [campinguim:banco]); na tela aparecem só números e nomes de tabelas.
+# 3. Fecha e abre de novo: o banco reabre com a mesma chave do cofre.
+# Detalhes em docs/dados-locais.md. Marcadores {{...}}: veja e2e/jornadas/fumaca/.
+appId: "{{pacote}}"
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: tela-provisoria
+    timeout: 30000
+- openLink: "campinguim://?verificar-banco=1"
+- extendedWaitUntil:
+    visible:
+      id: verificacao-banco-ok
+    timeout: 30000
+- assertNotVisible:
+    id: verificacao-banco-falhou
+- takeScreenshot: verificacao-banco
+- stopApp
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: tela-provisoria
+    timeout: 30000
+- takeScreenshot: reaberto

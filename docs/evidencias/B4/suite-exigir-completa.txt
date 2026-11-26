@@ -1,0 +1,108 @@
+# Saída de npm run testar -- --exigir-completa no worktree da B4, rebaseado sobre o main 730cdc4 (B3 e B5),
+# depois de npm run ambiente:zerar a partir deste ramo e com o APK gerado depois do rebase. 26/11/2026.
+
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --exigir-completa
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1521 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/B4
+
+ ✓  core  packages/core/src/duplicados.test.ts (11 tests) 13ms
+ ✓  core  packages/core/src/cotas.test.ts (13 tests) 69ms
+ ✓  core  packages/core/src/fatos.test.ts (23 tests) 16ms
+ ✓  core  packages/core/src/alertas.test.ts (24 tests) 30ms
+ ✓  core  packages/core/src/aprendizado.test.ts (18 tests) 42ms
+ ✓  core  packages/core/src/formato/formato.test.ts (42 tests) 20ms
+ ✓  core  packages/core/src/lista.test.ts (30 tests) 95ms
+ ✓  core  apps/mobile/src/dados/__testes__/migracoes.test.ts (8 tests) 45ms
+ ✓  core  apps/mobile/src/dados/__testes__/verificacao.test.ts (2 tests) 31ms
+ ✓  core  packages/core/src/catalogo.test.ts (110 tests) 45ms
+ ✓  core  apps/mobile/src/medicao/medicao.test.ts (12 tests) 16ms
+ ✓  core  packages/core/src/eventos/eventos.test.ts (86 tests) 62ms
+ ✓  core  apps/mobile/src/dados/__testes__/acesso.test.ts (35 tests) 140ms
+ ✓  core  apps/mobile/src/textos/textos.test.ts (27 tests) 87ms
+ ✓  core  apps/mobile/src/dados/__testes__/esquema.test.ts (17 tests) 16ms
+ ✓  core  apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts (8 tests) 16ms
+ ✓  core  packages/core/src/expressao.test.ts (7 tests) 15ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 30ms
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 22ms
+ ✓  core  packages/core/src/casos.test.ts (71 tests) 369ms
+ ✓  core  apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts (2 tests) 18ms
+ ✓  scripts  scripts/testes/manifesto.test.ts (3 tests) 7ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 1843ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 1787ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 1156ms
+   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
+     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 334ms
+
+ Test Files  24 passed (24)
+      Tests  629 passed (629)
+   Start at  18:41:29
+   Duration  4.00s (transform 45%, tests 29%, import 24%, worker 2%)
+
+JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-unitarios.json
+
+=== Testes do servidor (ambiente local) ===================================
+
+ RUN  v5.1.0 C:/campinguim-wt/B4
+
+ ✓  servidor  supabase/testes/sync-apply.test.ts (49 tests) 3226ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts (17 tests) 1329ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts (5 tests) 2399ms
+   ✓ grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) (5)
+     ✓ C, membro só de W, não recebe nada da viagem V 756ms
+     ✓ S10: B removido da viagem deixa de receber tudo dela 622ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts (9 tests) 262ms
+ ✓  servidor  supabase/testes/aparelho.test.ts (8 tests) 337ms
+ ✓  servidor  supabase/testes/rls.test.ts (8 tests) 228ms
+ ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 177ms
+ ✓  servidor  supabase/testes/exclusao-de-conta.test.ts (2 tests) 155ms
+ ✓  servidor  supabase/testes/contratos.test.ts (3 tests) 47ms
+ ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 136ms
+
+ Test Files  10 passed (10)
+      Tests  109 passed (109)
+   Start at  18:41:34
+   Duration  12.56s (tests 83%, import 13%, transform 3%, worker 1%)
+
+JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-servidor.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (896ms)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.5s)
+
+  2 passed (8.2s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 2.4 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          1.0 s  
+passou  Tipos (TypeScript estrito)                                22.0 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                         19.1 s  
+passou  Testes unitários: regras puras e travas do repositório     5.2 s  629 de 629 testes passaram
+passou  Testes do servidor (ambiente local)                       13.4 s  109 de 109 testes passaram
+passou  Página web (Chromium e WebKit)                             9.3 s  2 de 2 testes passaram
+
+SUÍTE COMPLETA: todas as 7 etapas passaram (72.5 s).
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
