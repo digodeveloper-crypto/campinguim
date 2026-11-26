@@ -12,7 +12,7 @@ export default function LayoutGaleria() {
   if (config.ambiente !== 'local') {
     return (
       <View style={[estilos.fora, { backgroundColor: cores.fundo }]}>
-        <Texto>{textos.componentes.galeria.indisponivel}</Texto>
+        <Texto>{textos.galeria.indisponivel}</Texto>
       </View>
     );
   }

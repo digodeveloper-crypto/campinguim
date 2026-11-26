@@ -44,7 +44,7 @@ const { cores, escuro, faixa } = useTema();   // cores: os 10 papéis do tema at
 - Números sempre tabulares. Nenhum texto abaixo de 15 e nenhum peso abaixo de 400 (teste).
 - A caixa alta é só de estilo: o arquivo de textos fica em caixa normal, e o `Texto` passa a frase normal ao leitor de tela.
 - A letra do sistema é respeitada até 200 %: o React Native amplia o tamanho e a entrelinha; o `Texto` troca a largura do letreiro (a partir de 130 %), do título e dos rótulos (em 200 %), como o protótipo.
-- O texto sempre vem do arquivo de textos (`apps/mobile/src/textos/pt-BR.json`, chave `componentes`). O lint barra frase escrita no JSX.
+- O texto sempre vem do arquivo de textos da B6 (`apps/mobile/src/textos/pt-BR.json`, por tela; `docs/textos-e-eventos.md`), pelo acesso tipado `textos.tela.chave` ou `t('tela.chave', valores)`. Os componentes usam as chaves comuns que a B6 já tinha (`rota`, `legenda`, `areas`, `acoes`, `estados`, `niveis`, `lista`, `volta`, `criarViagem`, `alertas`) e a B2 acrescentou só `legenda.etapa`, `legenda.alertas`, `campos.opcional`, `mensagens.erroAria` e o grupo `galeria` (tela de desenvolvimento). O lint barra frase escrita no JSX.
 
 ## 4. Ícones
 

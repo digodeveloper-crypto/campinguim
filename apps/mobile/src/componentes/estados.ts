@@ -2,11 +2,9 @@
 // da lista (ícone + texto + cor, nunca só cor), nomes falados e as cores de cada estado dos controles.
 // As cores são papéis do tema (DESIGN.md 3.1); o teste confere o contraste de cada combinação.
 import type { NomeIcone } from '../icones/desenhos';
-import { textos } from '../textos';
+import { t, textos } from '../textos';
 import type { PapelCor } from '../tema/contraste';
-import { formatar } from './formatar';
 
-const t = textos.componentes;
 
 // ---------------------------------------------------------------------------------------------
 // Rota e cabeçalho
@@ -14,18 +12,28 @@ const t = textos.componentes;
 export const PARADAS = ['preparar', 'carregar', 'camping', 'volta', 'casa'] as const;
 export type Parada = (typeof PARADAS)[number];
 
+/** Nome de cada parada no arquivo de textos (B6). */
+export const NOMES_PARADAS: Record<Parada, string> = {
+  preparar: textos.rota.preparar,
+  carregar: textos.rota.carregar,
+  camping: textos.rota.noCamping,
+  volta: textos.rota.volta,
+  casa: textos.rota.emCasa,
+};
+
 /** "Parada 2 de 5: Carregar" e, na atual, "… Você está aqui" (DESIGN.md 7.1). */
 export function nomeFaladoDaParada(parada: Parada, atual: boolean): string {
   const n = PARADAS.indexOf(parada) + 1;
-  return formatar(atual ? t.rota.atualFalada : t.rota.paradaFalada, { n, total: PARADAS.length, nome: t.rota.paradas[parada] });
+  const valores = { n, total: PARADAS.length, nome: NOMES_PARADAS[parada] };
+  return atual ? t('rota.paradaAtualAria', valores) : t('rota.paradaAria', valores);
 }
 
 /** "Parada 2 de 5 · Carregar" ou "Legenda · Grupo" (DESIGN.md 7.2). */
 export function marcaDaEtapa(origem: { parada: Parada } | { area: string }): string {
   if ('parada' in origem) {
-    return formatar(t.etapa.parada, { n: PARADAS.indexOf(origem.parada) + 1, total: PARADAS.length, nome: t.rota.paradas[origem.parada] });
+    return t('rota.etapa', { n: PARADAS.indexOf(origem.parada) + 1, total: PARADAS.length, nome: NOMES_PARADAS[origem.parada] });
   }
-  return formatar(t.etapa.legenda, { nome: origem.area });
+  return t('legenda.etapa', { nome: origem.area });
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -35,22 +43,25 @@ export type Estado = 'aSeparar' | 'separei' | 'carro' | 'comprar' | 'faltou' | '
 
 export type DefEstado = { cor: PapelCor; icone: NomeIcone; ativo: boolean; texto: string; falado: string };
 
+const e = textos.estados;
+const SEPAREI_FORA = t('estados.separeiEForaDoCarro', { separei: e.separei, fora: e.foraDoCarro });
+
 export const ESTADOS: Record<Estado, DefEstado> = {
-  aSeparar: { cor: 'textoSuave', icone: 'separei', ativo: false, texto: t.estado.aSeparar, falado: t.estado.aSeparar },
-  separei: { cor: 'separei', icone: 'separei', ativo: true, texto: t.estado.separeiFora, falado: t.estado.separeiForaFalado },
-  carro: { cor: 'carro', icone: 'carro', ativo: true, texto: t.estado.carro, falado: t.estado.carro },
-  comprar: { cor: 'texto', icone: 'comprar', ativo: false, texto: t.estado.comprar, falado: t.estado.comprar },
-  faltou: { cor: 'atencao', icone: 'faltou', ativo: false, texto: t.estado.faltou, falado: t.estado.faltou },
-  conferido: { cor: 'texto', icone: 'conferido', ativo: true, texto: t.estado.conferido, falado: t.estado.conferido },
-  naoConferido: { cor: 'textoSuave', icone: 'conferido', ativo: false, texto: t.estado.naoConferido, falado: t.estado.naoConferido },
-  secar: { cor: 'carro', icone: 'secar', ativo: false, texto: t.estado.secar, falado: t.estado.secar },
+  aSeparar: { cor: 'textoSuave', icone: 'separei', ativo: false, texto: e.aSeparar, falado: e.aSeparar },
+  separei: { cor: 'separei', icone: 'separei', ativo: true, texto: SEPAREI_FORA, falado: e.separeiForaDoCarro },
+  carro: { cor: 'carro', icone: 'carro', ativo: true, texto: e.carro, falado: e.carro },
+  comprar: { cor: 'texto', icone: 'comprar', ativo: false, texto: e.comprar, falado: e.comprar },
+  faltou: { cor: 'atencao', icone: 'faltou', ativo: false, texto: e.faltou, falado: e.faltou },
+  conferido: { cor: 'texto', icone: 'conferido', ativo: true, texto: e.conferido, falado: e.conferido },
+  naoConferido: { cor: 'textoSuave', icone: 'conferido', ativo: false, texto: e.naoConferido, falado: e.naoConferido },
+  secar: { cor: 'carro', icone: 'secar', ativo: false, texto: e.secar, falado: e.secar },
 };
 
 export type EstadoItem = 'aSeparar' | 'separei' | 'carro';
 
 /** "{nome}, {quantidade}, {estado}. Abrir o item" (DESIGN.md 7.4). */
 export function nomeFaladoDoItem(nome: string, quantidade: string, estado: EstadoItem): string {
-  return formatar(t.item.abrir, { falado: formatar(t.item.falado, { nome, quantidade, estado: ESTADOS[estado].falado }) });
+  return t('lista.abrirItemAria', { falado: t('estados.falado', { nome, quantidade, estado: ESTADOS[estado].falado }) });
 }
 
 /** Faixa de 4 `separei` à esquerda: só fora do carro (a separar e separei). */

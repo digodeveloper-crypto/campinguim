@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest';
 
 import { ICONES, ORDEM } from '../icones/desenhos';
 import { svgDoIcone, temAtivo } from '../icones/svg';
-import { textos } from '../textos';
+import { t, textos } from '../textos';
 import { contraste, PISO_FORMA, PISO_TEXTO, type NomeTema, type PapelCor } from '../tema/contraste';
 import tokens from '../tema/tokens.json';
 import {
@@ -94,8 +94,6 @@ describe('canto cortado', () => {
 });
 
 describe('estados: sempre ícone e texto, nunca só cor (DESIGN.md 3.3; DSG-10)', () => {
-  const t = textos.componentes;
-
   it('cada estado tem ícone, texto do arquivo de textos e a cor da tabela', () => {
     expect(ESTADOS.aSeparar).toMatchObject({ cor: 'textoSuave', icone: 'separei', ativo: false, texto: 'a separar' });
     expect(ESTADOS.separei).toMatchObject({ cor: 'separei', icone: 'separei', ativo: true, texto: 'separei · fora do carro', falado: 'separei, fora do carro' });
@@ -107,7 +105,7 @@ describe('estados: sempre ícone e texto, nunca só cor (DESIGN.md 3.3; DSG-10)'
     expect(ESTADOS.secar).toMatchObject({ cor: 'carro', icone: 'secar' });
     for (const e of Object.values(ESTADOS)) {
       expect(e.texto.length).toBeGreaterThan(0);
-      expect(Object.values(t.estado)).toContain(e.texto);
+      expect([...Object.values(textos.estados), t('estados.separeiEForaDoCarro', { separei: textos.estados.separei, fora: textos.estados.foraDoCarro })]).toContain(e.texto);
     }
   });
 
@@ -148,12 +146,12 @@ describe('nomes falados (NF-08)', () => {
   it('item: "{nome}, {quantidade}, {estado}. Abrir o item", com o estado por extenso', () => {
     expect(nomeFaladoDoItem('Lanterna', '4', 'separei')).toBe('Lanterna, 4, separei, fora do carro. Abrir o item');
     expect(nomeFaladoDoItem('Lanterna', '4', 'carro')).toBe('Lanterna, 4, está no carro. Abrir o item');
-    expect(formatar(textos.componentes.item.alternarCarro, { nome: 'Lanterna' })).toBe('Lanterna: está no carro');
+    expect(t('lista.alternarNoCarro', { nome: 'Lanterna' })).toBe('Lanterna: está no carro');
   });
 
   it('legenda: nome acessível e anúncio de abertura', () => {
-    expect(textos.componentes.legenda.falado).toBe('Legenda: camping, grupo, gastos');
-    expect(textos.componentes.legenda.aberta).toBe('Legenda aberta. Camping, grupo e gastos.');
+    expect(textos.legenda.aria).toBe('Legenda: camping, grupo, gastos');
+    expect(textos.legenda.aberta).toBe('Legenda aberta. Camping, grupo e gastos.');
   });
 
   it('formatar recusa texto sem valor (nunca mostra {marcador} na tela)', () => {
@@ -161,14 +159,14 @@ describe('nomes falados (NF-08)', () => {
   });
 });
 
-describe('textos dos componentes (CLAUDE.md, regra 5)', () => {
+describe('textos da galeria (CLAUDE.md, regra 5)', () => {
   function folhas(o: unknown, caminho = ''): [string, string][] {
     if (typeof o === 'string') return [[caminho, o]];
     if (o && typeof o === 'object') return Object.entries(o).flatMap(([k, v]) => folhas(v, caminho ? `${caminho}.${k}` : k));
     return [];
   }
   it('nenhum texto vazio, sem exclamação (tom de diário de expedição, DESIGN.md 10)', () => {
-    for (const [caminho, valor] of folhas(textos.componentes)) {
+    for (const [caminho, valor] of folhas(textos.galeria)) {
       expect(valor.trim().length, caminho).toBeGreaterThan(0);
       expect(valor, caminho).not.toContain('!');
     }

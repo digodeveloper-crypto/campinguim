@@ -6,14 +6,12 @@
 import { StyleSheet, View } from 'react-native';
 
 import { Icone } from '../icones/Icone';
-import { textos } from '../textos';
+import { t } from '../textos';
 import { tokens, useTema } from '../tema';
 import { Botao } from './Botoes';
-import { formatar } from './formatar';
 import { Faixa } from './Lista';
 import { Texto } from './Texto';
 
-const t = textos.componentes;
 
 export function Vazio({ texto, testID }: { texto: string; testID?: string | undefined }) {
   return (
@@ -55,7 +53,7 @@ export function MensagemErro({ mensagem, acao, aoAgir, testID }: PropsErro) {
       <Faixa cor="atencao" />
       <View style={estilos.erroLinha}>
         <Icone nome="atencao" ativo cor="atencao" />
-        <Texto uso="linhaNome" falado={formatar(t.erro.falado, { mensagem })} style={estilos.encolhe}>
+        <Texto uso="linhaNome" falado={t('mensagens.erroAria', { mensagem })} style={estilos.encolhe}>
           {mensagem}
         </Texto>
       </View>

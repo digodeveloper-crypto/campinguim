@@ -329,5 +329,5 @@ appId: "{{pacote}}"
     direction: DOWN
 - tapOn:
     id: g-item-0-carro
-- assertVisible: "{{textos.componentes.estado.carro}}"
+- assertVisible: "{{textos.estados.carro}}"
 - takeScreenshot: galeria-item-marcado

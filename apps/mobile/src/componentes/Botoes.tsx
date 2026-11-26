@@ -12,7 +12,7 @@ import { tokens, useTema } from '../tema';
 import { estadoDoToque, papeisDaAlternancia, papeisDaMarca, papeisDoBotao, papeisDoFiltro, type IconeAlternancia } from './estados';
 import { Texto } from './Texto';
 
-const t = textos.componentes;
+const t = { acao: textos.acoes };
 const BORDA = tokens.borda.controle;
 
 type Base = {

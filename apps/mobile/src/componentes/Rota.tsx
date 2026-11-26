@@ -8,12 +8,10 @@ import Svg, { Line } from 'react-native-svg';
 
 import { textos } from '../textos';
 import { tokens, useTema } from '../tema';
-import { nomeFaladoDaParada, PARADAS, type Parada } from './estados';
-import { formatar } from './formatar';
+import { NOMES_PARADAS, nomeFaladoDaParada, PARADAS, type Parada } from './estados';
 import { Mascote } from './mascote/Mascote';
 import { Texto } from './Texto';
 
-const t = textos.componentes.rota;
 
 type Props = {
   /** Parada atual; sem ela (telas da legenda), nenhuma fica marcada. */
@@ -30,7 +28,7 @@ export function Rota({ atual = null, comMascote = true, aoEscolher }: Props) {
   const { cores, faixa } = useTema();
   const numeros = faixa >= 130;
   return (
-    <View accessibilityRole="tablist" accessibilityLabel={t.rotulo} style={estilos.rota} testID="rota">
+    <View accessibilityRole="tablist" accessibilityLabel={textos.rota.rotulo} style={estilos.rota} testID="rota">
       <View style={estilos.paradas}>
         {/* A rota: traço 2, espaço 6, ligando os centros das paradas (fica atrás dos pontos). */}
         <View style={estilos.tracado} pointerEvents="none" accessible={false} importantForAccessibility="no-hide-descendants">
@@ -65,11 +63,11 @@ export function Rota({ atual = null, comMascote = true, aoEscolher }: Props) {
               </View>
               {numeros ? (
                 <Texto uso="rotaNumero" cor={eAtual ? 'texto' : 'textoSuave'} semLeitura>
-                  {formatar(t.numero, { n: i + 1 })}
+                  {String(i + 1)}
                 </Texto>
               ) : (
                 <Texto uso={eAtual ? 'rotaNomeAtual' : 'rotaNome'} cor={eAtual ? 'texto' : 'textoSuave'} semLeitura style={estilos.nome}>
-                  {t.paradas[p]}
+                  {NOMES_PARADAS[p]}
                 </Texto>
               )}
             </Pressable>

@@ -5,13 +5,11 @@ import { useState, type ReactNode } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 
 import { Icone } from '../icones/Icone';
-import { textos } from '../textos';
+import { t, textos } from '../textos';
 import { estiloDoUso, tokens, useTema } from '../tema';
-import { formatar } from './formatar';
 import { Faixa } from './Lista';
 import { Texto } from './Texto';
 
-const t = textos.componentes;
 
 // ---------------------------------------------------------------------------------------------
 // Campo de texto (.entrada): 48 no mínimo, 96 em texto longo; rótulo em cima, peso 600
@@ -35,7 +33,7 @@ export function CampoTexto({ rotulo, valor, aoMudar, opcional = false, longo = f
   const [focado, setFocado] = useState(false);
   const corpo = estiloDoUso('corpo', tema.fator, tema.simulacao);
   const borda = erro ? cores.atencao : focado ? cores.texto : cores.linha;
-  const falado = [rotulo, opcional ? t.campo.opcional : null, erro ? formatar(t.erro.falado, { mensagem: erro }) : null].filter(Boolean).join(', ');
+  const falado = [rotulo, opcional ? textos.campos.opcional : null, erro ? t('mensagens.erroAria', { mensagem: erro }) : null].filter(Boolean).join(', ');
   return (
     <View style={estilos.campo}>
       <View style={estilos.rotulo} accessible={false} importantForAccessibility="no-hide-descendants">
@@ -44,7 +42,7 @@ export function CampoTexto({ rotulo, valor, aoMudar, opcional = false, longo = f
         </Texto>
         {opcional ? (
           <Texto uso="secundario" cor="textoSuave" semLeitura>
-            {t.campo.opcional}
+            {textos.campos.opcional}
           </Texto>
         ) : null}
       </View>
@@ -83,7 +81,7 @@ function ErroDoCampo({ mensagem }: { mensagem: string }) {
   return (
     <View style={estilos.erroCampo} accessibilityLiveRegion="polite">
       <Icone nome="atencao" ativo cor="atencao" recorte="fundo" tamanho={tokens.icone.bloco} />
-      <Texto uso="estado" cor="atencao" falado={formatar(t.erro.falado, { mensagem })} style={estilos.encolhe}>
+      <Texto uso="estado" cor="atencao" falado={t('mensagens.erroAria', { mensagem })} style={estilos.encolhe}>
         {mensagem}
       </Texto>
     </View>
@@ -165,25 +163,25 @@ function Passo({ icone, falado, desativado, aoTocar, testID }: { icone: 'mais' |
 export function Contador({ campo, valor, minimo = 0, maximo = 99, aoMudar, testID }: PropsContador) {
   return (
     <View style={estilos.contador} testID={testID}>
-      <Texto uso="linhaNome" style={estilos.contadorNome} falado={formatar(t.contador.valor, { campo, n: valor })}>
+      <Texto uso="linhaNome" style={estilos.contadorNome} falado={t('criarViagem.campoValor', { campo, n: valor })}>
         {campo}
       </Texto>
       <View style={estilos.contadorControle}>
         <Passo
           icone="menos"
-          falado={formatar(t.contador.menos, { campo })}
+          falado={t('criarViagem.menosUm', { campo })}
           desativado={valor <= minimo}
           aoTocar={() => aoMudar?.(Math.max(minimo, valor - 1))}
           testID={testID ? `${testID}-menos` : undefined}
         />
         <View accessibilityLiveRegion="polite" style={estilos.contadorValor}>
-          <Texto uso="contadorValor" falado={formatar(t.contador.valor, { campo, n: valor })} style={estilos.centro}>
+          <Texto uso="contadorValor" falado={t('criarViagem.campoValor', { campo, n: valor })} style={estilos.centro}>
             {String(valor)}
           </Texto>
         </View>
         <Passo
           icone="mais"
-          falado={formatar(t.contador.mais, { campo })}
+          falado={t('criarViagem.maisUm', { campo })}
           desativado={valor >= maximo}
           aoTocar={() => aoMudar?.(Math.min(maximo, valor + 1))}
           testID={testID ? `${testID}-mais` : undefined}
@@ -244,7 +242,7 @@ export function Resultado({ nome, detalhe, escolhido, aoTocar, testID }: PropsRe
       testID={testID}
       onPress={aoTocar}
       accessibilityRole="radio"
-      accessibilityLabel={[nome, detalhe, escolhido ? t.resultado.escolhido : null].filter(Boolean).join(', ')}
+      accessibilityLabel={[nome, detalhe, escolhido ? textos.criarViagem.escolhido : null].filter(Boolean).join(', ')}
       accessibilityState={{ checked: escolhido }}
       style={({ pressed }) => [estilos.resultado, { backgroundColor: pressed ? cores.fundo : cores.superficie }]}
     >
@@ -261,7 +259,7 @@ export function Resultado({ nome, detalhe, escolhido, aoTocar, testID }: PropsRe
       </View>
       {escolhido ? (
         <Texto uso="estado" semLeitura>
-          {t.resultado.escolhido}
+          {textos.criarViagem.escolhido}
         </Texto>
       ) : null}
     </Pressable>

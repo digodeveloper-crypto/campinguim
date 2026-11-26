@@ -46,10 +46,10 @@ import {
 import type { NomeArte } from '../../src/componentes/mascote/artes';
 import { Icone, ORDEM_ICONES } from '../../src/icones/Icone';
 import { temAtivo } from '../../src/icones/svg';
-import { textos } from '../../src/textos';
+import { t, textos } from '../../src/textos';
 import { contraste, tokens, TemaProvedor, useTema, type NomeTema, type PapelCor, type UsoTexto } from '../../src/tema';
 
-const g = textos.componentes.galeria;
+const g = textos.galeria;
 const ex = g.exemplo;
 
 const SECOES = ['cores', 'tipografia', 'icones', 'rota', 'cabecalho', 'botoes', 'item', 'alerta', 'selo', 'legenda', 'rodape', 'campos', 'vazios', 'mascote'] as const;
@@ -58,11 +58,11 @@ type Secao = (typeof SECOES)[number];
 const decimal = (n: number) => n.toFixed(2).replace('.', ',');
 
 const FALADO_ALTERNANCIA = {
-  separei: textos.componentes.item.alternarSeparei,
-  carro: textos.componentes.item.alternarCarro,
-  conferido: textos.componentes.item.alternarConferido,
-  secar: textos.componentes.item.alternarSecar,
-  ciente: textos.componentes.item.alternarCiente,
+  separei: (nome: string) => t('lista.alternarSeparei', { nome }),
+  carro: (nome: string) => t('lista.alternarNoCarro', { nome }),
+  conferido: (nome: string) => t('volta.alternarConferido', { nome }),
+  secar: (nome: string) => t('volta.alternarSecar', { nome }),
+  ciente: (regra: string) => t('alertas.cienteAria', { regra }),
 };
 
 function Bloco({ titulo, children }: { titulo: string; children: ReactNode }) {
@@ -164,8 +164,8 @@ function SecaoCabecalho() {
     <Bloco titulo={g.secoes.cabecalho}>
       <CabecalhoEtapa marca={marcaDaEtapa({ parada: 'carregar' })} titulo={ex.titulo} subtitulo={ex.subtitulo} aoVoltar={() => undefined} />
       <CabecalhoEtapa
-        marca={marcaDaEtapa({ area: textos.componentes.legenda.camping })}
-        titulo={textos.componentes.legenda.alertas}
+        marca={marcaDaEtapa({ area: textos.areas.camping })}
+        titulo={textos.legenda.alertas}
         subtitulo={ex.alertaAtencao}
         mascote="pose-alerta"
       />
@@ -203,7 +203,7 @@ function SecaoBotoes() {
       </View>
       <View style={estilos.linhaQuebra}>
         {(['separei', 'carro', 'conferido', 'secar', 'ciente'] as const).map((i) => (
-          <Alternancia key={i} icone={i} ligado={alt[i] ?? false} falado={formatar(FALADO_ALTERNANCIA[i], { nome: ex.item1 })} aoTocar={() => setAlt({ ...alt, [i]: !alt[i] })} />
+          <Alternancia key={i} icone={i} ligado={alt[i] ?? false} falado={FALADO_ALTERNANCIA[i](ex.item1)} aoTocar={() => setAlt({ ...alt, [i]: !alt[i] })} />
         ))}
         <Alternancia icone="carro" ligado={false} desativado falado={ex.marcaCarro} />
       </View>

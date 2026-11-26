@@ -11,7 +11,7 @@ import { BotaoMarca } from './Botoes';
 import { Divisoria, Folha } from './Lista';
 import { Texto } from './Texto';
 
-const t = textos.componentes;
+const t = { nivel: textos.niveis, acao: textos.acoes };
 
 export type Nivel = 'atencao' | 'informacao';
 /** Ícone da linha: o do nível, ou o de ajuste na lista (entrou, saiu) e o de regra. */

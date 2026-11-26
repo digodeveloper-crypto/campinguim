@@ -15,7 +15,8 @@ import { BotaoFechar } from './Botoes';
 import { formatar } from './formatar';
 import { Texto } from './Texto';
 
-const t = textos.componentes.legenda;
+const t = textos.legenda;
+const areas = textos.areas;
 
 export type DestinoLegenda = 'alertas' | 'fato' | 'grupo' | 'gastos';
 
@@ -28,7 +29,7 @@ export function BotaoLegenda({ aberta, aoTocar, testID = 'legenda-botao' }: Prop
       testID={testID}
       onPress={aoTocar}
       accessibilityRole="button"
-      accessibilityLabel={t.falado}
+      accessibilityLabel={t.aria}
       accessibilityState={{ expanded: aberta }}
       style={({ pressed }) => [
         estilos.botao,
@@ -149,7 +150,7 @@ export function PainelLegenda({ aberta, aoFechar, aoEscolher, atual = null, fato
                 </View>
                 <View style={estilos.encolhe}>
                   <Texto uso="legendaArea" titulo style={estilos.nomeGrupo}>
-                    {t.camping}
+                    {areas.camping}
                   </Texto>
                   <View style={estilos.sub}>
                     <Ligacao texto={t.alertas} atual={atual === 'alertas'} aoTocar={() => aoEscolher('alertas')} testID="legenda-alertas" />
@@ -157,8 +158,8 @@ export function PainelLegenda({ aberta, aoFechar, aoEscolher, atual = null, fato
                   </View>
                 </View>
               </View>
-              <Area icone="grupo" nome={t.grupo} sub={t.grupoSub} atual={atual === 'grupo'} aoTocar={() => aoEscolher('grupo')} testID="legenda-grupo" />
-              <Area icone="gastos" nome={t.gastos} sub={t.gastosSub} atual={atual === 'gastos'} aoTocar={() => aoEscolher('gastos')} testID="legenda-gastos" />
+              <Area icone="grupo" nome={areas.grupo} sub={t.grupoSub} atual={atual === 'grupo'} aoTocar={() => aoEscolher('grupo')} testID="legenda-grupo" />
+              <Area icone="gastos" nome={areas.gastos} sub={t.gastosSub} atual={atual === 'gastos'} aoTocar={() => aoEscolher('gastos')} testID="legenda-gastos" />
             </View>
           </ScrollView>
         </View>

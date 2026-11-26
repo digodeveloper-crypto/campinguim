@@ -5,14 +5,12 @@ import { useState, type ReactNode } from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
 import { Icone } from '../icones/Icone';
-import { textos } from '../textos';
+import { t, textos } from '../textos';
 import { tokens, useTema, type PapelCor } from '../tema';
 import { Alternancia, BotaoMarca } from './Botoes';
 import { ESTADOS, nomeFaladoDoItem, temFaixa, type Estado, type EstadoItem } from './estados';
-import { formatar } from './formatar';
 import { Texto } from './Texto';
 
-const t = textos.componentes;
 
 export function LinhaEstado({ estado, fundo = 'superficie' }: { estado: Estado; fundo?: PapelCor }) {
   const e = ESTADOS[estado];
@@ -88,14 +86,14 @@ export function ItemLista({ nome, quantidade, estado, aoMudar, aoAbrir, testID }
         <Alternancia
           icone="separei"
           ligado={separado}
-          falado={formatar(t.item.alternarSeparei, { nome })}
+          falado={t('lista.alternarSeparei', { nome })}
           aoTocar={aoMudar ? () => aoMudar(estado === 'aSeparar' ? 'separei' : 'aSeparar') : undefined}
           testID={testID ? `${testID}-separei` : undefined}
         />
         <Alternancia
           icone="carro"
           ligado={estado === 'carro'}
-          falado={formatar(t.item.alternarCarro, { nome })}
+          falado={t('lista.alternarNoCarro', { nome })}
           aoTocar={aoMudar ? () => aoMudar(estado === 'carro' ? 'separei' : 'carro') : undefined}
           testID={testID ? `${testID}-carro` : undefined}
         />
@@ -156,13 +154,14 @@ type PropsCategoria = {
 export function Categoria({ nome, feitos, total, volta = false, abertaNoInicio = true, children, testID }: PropsCategoria) {
   const { cores } = useTema();
   const [aberta, setAberta] = useState(abertaNoInicio);
-  const progresso = formatar(volta ? t.categoria.progressoConferidos : t.categoria.progressoCarro, { feitos, total });
+  const progresso = volta ? t('volta.progressoConferidos', { feitos, total }) : t('lista.progressoNoCarro', { feitos, total });
+  const falado = volta ? t('volta.categoriaAria', { categoria: nome, feitos, total }) : t('lista.categoriaAria', { categoria: nome, feitos, total });
   return (
     <View style={estilos.cat} testID={testID}>
       <Pressable
         onPress={() => setAberta((a) => !a)}
         accessibilityRole="button"
-        accessibilityLabel={`${nome}: ${progresso}`}
+        accessibilityLabel={falado}
         accessibilityState={{ expanded: aberta }}
         style={({ pressed }) => [estilos.catBotao, pressed ? { backgroundColor: cores.superficie } : null]}
       >
@@ -173,7 +172,7 @@ export function Categoria({ nome, feitos, total, volta = false, abertaNoInicio =
           <View style={estilos.catProg}>
             <Regua feitos={feitos} total={total} volta={volta} curta largura={56} />
             <Texto uso="secundario" cor="textoSuave" semLeitura>
-              {formatar(t.categoria.progressoCurto, { feitos, total })}
+              {progresso}
             </Texto>
           </View>
         </View>
@@ -201,10 +200,10 @@ export function FaixaTarefa({ tarefa, feito, aoMudar, testID }: PropsTarefa) {
         <Texto style={estilos.encolhe}>{tarefa}</Texto>
       </View>
       <BotaoMarca
-        texto={t.acao.feito}
+        texto={textos.estados.feito}
         icone="ciente"
         ligado={feito}
-        falado={formatar(t.tarefa.feitoFalado, { tarefa })}
+        falado={t('lista.tarefaFeitaAria', { tarefa })}
         aoTocar={aoMudar ? () => aoMudar(!feito) : undefined}
       />
     </View>
