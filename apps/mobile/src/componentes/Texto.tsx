@@ -34,7 +34,7 @@ export function Texto({ uso = 'corpo', cor = 'texto', children, style, titulo = 
       importantForAccessibility={semLeitura ? 'no' : 'auto'}
       style={[
         {
-          fontFamily: e.fontFamily,
+          fontFamily: tema.fontes ? e.fontFamily : undefined,
           fontSize: e.fontSize,
           lineHeight: e.lineHeight,
           letterSpacing: e.letterSpacing,

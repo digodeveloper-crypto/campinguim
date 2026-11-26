@@ -19,6 +19,11 @@ export type Tema = {
   simulacao: number;
   /** 100, 130 ou 200: decide as adaptações de letra grande (DESIGN.md 4.4). */
   faixa: 100 | 130 | 200;
+  /**
+   * A Archivo já carregou. Antes disso o texto fica na fonte do sistema; a troca da família, quando a fonte
+   * chega, faz o Android medir o texto de novo (sem ela, a palavra fica cortada na largura antiga).
+   */
+  fontes: boolean;
 };
 
 const Contexto = createContext<Tema | null>(null);
@@ -29,9 +34,13 @@ type Props = {
   forcar?: NomeTema | null;
   /** Simula um tamanho de letra (galeria). */
   simulacao?: number;
+  /** A fonte embutida já carregou (o provedor de fora diz; o de dentro herda). */
+  fontesProntas?: boolean;
 };
 
-export function TemaProvedor({ children, forcar = null, simulacao = 1 }: Props) {
+export function TemaProvedor({ children, forcar = null, simulacao = 1, fontesProntas }: Props) {
+  const deFora = useContext(Contexto);
+  const fontes = fontesProntas ?? deFora?.fontes ?? true;
   const aparelho = useColorScheme();
   const { fontScale } = useWindowDimensions();
   const nome: NomeTema = forcar ?? (aparelho === 'dark' ? 'escuro' : 'claro');
@@ -44,8 +53,9 @@ export function TemaProvedor({ children, forcar = null, simulacao = 1 }: Props) 
       fator,
       simulacao,
       faixa: faixaDaLetra(fator),
+      fontes,
     };
-  }, [nome, fontScale, simulacao]);
+  }, [nome, fontScale, simulacao, fontes]);
   return <Contexto.Provider value={valor}>{children}</Contexto.Provider>;
 }
 

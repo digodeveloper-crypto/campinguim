@@ -69,7 +69,7 @@ export function CampoTexto({ rotulo, valor, aoMudar, opcional = false, longo = f
             borderWidth: focado || erro ? 2 : tokens.borda.controle,
             backgroundColor: desativado ? cores.fundo : cores.superficie,
             color: desativado ? cores.textoSuave : cores.texto,
-            fontFamily: corpo.fontFamily,
+            fontFamily: tema.fontes ? corpo.fontFamily : undefined,
             fontSize: corpo.fontSize,
           },
         ]}
