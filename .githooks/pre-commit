@@ -1,0 +1,5 @@
+#!/bin/sh
+# Trava de segredos antes de todo commit (GIT-08). Confere só o conteúdo preparado para o commit.
+# Para ligar este hook num clone novo: npm install (script "prepare") ou
+#   git config core.hooksPath .githooks
+exec node scripts/seguranca/verificar-segredos.mjs --preparados

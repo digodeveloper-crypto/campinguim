@@ -1,0 +1,23 @@
+{
+  "name": "@campinguim/web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Página do convidado e site do Campinguim (React e TypeScript, leve, para o navegador do celular).",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "gerar": "vite build",
+    "previa": "vite preview",
+    "tipos": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.1",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.3.0",
+    "vite": "8.3.8"
+  }
+}

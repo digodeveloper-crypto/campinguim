@@ -1,0 +1,27 @@
+# Tipos (TypeScript estrito) e lint, 26/11/2026 14:45
+
+$ npm run tipos
+
+> campinguim@0.0.0 tipos
+> npm run tipos --workspaces --if-present && tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.scripts.json
+
+
+> @campinguim/mobile@0.0.0 tipos
+> tsc --noEmit -p tsconfig.json
+
+
+> @campinguim/web@0.0.0 tipos
+> tsc --noEmit -p tsconfig.json
+
+
+> @campinguim/core@0.0.0 tipos
+> tsc --noEmit -p tsconfig.json
+
+(código de saída: 0)
+
+$ npm run lint
+
+> campinguim@0.0.0 lint
+> eslint --max-warnings=0 .
+
+(código de saída: 0; nenhuma linha de aviso ou erro = lint limpo)

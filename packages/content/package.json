@@ -1,0 +1,11 @@
+{
+  "name": "@campinguim/content",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Catálogos do Campinguim em arquivos de dados (SPEC, seções 5 e 6). Conteúdo entra na B3.",
+  "type": "module",
+  "files": [
+    "catalogo",
+    "esquemas"
+  ]
+}

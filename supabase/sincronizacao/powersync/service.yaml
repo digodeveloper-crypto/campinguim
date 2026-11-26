@@ -1,0 +1,29 @@
+# Configuração do serviço PowerSync local. Sem segredo neste arquivo: a ligação com o Postgres
+# chega por variável de ambiente (.env.local na raiz, fora do git).
+
+telemetry:
+  # Sem envio de métricas de uso ao PowerSync.
+  disable_telemetry_sharing: true
+
+replication:
+  connections:
+    - type: postgresql
+      uri: !env PS_DATA_SOURCE_URI
+      # Rede interna do Docker, só na máquina.
+      sslmode: disable
+
+storage:
+  type: mongodb
+  uri: !env PS_MONGO_URI
+
+port: !env PS_PORT
+
+sync_config:
+  path: sync-config.yaml
+
+client_auth:
+  # Login do Supabase local: o PowerSync confere o token pelas chaves públicas (ES256) do
+  # próprio Supabase. "kong" é o portão de entrada do Supabase na rede do Docker.
+  supabase: true
+  jwks_uri: http://kong:8000/auth/v1/.well-known/jwks.json
+  audience: ["authenticated"]

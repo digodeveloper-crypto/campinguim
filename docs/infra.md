@@ -162,3 +162,20 @@ O endereço do servidor e o do site de teste vêm de um único valor de configur
 ### Encerramento
 
 Emuladores e contêineres da prova continuam ligados até a junção dos ramos. O encerramento é do piloto, depois da junção, e a lista de processos sem emulador nem contêiner entra em `docs/prova-tecnica/resultado.md` (SQD-09). `prova.mjs derrubar` roda `adb kill-server` e encerra todo emulador da máquina: usar só com mais nenhuma tarefa com emulador ligado.
+
+## Ambiente local (B1)
+
+- **Data:** 26/11/2026 (feature B1, GIT-11). Passo a passo e comandos: `docs/desenvolvimento.md`.
+- **Nenhum serviço externo foi criado na B1.** O ambiente de desenvolvimento e teste roda inteiro na máquina, em Docker, sem conta, login, token ou plano pago novos.
+
+| Peça | Versão | Observação |
+| --- | --- | --- |
+| Supabase local (Postgres 17, login, API, portão e funções) | CLI 3.4.0 (dependência do projeto, `node_modules`) | `project_id` `campinguim` (contêineres `supabase_*_campinguim`). Cadastro aberto desligado. Mesmos serviços desligados da prova. Configuração: `supabase/config.jsonc` |
+| PowerSync auto-hospedado (decisão E1) | `journeyapps/powersync-service:1.29.1`, armazenamento MongoDB 7.0 | Projeto Docker `campinguim-sincronizacao`. Telemetria desligada; MongoDB sem porta no computador. Lê o Postgres pela publicação `powersync` (criada vazia por migração na B1) |
+
+- **Subir, parar, zerar:** `npm run ambiente:subir`, `ambiente:parar`, `ambiente:zerar`, `ambiente:estado`.
+- **Portas** (de `config/enderecos.json`, o único valor de configuração de endereço): API 54321, banco 54322, sincronização 8080, página web local 5173.
+- **Credenciais locais:** geradas pelo Supabase local e gravadas pelo script em `.env.local` na raiz, fora do git (`.gitignore`: `.env.*`). Modelo sem valores versionado: `.env.local.exemplo`. O script nunca imprime os valores.
+- **Convivência com a prova técnica:** a pilha da prova (`campinguim-prova`) usa as mesmas portas. As duas não sobem juntas; o script da base avisa e não derruba nada de outra pilha.
+- **Produção:** sem endereço definido. `config/enderecos.json` tem a seção `producao` vazia até o orquestrador decidir o endereço provisório do site (proposta da seção Cloudflare acima) e o servidor hospedado (SPEC, seção 15).
+- **Esteira do GitHub:** arquivo `.github/workflows/versao.yml`, disparado só por etiqueta `v*` (GIT-05). Ainda não rodou: nenhuma etiqueta foi criada.

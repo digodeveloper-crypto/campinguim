@@ -1,0 +1,12 @@
+# Regras de sincronização do Campinguim (SPEC, seções 4 e 11).
+# Vazio na B1: as tabelas e as regras por membro e por família entram com o esquema do servidor
+# (B5) e com a sincronização das viagens (feature 2.2). Modelo das regras: a prova técnica
+# (prova/sincronizacao/powersync/sync-config.yaml).
+# Segunda barreira (SPEC, seção 11): o serviço lê o banco sem passar pelo RLS, então estas regras
+# é que garantem que cada aparelho só recebe o que é dele.
+# O serviço precisa ser reiniciado para ler mudanças neste arquivo (npm run ambiente:subir de novo).
+
+config:
+  edition: 3
+
+streams: {}

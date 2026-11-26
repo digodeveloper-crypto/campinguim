@@ -1,0 +1,32 @@
+{
+  "name": "@campinguim/mobile",
+  "version": "0.0.0",
+  "private": true,
+  "description": "App do Campinguim (Expo, React Native e TypeScript). Android durante o desenvolvimento.",
+  "type": "module",
+  "main": "expo-router/entry",
+  "scripts": {
+    "start": "expo start",
+    "nativo": "expo prebuild --platform android --clean",
+    "android": "expo run:android",
+    "tipos": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@azure/core-asynciterator-polyfill": "1.0.2",
+    "@campinguim/core": "0.0.0",
+    "@op-engineering/op-sqlite": "18.2.5",
+    "@powersync/react-native": "2.4.1",
+    "expo": "58.0.26",
+    "expo-constants": "58.0.16",
+    "expo-linking": "58.0.17",
+    "expo-router": "58.0.32",
+    "expo-status-bar": "58.0.5",
+    "react": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-safe-area-context": "5.11.1",
+    "react-native-screens": "4.30.1"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.1"
+  }
+}

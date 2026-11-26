@@ -1,0 +1,8 @@
+
+> campinguim@0.0.0 testar:jornadas
+> node scripts/jornadas.mjs fumaca
+
+[jornadas] 1 roteiro(s) em emulator-5554; saída em test-results\jornadas\2026-11-26T17-38-07-179Z
+  passou  fumaca/abre-tela-provisoria  (23.2 s)
+[jornadas] sem roteiro ainda (features futuras): J1-familia, J2-aviao, J3-lembretes, J4-grupo, J5-convidado, J6-gastos, J7-camping-com-dados, J8-camping-sem-dados, J9-volta-com-perguntas
+[jornadas] 1 de 1 passaram

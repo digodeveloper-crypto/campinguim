@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "lib": ["ES2023", "DOM"],
+    "allowJs": true,
+    "checkJs": true,
+    "noImplicitAny": false
+  },
+  "include": ["*.config.mjs", "scripts/**/*.mjs", "e2e/**/*.mjs", ".githooks/*.mjs"],
+  "exclude": ["node_modules", "prova"]
+}
