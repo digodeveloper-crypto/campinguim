@@ -24,7 +24,7 @@ Tudo rodou em dois celulares virtuais (emuladores Android) e num servidor local,
 ### O que falta
 
 1. **Item 4, faixa de teste (F0-6).** Precisa da conta de desenvolvedor do Google Play (taxa, contrato, identidade, celular Android físico), do projeto no Google Cloud ligado à verificação e de um celular físico. Sem isso o item 4 não fecha e a prova não é completa.
-2. **Celular de verdade.** Tudo foi medido só em emulador. Repetir em celular físico fica para a B1 (jornada J3 do plano). Os números abaixo são de emulador com a máquina carregada; em celular real serão outros.
+2. **Celular de verdade.** Tudo foi medido só em emulador. Repetir em celular físico fica para a B1 (jornada J3 da SPEC, seção 12). Os números abaixo são de emulador com a máquina carregada; em celular real serão outros.
 3. **Entrada no repositório público.** A junção dos ramos da prova (F0-2 a F0-5) está feita e aprovada, mas só existe na máquina; nada foi enviado ao GitHub. Ela entra no `main` só por squash, num único commit "F0: prova técnica", pela PROPOSTA 3 do plano (seção "Junção dos trabalhos"). Isso não depende de você agora.
 
 ### O que você precisa validar (itens 1, 2 e 3)
@@ -92,7 +92,7 @@ A diferença vem do emulador: depois do modo avião ele leva de 11 a 24 s para d
 | A. Valer a contagem "desde que o app alcança o servidor", e repetir o P8 em celular físico na B1 | O P8 passa. O tempo do emulador não fica como critério |
 | B. Valer a contagem "desde o comando de modo avião" | O P8 falha em 5 de 10. O critério de troca da seção I do plano (convergência acima de 30 s de forma repetida) seria acionado, e a prova não consegue separar a tecnologia do emulador sem celular físico |
 
-**Decidido pelo responsável em 26/11/2026:** opção A. Vale a contagem "desde que o app alcança o servidor"; o critério de troca da seção I do plano não é acionado e o PowerSync segue. Para a B1: o ambiente Docker com o PowerSync pode ser copiado, e o P8 se repete em celular físico (J3 do plano).
+**Decidido pelo responsável em 26/11/2026:** opção A. Vale a contagem "desde que o app alcança o servidor"; o critério de troca da seção I do plano não é acionado e o PowerSync segue. Para a B1: o ambiente Docker com o PowerSync pode ser copiado, e o P8 se repete em celular físico.
 
 ### Resumo do que o QA aprovou e reprovou
 
@@ -100,7 +100,7 @@ Detalhe nos relatórios `docs/prova-tecnica/qa/F0-1-rodada-1.md`, `F0-2-rodada-1
 
 ## Limites desta prova
 
-- **Tudo foi medido só em emulador.** Emulador Android 16 (API 36), imagem "Google APIs" x86_64, tela ligada, sem economia de bateria do fabricante e sem o modo de soneca do Android (Doze), com a máquina carregada por outros programas (segundo a entrega da F0-2, de 3 a 4 emuladores, builds e a missão de vídeos ao mesmo tempo). Repetir em celular físico fica para a B1 (J3 do plano).
+- **Tudo foi medido só em emulador.** Emulador Android 16 (API 36), imagem "Google APIs" x86_64, tela ligada, sem economia de bateria do fabricante e sem o modo de soneca do Android (Doze), com a máquina carregada por outros programas (segundo a entrega da F0-2, de 3 a 4 emuladores, builds e a missão de vídeos ao mesmo tempo). Repetir em celular físico fica para a B1 (jornada J3 da SPEC, seção 12).
 - A imagem "Google APIs" é `userdebug`, não a imagem de loja. Isso permitiu adiantar o relógio por comando (`adb root` e `date`) e não é igual a um aparelho de fábrica.
 - A prova não tem dado de camping nem tela de produto: as telas são de teste. O texto do aviso é o da véspera da SPEC, seção 10.
 - Memória livre da máquina com tudo ligado, medida pelo QA na F0-1: 7.982 MB. A entrega registrou leituras de 5,6 e 3,7 GB com a missão de vídeos rodando junto.
