@@ -1,0 +1,16 @@
+# B4: colunas das tabelas sincronizadas no aparelho x migrações do B5 (worktree da B5, supabase/migrations, 26/11/2026)
+# 'faltam no aparelho' = coluna do Postgres que o esquema local não tem; 'só no aparelho' = o contrário. 'id' fica fora (o PowerSync cria).
+# Migrações do B5 lidas: 20261126180000_b1_publicacao_sincronizacao.sql 20261126190000_b5_viagem_e_lista.sql 20261126190100_b5_gastos.sql 20261126190200_b5_campings.sql 20261126190300_b5_apoio.sql 20261126190400_b5_sync_apply.sql 
+
+profile: faltam no aparelho []; só no aparelho []
+trip: faltam no aparelho []; só no aparelho []
+trip_family: faltam no aparelho []; só no aparelho []
+trip_person: faltam no aparelho []; só no aparelho []
+trip_member: faltam no aparelho []; só no aparelho []
+trip_item: faltam no aparelho []; só no aparelho []
+item_claim: faltam no aparelho []; só no aparelho []
+trip_camping_snapshot: faltam no aparelho []; só no aparelho []
+expense: faltam no aparelho []; só no aparelho []
+expense_exclusion: faltam no aparelho []; só no aparelho []
+expense_payment: faltam no aparelho []; só no aparelho []
+expense_audit: faltam no aparelho []; só no aparelho []

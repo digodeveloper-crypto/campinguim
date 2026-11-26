@@ -8,7 +8,7 @@ import { TABELAS_SO_LOCAIS } from '../verificacao';
 // abaixo são os da SPEC, copiados um a um, mais os pedidos pela B3 (`docs/regras.md` da B3,
 // seção 6, "Campos que o modelo de dados precisa", marcados "B3"). Mudar um campo aqui exige
 // mudar a SPEC (ou o documento da B3) antes.
-const CONTROLE = ['updated_at', 'updated_by', 'deleted_at'];
+const CONTROLE = ['created_at', 'updated_at', 'updated_by', 'deleted_at'];
 const CAMPOS_DA_SPEC: Record<string, string[]> = {
   profile: ['display_name', 'nickname', 'anonymous_by_default', 'origin_channel', 'last_active_at'],
   trip: [
@@ -24,11 +24,10 @@ const CAMPOS_DA_SPEC: Record<string, string[]> = {
     'is_group',
     'status',
     'source_trip_id',
-    'created_at', // seção 11, FRD-02; B3
     'destination_name', // B3
   ],
   trip_family: ['trip_id', 'name', 'pets', 'is_organizer'],
-  trip_person: ['family_id', 'age_band', 'label'],
+  trip_person: ['trip_id', 'family_id', 'age_band', 'label'], // trip_id: B5
   trip_member: ['trip_id', 'family_id', 'profile_id', 'display_name', 'role'],
   trip_item: [
     'trip_id',
@@ -57,14 +56,12 @@ const CAMPOS_DA_SPEC: Record<string, string[]> = {
     'learning_qty_before',
     'learning_percent',
   ],
-  item_claim: ['item_id', 'family_id'],
+  item_claim: ['trip_id', 'item_id', 'family_id'], // trip_id: B5
   trip_camping_snapshot: ['trip_id', 'camping_id', 'facts', 'alerts', 'adjustments', 'rules_ack_at', 'fetched_at', 'undone_adjustment_ids'], // último: B3
-  invite: ['token', 'trip_id', 'family_id', 'created_by', 'expires_at', 'revoked'],
   expense: ['trip_id', 'item_id', 'buyer_family_id', 'estimate_cents', 'amount_cents', 'split_rule', 'receipt_path'],
-  expense_exclusion: ['expense_id', 'person_id'],
-  expense_payment: ['expense_id', 'family_id', 'paid_marked_at'],
-  expense_audit: ['expense_id', 'actor_member_id', 'field', 'old_value', 'new_value', 'at'],
-  pix_key: ['profile_id', 'key', 'key_type'],
+  expense_exclusion: ['trip_id', 'expense_id', 'person_id'], // trip_id: B5
+  expense_payment: ['trip_id', 'expense_id', 'family_id', 'paid_marked_at'], // trip_id: B5
+  expense_audit: ['trip_id', 'expense_id', 'actor_member_id', 'field', 'old_value', 'new_value', 'at'], // trip_id: B5; sem created_at
 };
 
 const tabela = (nome: string) => {
@@ -84,14 +81,14 @@ describe('esquema local = SPEC, seção 3 (viagem e lista, gastos)', () => {
       tabela(nome)
         .columns.map((c) => c.name)
         .sort(),
-    ).toEqual([...campos, ...CONTROLE].sort());
+    ).toEqual([...campos, ...CONTROLE.filter((c) => !(nome === 'expense_audit' && c === 'created_at'))].sort());
   });
 
   it('nenhuma tabela de camping, relato, resumo, sugestão, evento ou configuração (DEF-11)', () => {
     const nomes = esquema.tables.map((t) => t.name);
     for (const proibida of TABELAS_PROIBIDAS_NO_APARELHO) expect(nomes).not.toContain(proibida);
     expect(TABELAS_PROIBIDAS_NO_APARELHO).toEqual(
-      expect.arrayContaining(['camping', 'fact_report', 'fact_summary', 'suggestion', 'city', 'camping_alias', 'merge_candidate']),
+      expect.arrayContaining(['invite', 'pix_key', 'camping', 'fact_report', 'fact_summary', 'suggestion', 'city', 'camping_alias', 'merge_candidate']),
     );
   });
 
@@ -109,7 +106,6 @@ describe('esquema local = SPEC, seção 3 (viagem e lista, gastos)', () => {
       ['trip_item', 'depends_on_camping'],
       ['trip_item', 'missing'],
       ['trip_item', 'leftover'],
-      ['invite', 'revoked'],
       ['profile', 'anonymous_by_default'],
       ['trip_item', 'qty_edited'],
       ['trip_item', 'qty_per_person'],
@@ -123,11 +119,15 @@ describe('esquema local = SPEC, seção 3 (viagem e lista, gastos)', () => {
   });
 
   it('o app escreve (com identificador da alteração) só nas tabelas que não vêm das funções do servidor', () => {
+    // Gastos: só pelas funções do servidor (seção 8). O retrato do camping vem do servidor, mas o
+    // membro muda `undone_adjustment_ids` pela sincronização (B5), então ele leva o identificador.
+    const soFuncoes = ['expense', 'expense_exclusion', 'expense_payment', 'expense_audit'];
     for (const t of esquema.tables) {
-      const doServidor = (TABELAS_SO_DO_SERVIDOR as readonly string[]).includes(t.name);
-      expect(t.trackMetadata, t.name).toBe(!doServidor);
+      expect(t.trackMetadata, t.name).toBe(!soFuncoes.includes(t.name));
       expect(t.localOnly, t.name).toBe(false);
     }
+    // A camada de acesso não escreve em nenhuma das duas (o retrato é da feature 3.3).
+    expect([...TABELAS_SO_DO_SERVIDOR].sort()).toEqual([...soFuncoes, 'trip_camping_snapshot'].sort());
   });
 
   it('nenhum nome reservado do PowerSync, e as tabelas só locais não colidem com o esquema', () => {

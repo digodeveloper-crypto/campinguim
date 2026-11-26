@@ -17,12 +17,21 @@ import { column, Schema, Table } from '@powersync/common';
 // "Campos que o modelo de dados precisa" (pedido do orquestrador em 26/11/2026). Marcados com
 // "B3" abaixo; o B5 cria os mesmos no Postgres.
 //
-// Fora do aparelho, sempre (DEF-11; seção 3, "O que chega ao aparelho"): `city`, `camping`,
-// `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`,
-// `list_feedback`, `device`, `event` e `config`. Um teste confere que nenhuma delas existe aqui.
+// Campos técnicos do B5 (`docs/servidor.md`, seção 2), que o aparelho também tem: `created_at`
+// em toda tabela sincronizada (menos `expense_audit`, que tem `at`) e `trip_id` nas tabelas filhas
+// (`trip_person`, `item_claim`, `expense_exclusion`, `expense_payment`, `expense_audit`), copiado do
+// pai pelo servidor para as regras de sincronização filtrarem por viagem. No retrato do camping, o
+// `id` da linha é o próprio `trip_id`.
+//
+// Fora do aparelho, sempre (DEF-11; seção 3, "O que chega ao aparelho"; B5, "Nunca vão"):
+// `invite`, `pix_key`, `city`, `camping`, `camping_alias`, `fact_report`, `fact_summary`,
+// `suggestion`, `merge_candidate`, `list_feedback`, `device`, `event` e `config`. Convite e chave
+// Pix passam só pelas funções do servidor (`invite_create`, `pix_key_get`). Um teste confere que
+// nenhuma delas existe aqui.
 
 /** Campos de toda tabela sincronizada (seção 3, "Regras gerais"). */
 const controle = {
+  created_at: column.text,
   updated_at: column.text,
   updated_by: column.text,
   deleted_at: column.text,
@@ -61,9 +70,8 @@ const trip = new Table(
     is_group: column.integer,
     status: column.text,
     source_trip_id: column.text,
-    // Citado na seção 11 (FRD-02) e pedido pela B3: viagem criada antes da data de ida; ordem do
-    // histórico para o aprendizado e a repetição. Sempre preenchido.
-    created_at: column.text,
+    // `created_at` (em `controle`): citado na seção 11 (FRD-02) e pedido pela B3 (viagem criada
+    // antes da data de ida; ordem do histórico para o aprendizado e a repetição).
     // B3: destino informado na etapa 1 sem camping do servidor (E1-13).
     destination_name: column.text,
     ...controle,
@@ -84,12 +92,13 @@ const trip_family = new Table(
 
 const trip_person = new Table(
   {
+    trip_id: column.text, // B5: copiado da família
     family_id: column.text,
     age_band: column.text,
     label: column.text,
     ...controle,
   },
-  { indexes: { familia: ['family_id'] }, ...escritaPeloApp },
+  { indexes: { viagem: ['trip_id'], familia: ['family_id'] }, ...escritaPeloApp },
 );
 
 const trip_member = new Table(
@@ -149,15 +158,17 @@ const trip_item = new Table(
 
 const item_claim = new Table(
   {
+    trip_id: column.text, // B5: copiado do item
     item_id: column.text,
     family_id: column.text,
     ...controle,
   },
-  { indexes: { item: ['item_id'] }, ...escritaPeloApp },
+  { indexes: { viagem: ['trip_id'], item: ['item_id'] }, ...escritaPeloApp },
 );
 
 // Retrato do camping da viagem: a única informação de camping no aparelho (DEF-11). Escrito pelo
-// servidor (`trip_set_camping`); o app só lê.
+// servidor (`trip_set_camping`); o membro só muda `undone_adjustment_ids` (B5: pela
+// sincronização, E3-08), e isso é da feature 3.3. O `id` da linha é o `trip_id`.
 const trip_camping_snapshot = new Table(
   {
     trip_id: column.text,
@@ -172,21 +183,7 @@ const trip_camping_snapshot = new Table(
     undone_adjustment_ids: column.text,
     ...controle,
   },
-  { indexes: { viagem: ['trip_id'] } },
-);
-
-// Convites: criados e revogados pelas funções do servidor (`invite_create`, `invite_revoke`).
-const invite = new Table(
-  {
-    token: column.text,
-    trip_id: column.text,
-    family_id: column.text,
-    created_by: column.text,
-    expires_at: column.text,
-    revoked: column.integer,
-    ...controle,
-  },
-  { indexes: { viagem: ['trip_id'] } },
+  { indexes: { viagem: ['trip_id'] }, ...escritaPeloApp },
 );
 
 // ---- Gastos (escritos pelas funções do servidor da seção 8; o app só lê) ----------------------
@@ -207,47 +204,40 @@ const expense = new Table(
 
 const expense_exclusion = new Table(
   {
+    trip_id: column.text, // B5: copiado do gasto
     expense_id: column.text,
     person_id: column.text,
     ...controle,
   },
-  { indexes: { gasto: ['expense_id'] } },
+  { indexes: { viagem: ['trip_id'], gasto: ['expense_id'] } },
 );
 
 const expense_payment = new Table(
   {
+    trip_id: column.text, // B5: copiado do gasto
     expense_id: column.text,
     family_id: column.text,
     paid_marked_at: column.text,
     ...controle,
   },
-  { indexes: { gasto: ['expense_id'] } },
+  { indexes: { viagem: ['trip_id'], gasto: ['expense_id'] } },
 );
 
 const expense_audit = new Table(
   {
+    trip_id: column.text, // B5: copiado do gasto
     expense_id: column.text,
     actor_member_id: column.text,
     field: column.text,
     old_value: column.text,
     new_value: column.text,
     at: column.text,
-    ...controle,
+    // Sem `created_at`: a hora do registro é `at` (B5).
+    updated_at: column.text,
+    updated_by: column.text,
+    deleted_at: column.text,
   },
-  { indexes: { gasto: ['expense_id'] } },
-);
-
-// Chave Pix: lida só por membros logados de viagem em que o dono é comprador (PRV-06). A barreira
-// de verdade são as regras de sincronização e a função `pix_key_get` (B5); no aparelho, a leitura
-// passa só por `acesso/pix.ts`, que aplica a mesma regra.
-const pix_key = new Table(
-  {
-    profile_id: column.text,
-    key: column.text,
-    key_type: column.text,
-    ...controle,
-  },
-  { indexes: { perfil: ['profile_id'] } },
+  { indexes: { viagem: ['trip_id'], gasto: ['expense_id'] } },
 );
 
 export const esquema = new Schema({
@@ -259,30 +249,28 @@ export const esquema = new Schema({
   trip_item,
   item_claim,
   trip_camping_snapshot,
-  invite,
   expense,
   expense_exclusion,
   expense_payment,
   expense_audit,
-  pix_key,
 });
 
 export type TiposDoBanco = (typeof esquema)['types'];
 export type NomeDeTabelaSincronizada = keyof TiposDoBanco;
 
-/** Tabelas que vêm só do servidor: a camada de acesso nunca escreve nelas. */
+/** Tabelas em que a camada de acesso não escreve (vêm das funções do servidor; o retrato do camping, a 3.3 trata). */
 export const TABELAS_SO_DO_SERVIDOR = [
   'trip_camping_snapshot',
-  'invite',
   'expense',
   'expense_exclusion',
   'expense_payment',
   'expense_audit',
-  'pix_key',
 ] as const satisfies readonly NomeDeTabelaSincronizada[];
 
-/** Tabelas da seção 3 que nunca podem existir no aparelho (DEF-11). */
+/** Tabelas que nunca podem existir no aparelho (DEF-11; B5, "Nunca vão"). */
 export const TABELAS_PROIBIDAS_NO_APARELHO = [
+  'invite',
+  'pix_key',
   'city',
   'camping',
   'camping_alias',

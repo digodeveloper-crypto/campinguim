@@ -87,7 +87,7 @@ export async function criarViagem(ctx: ContextoDeAcesso, entrada: NovaViagem): P
     const tripId = await inserir(tx, ctx, 'trip', viagem);
     const familyId = await inserir(tx, ctx, 'trip_family', { ...familia, trip_id: tripId });
     const personIds: string[] = [];
-    for (const p of pessoas) personIds.push(await inserir(tx, ctx, 'trip_person', { ...p, family_id: familyId }));
+    for (const p of pessoas) personIds.push(await inserir(tx, ctx, 'trip_person', { ...p, trip_id: tripId, family_id: familyId }));
     return { tripId, familyId, personIds };
   });
 }
@@ -172,9 +172,9 @@ export async function adicionarPessoa(ctx: ContextoDeAcesso, familyId: string, p
     label: textoOpcional('label', pessoa.label),
   };
   return ctx.db.writeTransaction(async (tx) => {
-    const familia = await tx.getOptional<{ id: string }>('select id from trip_family where id = ? and deleted_at is null', [familyId]);
+    const familia = await tx.getOptional<{ trip_id: string }>('select trip_id from trip_family where id = ? and deleted_at is null', [familyId]);
     if (!familia) throw new ValorInvalido('family_id', 'família inexistente');
-    return inserir(tx, ctx, 'trip_person', linha);
+    return inserir(tx, ctx, 'trip_person', { ...linha, trip_id: familia.trip_id });
   });
 }
 

@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest';
 
 import { alterarItem, inserirItens, listarItens, marcarSeparacao, obterItem, referenciaDoItem, removerItem, restaurarItem } from '../acesso/itens';
 import { apagarEventos, contarEventos, gravarEstado, guardarEvento, lerEstado, lerLoteDeEventos, obterIdDaInstalacao } from '../acesso/local';
-import { lerChavesPixDoComprador } from '../acesso/pix';
 import {
   adicionarPessoa,
   alterarViagem,
@@ -65,6 +64,16 @@ describe('viagens (feature 1.1 usa)', () => {
     const ids = metadados.map((l) => JSON.parse(String(l.m)).c as string);
     for (const c of ids) expect(c).toMatch(UUID_V4);
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it('campos técnicos do B5: created_at em toda linha e trip_id na pessoa (também ao acrescentar depois)', async () => {
+    const { ctx, sqlite } = await novoBancoDeTeste();
+    const { tripId, familyId } = await criarViagem(ctx, viagemDeReferencia);
+    await adicionarPessoa(ctx, familyId, { age_band: 'teen' });
+    for (const t of ['trip', 'trip_family', 'trip_person']) {
+      expect({ ...sqlite.prepare(`select count(*) as n from ${t} where created_at is null`).get() }, t).toEqual({ n: 0 });
+    }
+    expect({ ...sqlite.prepare('select count(*) as n from trip_person where trip_id is not ?').get(tripId) }).toEqual({ n: 0 });
   });
 
   it('com conta, o dono e quem alterou são o perfil logado', async () => {
@@ -352,59 +361,5 @@ describe('tabelas só locais', () => {
     await expect(guardarEvento(ctx, { name: 'x', props: { n: Number.NaN } })).rejects.toMatchObject({ name: 'ValorInvalido' });
     await expect(lerLoteDeEventos(ctx, 0)).rejects.toMatchObject({ name: 'ValorInvalido' });
     expect(await contarEventos(ctx)).toBe(0);
-  });
-});
-
-describe('chave Pix: só para membro logado de viagem em que o dono é comprador (PRV-06)', () => {
-  // As linhas de membros, gastos e chaves chegam do servidor; aqui são postas direto no banco.
-  async function cenario() {
-    const eu = randomUUID();
-    const comprador = randomUUID();
-    const banco = await novoBancoDeTeste(eu);
-    const { tripId, familyId: minhaFamilia } = await criarViagem(banco.ctx, viagemDeReferencia);
-    const familiaCompradora = randomUUID();
-    const ins = (sql: string, ...p: (string | number | null)[]) => banco.sqlite.prepare(sql).run(...p);
-    ins('insert into trip_family (id, trip_id, name, pets, is_organizer) values (?, ?, ?, 0, 0)', familiaCompradora, tripId, 'Compradora');
-    ins("insert into trip_member (id, trip_id, family_id, profile_id, role) values (?, ?, ?, ?, 'organizer')", randomUUID(), tripId, minhaFamilia, eu);
-    ins("insert into trip_member (id, trip_id, family_id, profile_id, role) values (?, ?, ?, ?, 'member')", randomUUID(), tripId, familiaCompradora, comprador);
-    ins("insert into pix_key (id, profile_id, key, key_type) values (?, ?, 'chave-de-exemplo', 'random')", randomUUID(), comprador);
-    const gasto = randomUUID();
-    ins("insert into expense (id, trip_id, buyer_family_id, amount_cents, split_rule) values (?, ?, ?, 42000, 'shares')", gasto, tripId, familiaCompradora);
-    return { ...banco, eu, comprador, tripId, familiaCompradora, gasto, ins };
-  }
-
-  it('membro logado vê a chave do comprador', async () => {
-    const { ctx, tripId, familiaCompradora, comprador } = await cenario();
-    expect(await lerChavesPixDoComprador(ctx, tripId, familiaCompradora)).toEqual([
-      { profile_id: comprador, key: 'chave-de-exemplo', key_type: 'random' },
-    ]);
-  });
-
-  it('sem conta, não vê', async () => {
-    const { ctx, tripId, familiaCompradora } = await cenario();
-    expect(await lerChavesPixDoComprador({ ...ctx, perfilId: null }, tripId, familiaCompradora)).toEqual([]);
-  });
-
-  it('quem não é membro da viagem não vê', async () => {
-    const { ctx, tripId, familiaCompradora } = await cenario();
-    expect(await lerChavesPixDoComprador({ ...ctx, perfilId: randomUUID() }, tripId, familiaCompradora)).toEqual([]);
-  });
-
-  it('família que não é compradora de nenhum gasto não expõe a chave', async () => {
-    const { ctx, tripId, familiaCompradora, gasto, sqlite } = await cenario();
-    sqlite.prepare("update expense set deleted_at = '2026-11-26T00:00:00.000Z' where id = ?").run(gasto);
-    expect(await lerChavesPixDoComprador(ctx, tripId, familiaCompradora)).toEqual([]);
-  });
-
-  it('comprador em outra viagem não vale para esta', async () => {
-    const { ctx, familiaCompradora } = await cenario();
-    const outra = await criarViagem(ctx, { ...viagemDeReferencia, name: 'Outra' });
-    expect(await lerChavesPixDoComprador(ctx, outra.tripId, familiaCompradora)).toEqual([]);
-  });
-
-  it('membro removido da viagem deixa de ver', async () => {
-    const { ctx, tripId, familiaCompradora, eu, sqlite } = await cenario();
-    sqlite.prepare("update trip_member set deleted_at = '2026-11-26T00:00:00.000Z' where profile_id = ?").run(eu);
-    expect(await lerChavesPixDoComprador(ctx, tripId, familiaCompradora)).toEqual([]);
   });
 });

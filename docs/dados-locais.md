@@ -19,7 +19,7 @@ apps/mobile/src/
     conector.ts         conector do PowerSync, preparado e DESLIGADO até a feature 2.2
     executor.ts         o mínimo de banco que a camada usa (o PowerSync e o SQLite do Node cabem nele)
     valores.ts          valores fechados da seção 3 e conferência dos campos
-    acesso/             camada de acesso tipada (viagens, itens, estado local, eventos, Pix)
+    acesso/             camada de acesso tipada (viagens, itens, estado local, eventos)
     verificacao.ts      roteiro que exercita a camada (no Node e no emulador)
     __testes__/         testes do Vitest (projeto "core" da suíte)
 ```
@@ -52,12 +52,17 @@ Isso só acontece quando a chave **acabou de ser criada**. Se o cofre devolve er
 
 ## 3. Esquema das tabelas que sincronizam (SPEC, seção 3)
 
-Todas as tabelas de "Viagem e lista" e de "Gastos", com os **mesmos nomes de tabela e de campo da SPEC** (o B5 cria o mesmo esquema no Postgres). Um teste (`__testes__/esquema.test.ts`) compara campo a campo com a lista copiada da SPEC e com os campos pedidos pela B3 (abaixo).
+As 12 tabelas que o servidor manda ao aparelho (B5, `docs/servidor.md`, seção 2, "O que chega ao aparelho"), com os **mesmos nomes de tabela e de campo da SPEC e do Postgres do B5**. Um teste (`__testes__/esquema.test.ts`) compara campo a campo com a lista copiada da SPEC, com os campos pedidos pela B3 e com os campos técnicos do B5 (abaixo). Em 26/11/2026 as colunas foram comparadas uma a uma com as migrações do B5: nenhuma diferença (`docs/evidencias/B4/comparacao-com-B5.txt`).
 
 | Tabela | Quem escreve no aparelho |
 | --- | --- |
 | `profile`, `trip`, `trip_family`, `trip_person`, `trip_member`, `trip_item`, `item_claim` | O app, pela fila da sincronização (2.2) |
-| `trip_camping_snapshot`, `invite`, `expense`, `expense_exclusion`, `expense_payment`, `expense_audit`, `pix_key` | Só o servidor, pelas funções da seção 8; o app só lê |
+| `trip_camping_snapshot` | O servidor (`trip_set_camping`); o membro só muda `undone_adjustment_ids` pela sincronização (feature 3.3). A camada de acesso da B4 não escreve nela |
+| `expense`, `expense_exclusion`, `expense_payment`, `expense_audit` | Só o servidor, pelas funções da seção 8; o app só lê |
+
+**Campos técnicos do B5** (também no aparelho): `created_at` em toda tabela sincronizada, menos `expense_audit` (que tem `at`); `trip_id` em `trip_person`, `item_claim`, `expense_exclusion`, `expense_payment` e `expense_audit`, copiado do pai pelo servidor para as regras de sincronização filtrarem por viagem (a camada já preenche em `trip_person`). No retrato do camping, o `id` da linha é o próprio `trip_id`.
+
+**Convite e chave Pix não vêm ao aparelho** (decisão do B5, aprovada pelo QA): `invite` e `pix_key` ficaram fora das regras de sincronização; o convite passa só por `invite_create`/`invite_revoke` e a chave Pix só por `pix_key_get` (PRV-06, feature 2.9). O cartão da B4 e a SPEC, seção 3, listavam as duas entre as que sincronizam; para o aparelho bater com o servidor aprovado, elas saíram do esquema local e entraram na lista do que nunca pode estar no aparelho. A leitura local de Pix (`acesso/pix.ts`, que repetia a regra do PRV-06) saiu junto: com a chave fora do aparelho, a regra fica inteira no servidor.
 
 Regras aplicadas a todas:
 
@@ -81,13 +86,11 @@ A pedido do orquestrador (26/11/2026), o esquema local inclui os campos que a B3
 | `trip_item` | `qty_per_person` | inteiro, nulo | inteiro não negativo |
 | `trip_item` | `detail_qty`, `detail_unit` | inteiro e `litro`/`metro`, os dois nulos ou os dois preenchidos | gravados juntos pelo campo `detalhe` (`{ qty, unit }` ou nulo) |
 | `trip_item` | `learning_kind`, `learning_qty_before`, `learning_percent` | `missing`/`reduced`/`flagged`; inteiros | gravados juntos pelo campo `aprendizado`; quantidade anterior e percentual (1 a 99) só e sempre com `reduced` |
-| `trip_camping_snapshot` | `undone_adjustment_ids` | texto com a lista em JSON (no Postgres é `text[]`; o PowerSync entrega listas como JSON) | só leitura (vem do servidor) |
+| `trip_camping_snapshot` | `undone_adjustment_ids` | texto com a lista em JSON (no Postgres é `text[]`; o PowerSync entrega listas como JSON) | a camada da B4 não escreve; a 3.3 trata |
 
 Campos que já existiam e mudaram de regra pela B3: `trip_item.qty` aceita nulo (item que é tarefa); `trip_item.unit` e `trip_item.category` são chaves do catálogo (`packages/content`), conferidas pelo motor, não pela camada; `trip_family.pets` é sempre preenchido (a camada já exigia inteiro não negativo). Os índices locais de `trip_item` incluem (`trip_id`, `item_ref`) para o recálculo achar o item.
 
-**Nunca no aparelho** (DEF-11; seção 3, "O que chega ao aparelho"): `city`, `camping`, `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`, `list_feedback`, `device`, `event` e `config`. Um teste confere que nenhuma existe no esquema, e a verificação no emulador confere que nenhuma existe no banco. Do camping, o aparelho guarda só o retrato da viagem (`trip_camping_snapshot`).
-
-**Chave Pix** (PRV-06): a única leitura é `acesso/pix.ts`, que repete a regra da SPEC (pessoa logada, membro da viagem, família compradora de um gasto da mesma viagem, dono membro dessa família). A barreira de verdade continua no servidor (regras de sincronização e `pix_key_get`, B5 e 2.9).
+**Nunca no aparelho** (DEF-11; seção 3, "O que chega ao aparelho"; B5, "Nunca vão"): `invite`, `pix_key`, `city`, `camping`, `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`, `list_feedback`, `device`, `event` e `config`. Um teste confere que nenhuma existe no esquema, e a verificação no emulador confere que nenhuma existe no banco. Do camping, o aparelho guarda só o retrato da viagem (`trip_camping_snapshot`).
 
 Mudança de esquema das tabelas sincronizadas **não precisa de migração no aparelho**: o PowerSync guarda cada linha como JSON e recria as vistas a partir de `esquema.ts` em toda abertura. Coluna nova aparece vazia; coluna retirada some da vista, mas o valor fica guardado. A mudança precisa vir antes na SPEC e no B5.
 
@@ -120,7 +123,6 @@ Funções com tipos, usadas pelas features da etapa 1:
 | `itens.ts` | `inserirItens` (a lista inteira numa transação), `listarItens` (por família, do grupo, com ou sem removidos), `obterItem`, `alterarItem`, `marcarSeparacao`, `removerItem` e `restaurarItem` (E1-04) |
 | `../armazenamentoDeEventos.ts` | `criarArmazenamentoNoBanco` (a porta de eventos da B6) |
 | `local.ts` | `lerEstado`, `gravarEstado`, `apagarEstado`, `obterIdDaInstalacao`, `guardarEvento`, `lerLoteDeEventos`, `apagarEventos`, `contarEventos`, `listarTabelas` |
-| `pix.ts` | `lerChavesPixDoComprador` |
 
 - **Valores conferidos antes de gravar** (`valores.ts`): listas fechadas da seção 3 (`kind`, `climate`, `status`, `age_band`, `origin`, `pack_state`, `return_state`...), datas `AAAA-MM-DD` que existem, volta não antes da ida, inteiros não negativos, UUID v4. Valor inválido gera `ValorInvalido` e nada é gravado. Motivo: um valor fora da lista seria recusado pelo servidor e travaria a fila do aparelho (ponto J1 da prova).
 - **Regras de negócio ficam fora**: quantas noites, quem entra na lista, quantidades e alertas são das features e de `packages/core`. A camada só grava e lê.
@@ -153,7 +155,7 @@ O que a 2.1 e a 2.2 completam (está escrito no próprio `conector.ts`):
 | `src/seguranca/__testes__/chaveDoBanco.test.ts` | Chave: criação, reuso, valor ilegível, erro do cofre, formato bruto, chave fora de mensagem de erro | Vitest, projeto `core` (inclusão `apps/*/src/**/*.test.ts`), dentro do `npm run testar` |
 | `src/dados/__testes__/esquema.test.ts` | Esquema = SPEC, campo a campo; tabelas proibidas; tipos; quem escreve | idem |
 | `src/dados/__testes__/migracoes.test.ts` | Migrações em sequência, repetidas, de versão antiga, com erro, de versão futura; migração publicada não muda | idem, contra o SQLite do Node |
-| `src/dados/__testes__/acesso.test.ts` | Camada de acesso: viagens, pessoas, itens, estados, removidos, estado local, eventos, Pix | idem |
+| `src/dados/__testes__/acesso.test.ts` | Camada de acesso: viagens, pessoas, itens, estados, removidos, estado local, eventos; campos técnicos do B5 | idem |
 | `src/dados/__testes__/verificacao.test.ts` | O roteiro de `verificacao.ts` inteiro | idem |
 | `src/dados/__testes__/armazenamentoDeEventos.test.ts` | Porta de eventos da B6 no banco: mesmo resultado da referência em memória; registrador da B6 gravando no banco | idem |
 | `e2e/jornadas/fumaca-banco/banco-cifrado.yaml` | **Teste instrumentado no emulador**: abre o app a frio (cria chave e banco cifrado), roda a verificação da camada num banco cifrado descartável, fecha e reabre | `npm run testar:jornadas -- fumaca` |
@@ -184,7 +186,7 @@ Em `docs/evidencias/B4/`:
 | --- | --- |
 | `cifra-do-banco.txt` | Os 64 primeiros bytes do banco do app no emulador (aleatórios, sem `SQLite format 3`) e, para comparação, os de um banco SQLite sem cifra; busca de texto aberto nos arquivos `.db`, `-wal` e `-shm` (0 em todos) |
 | `chave-no-cofre.txt` | Todos os arquivos do app no aparelho; a chave está só no `SecureStore.xml` do cofre, cifrada pelo Keystore (valor omitido, só o tamanho); nenhum arquivo do app e nenhuma linha do app no registro do sistema com a forma da chave |
-| `tabelas-e-verificacao.txt` | Registro do app: SQLCipher 4.19.0, migrações 1 e 2 na primeira abertura e nenhuma na reabertura (mesma chave), as 17 tabelas listadas pela camada e conferidas com a seção 3, e os 11 passos da verificação da camada no aparelho |
+| `tabelas-e-verificacao.txt` | Registro do app: SQLCipher 4.19.0, migrações 1 e 2 na primeira abertura e nenhuma na reabertura (mesma chave), as 15 tabelas listadas pela camada (12 sincronizadas e 3 só locais) e conferidas com a seção 3, e os 11 passos da verificação da camada no aparelho |
 | `captura-verificacao-banco.png`, `captura-reaberto.png` | Tela do app no roteiro de fumaça (11/11 passos, versão local 2, tabelas) e o app reaberto |
 | `suite-exigir-completa.txt` | Saída de `npm run testar -- --exigir-completa` |
 | `fumaca-emulador.txt` | Saída de `npm run testar:jornadas -- fumaca` |

@@ -31,10 +31,12 @@ export async function inserir<T extends TabelaEscritaPeloApp>(
   campos: Partial<Linha<T>>,
   id: string = ctx.gerarId(),
 ): Promise<string> {
+  const agora = ctx.agora();
   const linha: Record<string, Parametro> = {
+    created_at: agora,
     ...(campos as Record<string, Parametro>),
     id,
-    updated_at: ctx.agora(),
+    updated_at: agora,
     updated_by: ctx.perfilId,
     _metadata: metadado(ctx),
   };
