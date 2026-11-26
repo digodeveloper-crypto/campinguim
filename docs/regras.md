@@ -104,7 +104,7 @@ Onde a SPEC não diz, a B3 implementou a leitura literal ou a mais conservadora 
 
 **Para as features seguintes (não são dúvidas):**
 
-- **B4 e B5:** o modelo de dados (SPEC, seção 3) não tem onde guardar "quantidade editada à mão" (L7), a quantidade por pessoa, o detalhe (litros da água, metros da extensão), a marca do aprendizado nem a referência estável do item. O motor usa `qtyEditada`, `porPessoa`, `detalhe`, `aprendizado` e `ref`; o esquema local e o do servidor precisam de colunas para eles (ou de outra forma de guardar).
+- **B4 e B5:** os campos que faltam na seção 3 da SPEC estão na seção 6 deste arquivo, "Campos que o modelo de dados precisa".
 - **1.1:** E1-01 diz que clima e chuva têm valor padrão, mas a SPEC não diz qual. O motor recebe os valores sempre explícitos.
 
 ## 5. Testes
@@ -154,3 +154,43 @@ Todos os casos da SPEC, seção 9, um a um, com o nome do caso no título do tes
 | D5 | D5: fusão de dois campings com relatos; desfazer restaura os dois | `packages/core/src/duplicados.test.ts` | passou |
 
 Além dos casos, cada arquivo testa as demais linhas das tabelas (todas as linhas da seção 6, as regras de geração, o aprendizado, a repetição, o interpretador, os erros de entrada e de catálogo). A saída completa e a cobertura estão em `docs/evidencias/B3/`.
+
+## 6. Campos que o modelo de dados precisa
+
+Lista final dos campos que faltam na SPEC, seção 3, para o motor funcionar. Nomes em inglês e `snake_case`, no padrão da seção 3; enumerações como texto com os valores listados (`check` no Postgres). Valem para o banco local (B4) e para o servidor (B5), salvo onde a coluna "Onde" diz outra coisa. As regras gerais da seção 3 continuam valendo (UUID, centavos, `updated_at`, `updated_by`, `deleted_at`).
+
+**Campos novos**
+
+| Tabela | Campo | Tipo | Padrão | Para que serve | No motor |
+| --- | --- | --- | --- | --- | --- |
+| `trip` | `created_at` | carimbo de tempo, UTC, não nulo | hora da criação no aparelho | Data em que a viagem foi criada: F9 e E3-17 recusam relato de viagem criada depois da data de ida; ordena as viagens anteriores da pessoa para o aprendizado e a repetição (viagens sem data, RET-02) | `ViagemParaRelato.criadaEm` (a data local), ordem do `historico` |
+| `trip` | `destination_name` | texto, nulo | nulo | Destino informado na etapa 1, sem camping do servidor (E1-13). O item `reserva` entra quando há destino: `destino` = `destination_name` não nulo ou `camping_id` não nulo | `EntradaDaViagem.destino` |
+| `trip_item` | `item_ref` | texto, não nulo | gerado pela regra abaixo | Referência estável do item, que o recálculo usa para achar o mesmo item: `<catalog_key>@<family_id>` ou `<catalog_key>@grupo` (origem `generated`), `ajuste:<catalog_key>@<family_id ou grupo>` (origem `camping_adjust`), o próprio `id` (origem `manual`). Índice único (`trip_id`, `item_ref`) entre as linhas com `deleted_at` nulo | `ItemDaLista.ref` |
+| `trip_item` | `qty_edited` | lógico, não nulo | falso | A pessoa editou a quantidade à mão; o recálculo não mexe mais nela (E1-04, L7) e o ajuste "soma" também não | `qtyEditada` |
+| `trip_item` | `qty_per_person` | inteiro, nulo | nulo | Quantidade por pessoa nos itens de escopo pessoa ("mudas 3 por pessoa"); `qty` = `qty_per_person` × pessoas da família | `porPessoa` |
+| `trip_item` | `detail_qty` | inteiro, nulo | nulo | Quantidade secundária mostrada junto: 36 L na água (8 galões), 20 m ou 5 m na extensão que entra por ajuste | `detalhe.qty` |
+| `trip_item` | `detail_unit` | texto, nulo: `litro` ou `metro` (chaves de `unidades` em `itens.json`) | nulo | Unidade da quantidade secundária. Preenchido junto com `detail_qty`, ou os dois nulos | `detalhe.unidade` |
+| `trip_item` | `learning_kind` | texto, nulo: `missing`, `reduced`, `flagged` | nulo | Marca do aprendizado (E1-11), para a tela mostrar a mudança e desfazer: entrou porque faltou; quantidade reduzida porque sobrou; só sinalizado porque sobrou | `aprendizado.tipo` (`faltou`, `reduzido`, `sinalizado`) |
+| `trip_item` | `learning_qty_before` | inteiro, nulo | nulo | Quantidade antes da redução, para desfazer. Preenchido só com `learning_kind` = `reduced` | `aprendizado.qtyAnterior` |
+| `trip_item` | `learning_percent` | inteiro, nulo, de 1 a 99 | nulo | Percentual aplicado na redução (premissa de 25 % no dia em que reduziu), para o recálculo reaplicar o mesmo. Preenchido só com `learning_kind` = `reduced` | `aprendizado.percentual` |
+| `trip_camping_snapshot` | `undone_adjustment_ids` | lista de texto (`text[]`) não nula | lista vazia | Ajustes que a pessoa desfez (E3-08, A6), pelo identificador estável `fato:valor:efeito:alvo`. Um retrato novo não reaplica os que estão aqui | `desfeitos` de `aplicarAjustes` |
+| `fact_summary` | `confirmed` | lógico, não nulo | falso | Ao menos 2 relatos de contas diferentes concordando com o valor vigente (seção 6, passo 5). Sem ele, fato vira informação "não confirmado" e não ajusta a lista (A5) | `ResumoDoFato.confirmado`, `FatoDoRetrato.confirmado` |
+| `merge_candidate` | `merge_record` | JSON, nulo | nulo | Registro da fusão aprovada, para desfazer (E3-24, D5): `fica_id`, `sai_id`, ids de relatos, sugestões e viagens movidos, apelidos movidos e o apelido criado. Só no servidor | `RegistroDeFusao` |
+
+**Campos que já existem e mudam de regra**
+
+| Tabela | Campo | Mudança | Por quê |
+| --- | --- | --- | --- |
+| `trip_item` | `qty` | Aceita nulo | Itens que são tarefa ("Tarefa: conferir", "Tarefa: planejar `D` cafés...") não têm quantidade: `remedios`, `documentos`, `dinheiro`, `comida_bebe`, `refeicoes`. O tipo de tarefa e as partes (cafés, almoços, jantares) saem do catálogo pela `catalog_key` e das respostas da viagem, então não são guardados |
+| `trip_item` | `unit` | Aceita nulo; quando preenchido, é uma chave de `unidades` em `itens.json` (`jogo`, `kit`, `rolo`, `pacote`, `par`, `saco_4kg`, `saco_5kg`, `galao_5l`, `dia_de_racao`) | O texto da unidade fica no catálogo, não no item |
+| `trip_item` | `category` | Chave de `categorias` em `itens.json` (`abrigo`, `dormir`, `cozinha`, `comida_bebida`, `roupa`, `higiene`, `socorros_seguranca`, `ferramentas_energia`, `lazer_documentos`, `criancas`, `pet`), também nos itens manuais | `categoriasVisiveis` agrupa pela chave |
+| `trip_family` | `pets` | Inteiro, não nulo, padrão 0 | A seção 3 só diz "pets"; o motor conta pets (`guia` e `cama_pet` = `pets`) |
+| `trip_camping_snapshot` | `facts` | Um objeto por fato, com a chave da seção 6 (`energia_voltagem`, `sinal_<operadora>`...): `{ "value": texto ou nulo, "confirmed": lógico, "freshness": "recente" \| "pode_ter_mudado" \| "sem_valor" }` | É a entrada de `avaliarRetrato` (`FatoDoRetrato`) |
+
+**O que não precisa de campo novo**
+
+- "Depende do camping" já é `depends_on_camping`; "tem dados do camping" sai de existir `trip_camping_snapshot` com algum fato de valor vigente.
+- Faltou e sobrou já são `missing` e `leftover`; o histórico do aprendizado são as viagens anteriores da pessoa, na ordem de `created_at` (campo novo acima).
+- Exclusões e regra de divisão já são `expense_exclusion` e `split_rule`; "estimado" é `amount_cents` nulo.
+- Relatos: `held` (retido), `counts` (conta para o limite), `source`, `visited_month`, `occasion`, `profile_id` e `trip_id` cobrem `resumirFato`, `relatoContaNoLimite` e o F8.
+- Premissas numéricas (25 %, 15 barracas por chuveiro, 0,6 e 0,45, 6 e 12 meses, peso 0,5, 2 viagens por mês) vão para a tabela `config`, que já existe.
