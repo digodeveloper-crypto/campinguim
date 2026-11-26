@@ -88,7 +88,7 @@ describe('esteira do GitHub só em marca de versão (GIT-05)', () => {
 
   it('dispara só com etiqueta v*', () => {
     const texto = ler('.github/workflows/versao.yml');
-    const gatilho = /^on:\n((?:[ ]{2}.*\n)+)/m.exec(texto)?.[1] ?? '';
+    const gatilho = /^on:\r?\n((?:[ ]{2}.*\r?\n)+)/m.exec(texto)?.[1] ?? '';
     expect(gatilho.replace(/#.*$/gm, '').replace(/\s+/g, ' ').trim()).toBe("push: tags: - 'v*'");
     for (const outro of ['pull_request', 'branches', 'schedule', 'workflow_dispatch', 'workflow_run', 'repository_dispatch']) {
       expect(texto).not.toMatch(new RegExp(`^\\s*${outro}:`, 'm'));
