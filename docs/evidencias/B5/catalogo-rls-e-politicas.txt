@@ -1,5 +1,5 @@
 # B5 · Tabelas, RLS e políticas (consulta ao catálogo do Postgres local, depois de npm run ambiente:zerar)
-# Gerado em 2026-11-26T19:51Z no worktree feature/B5-esquema-do-servidor
+# Gerado em 2026-11-26T20:36Z no worktree feature/B5-esquema-do-servidor (rebaseado sobre o main 87d5c1b)
 
 ## Migrações aplicadas
     version     |            name             
@@ -102,10 +102,38 @@
         40
 (1 row)
 
-## Dados de exemplo carregados
-                    viagem                    | grupo | familias | pessoas | membros | itens | marcacoes | gastos 
-----------------------------------------------+-------+----------+---------+---------+-------+-----------+--------
-                                              | f     |        1 |       4 |       1 |     0 |         0 |      0
- Viagem de Carla ao Camping Recanto das Águas | t     |        3 |       9 |       3 |     4 |         4 |      1
+## Dados de exemplo: viagens
+                    viagem                    | grupo |  status  |          destino          | familias | pessoas | itens | marcacoes | gastos | relatos 
+----------------------------------------------+-------+----------+---------------------------+----------+---------+-------+-----------+--------+---------
+ (viagem da Carla)                            | f     | closed   | Camping Recanto das Águas |        1 |       3 |     1 |         0 |      0 |       6
+ (viagem da Carla)                            | f     | closed   | Camping Recanto das Águas |        1 |       2 |     1 |         0 |      0 |       4
+ (viagem da Carla)                            | t     | closed   | Camping Recanto das Águas |        2 |       5 |     1 |         0 |      0 |       4
+ (viagem da Carla)                            | f     | closed   | Camping Recanto das Águas |        1 |       1 |     1 |         0 |      0 |       4
+ (viagem da Carla)                            | f     | closed   | Camping Recanto das Águas |        1 |       4 |     1 |         0 |      0 |       4
+ (viagem da Carla)                            | f     | closed   | Camping Recanto das Águas |        1 |       2 |     1 |         0 |      0 |       4
+ (viagem da Carla)                            | f     | closed   | Camping Recanto das Águas |        1 |       4 |     1 |         0 |      0 |       4
+ Viagem de Carla ao Camping Recanto das Águas | t     | planning | Camping Recanto das Águas |        3 |       9 |     4 |         4 |      1 |       0
+ (viagem da Carla)                            | f     | planning | Camping Recanto das Águas |        1 |       4 |     0 |         0 |      0 |       0
+(9 rows)
+
+## Dados de exemplo: campings e cidades
+           name            | ibge_code |       cidade        | state | relatos 
+---------------------------+-----------+---------------------+-------+---------
+ Camping Recanto das Águas | 3165206   | São Tomé das Letras | MG    |      30
+ Sítio Pedra Lisa          | 3513603   | Cunha               | SP    |       0
 (2 rows)
+
+## Dados de exemplo: relatos do Recanto das Águas por fato
+     fact_key     |  valores   | relatos | contas | ultimo_mes 
+------------------+------------+---------+--------+------------
+ capacidade       | 11_a_25    |       3 |      3 | 2026-09-01
+ churrasco        | area_comum |       3 |      3 | 2026-11-01
+ chuveiros_qtd    | 1          |       3 |      3 | 2026-09-01
+ energia_tomada   | longe      |       3 |      3 | 2026-07-01
+ energia_voltagem | 220v       |       3 |      3 | 2026-07-01
+ pet              | aceita     |       3 |      3 | 2026-11-01
+ piscina          | 10h        |       3 |      3 | 2026-09-01
+ som_cumprido     | sim        |       6 |      6 | 2026-11-01
+ som_horario      | 22h        |       3 |      3 | 2026-11-01
+(9 rows)
 

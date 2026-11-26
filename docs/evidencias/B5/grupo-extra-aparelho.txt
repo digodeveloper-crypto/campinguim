@@ -1,17 +1,17 @@
 
  RUN  v5.1.0 <worktree B5>
 
- ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > no ambiente local, a prova de desenvolvimento marca o aparelho como verificado por 24 h (D3) 71ms
- ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > em produção (nenhum ajuste local, como deixam as migrações) a prova de desenvolvimento é recusada 50ms
- ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > chave ligada por engano fora do ambiente local continua recusando; ambiente local com a chave desligada também 54ms
- ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > nenhuma migração liga a prova de desenvolvimento: só os dados de exemplo do ambiente local 4ms
- ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > prova real (Play Integrity) ainda não é validada aqui: recusada até a feature 3.7; sem prova, recusada 50ms
- ✓  servidor  supabase/testes/aparelho.test.ts > J4: a marca é da instalação E da conta > outra conta com o mesmo install_id não herda a marca 63ms
- ✓  servidor  supabase/testes/aparelho.test.ts > J4: a marca é da instalação E da conta > a marca vence depois da validade em config (24 h) 40ms
- ✓  servidor  supabase/testes/aparelho.test.ts > J4: a marca é da instalação E da conta > sem login não há registro de aparelho, e o app não lê nem escreve a tabela device 54ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > no ambiente local, a prova de desenvolvimento marca o aparelho como verificado por 24 h (D3) 76ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > em produção (nenhum ajuste local, como deixam as migrações) a prova de desenvolvimento é recusada 69ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > chave ligada por engano fora do ambiente local continua recusando; ambiente local com a chave desligada também 69ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > nenhuma migração liga a prova de desenvolvimento: só os dados de exemplo do ambiente local 7ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > verificação do aparelho: prova de desenvolvimento só no ambiente local > prova real (Play Integrity) ainda não é validada aqui: recusada até a feature 3.7; sem prova, recusada 45ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > J4: a marca é da instalação E da conta > outra conta com o mesmo install_id não herda a marca 58ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > J4: a marca é da instalação E da conta > a marca vence depois da validade em config (24 h) 44ms
+ ✓  servidor  supabase/testes/aparelho.test.ts > J4: a marca é da instalação E da conta > sem login não há registro de aparelho, e o app não lê nem escreve a tabela device 46ms
 
  Test Files  1 passed (1)
       Tests  8 passed (8)
-   Start at  16:59:20
-   Duration  1.14s (tests 72%, import 18%, transform 7%, worker 2%)
+   Start at  17:26:20
+   Duration  2.57s (transform 44%, tests 33%, import 23%, worker 1%)
 

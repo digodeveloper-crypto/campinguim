@@ -1,58 +1,58 @@
 
  RUN  v5.1.0 <worktree B5>
 
- ✓  servidor  supabase/testes/sync-apply.test.ts > grupo 4: lote misto (válida, inválida e não autorizada) > aplica as válidas e devolve o motivo das outras, na mesma ordem, sem abortar o lote 149ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > grupo 4: lote misto (válida, inválida e não autorizada) > o mesmo lote misto, mandado de novo, não aplica nada duas vezes e repete o primeiro veredito 91ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > tipo de viagem fora da lista: recusada como "validation", e a alteração válida depois dela é aplicada 63ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > nome com mais de 120 caracteres: recusada como "validation", e a alteração válida depois dela é aplicada 97ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > identificador que não é uuid: recusada como "validation", e a alteração válida depois dela é aplicada 81ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > uuid inválido dentro dos dados: recusada como "validation", e a alteração válida depois dela é aplicada 60ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > quantidade negativa: recusada como "validation", e a alteração válida depois dela é aplicada 111ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > grupo 4: lote misto (válida, inválida e não autorizada) > aplica as válidas e devolve o motivo das outras, na mesma ordem, sem abortar o lote 131ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > grupo 4: lote misto (válida, inválida e não autorizada) > o mesmo lote misto, mandado de novo, não aplica nada duas vezes e repete o primeiro veredito 104ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > tipo de viagem fora da lista: recusada como "validation", e a alteração válida depois dela é aplicada 92ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > nome com mais de 120 caracteres: recusada como "validation", e a alteração válida depois dela é aplicada 101ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > identificador que não é uuid: recusada como "validation", e a alteração válida depois dela é aplicada 102ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > uuid inválido dentro dos dados: recusada como "validation", e a alteração válida depois dela é aplicada 96ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > quantidade negativa: recusada como "validation", e a alteração válida depois dela é aplicada 100ms
  ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > estado de separação desconhecido: recusada como "validation", e a alteração válida depois dela é aplicada 87ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > booleano que não é 0, 1, true ou false: recusada como "validation", e a alteração válida depois dela é aplicada 72ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > data impossível: recusada como "validation", e a alteração válida depois dela é aplicada 87ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > volta antes da ida: recusada como "validation", e a alteração válida depois dela é aplicada 80ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > operação desconhecida: recusada como "validation", e a alteração válida depois dela é aplicada 78ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > tabela desconhecida: recusada como "validation", e a alteração válida depois dela é aplicada 76ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > dados que não são objeto: recusada como "validation", e a alteração válida depois dela é aplicada 76ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > viagem de origem que não é uuid: recusada como "validation", e a alteração válida depois dela é aplicada 71ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > gasto com centavos quebrados: recusada como "validation", e a alteração válida depois dela é aplicada 95ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > segunda família em viagem de família única: recusada como "validation" 69ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > alteração sem change_id: recusada só ela 49ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > o motivo da recusa não traz o valor enviado (registros sem texto livre) 61ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > o lote inteiro só falha sem login, com mais de 500 alterações ou quando não é uma lista 58ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > item novo com a família de OUTRA família da viagem: recusado (o family_id do aparelho é conferido) 61ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > item novo com família de outra viagem: recusado 86ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > item pessoal de outra família: não edita, não remove, não marca 87ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > o próprio item pessoal: a família edita (inclusive o outro adulto da mesma família, E2-18) 64ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > marcar "assumi" em nome de outra família: recusado; sem family_id, vale a família de quem marca 69ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > desfazer a marcação de outra família: recusado 71ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > assumir item pessoal de uma família não existe: recusado como inválido 98ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > ninguém se muda para outra família (o que daria acesso aos itens pessoais dela) 107ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > tirar uma família da viagem é só do organizador 72ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > trip_id e family_id não mudam depois de criados 92ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > S10: quem foi removido da viagem tem tudo recusado, e o reenvio continua recusado 70ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S3: in_car vence set_aside quando são concorrentes, nas duas ordens de chegada 126ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > desmarcar sobre o valor atual vale (não é concorrente) 76ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S4: remoção vence edição nas duas ordens, o valor editado fica e o item pode ser restaurado 123ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > remoção por deleted_at também vence; a linha inteira reenviada (PUT) não restaura 105ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S5: dois itens novos com o mesmo nome ficam os dois 98ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > booleano que não é 0, 1, true ou false: recusada como "validation", e a alteração válida depois dela é aplicada 74ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > data impossível: recusada como "validation", e a alteração válida depois dela é aplicada 73ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > volta antes da ida: recusada como "validation", e a alteração válida depois dela é aplicada 86ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > operação desconhecida: recusada como "validation", e a alteração válida depois dela é aplicada 82ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > tabela desconhecida: recusada como "validation", e a alteração válida depois dela é aplicada 77ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > dados que não são objeto: recusada como "validation", e a alteração válida depois dela é aplicada 89ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > viagem de origem que não é uuid: recusada como "validation", e a alteração válida depois dela é aplicada 78ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > gasto com centavos quebrados: recusada como "validation", e a alteração válida depois dela é aplicada 87ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > segunda família em viagem de família única: recusada como "validation" 114ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > alteração sem change_id: recusada só ela 60ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > o motivo da recusa não traz o valor enviado (registros sem texto livre) 66ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J1: um dado inválido não trava a fila (recusa só aquela alteração) > o lote inteiro só falha sem login, com mais de 500 alterações ou quando não é uma lista 117ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > item novo com a família de OUTRA família da viagem: recusado (o family_id do aparelho é conferido) 80ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > item novo com família de outra viagem: recusado 113ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > item pessoal de outra família: não edita, não remove, não marca 103ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > o próprio item pessoal: a família edita (inclusive o outro adulto da mesma família, E2-18) 62ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > marcar "assumi" em nome de outra família: recusado; sem family_id, vale a família de quem marca 78ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > desfazer a marcação de outra família: recusado 69ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > assumir item pessoal de uma família não existe: recusado como inválido 80ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > ninguém se muda para outra família (o que daria acesso aos itens pessoais dela) 79ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > tirar uma família da viagem é só do organizador 83ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > trip_id e family_id não mudam depois de criados 71ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > J2: regras por viagem e por família escritas dentro da função > S10: quem foi removido da viagem tem tudo recusado, e o reenvio continua recusado 79ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S3: in_car vence set_aside quando são concorrentes, nas duas ordens de chegada 128ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > desmarcar sobre o valor atual vale (não é concorrente) 88ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S4: remoção vence edição nas duas ordens, o valor editado fica e o item pode ser restaurado 104ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > remoção por deleted_at também vence; a linha inteira reenviada (PUT) não restaura 89ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S5: dois itens novos com o mesmo nome ficam os dois 74ms
  ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > quantidade, nome e nota: vale a última a chegar; em item do grupo, avisa o que foi sobrescrito 89ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S2: duas famílias assumem o mesmo item e as duas marcações ficam 63ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S6: valor e regra do gasto quase juntos: as duas mudanças aplicadas, duas linhas no histórico 82ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > o relógio do aparelho não vale: updated_at, updated_by e deleted_at são do servidor 92ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > viagem que sobe no primeiro login (E1-14, S9) > viagem, família, pessoas e itens sobem com os mesmos identificadores; quem envia vira organizador 82ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > viagem que sobe no primeiro login (E1-14, S9) > a viagem de outra pessoa não é tomada por quem manda o mesmo identificador 60ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > campos e tabelas do servidor > o destino da viagem não muda pela sincronização (só por trip_set_camping) 53ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > campos e tabelas do servidor > retrato do camping: o membro só marca "ciente", com o carimbo do servidor, e não muda o resto 85ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > campos e tabelas do servidor > o aparelho não escreve histórico de gasto, convite nem chave Pix pela sincronização 102ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > referência estável do item: regra da B3 quando o aparelho não manda, única entre os itens vivos, e não muda 73ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > quantidade editada, por pessoa, quantidade secundária e marca do aprendizado sobem e são conferidas 61ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > viagem: destino sem camping e data de criação do aparelho (nunca no futuro) 42ms
- ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > retrato: o membro grava os ajustes desfeitos (A6); lista inválida é recusada 54ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S2: duas famílias assumem o mesmo item e as duas marcações ficam 68ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > S6: valor e regra do gasto quase juntos: as duas mudanças aplicadas, duas linhas no histórico 84ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > regras de conflito da seção 4 > o relógio do aparelho não vale: updated_at, updated_by e deleted_at são do servidor 84ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > viagem que sobe no primeiro login (E1-14, S9) > viagem, família, pessoas e itens sobem com os mesmos identificadores; quem envia vira organizador 85ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > viagem que sobe no primeiro login (E1-14, S9) > a viagem de outra pessoa não é tomada por quem manda o mesmo identificador 86ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > campos e tabelas do servidor > o destino da viagem não muda pela sincronização (só por trip_set_camping) 85ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > campos e tabelas do servidor > retrato do camping: o membro só marca "ciente", com o carimbo do servidor, e não muda o resto 86ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > campos e tabelas do servidor > o aparelho não escreve histórico de gasto, convite nem chave Pix pela sincronização 71ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > referência estável do item: regra da B3 quando o aparelho não manda, única entre os itens vivos, e não muda 99ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > quantidade editada, por pessoa, quantidade secundária e marca do aprendizado sobem e são conferidas 130ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > viagem: destino sem camping e data de criação do aparelho (nunca no futuro) 49ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts > campos pedidos pela B3 (docs/regras.md da B3, seção 6) > retrato: o membro grava os ajustes desfeitos (A6); lista inválida é recusada 109ms
 
  Test Files  1 passed (1)
       Tests  49 passed (49)
-   Start at  16:58:58
-   Duration  4.65s (tests 95%, import 3%, transform 1%)
+   Start at  17:25:52
+   Duration  4.80s (tests 97%, import 2%, transform 1%)
 

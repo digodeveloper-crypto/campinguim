@@ -4,7 +4,7 @@
 
 
 === Trava de segredos (GIT-08) ============================================
-[segredos] 1411 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+[segredos] 1427 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
 
 === Endereços só no arquivo de configuração (SPEC 14) =====================
 [enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
@@ -22,19 +22,46 @@ tsc -p tsconfig.scripts.json
 
  RUN  v5.1.0 <worktree B5>
 
- ✓  core  packages/core/src/cotas.test.ts (5 tests) 7ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 52ms
+ ✓  core  packages/core/src/cotas.test.ts (5 tests) 12ms
  ↓  scripts  scripts/testes/manifesto.test.ts (3 tests | 3 skipped)
- ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 35ms
- ✓  scripts  scripts/testes/suite.test.ts (12 tests) 24ms
- ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 1512ms
- ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 3727ms
-   ✓ endereços fora do arquivo de configuração (7)
-     ✓ a árvore do repositório está limpa 3518ms
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 20ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 2836ms
+   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
+     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 351ms
+   ✓ .gitignore (GIT-08) (12)
+     ✓ ignora .env.local 357ms
+     ✓ ignora .env 301ms
+ ❯  scripts  scripts/testes/enderecos.test.ts (7 tests | 1 failed) 25144ms
+   ❯ endereços fora do arquivo de configuração (7)
+     × a árvore do repositório está limpa 24964ms
+     ✓ falha quando run.app aparece num arquivo de código 22ms
+     ✓ falha quando pages.dev aparece num arquivo de código 31ms
+     ✓ falha quando workers.dev aparece num arquivo de código 26ms
+     ✓ falha quando o domínio aparece fora das pastas de código (dados, configuração) 19ms
+     ✓ falha quando o endereço do servidor local é escrito no código 21ms
+     ✓ aceita o domínio dentro do arquivo de configuração e na documentação 39ms
 
- Test Files  5 passed | 1 skipped (6)
-      Tests  85 passed | 3 skipped (88)
-   Start at  16:57:03
-   Duration  6.44s (tests 50%, import 37%, transform 12%, worker 1%)
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   scripts  scripts/testes/enderecos.test.ts > endereços fora do arquivo de configuração > a árvore do repositório está limpa
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ scripts/testes/enderecos.test.ts:25:3
+     23|
+     24| describe('endereços fora do arquivo de configuração', () => {
+     25|   it('a árvore do repositório está limpa', () => {
+       |   ^
+     26|     expect(conferirEnderecos()).toEqual([]);
+     27|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed | 1 skipped (6)
+      Tests  1 failed | 84 passed | 3 skipped (88)
+   Start at  17:34:25
+   Duration  26.79s (tests 88%, import 8%, transform 3%, worker 1%)
 
 JSON report written to <worktree B5>/test-results/suite/vitest-unitarios.json
 
@@ -42,24 +69,24 @@ JSON report written to <worktree B5>/test-results/suite/vitest-unitarios.json
 
  RUN  v5.1.0 <worktree B5>
 
- ✓  servidor  supabase/testes/sync-apply.test.ts (49 tests) 4057ms
- ✓  servidor  supabase/testes/sincronizacao.test.ts (5 tests) 2510ms
+ ✓  servidor  supabase/testes/sync-apply.test.ts (49 tests) 4540ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts (5 tests) 2747ms
    ✓ grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) (5)
-     ✓ C, membro só de W, não recebe nada da viagem V 739ms
-     ✓ S10: B removido da viagem deixa de receber tudo dela 645ms
- ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts (17 tests) 1592ms
- ✓  servidor  supabase/testes/dados-e-config.test.ts (4 tests) 139ms
- ✓  servidor  supabase/testes/aparelho.test.ts (8 tests) 511ms
- ✓  servidor  supabase/testes/rls.test.ts (8 tests) 407ms
- ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 232ms
- ✓  servidor  supabase/testes/exclusao-de-conta.test.ts (2 tests) 246ms
- ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 170ms
- ✓  servidor  supabase/testes/contratos.test.ts (3 tests) 126ms
+     ✓ C, membro só de W, não recebe nada da viagem V 731ms
+     ✓ S10: B removido da viagem deixa de receber tudo dela 676ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts (17 tests) 1786ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts (9 tests) 377ms
+ ✓  servidor  supabase/testes/aparelho.test.ts (8 tests) 502ms
+ ✓  servidor  supabase/testes/rls.test.ts (8 tests) 347ms
+ ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 242ms
+ ✓  servidor  supabase/testes/exclusao-de-conta.test.ts (2 tests) 242ms
+ ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 235ms
+ ✓  servidor  supabase/testes/contratos.test.ts (3 tests) 107ms
 
  Test Files  10 passed (10)
-      Tests  104 passed (104)
-   Start at  16:57:11
-   Duration  20.52s (tests 75%, import 18%, transform 4%, worker 3%)
+      Tests  109 passed (109)
+   Start at  17:34:53
+   Duration  20.05s (tests 77%, import 18%, transform 4%, worker 1%)
 
 JSON report written to <worktree B5>/test-results/suite/vitest-servidor.json
 
@@ -67,20 +94,20 @@ JSON report written to <worktree B5>/test-results/suite/vitest-servidor.json
 
 Running 2 tests using 2 workers
 
-  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (679ms)
-  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.7s)
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.8s)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (2.2s)
 
-  2 passed (20.0s)
+  2 passed (17.6s)
 
 === Resumo da suíte local =================================================
-passou  Trava de segredos (GIT-08)                                97.1 s  
-passou  Endereços só no arquivo de configuração (SPEC 14)          2.5 s  
-passou  Tipos (TypeScript estrito)                                77.8 s  5 de 5 projetos sem erro
-passou  Lint (ESLint, sem aviso tolerado)                        187.1 s  
-PULADO  Testes unitários: regras puras e travas do repositório    10.3 s  85 de 88 testes passaram; 3 pulado(s): manifesto final do app (ponto J9), PULADO: APK ausente: rode npm run app:gerar
-passou  Testes do servidor (ambiente local)                       22.0 s  104 de 104 testes passaram
-passou  Página web (Chromium e WebKit)                            25.1 s  2 de 2 testes passaram
+passou  Trava de segredos (GIT-08)                                32.1 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          2.6 s  
+passou  Tipos (TypeScript estrito)                               139.7 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                        121.6 s  
+FALHOU  Testes unitários: regras puras e travas do repositório    29.8 s  84 de 88 testes passaram
+passou  Testes do servidor (ambiente local)                       21.9 s  109 de 109 testes passaram
+passou  Página web (Chromium e WebKit)                            22.2 s  2 de 2 testes passaram
 
-SUÍTE INCOMPLETA, e --exigir-completa foi pedido: 1 etapa(s) puladas contam como falha (422.0 s).
+SUÍTE FALHOU: 1 etapa(s) com falha (369.9 s).
 Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
 saida=1
