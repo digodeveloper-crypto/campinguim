@@ -4,7 +4,7 @@
 
 **Situação da prova: INCOMPLETA.** Os itens 1, 2 e 3 estão medidos e conferidos pelo QA. O item 4 está **PENDENTE**: a parte local está provada (F0-5), a parte da faixa de teste (F0-6) espera a conta de desenvolvedor do Google Play, que o responsável deixou para depois (24/11/2026). A prova só será dada como completa depois da F0-6 e da segunda vez desta tarefa.
 
-**Onde o trabalho está (26/11/2026):** a junção dos ramos da prova está pronta e aprovada pelo QA (ramo `feature/F0-integracao`, só local, seção "Junção dos trabalhos"). A prova continua INCOMPLETA só pelo item 4. **Os itens 1, 2 e 3 foram validados pelo responsável em 26/11/2026.**
+**Onde o trabalho está (26/11/2026):** a junção dos ramos da prova está pronta e aprovada pelo QA (ramo `feature/F0-integracao`, só local, seção "Junção dos trabalhos"). A prova continua INCOMPLETA só pelo item 4. **Os itens 1, 2 e 3 foram validados pelo responsável em 26/11/2026.** As decisões D1 a D4 e a do lembrete descartado estão registradas em 26/11/2026, na seção "Decisões do responsável".
 
 Regra deste documento: só entra número que o QA conferiu. Onde não há número, está escrito "não medido". Os caminhos de evidência são relativos à raiz do repositório e valem no ramo `feature/F0-integracao` (conferência na seção "Junção dos trabalhos").
 
@@ -16,7 +16,7 @@ Tudo rodou em dois celulares virtuais (emuladores Android) e num servidor local,
 
 | Item | O que se queria saber | Resposta | Conferido pelo QA |
 | --- | --- | --- | --- |
-| 1. Sincronização offline | Dois aparelhos mexem na mesma lista sem internet e, ao reconectar, ficam iguais, sem perder nem duplicar nada | **Sim.** 93 de 93 execuções do plano sem perda e sem duplicação, mais 10 de 10 com os relógios dos aparelhos errados em 2 horas. Uma contagem de tempo (P8) precisa da sua decisão (D4) | sim, depois de uma reprovação e uma correção |
+| 1. Sincronização offline | Dois aparelhos mexem na mesma lista sem internet e, ao reconectar, ficam iguais, sem perder nem duplicar nada | **Sim.** 93 de 93 execuções do plano sem perda e sem duplicação, mais 10 de 10 com os relógios dos aparelhos errados em 2 horas. Uma contagem de tempo (P8): decisão D4 registrada em 26/11/2026 | sim, depois de uma reprovação e uma correção |
 | 2. Lembrete em modo avião | O lembrete aparece sem internet, com o app fechado e com o relógio adiantado | **Sim**, desde que o app peça a permissão de "alarme exato". Com ela, o aviso aparece de 0,7 a 3,7 segundos depois da hora, em 30 de 30 vezes. Sem ela, atrasa (D2) | sim, depois de duas correções só de evidência |
 | 3. App abrindo na viagem por link | Tocar num link abre o app direto na viagem certa | **Sim.** 10 de 10 nos três modos pedidos (app fechado, app aberto, link `https` com o vínculo forçado). Um limite importante: sem o arquivo de verificação do site, o link `https` abre o navegador | sim, de primeira |
 | 4. Chamada recusada sem verificação do aparelho | O servidor recusa quem não prova que o aparelho e o app são de verdade | **Parte local provada, parte da loja pendente.** O servidor recusa tudo o que deve recusar (testes e mutações conferidos). Falta o teste com um app instalado pela faixa de teste do Google Play | parte local sim; parte da loja não existe ainda |
@@ -24,7 +24,7 @@ Tudo rodou em dois celulares virtuais (emuladores Android) e num servidor local,
 ### O que falta
 
 1. **Item 4, faixa de teste (F0-6).** Precisa da conta de desenvolvedor do Google Play (taxa, contrato, identidade, celular Android físico), do projeto no Google Cloud ligado à verificação e de um celular físico. Sem isso o item 4 não fecha e a prova não é completa.
-2. **Celular de verdade.** Tudo foi medido só em emulador. Repetir em celular físico fica para a B1 (jornada J3 do plano). Os números abaixo são de emulador com a máquina carregada; em celular real serão outros.
+2. **Celular de verdade.** Tudo foi medido só em emulador. Repetir em celular físico fica para a B1 (jornada J3 da SPEC, seção 13). Os números abaixo são de emulador com a máquina carregada; em celular real serão outros.
 3. **Entrada no repositório público.** A junção dos ramos da prova (F0-2 a F0-5) está feita e aprovada, mas só existe na máquina; nada foi enviado ao GitHub. Ela entra no `main` só por squash, num único commit "F0: prova técnica", pela PROPOSTA 3 do plano (seção "Junção dos trabalhos"). Isso não depende de você agora.
 
 ### O que você precisa validar (itens 1, 2 e 3)
@@ -41,7 +41,7 @@ A decisão de 24/11/2026 diz que a base (B1) pode começar sem a conta do Google
 
 Se algo não bater com o que você esperava de cada item, diga qual e eu volto ao caso. Se bater, a validação humana dos itens 1 a 3 fica registrada pelo piloto.
 
-### Decisões que dependem de você
+### Decisões do responsável (registradas em 26/11/2026)
 
 **D1. Nome definitivo do pacote Android (H6).** Hoje o app da prova usa o nome provisório `com.campinguim.prova`. O nome que for usado quando o app for criado no Google Play fica preso a ele para sempre.
 
@@ -49,6 +49,8 @@ Se algo não bater com o que você esperava de cada item, diga qual e eu volto a
 | --- | --- |
 | A. Escolher agora o nome definitivo (formato sugerido no plano: `br.com.<domínio>.campinguim`) | O formato do plano depende de um domínio, e o PRD diz que os domínios ainda não foram registrados |
 | B. Manter o provisório até a F0-6 e a B1 | Nada trava agora. O definitivo é obrigatório antes de criar o app no Google Play (F0-6) |
+
+**Decidido pelo responsável em 26/11/2026:** opção B. Fica o provisório `com.campinguim.prova` até existir a conta do Google Play e o domínio; a B1 usa um nome provisório marcado. O definitivo sai do domínio que ele registrar, escrito ao contrário (por exemplo, `campinguim.com.br` vira `br.com.campinguim`), e tem de estar fixado antes de criar o app no Google Play.
 
 **D2. Alarme exato para o lembrete (H8).** Por padrão, o Android 13 ou mais novo **não** concede o "alarme exato" a um app novo. Com a permissão, o aviso sai na hora. Sem ela, o Android pode atrasar. Medi os dois casos (emulador, tela ligada, sem economia de bateria; **não medido em celular real**).
 
@@ -60,6 +62,10 @@ Se algo não bater com o que você esperava de cada item, diga qual e eu volto a
 
 Junto com esta decisão: **se o aparelho estiver desligado na hora do lembrete, o lembrete é descartado**, não entregue atrasado (visto na primeira rodada do caso de reiniciar, quando o relógio foi adiantado antes de o app reagendar; o código do Expo confirma: "will not trigger in the future, removing"). Para o produto isso significa que um celular desligado às 18h da véspera não avisa. Decidir se o app reagenda ou avisa "você tem lembrete atrasado" ao abrir é regra de produto, fica com você.
 
+**Decidido pelo responsável em 26/11/2026 (D2):** opção 3. O app pede o alarme exato só quando a viagem tem data e o aparelho ainda não o concedeu, dentro da tela explicativa que a SPEC já manda mostrar antes do pedido de notificação (RET-03). Se a pessoa recusar, o app segue com o lembrete aproximado e não pede de novo. Para a B1: a limpeza de permissões (ponto 9) mantém `SCHEDULE_EXACT_ALARM`; a regra e o texto novo entram na feature 1.6.
+
+**Decidido pelo responsável em 26/11/2026 (lembrete descartado com o aparelho desligado):** aceitar a perda na primeira versão (0.1.0), sem aviso de atraso, e registrar como limite conhecido. Rever depois do primeiro uso real, com os eventos de medição (NF-09). Para a B1: nenhuma regra nova; a feature 1.6 documenta o limite.
+
 **D3. Tempos da verificação do aparelho (item 4).** A SPEC diz só "por tempo limitado". Os três valores abaixo são **suposições da prova**, não decisões:
 
 | Valor | Usado na prova | Para que serve |
@@ -69,6 +75,8 @@ Junto com esta decisão: **se o aparelho estiver desligado na hora do lembrete, 
 | Validade da marca "aparelho verificado" | 24 horas | Dentro desse prazo o aparelho não precisa provar de novo |
 
 Opções: manter os três valores até a F0-6 e decidir com o teste real, ou fixar já outros valores. Não há número medido que favoreça um valor: a prova só verificou que a recusa funciona com o prazo vencido.
+
+**Decidido pelo responsável em 26/11/2026:** manter os três valores (5 minutos, 1 minuto e 24 horas) até a F0-6, como premissas numéricas provisórias, e decidir de novo com um token real. Para a B5: os três ficam em configuração do servidor, para mudar sem nova versão do app.
 
 **D4. Como contar o tempo do cenário P8 (envio cortado no meio).** O plano diz que, depois de reconectar, os dois aparelhos devem ficar iguais ao servidor em até 30 segundos. O P8 corta a rede no meio de um envio e reenvia. Dois jeitos de contar dão respostas diferentes:
 
@@ -84,13 +92,15 @@ A diferença vem do emulador: depois do modo avião ele leva de 11 a 24 s para d
 | A. Valer a contagem "desde que o app alcança o servidor", e repetir o P8 em celular físico na B1 | O P8 passa. O tempo do emulador não fica como critério |
 | B. Valer a contagem "desde o comando de modo avião" | O P8 falha em 5 de 10. O critério de troca da seção I do plano (convergência acima de 30 s de forma repetida) seria acionado, e a prova não consegue separar a tecnologia do emulador sem celular físico |
 
+**Decidido pelo responsável em 26/11/2026:** opção A. Vale a contagem "desde que o app alcança o servidor"; o critério de troca da seção I do plano não é acionado e o PowerSync segue. Para a B1: o ambiente Docker com o PowerSync pode ser copiado, e o P8 se repete em celular físico.
+
 ### Resumo do que o QA aprovou e reprovou
 
 Detalhe nos relatórios `docs/prova-tecnica/qa/F0-1-rodada-1.md`, `F0-2-rodada-1.md`, `F0-3-rodada-1.md`, `F0-4-rodada-1.md`, `F0-5-rodada-1.md` e `INF-01-rodada-1.md`. A F0-2 foi reprovada na rodada 1 (faltavam vídeos do P1 e do P9, o limite do P8 estava em 2 min em vez de 30 s e as falhas do ensaio não tinham explicação) e aprovada na rodada 2. A F0-3 foi reprovada duas vezes só por evidência (as capturas da barra de avisos não mostravam a barra; uma duração de vídeo errada) e aprovada na rodada 3, com uma conferência extra para tirar do vídeo e das imagens as telas com ícones de terceiros. F0-1, F0-4 e F0-5 foram aprovadas na primeira rodada.
 
 ## Limites desta prova
 
-- **Tudo foi medido só em emulador.** Emulador Android 16 (API 36), imagem "Google APIs" x86_64, tela ligada, sem economia de bateria do fabricante e sem o modo de soneca do Android (Doze), com a máquina carregada por outros programas (segundo a entrega da F0-2, de 3 a 4 emuladores, builds e a missão de vídeos ao mesmo tempo). Repetir em celular físico fica para a B1 (J3 do plano).
+- **Tudo foi medido só em emulador.** Emulador Android 16 (API 36), imagem "Google APIs" x86_64, tela ligada, sem economia de bateria do fabricante e sem o modo de soneca do Android (Doze), com a máquina carregada por outros programas (segundo a entrega da F0-2, de 3 a 4 emuladores, builds e a missão de vídeos ao mesmo tempo). Repetir em celular físico fica para a B1 (jornada J3 da SPEC, seção 13).
 - A imagem "Google APIs" é `userdebug`, não a imagem de loja. Isso permitiu adiantar o relógio por comando (`adb root` e `date`) e não é igual a um aparelho de fábrica.
 - A prova não tem dado de camping nem tela de produto: as telas são de teste. O texto do aviso é o da véspera da SPEC, seção 10.
 - Memória livre da máquina com tudo ligado, medida pelo QA na F0-1: 7.982 MB. A entrega registrou leituras de 5,6 e 3,7 GB com a missão de vídeos rodando junto.

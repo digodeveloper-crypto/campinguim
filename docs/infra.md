@@ -24,6 +24,8 @@ Como funciona daqui em diante: cada feature aprovada entra por pull request com 
 
 **Estado acima conferido em 24/11/2026** (tarefa F0-G, aprovada pelo QA). Depois disso nada foi enviado ao GitHub: o trabalho da prova técnica (F0-1 a F0-5) está em ramos locais `feature/F0-*` e entra no `main` por um único pull request em squash, com o commit `F0: prova técnica`. Os ramos locais nunca são enviados commit a commit, porque o histórico local da F0-3 guarda um vídeo e imagens antigas com ícones de terceiros. Antes de cada envio vale a checagem de segurança da seção G do plano (autores dos commits novos, padrões de segredo e caminhos locais nos arquivos alterados). A junção dos ramos está registrada em `docs/prova-tecnica/resultado.md`, seção "Junção dos trabalhos".
 
+**Envio da prova técnica (26/11/2026, tarefa F0-ENVIO, aprovada pelo QA):** commit `4b08f5a` "F0: prova técnica" no `main`, integrado por squash pelo pedido de integração https://github.com/digodeveloper-crypto/campinguim/pull/1. O ramo do envio foi apagado no GitHub depois da integração; o `main` segue sendo o único ramo lá.
+
 ### Como conferir
 
 ```bash
