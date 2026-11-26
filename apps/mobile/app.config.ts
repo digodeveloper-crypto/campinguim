@@ -40,6 +40,10 @@ const config: ExpoConfig = {
       monochromeImage: './assets/icone-uma-cor.png',
     },
     predictiveBackGestureEnabled: false,
+    // Sem backup automático do Android (B4, DEF-11): o banco local é cifrado com uma chave do
+    // Keystore, que nunca sai do aparelho; uma cópia restaurada em outro aparelho seria ilegível.
+    // Os dados de quem tem conta voltam pela sincronização.
+    allowBackup: false,
     // Alarme exato para o lembrete local: mantido pela decisão D2 (26/11/2026). A regra de quando
     // pedir e o texto entram na feature 1.6.
     permissions: ['android.permission.SCHEDULE_EXACT_ALARM'],

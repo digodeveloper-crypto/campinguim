@@ -5,6 +5,7 @@ Roteiros de tela das jornadas da SPEC, seção 13 (GIT-14). Cada jornada tem a p
 | Pasta | Jornada | Etapa |
 | --- | --- | --- |
 | `fumaca/` | Abre o app e confere a tela provisória (B1) | base |
+| `fumaca-banco/` | Banco local cifrado: abre a frio, verifica a camada de acesso num banco descartável, reabre (B4) | base |
 | `J1-familia/` | Família: criar viagem, quantidades, marcações, aviso de saída, "faltou", volta, "sobrou", repetir | 1 |
 | `J2-aviao/` | J1 inteira em modo avião, fechando e reabrindo o app | 1 |
 | `J3-lembretes/` | Lembretes de 3 dias, véspera e volta sem internet, com o relógio adiantado | 1 |
