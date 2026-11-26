@@ -80,6 +80,8 @@ O que sobe (7 contêineres):
 
 O resumo do fim do `npm run testar` diz, por etapa, `passou`, `FALHOU` ou `PULADO`, com quantos testes passaram. **Teste pulado nunca conta como passou:** se qualquer teste dentro de uma etapa for pulado, a etapa sai `PULADO`, com o motivo (o nome do grupo de testes diz por quê). **"SUÍTE INCOMPLETA"** quer dizer que alguma etapa foi pulada: não serve para aprovar uma feature. Sem `--exigir-completa` ela sai com código 0 (serve para o ciclo de edição); com `--exigir-completa`, sai com 1.
 
+**Fim de linha dos arquivos lidos por teste.** Arquivos lidos por teste são LF por `.gitattributes` (hoje `.github/**`, `.githooks/*` e `*.sh`), mesmo com `core.autocrlf=true` no Windows. Os testes também aceitam `\r?\n` ao ler texto. Quem acrescentar um teste que leia outro arquivo de texto com expressão que dependa de quebra de linha deve usar `\r?\n` (ou fixar o arquivo em LF no `.gitattributes`). Depois de mexer no `.gitattributes`: `git add --renormalize .` e conferir com `git ls-files --eol`.
+
 Casos de pulo conhecidos:
 
 - **Servidor:** o ambiente Docker está fora do ar (`npm run ambiente:subir`).

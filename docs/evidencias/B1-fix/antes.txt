@@ -1,0 +1,113 @@
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --sem-servidor
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1391 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/B1-fix
+
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 32ms
+ ↓  scripts  scripts/testes/manifesto.test.ts (3 tests | 3 skipped)
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 24ms
+ ✓  core  packages/core/src/cotas.test.ts (5 tests) 7ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 2556ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 2372ms
+ ❯  scripts  scripts/testes/repositorio.test.ts (25 tests | 1 failed) 3989ms
+   ✓ package.json (J14) (6)
+     ✓ existem os pacotes da estrutura da SPEC, seção 2 5ms
+     ✓ package.json declara "type" 2ms
+     ✓ apps/mobile/package.json declara "type" 1ms
+     ✓ apps/web/package.json declara "type" 1ms
+     ✓ packages/content/package.json declara "type" 1ms
+     ✓ packages/core/package.json declara "type" 1ms
+   ✓ emuladores (J23) (2)
+     ✓ nenhum script derruba ou reinicia o servidor do adb 26ms
+     ✓ todo comando do adb passa pelo módulo que exige o aparelho (-s emulator-<porta>) 43ms
+   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
+     ✓ o login do Supabase local não usa o prazo de 180 s da prova 2ms
+     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 129ms
+   ✓ .gitignore (GIT-08) (12)
+     ✓ ignora .env.local 338ms
+     ✓ ignora .env 150ms
+     ✓ ignora apps/mobile/android/app/build.gradle 200ms
+     ✓ ignora node_modules/x/index.js 210ms
+     ✓ ignora chave.keystore 123ms
+     ✓ ignora release.jks 157ms
+     ✓ ignora .segredos-locais 365ms
+     ✓ ignora .claude/settings.json 149ms
+     ✓ ignora rascunhos/nota.md 255ms
+     ✓ ignora supabase/.temp/x 165ms
+     ✓ ignora test-results/x.png 366ms
+     ✓ não ignora o modelo de credenciais locais 1272ms
+   ❯ esteira do GitHub só em marca de versão (GIT-05) (2)
+     ✓ há um único workflow 0ms
+     × dispara só com etiqueta v* 16ms
+   ✓ hook de pré-commit (GIT-08) (1)
+     ✓ chama a trava de segredos sobre o conteúdo preparado 1ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   scripts  scripts/testes/repositorio.test.ts > esteira do GitHub só em marca de versão (GIT-05) > dispara só com etiqueta v*
+AssertionError: expected '' to be 'push: tags: - \'v*\'' // Object.is equality
+
+- Expected
++ Received
+
+- push: tags: - 'v*'
+
+ ❯ scripts/testes/repositorio.test.ts:92:71
+     90|     const texto = ler('.github/workflows/versao.yml');
+     91|     const gatilho = /^on:\n((?:[ ]{2}.*\n)+)/m.exec(texto)?.[1] ?? '';
+     92|     expect(gatilho.replace(/#.*$/gm, '').replace(/\s+/g, ' ').trim()).…
+       |                                                                       ^
+     93|     for (const outro of ['pull_request', 'branches', 'schedule', 'work…
+     94|       expect(texto).not.toMatch(new RegExp(`^\\s*${outro}:`, 'm'));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed | 1 skipped (6)
+      Tests  1 failed | 84 passed | 3 skipped (88)
+   Start at  16:23:00
+   Duration  7.94s (tests 70%, import 26%, transform 3%, worker 1%)
+
+JSON report written to C:/campinguim-wt/B1-fix/test-results/suite/vitest-unitarios.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (2.1s)
+  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (5.0s)
+
+  2 passed (59.0s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 4.5 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          1.9 s  
+passou  Tipos (TypeScript estrito)                                20.2 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                         46.8 s  
+FALHOU  Testes unitários: regras puras e travas do repositório    13.7 s  84 de 88 testes passaram
+PULADO  Testes do servidor (ambiente local)                        0.0 s  pedido com --sem-servidor
+passou  Página web (Chromium e WebKit)                            65.5 s  2 de 2 testes passaram
+
+SUÍTE FALHOU: 1 etapa(s) com falha (152.7 s).
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+exit=1

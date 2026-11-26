@@ -1,3 +1,6 @@
 # O hook de pré-commit é um script sh: sempre com LF, também no Windows.
 .githooks/* text eol=lf
 *.sh text eol=lf
+
+# Arquivos de texto lidos por testes: sempre LF, também em checkout novo no Windows (core.autocrlf=true).
+.github/** text eol=lf
