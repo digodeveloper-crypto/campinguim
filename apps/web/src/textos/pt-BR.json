@@ -1,9 +1,99 @@
 {
-  "_leia": "Textos da página web em português do Brasil. Nenhum texto para a pessoa fica solto no código (CLAUDE.md, regra 5). Arquivo provisório da B1: a B6 define o arquivo de textos definitivo (NF-09).",
+  "_leia": "Textos da página web em português do Brasil, por tela (SPEC, seção 7: convite, lista do grupo, o que eu devo, página inicial). Nenhum texto para a pessoa fica solto no código (CLAUDE.md, regra 5; NF-09). Mesmo tom e mesmo mecanismo do arquivo do app (veja index.ts): marcas {nome}, plural pela chave _um. Texto ainda não definido começa por [PENDENTE]: a lista está em docs/textos-e-eventos.md. Texto legal (consentimento, privacidade) nunca é escrito aqui: vem de pessoa habilitada (PRV-04). As palavras que a página divide com o app (estados, categorias) são as mesmas, e um teste confere.",
+
   "pagina": {
     "tituloDaAba": "Campinguim",
     "titulo": "Campinguim",
     "subtitulo": "Estamos montando a página do convidado.",
     "detalhe": "Em breve, quem receber um convite vai entrar na lista do grupo por aqui."
+  },
+
+  "app": {
+    "nome": "Campinguim"
+  },
+
+  "estados": {
+    "separei": "separei",
+    "carro": "está no carro",
+    "foraDoCarro": "fora do carro",
+    "aSeparar": "a separar",
+    "comprar": "preciso comprar"
+  },
+
+  "categorias": {
+    "abrigo": "Abrigo",
+    "dormir": "Dormir",
+    "cozinha": "Cozinha",
+    "comida": "Comida e bebida",
+    "roupa": "Roupa",
+    "higiene": "Higiene",
+    "socorros": "Primeiros socorros e segurança",
+    "ferramentas": "Ferramentas",
+    "lazer": "Lazer",
+    "documentos": "Documentos",
+    "criancas": "Crianças",
+    "pet": "Pet"
+  },
+
+  "convite": {
+    "tituloDaAba": "Convite · Campinguim",
+    "reguaRotulo": "Seções da página",
+    "reguaConvite": "Convite",
+    "reguaEntrar": "Entrar",
+    "reguaLista": "Lista",
+    "reguaDevo": "Eu devo",
+    "convidouVoce": "{nome} convidou você",
+    "semInstalar": "Sem instalar nada. Entre com o seu nome e assuma um item.",
+    "seuNome": "Seu nome",
+    "suaFamilia": "Sua família",
+    "entrar": "Entrar",
+    "entrou": "{nome} entrou na viagem.",
+    "entreAntes": "Entre com o seu nome para assumir um item.",
+    "linkVencido": "[PENDENTE] Mensagem clara de link de convite vencido (E2-02)",
+    "linkRevogado": "[PENDENTE] Mensagem clara de link de convite revogado (E2-02)"
+  },
+
+  "listaDoGrupo": {
+    "tituloDaAba": "Lista do grupo · Campinguim",
+    "titulo": "Lista do grupo",
+    "quemLevaOQue": "Quem leva o quê",
+    "ninguemPegou": "ninguém pegou",
+    "assumidos": "{n} assumidos",
+    "assumidos_um": "{n} assumido",
+    "leva": "{nome} leva",
+    "euLevo": "Eu levo",
+    "desistir": "Desistir",
+    "euLevoAria": "{item}: eu levo",
+    "precisaDeInternet": "[PENDENTE] Uma linha que diz que a lista do grupo só funciona com internet (SPEC, seção 7)"
+  },
+
+  "oQueEuDevo": {
+    "titulo": "O que eu devo",
+    "deve": "{devem} · {item}",
+    "baixarOApp": "Baixar o app para pagar e lançar gastos"
+  },
+
+  "site": {
+    "tituloDaAba": "Campinguim · a lista do que levar para acampar",
+    "reguaOQueE": "O que é",
+    "reguaLista": "Lista pronta",
+    "reguaEspera": "Lista de espera",
+    "oQueE": "[PENDENTE] Frase do que é o Campinguim para o site: texto de conteúdo do site, não definido (DESIGN, seção 11.3, P-19)",
+    "listaPronta": "Uma lista pronta para ver",
+    "listaIntro": "Só para ver, sem marcar.",
+    "itens": "{n} itens",
+    "itens_um": "{n} item",
+    "listaDeEspera": "Lista de espera",
+    "seuEmail": "Seu e-mail",
+    "entrarNaListaDeEspera": "Entrar na lista de espera",
+    "emailVazio": "Escreva um e-mail para entrar na lista.",
+    "listaDeEsperaOk": "Pronto. Avisaremos por e-mail.",
+    "consentimento": "[PENDENTE] Texto de consentimento da lista de espera: vem de pessoa habilitada (PRV-04, DESIGN P-18), nunca escrito pelo desenvolvimento",
+    "politicaDePrivacidade": "[PENDENTE] Política de privacidade do site: vem de pessoa habilitada (PRV-04), nunca escrita pelo desenvolvimento"
+  },
+
+  "mascote": {
+    "principal": "Campinguim, o pinguim de gorro",
+    "icone": "Campinguim"
   }
 }

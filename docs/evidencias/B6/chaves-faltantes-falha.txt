@@ -1,0 +1,39 @@
+$ npx vitest run --project core apps/mobile/src/textos
+(com a chave plantada textos.abertura.chavePlantada em apps/mobile/src/zz-chave-plantada.ts)
+
+ RUN  v5.1.0 C:/campinguim-wt/B6
+
+ ❯ |core| apps/mobile/src/textos/textos.test.ts (27 tests | 1 failed) 152ms
+   ❯ chaves usadas no código: app (2)
+     × toda chave usada no código, nos roteiros e nos testes de tela existe no arquivo de textos 24ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |core| apps/mobile/src/textos/textos.test.ts > chaves usadas no código: app > toda chave usada no código, nos roteiros e nos testes de tela existe no arquivo de textos
+AssertionError: expected [ Array(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   "apps/mobile/src/zz-chave-plantada.ts:4 usa \"abertura.chavePlantada\", que não existe no arquivo de textos",
++ ]
+
+ ❯ apps/mobile/src/textos/textos.test.ts:53:22
+     51|     const usos = usosNosArquivos(RAIZ, arquivos);
+     52|     const faltando = chavesFaltantes(s.arvore, usos).map((u) => `${u.a…
+     53|     expect(faltando).toEqual([]);
+       |                      ^
+     54|   });
+     55|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 26 passed (27)
+   Start at  15:47:56
+   Duration  3.45s (transform 87%, tests 8%, import 4%, worker 1%)
+
+exit=1

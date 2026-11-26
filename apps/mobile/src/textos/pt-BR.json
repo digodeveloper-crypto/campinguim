@@ -1,11 +1,471 @@
 {
-  "_leia": "Textos da interface do app em português do Brasil. Nenhum texto para a pessoa fica solto no código (CLAUDE.md, regra 5). Arquivo provisório da B1: a B6 define o arquivo de textos definitivo (NF-09).",
+  "_leia": "Textos da interface do app em português do Brasil, por tela e área (SPEC, seção 7). Nenhum texto para a pessoa fica solto no código (CLAUDE.md, regra 5; NF-09). Tom do DESIGN, seção 10: diário de expedição, verbo no presente, sem adjetivo, sem exclamação. Marcas {nome} são trocadas na hora (veja index.ts). Plural: a chave do singular leva o sufixo _um e vale quando {n} é 1. Texto ainda não definido começa por [PENDENTE]: a lista está em docs/textos-e-eventos.md. Texto legal (consentimento, privacidade) nunca é escrito aqui: vem de pessoa habilitada (PRV-04).",
+
   "app": {
     "nome": "Campinguim"
   },
+
   "telaProvisoria": {
     "titulo": "Campinguim",
     "subtitulo": "O app está em construção.",
     "detalhe": "Esta é a tela provisória da base. A lista de camping chega na etapa 1."
+  },
+
+  "acoes": {
+    "comecar": "Começar",
+    "gerarLista": "Gerar lista",
+    "verLista": "Ver a lista",
+    "vouSair": "Vou sair",
+    "sairAssimMesmo": "Sair assim mesmo",
+    "confirmarSaida": "Confirmar saída",
+    "desfazer": "Desfazer",
+    "ciente": "Ciente",
+    "voltar": "Voltar",
+    "fechar": "Fechar",
+    "remover": "Remover da lista",
+    "faltouAlgo": "Faltou algo",
+    "concluirVolta": "Concluir a volta",
+    "pular": "Pular",
+    "proxima": "Próxima",
+    "enviar": "Enviar",
+    "copiar": "Copiar",
+    "compartilhar": "Compartilhar",
+    "copiarChave": "Copiar chave",
+    "copiarValor": "Copiar valor",
+    "paguei": "Paguei",
+    "euLevo": "Eu levo",
+    "desistir": "Desistir",
+    "entrar": "Entrar",
+    "lembrarQuemFalta": "Lembrar quem falta",
+    "verComoConvidado": "Ver como o convidado vê",
+    "refazer": "Refazer",
+    "voltarALista": "Voltar à lista",
+    "anotar": "Anotar",
+    "verFato": "Ver o fato",
+    "verGastos": "Ver os gastos"
+  },
+
+  "estados": {
+    "separei": "separei",
+    "carro": "está no carro",
+    "foraDoCarro": "fora do carro",
+    "aSeparar": "a separar",
+    "comprar": "preciso comprar",
+    "faltou": "faltou",
+    "sobrou": "sobrou",
+    "ciente": "ciente",
+    "conferido": "conferido",
+    "naoConferido": "não conferido",
+    "secar": "secar ou lavar em casa",
+    "feito": "feito",
+    "vouSair": "vou sair",
+    "dependeDoCamping": "depende do camping",
+    "falado": "{nome}, {quantidade}, {estado}",
+    "separeiForaDoCarro": "separei, fora do carro",
+    "separeiEForaDoCarro": "{separei} · {fora}"
+  },
+
+  "niveis": {
+    "atencao": "Atenção",
+    "informacao": "Informação"
+  },
+
+  "ajustes": {
+    "titulo": "Ajustes na lista",
+    "entrou": "Entrou",
+    "saiu": "Saiu",
+    "tarefa": "Tarefa",
+    "regras": "Regras"
+  },
+
+  "categorias": {
+    "abrigo": "Abrigo",
+    "dormir": "Dormir",
+    "cozinha": "Cozinha",
+    "comida": "Comida e bebida",
+    "roupa": "Roupa",
+    "higiene": "Higiene",
+    "socorros": "Primeiros socorros e segurança",
+    "ferramentas": "Ferramentas",
+    "lazer": "Lazer",
+    "documentos": "Documentos",
+    "criancas": "Crianças",
+    "pet": "Pet"
+  },
+
+  "filtros": {
+    "aSeparar": "a separar",
+    "separados": "separados",
+    "noCarro": "no carro",
+    "comprar": "comprar"
+  },
+
+  "campos": {
+    "tipo": "Tipo",
+    "noites": "Noites",
+    "datas": "Datas: opcional",
+    "pessoas": "Pessoas",
+    "adultos": "Adultos",
+    "adolescentes": "Adolescentes (12 a 17)",
+    "criancas": "Crianças (5 a 11)",
+    "menoresDe5": "Menores de 5",
+    "pets": "Pets",
+    "clima": "Clima",
+    "chuva": "Chance de chuva",
+    "destino": "Destino (opcional)",
+    "cidade": "Cidade",
+    "obrigatorio": "obrigatório",
+    "quantidade": "Quantidade",
+    "nota": "Nota",
+    "motivo": "Motivo",
+    "sugestao": "Sugestão (opcional, até 200 caracteres)",
+    "responderComo": "Responder como",
+    "chavePix": "Chave Pix"
+  },
+
+  "opcoes": {
+    "tipo": {
+      "barracaComCarro": "Barraca com carro",
+      "trilhaComMochila": "Trilha com mochila",
+      "motorhome": "Motorhome"
+    },
+    "clima": {
+      "frio": "Frio",
+      "ameno": "Ameno",
+      "calor": "Calor"
+    },
+    "sim": "Sim",
+    "nao": "Não",
+    "menosUm": "menos um",
+    "maisUm": "mais um"
+  },
+
+  "areas": {
+    "lista": "Lista",
+    "camping": "Camping",
+    "grupo": "Grupo",
+    "gastos": "Gastos",
+    "volta": "Volta"
+  },
+
+  "rota": {
+    "rotulo": "Rota da viagem",
+    "preparar": "Preparar",
+    "carregar": "Carregar",
+    "noCamping": "No camping",
+    "volta": "Volta",
+    "emCasa": "Em casa",
+    "paradaAria": "Parada {n} de {total}: {nome}",
+    "paradaAtualAria": "Parada {n} de {total}: {nome}. Você está aqui",
+    "etapa": "Parada {n} de {total} · {nome}",
+    "deslizar": "Deslize para os lados para trocar de parada."
+  },
+
+  "legenda": {
+    "botao": "Legenda",
+    "itens": "camping, grupo, gastos",
+    "aria": "Legenda: camping, grupo, gastos",
+    "titulo": "Legenda",
+    "intro": "O que não é parada da rota.",
+    "aberta": "Legenda aberta. Camping, grupo e gastos.",
+    "fato": "Fato: {fato}",
+    "grupoSub": "Quem leva o quê",
+    "gastosSub": "Divisão e chave Pix"
+  },
+
+  "abertura": {
+    "frase": "Marque a rota antes de sair: a lista do que levar, parada por parada.",
+    "rota": "Cinco paradas, da sala de casa até a volta.",
+    "semCadastro": "Sem cadastro. A lista começa na próxima tela."
+  },
+
+  "criarViagem": {
+    "titulo": "Nova viagem",
+    "intro": "Tipo, noites e pessoas são obrigatórios. O resto entra se você souber.",
+    "escolhido": "escolhido",
+    "semRegistro": "sem registro: lista na dúvida",
+    "resultados": "Campings com esse nome",
+    "campoValor": "{campo}: {n}",
+    "menosUm": "{campo}, menos um",
+    "maisUm": "{campo}, mais um",
+    "buscaPrecisaDeInternet": "Buscar camping precisa de internet."
+  },
+
+  "lista": {
+    "titulo": "Lista da viagem",
+    "progressoNoCarro": "{feitos} de {total} no carro",
+    "faltam": "Faltam {n} para o carro.",
+    "faltam_um": "Falta {n} para o carro.",
+    "completo": "Tudo no carro. Parada 2 concluída.",
+    "mostrar": "Mostrar",
+    "filtro": "{filtro} · {n}",
+    "filtroVazio": "Nenhum item neste filtro.",
+    "categoriaAria": "{categoria}: {feitos} de {total} no carro",
+    "tarefa": "Tarefa",
+    "tarefaFeitaAria": "{tarefa}: feito",
+    "alternarSeparei": "{nome}: separei",
+    "alternarNoCarro": "{nome}: está no carro",
+    "abrirItemAria": "{falado}. Abrir o item",
+    "mudancaDaResposta": "{entraram} entraram, {sairam} saíram",
+    "vazia": "[PENDENTE] Texto da lista sem nenhum item, com a ação clara (SPEC, seção 7, estado vazio)"
+  },
+
+  "item": {
+    "titulo": "Item",
+    "medida": "Medida",
+    "estado": "Estado",
+    "removido": "Removido da lista.",
+    "marcadoParaComprar": "Marcado para comprar.",
+    "motivoGerado": "[PENDENTE] Frase que mostra o motivo de um item gerado estar na lista (E1-04), com o dado que o gerou"
+  },
+
+  "adicionarItem": {
+    "titulo": "[PENDENTE] Título da tela de adicionar item (busca no catálogo e texto livre)",
+    "busca": "[PENDENTE] Texto do campo de busca no catálogo",
+    "textoLivre": "[PENDENTE] Ação de criar um item com o texto digitado",
+    "sugestoes": "[PENDENTE] Título das sugestões de itens do catálogo que não estão na lista"
+  },
+
+  "avisoDeSaida": {
+    "titulo": "Conferir a carga",
+    "separadosFora": "Separados e fora do carro",
+    "naoSeparados": "Não separados",
+    "naoSeparadosVazio": "Nada ficou sem separar.",
+    "faltam": "{n} itens separados ainda fora do carro.",
+    "faltam_um": "{n} item separado ainda fora do carro.",
+    "completo": "{feitos} de {total} no carro. Carga fechada.",
+    "noCarroAria": "{nome}: está no carro"
+  },
+
+  "estadia": {
+    "titulo": "Durante a estadia",
+    "regrasAMao": "Regras à mão",
+    "faltou": "Faltou",
+    "faltouVazio": "Nada anotado.",
+    "painelTitulo": "Anotar o que faltou",
+    "escreverONome": "Escrever o nome",
+    "escolherDaLista": "Ou escolha da lista",
+    "anotado": "{nome}: faltou.",
+    "nivel": "{nivel}"
+  },
+
+  "volta": {
+    "titulo": "Checklist da volta",
+    "intro": "Cada item conferido antes de guardar no carro.",
+    "conferirOQueVolta": "Conferir o que volta",
+    "desmontagem": "Desmontagem",
+    "tarefas": "Tarefas",
+    "progressoConferidos": "{feitos} de {total} conferidos",
+    "categoriaAria": "{categoria}: {feitos} de {total} conferidos",
+    "alternarConferido": "{nome}: conferido",
+    "alternarSecar": "{nome}: secar ou lavar em casa",
+    "alternarFeito": "{tarefa}: feito"
+  },
+
+  "emCasa": {
+    "titulo": "Depois da viagem",
+    "emCasa": "Em casa",
+    "sobrouEFaltou": "Sobrou e faltou",
+    "perguntaDoCamping": "Pergunta do camping",
+    "sugestao": "Sugestão",
+    "passo": "Passo {n} de {total}",
+    "levado": "Levado: {q}",
+    "opcaoAria": "{nome}: {opcao}",
+    "fim": "Registro da viagem fechado."
+  },
+
+  "novaViagem": {
+    "repetirAUltima": "[PENDENTE] Ação de repetir a última viagem (E1-12)",
+    "modelosSalvos": "[PENDENTE] Título dos modelos salvos (E1-12)",
+    "oQueMudou": "[PENDENTE] Frase do que mudou por aprendizado da viagem anterior (E1-12)"
+  },
+
+  "emBreve": {
+    "inventario": "[PENDENTE] Nome da função futura inventário de equipamento (DAT-05)",
+    "cardapio": "[PENDENTE] Nome da função futura cardápio (DAT-05)",
+    "mensagem": "[PENDENTE] Mensagem curta que aparece quando a pessoa toca numa função em breve (SPEC, seção 7)"
+  },
+
+  "estadosGerais": {
+    "vazio": "[PENDENTE] Texto padrão de tela vazia com ação clara (SPEC, seção 7, estados que toda tela trata)",
+    "semInternet": "[PENDENTE] Uma linha para dizer que a função precisa de internet (SPEC, seção 7)",
+    "aguardandoEnvio": "[PENDENTE] Indicador discreto de itens aguardando envio, com a contagem {n}",
+    "erro": "[PENDENTE] Mensagem de erro em português simples, com o que a pessoa pode fazer"
+  },
+
+  "notificacoes": {
+    "faltamItens": "Faltam 3 dias: {n} itens para separar",
+    "faltamItens_um": "Faltam 3 dias: {n} item para separar",
+    "vespera": "Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás",
+    "checklistDaVolta": "Antes de sair: confira o que veio com você",
+    "emCasa": "Chegou bem? Um minuto para dizer como foi",
+    "secarABarraca": "A barraca já secou? Pode guardar",
+    "permissao": {
+      "titulo": "[PENDENTE] Título da tela que explica o motivo antes do pedido de permissão de notificação (RET-03)",
+      "motivo": "[PENDENTE] Texto que explica o motivo do pedido de permissão de notificação (RET-03)"
+    }
+  },
+
+  "ajustesDoApp": {
+    "titulo": "[PENDENTE] Título da área de ajustes",
+    "conta": "[PENDENTE] Item de ajustes: conta",
+    "notificacoes": "[PENDENTE] Item de ajustes: notificações (três chaves: lembretes de viagem, avisos de grupo, avisos de reativação, RET-08)",
+    "privacidade": "[PENDENTE] Item de ajustes: privacidade",
+    "sobre": "[PENDENTE] Item de ajustes: sobre"
+  },
+
+  "legal": {
+    "consentimento": "[PENDENTE] Texto de consentimento: vem de pessoa habilitada (PRV-04), nunca escrito pelo desenvolvimento",
+    "politicaDePrivacidade": "[PENDENTE] Política de privacidade: vem de pessoa habilitada (PRV-04), nunca escrita pelo desenvolvimento",
+    "termosDeUso": "[PENDENTE] Termos de uso: vêm de pessoa habilitada (PRV-04), nunca escritos pelo desenvolvimento"
+  },
+
+  "entrar": {
+    "titulo": "[PENDENTE] Título da tela de entrar (E2-16)",
+    "motivo": "[PENDENTE] Frase que diz por que o login é pedido neste momento (organizar grupo, lançar gasto, cadastrar Pix, confirmar fato)",
+    "comGoogle": "[PENDENTE] Rótulo do botão de login com Google: o nome é marca de terceiro, confirmar o uso e o rótulo exigido pelo Google"
+  },
+
+  "transformarEmGrupo": {
+    "titulo": "[PENDENTE] Título da tela de transformar em grupo (E2-01)",
+    "nomeDoGrupo": "[PENDENTE] Rótulo do campo nome do grupo",
+    "familias": "[PENDENTE] Rótulo das famílias",
+    "gerarConvite": "[PENDENTE] Ação de gerar o link de convite"
+  },
+
+  "grupo": {
+    "titulo": "Grupo",
+    "familias": "Famílias",
+    "quemLevaOQue": "Quem leva o quê",
+    "ninguemPegou": "Ninguém pegou",
+    "ninguemPegouEtiqueta": "ninguém pegou",
+    "duplicado": "Duplicado",
+    "assumidos": "{n} assumidos",
+    "assumidos_um": "{n} assumido",
+    "leva": "{nome} leva",
+    "lembrado": "Lembrete enviado a quem falta.",
+    "euLevoAria": "{item}: eu levo"
+  },
+
+  "convidarFamilia": {
+    "titulo": "[PENDENTE] Título da tela de convidar para a minha família (E2-18)",
+    "explicacao": "[PENDENTE] Frase que explica que quem entra vê a mesma lista pessoal"
+  },
+
+  "gastos": {
+    "titulo": "Gastos",
+    "itemDividido": "Item dividido",
+    "divisao": "Divisão",
+    "suaParte": "A sua parte",
+    "regraPorCotas": "Por cotas: adulto e adolescente, 1 cota; criança de 5 a 11, meia cota; menor de 5 não paga",
+    "comprou": "Comprou",
+    "valor": "Valor",
+    "familia": "Família",
+    "pessoas": "Pessoas",
+    "pagueiAria": "Paguei {valor} a {pessoa}",
+    "vocesDevem": "Vocês devem a {pessoa}: {valor}",
+    "recebe": "{pessoa} recebe {valor}",
+    "cotasDe": "{n} cotas de {valor}",
+    "cotasDe_um": "{n} cota de {valor}",
+    "cotas": "{n} cotas",
+    "cotas_um": "{n} cota",
+    "situacao": {
+      "aPagar": "a pagar",
+      "jaPago": "já pago",
+      "comprador": "comprador"
+    }
+  },
+
+  "pagar": {
+    "titulo": "[PENDENTE] Título da tela de pagar (E2-14)",
+    "soParaMembros": "[PENDENTE] Aviso de que a chave Pix só aparece para membros da viagem"
+  },
+
+  "historicoDoGasto": {
+    "titulo": "[PENDENTE] Título do histórico do gasto (E2-15)",
+    "linha": "[PENDENTE] Frase de cada alteração: autor, data e valor anterior"
+  },
+
+  "conta": {
+    "titulo": "[PENDENTE] Título da tela de conta (E2-17)",
+    "nomeDeExibicao": "[PENDENTE] Rótulo do nome de exibição",
+    "apelido": "[PENDENTE] Rótulo do apelido",
+    "excluirConta": "[PENDENTE] Ação de excluir a conta, com a confirmação em dois passos (PRV-05)",
+    "exportarDados": "[PENDENTE] Ação de exportar os dados (PRV-05)"
+  },
+
+  "escolherDestino": {
+    "titulo": "[PENDENTE] Título da tela de escolher destino (E3-01)",
+    "busca": "[PENDENTE] Texto do campo de busca por nome",
+    "naoAchei": "[PENDENTE] Ação não achei, criar (E3-02)",
+    "eEste": "[PENDENTE] Pergunta é este? com os campings parecidos (E3-20)",
+    "exigeInternet": "Buscar camping precisa de internet."
+  },
+
+  "alertas": {
+    "registro": "Registro do camping antes da viagem.",
+    "desfeito": "desfeito",
+    "cienteAria": "{regra}: ciente",
+    "desfazerAria": "{item}: desfazer",
+    "naoConfirmado": "[PENDENTE] Aviso de fato não confirmado, que aparece como informação (SPEC, seção 5)"
+  },
+
+  "campingSemDados": {
+    "registro": "Nenhum registro deste camping ainda.",
+    "naDuvida": "Na dúvida",
+    "perguntasParaOCamping": "Perguntas para o camping",
+    "perguntasIntro": "Mande ao camping antes de sair. O texto não cita o app.",
+    "semDados": "Ainda não há dados deste camping. A lista veio \"na dúvida\"."
+  },
+
+  "registrarRespostasDoCamping": {
+    "titulo": "[PENDENTE] Título da tela de registrar respostas do camping (E3-11)",
+    "origem": "[PENDENTE] Texto da origem informado pelo camping"
+  },
+
+  "camping": {
+    "confirmadoPor": "confirmado por {n} campistas",
+    "confirmadoPor_um": "confirmado por {n} campista",
+    "confirmaram": "{camping}: {n} campistas confirmaram.",
+    "confirmaram_um": "{camping}: {n} campista confirmou."
+  },
+
+  "fato": {
+    "dado": "{fato}: {valor}. {n} confirmações. Última: {nome}, {mes}.",
+    "confirmacoes": "{n} confirmações",
+    "confirmacoes_um": "{n} confirmação",
+    "ultima": "Última: {nome}, {mes}",
+    "frescor": "Registro {frescor}",
+    "frescorRecente": "recente",
+    "linha": "{nome} · {mes} · {tipo}",
+    "historico": "Histórico"
+  },
+
+  "perguntasDaVolta": {
+    "regrasCumpridas": "As regras informadas foram cumpridas?",
+    "sugestaoParaOCamping": "Alguma sugestão para o camping?",
+    "sugestaoRegistrada": "Sugestão registrada.",
+    "responderComoApelido": "[PENDENTE] Opção de responder com apelido",
+    "responderComoAnonimo": "[PENDENTE] Opção de responder como anônimo (E3-13)"
+  },
+
+  "mesmoLugar": {
+    "titulo": "[PENDENTE] Título da tela é o mesmo lugar (E3-23)",
+    "acao": "[PENDENTE] Ação de sinalizar dois campings como o mesmo"
+  },
+
+  "mensagens": {
+    "copiado": "Copiado.",
+    "naoCopiado": "Não foi possível copiar. Selecione o texto e copie.",
+    "lembrete": "Lembrete em {dias} dias"
+  },
+
+  "mascote": {
+    "principal": "Campinguim, o pinguim de gorro",
+    "neutro": "Campinguim, o pinguim de gorro, em pé",
+    "comemorando": "Campinguim pulando de alegria",
+    "alerta": "Campinguim em alerta",
+    "camping": "Campinguim com frio, de gorro, no camping",
+    "icone": "Campinguim"
   }
 }
