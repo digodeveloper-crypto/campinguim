@@ -1,0 +1,108 @@
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --exigir-completa
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1795 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90mC:/campinguim-wt/B2[39m
+
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/duplicados.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/fatos.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/cotas.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/alertas.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/aprendizado.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/formato/formato.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/lista.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 75[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/tema/tema.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/eventos/eventos.test.ts [2m([22m[2m86 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/catalogo.test.ts [2m([22m[2m110 tests[22m[2m)[22m[32m 60[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/componentes/componentes.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 45[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/esquema.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/medicao/medicao.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/acesso.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 161[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/tema/mascote.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/textos/textos.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 442[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/expressao.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/casos.test.ts [2m([22m[2m71 tests[22m[2m)[22m[32m 117[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/migracoes.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/suite.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/segredos.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/verificacao.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 25[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/manifesto.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/enderecos.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1382[2mms[22m[39m
+   [32m✓[39m endereços fora do arquivo de configuração [2m(7)[22m
+     [33m[2m✓[22m[39m a árvore do repositório está limpa[33m 1347[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/repositorio.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 1001[2mms[22m[39m
+   [32m✓[39m o que é só da prova técnica não vem para a base (J5, J6) [2m(2)[22m
+     [33m[2m✓[22m[39m sem login por link com token, sem atraso artificial e sem botões de teste[33m 350[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m27 passed[39m[22m[90m (27)[39m
+[2m      Tests [22m [1m[32m698 passed[39m[22m[90m (698)[39m
+[2m   Start at [22m 20:45:20
+[2m   Duration [22m 3.93s[2m (transform 52%, tests 23%, import 22%, worker 2%)[22m
+
+JSON report written to C:/campinguim-wt/B2/test-results/suite/vitest-unitarios.json
+
+=== Testes do servidor (ambiente local) ===================================
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90mC:/campinguim-wt/B2[39m
+
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/sync-apply.test.ts [2m([22m[2m49 tests[22m[2m)[22m[33m 2239[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/autorizacao-por-linha.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 881[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/sincronizacao.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 2232[2mms[22m[39m
+   [32m✓[39m grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) [2m(5)[22m
+     [33m[2m✓[22m[39m C, membro só de W, não recebe nada da viagem V[33m 742[2mms[22m[39m
+     [33m[2m✓[22m[39m S10: B removido da viagem deixa de receber tudo dela[33m 586[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/dados-e-config.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 154[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/aparelho.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 273[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/rls.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 224[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/autorizacao.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 138[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/exclusao-de-conta.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 105[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/contratos.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 35[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/ambiente.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 112[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+[2m      Tests [22m [1m[32m109 passed[39m[22m[90m (109)[39m
+[2m   Start at [22m 20:45:25
+[2m   Duration [22m 9.42s[2m (tests 83%, import 13%, transform 3%, worker 1%)[22m
+
+JSON report written to C:/campinguim-wt/B2/test-results/suite/vitest-servidor.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (881ms)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.0s)
+
+  2 passed (5.7s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 2.9 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          1.1 s  
+passou  Tipos (TypeScript estrito)                                13.2 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                         14.8 s  
+passou  Testes unitários: regras puras e travas do repositório     4.9 s  698 de 698 testes passaram
+passou  Testes do servidor (ambiente local)                        9.9 s  109 de 109 testes passaram
+passou  Página web (Chromium e WebKit)                             6.5 s  2 de 2 testes passaram
+
+SUÍTE COMPLETA: todas as 7 etapas passaram (53.3 s).
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
