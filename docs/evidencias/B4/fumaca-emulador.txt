@@ -1,0 +1,33 @@
+# Saída de npm run testar:jornadas -- fumaca com o APK final da B4 (26/11/2026, 17:09).
+# fumaca-banco/banco-cifrado (B4): passou.
+# fumaca/abre-tela-provisoria (B1) falhou porque outra tarefa (B2) usava o mesmo emulador ao mesmo tempo:
+# a captura do Maestro mostra o app aberto em campinguim:///galeria (rota da B2, que não existe neste app).
+# O mesmo roteiro passou na primeira rodada da B4 (16:10), com o emulador livre.
+
+
+> campinguim@0.0.0 testar:jornadas
+> node scripts/jornadas.mjs fumaca
+
+[jornadas] 2 roteiro(s) em emulator-5554; saída em test-results\jornadas\2026-11-26T20-09-51-540Z
+  FALHOU  fumaca/abre-tela-provisoria  (59.8 s)
+Running on campinguim-a
+ > Flow abre-tela-provisoria
+Launch app "com.campinguim.prova" with clear state... COMPLETED
+Assert that id: tela-provisoria is visible... FAILED
+
+Assertion is false: id: tela-provisoria is visible
+
+Assertion 'id: tela-provisoria is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+
+Possible causes:
+- Element selector may be incorrect - check if there are similar elements with slightly different names/properties.
+- Element may be temporarily unavailable due to loading state
+- This could be a real regression that needs to be addressed
+
+==== Debug output (logs & screenshots) ====
+
+C:\campinguim-wt\B4\test-results\jornadas\2026-11-26T20-09-51-540Z\fumaca\abre-tela-provisoria\2026-11-26_170954
+
+  passou  fumaca-banco/banco-cifrado  (41.5 s)
+[jornadas] sem roteiro ainda (features futuras): J1-familia, J2-aviao, J3-lembretes, J4-grupo, J5-convidado, J6-gastos, J7-camping-com-dados, J8-camping-sem-dados, J9-volta-com-perguntas
+[jornadas] 1 de 2 passaram
