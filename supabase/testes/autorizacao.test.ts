@@ -47,7 +47,8 @@ describe('login', () => {
     const env = envLocal();
     const r = await fetch(`${env.SUPABASE_URL_LOCAL}/rest/v1/`, { headers: { apikey: env.SUPABASE_CHAVE_PUBLICA ?? '' } });
     // A descrição da API (OpenAPI) lista as rotas de dados visíveis para quem chama sem login.
-    // Na B1 não há tabela exposta. A B5 troca este caso pelos testes de acesso de cada tabela.
+    // Desde a B5 há tabelas e funções na API, mas nenhuma para quem não tem login: os privilégios
+    // de anon são retirados em cada migração (conferido também em rls.test.ts).
     expect(r.status).toBe(200);
     const corpo = (await r.json()) as { paths?: Record<string, unknown> };
     const rotas = Object.keys(corpo.paths ?? {}).filter((p) => p !== '/');

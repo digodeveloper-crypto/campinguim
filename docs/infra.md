@@ -179,3 +179,13 @@ Emuladores e contêineres da prova continuam ligados até a junção dos ramos. 
 - **Convivência com a prova técnica:** a pilha da prova (`campinguim-prova`) usa as mesmas portas. As duas não sobem juntas; o script da base avisa e não derruba nada de outra pilha.
 - **Produção:** sem endereço definido. `config/enderecos.json` tem a seção `producao` vazia até o orquestrador decidir o endereço provisório do site (proposta da seção Cloudflare acima) e o servidor hospedado (SPEC, seção 15).
 - **Esteira do GitHub:** arquivo `.github/workflows/versao.yml`, disparado só por etiqueta `v*` (GIT-05). Ainda não rodou: nenhuma etiqueta foi criada.
+
+## Ambiente local: esquema do servidor (B5)
+
+- **Data:** 26/11/2026 (feature B5). Detalhe: `docs/servidor.md`.
+- **Nenhum serviço externo foi criado na B5.** As mudanças são só no banco local (migrações versionadas) e nas regras do PowerSync local.
+- **Migrações:** cinco, de `20261126190000` a `20261126190400`, em `supabase/migrations/`. Toda tabela nasce com RLS ativo na mesma migração; 12 tabelas entram na publicação `powersync`.
+- **Regras de sincronização:** `supabase/sincronizacao/powersync/sync-config.yaml` (três fluxos: perfil, viagens e itens). O serviço precisa ser reiniciado para ler mudanças nesse arquivo.
+- **Dados de exemplo:** `supabase/dados-de-exemplo/`, aplicados por `npm run ambiente:zerar`. Pessoas de teste sem senha, no domínio `@pessoas-de-teste.test`.
+- **Ajuste só do ambiente local:** a prova de desenvolvimento do aparelho é ligada pelos dados de exemplo (`private.server_setting`). Em produção, que nasce só das migrações, fica desligada.
+- **Credenciais:** nenhuma nova. Os testes do servidor usam a chave de serviço local de `.env.local` (fora do git) só para criar e apagar pessoas de teste, com senha aleatória que fica só na memória do teste.

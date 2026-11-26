@@ -1,12 +1,45 @@
-# Regras de sincronização do Campinguim (SPEC, seções 4 e 11).
-# Vazio na B1: as tabelas e as regras por membro e por família entram com o esquema do servidor
-# (B5) e com a sincronização das viagens (feature 2.2). Modelo das regras: a prova técnica
-# (prova/sincronizacao/powersync/sync-config.yaml).
+# Regras de sincronização do Campinguim (SPEC, seções 3, 4 e 11). Esquema: B5.
+#
 # Segunda barreira (SPEC, seção 11): o serviço lê o banco sem passar pelo RLS, então estas regras
-# é que garantem que cada aparelho só recebe o que é dele.
+# é que garantem que cada aparelho só recebe o que é dele:
+#   - o próprio perfil;
+#   - as viagens de que a pessoa é membro ATIVO (trip_member.deleted_at nulo), com famílias,
+#     pessoas, membros, itens do grupo, quem assumiu o quê, gastos e o retrato do camping;
+#   - itens pessoais de uma família (trip_item.family_id preenchido) só para membros daquela família.
+# Quem sai da viagem deixa de receber tudo dela, e a cópia no aparelho é retirada na próxima
+# sincronização (S10). Linhas com deleted_at preenchido continuam indo: é assim que o aparelho
+# fica sabendo da remoção e pode restaurar (seção 4).
+# Nunca vão ao aparelho: convite, chave Pix, campings, relatos (fact_report), resumos
+# (fact_summary), sugestões, fila de fusão, insumo do aprendizado, aparelho, eventos e config.
+# Esses ficam fora da publicação "powersync" (supabase/migrations/) e fora daqui.
+# Teste: supabase/testes/sincronizacao.test.ts.
 # O serviço precisa ser reiniciado para ler mudanças neste arquivo (npm run ambiente:subir de novo).
 
 config:
   edition: 3
 
-streams: {}
+streams:
+  meu_perfil:
+    auto_subscribe: true
+    query: SELECT * FROM profile WHERE id = auth.user_id()
+
+  minhas_viagens:
+    auto_subscribe: true
+    queries:
+      - SELECT * FROM trip WHERE id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM trip_family WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM trip_person WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM trip_member WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM item_claim WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT trip_id AS id, trip_id, camping_id, facts, alerts, adjustments, rules_ack_at, fetched_at, created_at, updated_at, updated_by, deleted_at FROM trip_camping_snapshot WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM expense WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM expense_exclusion WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM expense_payment WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM expense_audit WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+
+  # Itens: os do grupo para todo membro da viagem; os de uma família, só para quem é dela.
+  meus_itens:
+    auto_subscribe: true
+    queries:
+      - SELECT * FROM trip_item WHERE family_id IS NULL AND trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM trip_item WHERE family_id IN (SELECT family_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
