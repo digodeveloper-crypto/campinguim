@@ -1083,6 +1083,12 @@ Nenhum destes pontos impede o início do mascote e dos protótipos. A conta de d
 | Quem faz a validação humana de cada versão | Lista da seção 13 | Definir antes da versão 0.1.0 |
 | Textos legais | Consentimento, política de privacidade e termos | Contratar revisão antes do lançamento |
 
+**Decisões registradas em 26/11/2026 (depois da prova técnica F0, `docs/prova-tecnica/resultado.md`)**
+
+- Sincronização em produção: o PowerSync segue auto-hospedado nas versões 0.x, que é o que a prova mediu. A escolha entre serviço hospedado e auto-hospedado em produção se decide com custo real antes da 1.0.0 e, de todo modo, antes de a 0.1.0 chegar a outras pessoas. A licença do serviço auto-hospedado é Apache 2.0 desde 03/11/2026.
+- Verificação do aparelho: os tempos de 5 minutos, 1 minuto e 24 horas passam a constar da tabela de premissas numéricas acima, como valores provisórios, guardados em configuração do servidor (B5). Decidem-se de novo na F0-6, com um token real.
+- Conta de desenvolvedor no Google Play: fica para depois da prova, e abre no começo da etapa 1, para a verificação de identidade andar em paralelo. O celular Android físico fica à mão até a feature 1.6.
+
 **Premissas numéricas a calibrar**
 
 Todas ficam em `config` e mudam sem nova versão do app.
@@ -1101,6 +1107,9 @@ Todas ficam em `config` e mudam sem nova versão do app.
 | Limites de consulta | Tabela da seção 8 | 8 |
 | Horários dos avisos | Tabela da seção 10 | 10 |
 | Retenção por pico de relatos | Mais de 5, de contas com menos de 7 dias, em 72 horas | 11 |
+| Idade máxima do comprovante da verificação do aparelho (provisória, a rever na F0-6 com um token real) | 5 minutos | 11 |
+| Tolerância de relógio do comprovante para o futuro (provisória, a rever na F0-6) | 1 minuto | 11 |
+| Validade da marca "aparelho verificado" (provisória, a rever na F0-6) | 24 horas | 11 |
 
 **Listas que precisam ser fornecidas**
 
