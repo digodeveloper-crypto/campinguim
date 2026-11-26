@@ -1,9 +1,5 @@
-# Saída de npm run testar -- --exigir-completa no worktree da B4, depois do rebase sobre o main 8b97d5f (B6),
-# com o APK gerado depois do rebase (26/11/2026).
-# Resultado: 6 de 7 etapas passaram; 334 de 334 testes unitários (inclusive os 3 do manifesto do app, ponto J9).
-# A etapa do servidor falhou em 1 de 8 testes: o volume do banco do Docker nesta máquina ainda tem 5 migrações da B5
-# (20261126190000 a 20261126190400), que o main não tem. A B4 não muda nada em supabase/ e não zerou o banco
-# (apagaria o estado de outra tarefa). Depois de um ambiente:zerar a partir deste ramo, a etapa deve passar.
+# Saída de npm run testar -- --exigir-completa no worktree da B4 (ramo sobre o main 8b97d5f, com o esquema alinhado ao B5),
+# depois de npm run ambiente:zerar a partir deste ramo, com o APK gerado depois das últimas mudanças de manifesto. 26/11/2026.
 
 
 > campinguim@0.0.0 testar
@@ -29,33 +25,29 @@ tsc -p tsconfig.scripts.json
 
  RUN  v5.1.0 C:/campinguim-wt/B4
 
+ ✓  core  packages/core/src/cotas.test.ts (5 tests) 6ms
+ ✓  core  packages/core/src/eventos/eventos.test.ts (86 tests) 61ms
+ ✓  core  apps/mobile/src/dados/__testes__/esquema.test.ts (17 tests) 14ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 27ms
+ ✓  core  apps/mobile/src/dados/__testes__/acesso.test.ts (35 tests) 143ms
+ ✓  core  apps/mobile/src/dados/__testes__/migracoes.test.ts (8 tests) 29ms
+ ✓  core  apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts (2 tests) 16ms
+ ✓  core  apps/mobile/src/medicao/medicao.test.ts (12 tests) 18ms
+ ✓  core  apps/mobile/src/dados/__testes__/verificacao.test.ts (2 tests) 24ms
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 18ms
  ✓  core  apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts (8 tests) 11ms
- ✓  core  apps/mobile/src/medicao/medicao.test.ts (12 tests) 16ms
- ✓  core  apps/mobile/src/dados/__testes__/esquema.test.ts (19 tests) 13ms
- ✓  core  packages/core/src/eventos/eventos.test.ts (86 tests) 126ms
- ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 31ms
- ✓  scripts  scripts/testes/suite.test.ts (12 tests) 26ms
- ✓  core  apps/mobile/src/dados/__testes__/verificacao.test.ts (2 tests) 27ms
- ✓  core  apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts (2 tests) 18ms
- ✓  core  packages/core/src/cotas.test.ts (5 tests) 7ms
- ✓  core  packages/core/src/formato/formato.test.ts (42 tests) 16ms
- ✓  core  apps/mobile/src/dados/__testes__/migracoes.test.ts (8 tests) 28ms
- ✓  core  apps/mobile/src/textos/textos.test.ts (27 tests) 92ms
+ ✓  core  packages/core/src/formato/formato.test.ts (42 tests) 17ms
+ ✓  core  apps/mobile/src/textos/textos.test.ts (27 tests) 91ms
  ✓  scripts  scripts/testes/manifesto.test.ts (3 tests) 6ms
- ✓  core  apps/mobile/src/dados/__testes__/acesso.test.ts (40 tests) 252ms
- ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 2255ms
-   ✓ emuladores (J23) (2)
-     ✓ nenhum script derruba ou reinicia o servidor do adb 390ms
-   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
-     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 593ms
- ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 4113ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 1162ms
    ✓ endereços fora do arquivo de configuração (7)
-     ✓ a árvore do repositório está limpa 4020ms
+     ✓ a árvore do repositório está limpa 1115ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 791ms
 
  Test Files  16 passed (16)
-      Tests  334 passed (334)
-   Start at  17:58:14
-   Duration  5.77s (tests 59%, import 31%, transform 8%, worker 2%)
+      Tests  327 passed (327)
+   Start at  18:29:53
+   Duration  2.17s (tests 47%, import 40%, transform 10%, worker 3%)
 
 JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-unitarios.json
 
@@ -63,46 +55,13 @@ JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-unitarios.j
 
  RUN  v5.1.0 C:/campinguim-wt/B4
 
- ❯  servidor  supabase/testes/ambiente.test.ts (4 tests | 1 failed) 169ms
-   ❯ ambiente local (GIT-11) (4)
-     ✓ a API do Supabase local responde na porta do arquivo de configuração 69ms
-     ✓ o serviço PowerSync responde 7ms
-     × o banco tem todas as migrações do repositório, na ordem 64ms
-     ✓ a publicação do PowerSync existe e a replicação está ativa 25ms
- ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 279ms
+ ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 117ms
+ ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 162ms
 
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
-
- FAIL   servidor  supabase/testes/ambiente.test.ts > ambiente local (GIT-11) > o banco tem todas as migrações do repositório, na ordem
-AssertionError: expected [ '20261126180000', …(5) ] to deeply equal [ '20261126180000' ]
-
-- Expected
-+ Received
-
-  [
-    "20261126180000",
-+   "20261126190000",
-+   "20261126190100",
-+   "20261126190200",
-+   "20261126190300",
-+   "20261126190400",
-  ]
-
- ❯ supabase/testes/ambiente.test.ts:24:23
-     22|       return rows.map((r) => r.version);
-     23|     });
-     24|     expect(aplicadas).toEqual(migracoesNoRepositorio());
-       |                       ^
-     25|   });
-     26|
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
-
-
- Test Files  1 failed | 1 passed (2)
-      Tests  1 failed | 7 passed (8)
-   Start at  17:58:22
-   Duration  2.99s (import 54%, tests 28%, transform 16%, worker 1%)
+ Test Files  2 passed (2)
+      Tests  8 passed (8)
+   Start at  18:29:56
+   Duration  1.13s (import 55%, tests 40%, transform 3%, worker 2%)
 
 JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-servidor.json
 
@@ -110,19 +69,19 @@ JSON report written to C:/campinguim-wt/B4/test-results/suite/vitest-servidor.js
 
 Running 2 tests using 2 workers
 
-  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (808ms)
-  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.5s)
+  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (512ms)
+  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (944ms)
 
-  2 passed (9.0s)
+  2 passed (4.9s)
 
 === Resumo da suíte local =================================================
-passou  Trava de segredos (GIT-08)                                21.3 s  
-passou  Endereços só no arquivo de configuração (SPEC 14)         25.1 s  
-passou  Tipos (TypeScript estrito)                                81.0 s  5 de 5 projetos sem erro
-passou  Lint (ESLint, sem aviso tolerado)                         28.7 s  
-passou  Testes unitários: regras puras e travas do repositório     7.6 s  334 de 334 testes passaram
-FALHOU  Testes do servidor (ambiente local)                        5.7 s  7 de 8 testes passaram
-passou  Página web (Chromium e WebKit)                            10.9 s  2 de 2 testes passaram
+passou  Trava de segredos (GIT-08)                                 2.4 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          1.0 s  
+passou  Tipos (TypeScript estrito)                                10.0 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                          5.1 s  
+passou  Testes unitários: regras puras e travas do repositório     2.8 s  327 de 327 testes passaram
+passou  Testes do servidor (ambiente local)                        1.9 s  8 de 8 testes passaram
+passou  Página web (Chromium e WebKit)                             6.3 s  2 de 2 testes passaram
 
-SUÍTE FALHOU: 1 etapa(s) com falha (180.6 s).
+SUÍTE COMPLETA: todas as 7 etapas passaram (29.5 s).
 Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
