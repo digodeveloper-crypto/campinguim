@@ -1,0 +1,13 @@
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  servidor  supabase/testes/dados-e-config.test.ts > config: premissas numéricas > traz os valores do PRD e da SPEC 42ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts > dados de exemplo > a família da Carla: viagem de referência com 2 adultos, 2 crianças e 1 pet, frio, 2 noites 42ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts > dados de exemplo > o grupo de três famílias: meias cotas do caso C1 (H = 14), fogareiro triplicado e a carne de R$ 420,00 53ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts > dados de exemplo > pessoas de teste só em domínio reservado para teste, sem senha 32ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  16:59:52
+   Duration  723ms (tests 56%, import 31%, transform 10%, worker 2%)
+

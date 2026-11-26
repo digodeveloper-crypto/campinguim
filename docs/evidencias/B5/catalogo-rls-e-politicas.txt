@@ -1,0 +1,111 @@
+# B5 · Tabelas, RLS e políticas (consulta ao catálogo do Postgres local, depois de npm run ambiente:zerar)
+# Gerado em 2026-11-26T19:51Z no worktree feature/B5-esquema-do-servidor
+
+## Migrações aplicadas
+    version     |            name             
+----------------+-----------------------------
+ 20261126180000 | b1_publicacao_sincronizacao
+ 20261126190000 | b5_viagem_e_lista
+ 20261126190100 | b5_gastos
+ 20261126190200 | b5_campings
+ 20261126190300 | b5_apoio
+ 20261126190400 | b5_sync_apply
+(6 rows)
+
+## Tabelas dos esquemas public e private: RLS, número de políticas, na publicação powersync
+ esquema |        tabela         | rls_ativo | politicas | sincroniza 
+---------+-----------------------+-----------+-----------+------------
+ private | server_setting        | t         |         0 | f
+ private | sync_change           | t         |         0 | f
+ public  | camping               | t         |         0 | f
+ public  | camping_alias         | t         |         0 | f
+ public  | city                  | t         |         0 | f
+ public  | config                | t         |         0 | f
+ public  | device                | t         |         0 | f
+ public  | event                 | t         |         0 | f
+ public  | expense               | t         |         1 | t
+ public  | expense_audit         | t         |         1 | t
+ public  | expense_exclusion     | t         |         1 | t
+ public  | expense_payment       | t         |         1 | t
+ public  | fact_report           | t         |         0 | f
+ public  | fact_summary          | t         |         0 | f
+ public  | invite                | t         |         0 | f
+ public  | item_claim            | t         |         1 | t
+ public  | list_feedback         | t         |         0 | f
+ public  | merge_candidate       | t         |         0 | f
+ public  | pix_key               | t         |         4 | f
+ public  | profile               | t         |         1 | t
+ public  | suggestion            | t         |         0 | f
+ public  | trip                  | t         |         1 | t
+ public  | trip_camping_snapshot | t         |         1 | t
+ public  | trip_family           | t         |         1 | t
+ public  | trip_item             | t         |         1 | t
+ public  | trip_member           | t         |         1 | t
+ public  | trip_person           | t         |         1 | t
+(27 rows)
+
+## Políticas (todas)
+        tabela         |              politica               | comando |     papeis      |                                                                                                     usando                                                                                                     |                 conferindo                 
+-----------------------+-------------------------------------+---------+-----------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------
+ expense               | expense_select_member               | SELECT  | {authenticated} | ( SELECT private.is_trip_member(expense.trip_id) AS is_trip_member)                                                                                                                                            | 
+ expense_audit         | expense_audit_select_member         | SELECT  | {authenticated} | ( SELECT private.is_trip_member(expense_audit.trip_id) AS is_trip_member)                                                                                                                                      | 
+ expense_exclusion     | expense_exclusion_select_member     | SELECT  | {authenticated} | ( SELECT private.is_trip_member(expense_exclusion.trip_id) AS is_trip_member)                                                                                                                                  | 
+ expense_payment       | expense_payment_select_member       | SELECT  | {authenticated} | ( SELECT private.is_trip_member(expense_payment.trip_id) AS is_trip_member)                                                                                                                                    | 
+ item_claim            | item_claim_select_member            | SELECT  | {authenticated} | ( SELECT private.is_trip_member(item_claim.trip_id) AS is_trip_member)                                                                                                                                         | 
+ pix_key               | pix_key_delete_owner                | DELETE  | {authenticated} | (profile_id = ( SELECT auth.uid() AS uid))                                                                                                                                                                     | 
+ pix_key               | pix_key_insert_owner                | INSERT  | {authenticated} |                                                                                                                                                                                                                | (profile_id = ( SELECT auth.uid() AS uid))
+ pix_key               | pix_key_select_owner_or_buyer_trip  | SELECT  | {authenticated} | ((profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT private.can_read_pix_key(pix_key.profile_id) AS can_read_pix_key))                                                                                     | 
+ pix_key               | pix_key_update_owner                | UPDATE  | {authenticated} | (profile_id = ( SELECT auth.uid() AS uid))                                                                                                                                                                     | (profile_id = ( SELECT auth.uid() AS uid))
+ profile               | profile_select_own                  | SELECT  | {authenticated} | (id = ( SELECT auth.uid() AS uid))                                                                                                                                                                             | 
+ trip                  | trip_select_member                  | SELECT  | {authenticated} | ( SELECT private.is_trip_member(trip.id) AS is_trip_member)                                                                                                                                                    | 
+ trip_camping_snapshot | trip_camping_snapshot_select_member | SELECT  | {authenticated} | ( SELECT private.is_trip_member(trip_camping_snapshot.trip_id) AS is_trip_member)                                                                                                                              | 
+ trip_family           | trip_family_select_member           | SELECT  | {authenticated} | ( SELECT private.is_trip_member(trip_family.trip_id) AS is_trip_member)                                                                                                                                        | 
+ trip_item             | trip_item_select_member             | SELECT  | {authenticated} | (((family_id IS NULL) AND ( SELECT private.is_trip_member(trip_item.trip_id) AS is_trip_member)) OR ((family_id IS NOT NULL) AND ( SELECT private.is_family_member(trip_item.family_id) AS is_family_member))) | 
+ trip_member           | trip_member_select_member           | SELECT  | {authenticated} | ( SELECT private.is_trip_member(trip_member.trip_id) AS is_trip_member)                                                                                                                                        | 
+ trip_person           | trip_person_select_member           | SELECT  | {authenticated} | ( SELECT private.is_trip_member(trip_person.trip_id) AS is_trip_member)                                                                                                                                        | 
+(16 rows)
+
+## Privilégios de anon e authenticated nas tabelas da aplicação
+     papel     |            tabela            |          privilegios           
+---------------+------------------------------+--------------------------------
+ authenticated | public.expense               | SELECT
+ authenticated | public.expense_audit         | SELECT
+ authenticated | public.expense_exclusion     | SELECT
+ authenticated | public.expense_payment       | SELECT
+ authenticated | public.item_claim            | SELECT
+ authenticated | public.pix_key               | DELETE, INSERT, SELECT, UPDATE
+ authenticated | public.profile               | SELECT
+ authenticated | public.trip                  | SELECT
+ authenticated | public.trip_camping_snapshot | SELECT
+ authenticated | public.trip_family           | SELECT
+ authenticated | public.trip_item             | SELECT
+ authenticated | public.trip_member           | SELECT
+ authenticated | public.trip_person           | SELECT
+(13 rows)
+
+## Funções do esquema public que o app pode chamar
+              funcao              | security_definer | com_login | sem_login 
+----------------------------------+------------------+-----------+-----------
+ device_register(uuid,text,jsonb) | t                | t         | f
+ sync_apply(jsonb)                | t                | t         | f
+(2 rows)
+
+## Ajustes do ambiente local (private.server_setting) e quantidade de premissas em config
+           key           | value 
+-------------------------+-------
+ accept_dev_device_proof | true
+ environment             | local
+(2 rows)
+
+ premissas 
+-----------
+        40
+(1 row)
+
+## Dados de exemplo carregados
+                    viagem                    | grupo | familias | pessoas | membros | itens | marcacoes | gastos 
+----------------------------------------------+-------+----------+---------+---------+-------+-----------+--------
+                                              | f     |        1 |       4 |       1 |     0 |         0 |      0
+ Viagem de Carla ao Camping Recanto das Águas | t     |        3 |       9 |       3 |     4 |         4 |      1
+(2 rows)
+

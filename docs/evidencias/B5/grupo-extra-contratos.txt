@@ -1,0 +1,12 @@
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  servidor  supabase/testes/contratos.test.ts > contratos da seção 8 > toda função da seção 8 está na lista, e nada além dela e de sync_apply 6ms
+ ✓  servidor  supabase/testes/contratos.test.ts > contratos da seção 8 > os códigos de erro são os da seção 8 2ms
+ ✓  servidor  supabase/testes/contratos.test.ts > contratos da seção 8 > as funções marcadas como existentes no banco existem e só quem tem login as chama 41ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  17:00:03
+   Duration  679ms (import 49%, transform 28%, tests 18%, worker 4%)
+

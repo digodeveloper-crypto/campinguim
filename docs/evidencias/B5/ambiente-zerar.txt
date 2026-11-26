@@ -1,0 +1,23 @@
+
+> campinguim@0.0.0 ambiente:zerar
+> node scripts/ambiente/ambiente.mjs zerar
+
+[ambiente] parando o serviço de sincronização (PowerSync)
+[ambiente] parando o Supabase local e apagando os dados
+--- estado do ambiente local ---
+contêineres do ambiente rodando: 0
+[ambiente] nada do ambiente ficou rodando
+[ambiente] subindo o Supabase local
+[ambiente] .env.local atualizado (valores não exibidos)
+[ambiente] subindo o serviço de sincronização (PowerSync)
+--- estado do ambiente local ---
+contêineres do ambiente rodando: 7
+  campinguim-sincronizacao-powersync-1	Up 12 seconds (healthy)
+  campinguim-sincronizacao-mongo-1	Up 15 seconds
+  supabase_edge_runtime_campinguim	Up 48 seconds
+  supabase_rest_campinguim	Up About a minute
+  supabase_auth_campinguim	Up About a minute (healthy)
+  supabase_kong_campinguim	Up About a minute (healthy)
+  supabase_db_campinguim	Up 3 minutes (healthy)
+[ambiente] pronto: Supabase local e PowerSync no ar
+saida=0

@@ -1,0 +1,14 @@
+
+ RUN  v5.1.0 <worktree B5>
+
+ ✓  servidor  supabase/testes/sincronizacao.test.ts > grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) > C, membro só de W, não recebe nada da viagem V 69ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts > grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) > controle: A recebe a viagem V inteira (todas as tabelas sincronizadas) e nada de W 61ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts > grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) > B recebe os itens do grupo e os da própria família, nunca os pessoais da outra família 36ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts > grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) > ninguém recebe convite, chave Pix, camping, relato, resumo, sugestão, aparelho, evento ou config 100ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts > grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) > S10: B removido da viagem deixa de receber tudo dela 645ms
+
+ Test Files  1 passed (1)
+      Tests  5 passed (5)
+   Start at  16:58:35
+   Duration  2.46s (tests 90%, import 6%, transform 4%)
+
