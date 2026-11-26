@@ -1,0 +1,31 @@
+### roteiro.mjs semear
+07:50:09 aparelho emulator-5556 site https://campinguim.test
+07:50:10 viagens semeadas
+exit 0
+### roteiro.mjs a 3
+07:50:11 aparelho emulator-5556 site https://campinguim.test
+07:50:17 a 1/3 OK fechado COLD 679 ms com.campinguim.prova/.MainActivity
+07:50:23 a 2/3 OK fechado COLD 641 ms com.campinguim.prova/.MainActivity
+07:50:29 a 3/3 OK fechado COLD 741 ms com.campinguim.prova/.MainActivity
+07:50:29 RESUMO {"caso":"a","execucoes":3,"certas":3,"tempoFechado":{"n":3,"mediana_ms":679,"pior_ms":741,"melhor_ms":641}}
+exit 0
+### roteiro.mjs b 3
+07:50:29 aparelho emulator-5556 site https://campinguim.test
+07:50:35 b 1/3 OK aberto UNKNOWN 34 ms com.campinguim.prova/.MainActivity
+07:50:41 b 2/3 OK aberto UNKNOWN 48 ms com.campinguim.prova/.MainActivity
+07:50:46 b 3/3 OK aberto UNKNOWN 36 ms com.campinguim.prova/.MainActivity
+07:50:46 RESUMO {"caso":"b","execucoes":3,"certas":3,"tempoFechado":null}
+exit 0
+### roteiro.mjs d 3
+07:50:47 aparelho emulator-5556 site https://campinguim.test
+07:50:53 d 1/3 OK fechado COLD 451 ms com.campinguim.prova/.MainActivity
+07:50:59 d 2/3 OK aberto UNKNOWN 36 ms com.campinguim.prova/.MainActivity
+07:51:05 d 3/3 OK fechado COLD 477 ms com.campinguim.prova/.MainActivity
+07:51:05 RESUMO {"caso":"d","execucoes":3,"certas":3,"tempoFechado":{"n":2,"mediana_ms":464,"pior_ms":477,"melhor_ms":451}}
+exit 0
+### roteiro.mjs c 1
+07:51:05 aparelho emulator-5556 site https://campinguim.test
+07:51:11 c 1/1 OK fechado COLD 530 ms com.campinguim.prova/.MainActivity
+07:51:11 RESUMO {"caso":"c","execucoes":1,"certas":1,"tempoFechado":{"n":1,"mediana_ms":530,"pior_ms":530,"melhor_ms":530}}
+07:51:17 id inválido: OK
+exit 0

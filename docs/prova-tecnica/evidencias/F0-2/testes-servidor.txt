@@ -1,0 +1,76 @@
+
+> campinguim-prova-servidor@0.0.0 testar
+> node --test --test-reporter=spec "testes/*.test.mjs"
+
+▶ A não lê nada da viagem de C pela API
+  ✔ trip: A vê só a viagem de grupo (43.1641ms)
+  ✔ trip: A pedindo a viagem de C pelo identificador recebe nada (6.4682ms)
+  ✔ trip_member: A pedindo os membros da viagem de C recebe nada (5.3551ms)
+  ✔ trip_item: A pedindo os itens da viagem de C recebe nada (4.4694ms)
+  ✔ trip_item: tudo o que A vê é da viagem de grupo (6.3551ms)
+✔ A não lê nada da viagem de C pela API (264.2334ms)
+▶ escritas fora da própria viagem são recusadas
+  ✔ A não cria item na viagem de C (6.7321ms)
+  ✔ A não altera a viagem de C (7.6534ms)
+  ✔ A não se coloca como membro da viagem de C (10.9817ms)
+  ✔ B (membro, não organizador) não altera os dados da viagem de grupo (22.6858ms)
+✔ escritas fora da própria viagem são recusadas (48.9178ms)
+▶ membros da mesma viagem e sem login
+  ✔ B lê a viagem de grupo e os seus itens (7.551ms)
+  ✔ C não lê nada da viagem de grupo (24.5959ms)
+  ✔ sem login não se lê nenhuma tabela (10.4889ms)
+✔ membros da mesma viagem e sem login (42.9499ms)
+✔ o domínio do Cloud Run não aparece em nenhum arquivo da prova (13.1255ms)
+✔ o endereço do servidor só aparece no arquivo de configuração (8.0104ms)
+✔ o endereço do site só aparece no arquivo de configuração (8.9042ms)
+✔ manifesto Android gerado: sem localização e sem USE_EXACT_ALARM; com o link do site (0.6126ms)
+✔ nenhum arquivo de credencial local está rastreado pelo git (53.4072ms)
+tabelas encontradas: private.prova_ajuste, private.sync_change, public.item_claim, public.trip, public.trip_item, public.trip_item_history, public.trip_member
+✔ toda tabela dos esquemas da aplicação tem RLS ativo (29.7812ms)
+✔ as tabelas da prova existem e estão na publicação do PowerSync (14.6885ms)
+▶ princípio 2: repetição é ignorada
+  ✔ o mesmo change_id enviado duas vezes é aplicado uma vez só (102.4299ms)
+  ✔ item novo reenviado não duplica (33.5712ms)
+✔ princípio 2: repetição é ignorada (330.7474ms)
+▶ S10: quem não é membro ativo tem a alteração recusada
+  ✔ C não altera item da viagem de A e B (36.2857ms)
+  ✔ B removido da viagem: 5 alterações recusadas, reenvio continua recusado (44.9821ms)
+  ✔ escrita direta em trip_item pela API é recusada (só pela função) (16.8181ms)
+✔ S10: quem não é membro ativo tem a alteração recusada (98.5218ms)
+▶ S3: pack_state mais avançado vence quando é concorrente
+  ✔ B (online) marca set_aside, depois chega A (offline) com in_car: in_car (23.5416ms)
+  ✔ ordem inversa: in_car chega antes, set_aside concorrente depois: in_car (26.7889ms)
+  ✔ desmarcar sobre o valor atual (não concorrente) é aplicado (24.5788ms)
+✔ S3: pack_state mais avançado vence quando é concorrente (75.5149ms)
+▶ S2: duas famílias assumem o mesmo item do grupo
+  ✔ duas linhas em item_claim, cada uma com a família de quem enviou (25.938ms)
+✔ S2: duas famílias assumem o mesmo item do grupo (26.1006ms)
+▶ quantidade, nome e nota: vale a última a chegar
+  ✔ item do grupo: o valor perdido fica no histórico (28.731ms)
+  ✔ item de uma família: vale o último, sem histórico (28.028ms)
+✔ quantidade, nome e nota: vale a última a chegar (56.9983ms)
+▶ S4: remoção vence edição, e o item pode ser restaurado
+  ✔ ordem de chegada: remove-primeiro (31.6108ms)
+  ✔ ordem de chegada: edita-primeiro (29.5728ms)
+✔ S4: remoção vence edição, e o item pode ser restaurado (61.3558ms)
+▶ S5: dois itens novos com o mesmo nome ficam os dois
+  ✔ A e B criam "isqueiro" (23.4171ms)
+✔ S5: dois itens novos com o mesmo nome ficam os dois (23.5585ms)
+▶ S9: viagem criada no aparelho sobe com o mesmo identificador
+  ✔ A envia a viagem e os itens; vira dona e organizadora (11.347ms)
+✔ S9: viagem criada no aparelho sobe com o mesmo identificador (11.4953ms)
+▶ o relógio do aparelho não decide
+  ✔ updated_at é do servidor, mesmo com relógio do aparelho errado (19.6851ms)
+✔ o relógio do aparelho não decide (19.8303ms)
+▶ segunda barreira: C não recebe nada da viagem de A e B pela sincronização
+  ✔ C recebe só a própria viagem (1579.8959ms)
+  ✔ controle: A recebe a viagem de grupo, os itens, quem assumiu e o histórico (1570.0821ms)
+✔ segunda barreira: C não recebe nada da viagem de A e B pela sincronização (3150.2035ms)
+ℹ tests 37
+ℹ suites 13
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4078.7492

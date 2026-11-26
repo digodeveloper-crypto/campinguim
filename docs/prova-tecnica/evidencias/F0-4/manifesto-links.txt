@@ -1,0 +1,29 @@
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data android:scheme="campinguim"/>
+      </intent-filter>
+      <intent-filter android:autoVerify="true" data-generated="true">
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="https" android:host="campinguim.test" android:pathPrefix="/viagem"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+Domain verification status:
+  com.campinguim.prova:
+    ID: 39a41e94-a500-407d-b26e-7be1ed49ff79
+    Signatures: [FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C]
+    Domain verification state:
+      campinguim.test: none
+    User 0:
+      Verification link handling allowed: true
+      Selection state:
+        Disabled:
+          campinguim.test
+
+Permissions:
+  Permission [com.campinguim.prova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION] (bd2efb3):
+    sourcePackage=com.campinguim.prova
+    uid=10216 gids=[] type=0 prot=signature
+    perm=PermissionInfo{bcc45be com.campinguim.prova.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION}

@@ -1,0 +1,52 @@
+[
+  {
+    "caso": "e-tempo-real",
+    "execucao": 1,
+    "antecedencia_min": 5,
+    "horario_do_lembrete": "2026-11-25T04:14:49.518Z",
+    "aviso_chegou": true,
+    "atraso_s": 200.3,
+    "app_fechado": true,
+    "aviao_ligado": true
+  },
+  {
+    "caso": "e-tempo-real",
+    "execucao": 2,
+    "antecedencia_min": 6,
+    "horario_do_lembrete": "2026-11-25T04:15:30.696Z",
+    "aviso_chegou": true,
+    "atraso_s": 159.1,
+    "app_fechado": true,
+    "aviao_ligado": true
+  },
+  {
+    "caso": "e-tempo-real",
+    "execucao": 3,
+    "antecedencia_min": 7,
+    "horario_do_lembrete": "2026-11-25T04:18:03.927Z",
+    "aviso_chegou": true,
+    "atraso_s": 5.9,
+    "app_fechado": true,
+    "aviao_ligado": true
+  },
+  {
+    "caso": "e-tempo-real",
+    "execucao": 4,
+    "antecedencia_min": 8,
+    "horario_do_lembrete": "2026-11-25T04:19:39.796Z",
+    "aviso_chegou": true,
+    "atraso_s": 228.6,
+    "app_fechado": true,
+    "aviao_ligado": true
+  },
+  {
+    "caso": "e-tempo-real",
+    "execucao": 5,
+    "antecedencia_min": 9,
+    "horario_do_lembrete": "2026-11-25T04:21:15.891Z",
+    "aviso_chegou": true,
+    "atraso_s": 132.5,
+    "app_fechado": true,
+    "aviao_ligado": true
+  }
+]

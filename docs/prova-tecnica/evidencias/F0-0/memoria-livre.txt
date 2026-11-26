@@ -1,0 +1,2 @@
+﻿Memoria total MB: 32682
+Memoria livre MB (com 2 emuladores + Docker Desktop ligados): 10339

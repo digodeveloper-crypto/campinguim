@@ -1,0 +1,11 @@
+# Medida online (SPEC, seção 4: até 5 s): A dispara 20 alterações de quantidade, uma a cada 3 s.
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: medir-20

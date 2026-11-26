@@ -1,0 +1,12 @@
+$ cmd package resolve-activity --brief ... https://campinguim.test/viagem/1f0a0b00-0000-4000-8000-00000000f401
+priority=0 preferredOrder=0 match=0x0 specificIndex=-1 isDefault=false
+android/com.android.internal.app.ResolverActivity
+
+$ pm query-activities --brief ... (quem pode abrir o link)
+2 activities found:
+  Activity #0:
+    priority=0 preferredOrder=0 match=0x508000 specificIndex=-1 isDefault=true
+    com.campinguim.prova/.MainActivity
+  Activity #1:
+    priority=0 preferredOrder=0 match=0x208000 specificIndex=-1 isDefault=true
+    com.android.chrome/com.google.android.apps.chrome.IntentDispatcher

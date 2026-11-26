@@ -1,0 +1,60 @@
+[
+  {
+    "caso": "d",
+    "execucao": 1,
+    "ok": false,
+    "falha_de_roteiro": "Cannot read properties of null (reading 'no')"
+  },
+  {
+    "caso": "d",
+    "execucao": 2,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  },
+  {
+    "caso": "d",
+    "execucao": 3,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  },
+  {
+    "caso": "d",
+    "execucao": 4,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  },
+  {
+    "caso": "d",
+    "execucao": 5,
+    "minutos": 30,
+    "como_negou": "pm revoke (permissão negada)",
+    "mensagem_de_avisos_desligados": true,
+    "agendados_na_tela": "1",
+    "app_respondendo": true,
+    "quebras_no_registro": 0,
+    "aviso_apareceu": false,
+    "app_ainda_respondendo": true,
+    "ok": true
+  }
+]

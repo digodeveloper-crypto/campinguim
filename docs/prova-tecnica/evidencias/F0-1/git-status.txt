@@ -1,0 +1,20 @@
+$ git status --short   (ramo feature/F0-1-base, depois do commit da F0-1)
+ M docs/infra.md
+?? docs/evidencias/
+?? docs/prova-tecnica/evidencias/F0-1/git-status.txt
+?? docs/prova-tecnica/qa/SOC-01-rodada-1.md
+?? docs/redes-sociais.md
+# docs/infra.md (M), docs/evidencias/, docs/redes-sociais.md e docs/prova-tecnica/qa/SOC-01-rodada-1.md são de outros ajudantes e não entram nos commits da F0-1. git-status.txt é este arquivo.
+
+$ git ls-files prova | grep -iE "(^|/)\.env|\.jks$|\.keystore$|\.pem$|\.key$|\.p12$|signing_keys"   (credencial rastreada?)
+saída do grep: 1 (1 = nada rastreado)
+
+$ git check-ignore -v prova/.env.local prova/app/android prova/servidor/node_modules prova/app/node_modules prova/servidor/supabase/.temp
+.gitignore:21:.env.*	prova/.env.local
+prova/app/.gitignore:41:/android	prova/app/android
+.gitignore:17:node_modules/	prova/servidor/node_modules
+prova/app/.gitignore:4:node_modules/	prova/app/node_modules
+prova/servidor/supabase/.gitignore:3:.temp	prova/servidor/supabase/.temp
+
+$ git ls-files prova | wc -l
+40

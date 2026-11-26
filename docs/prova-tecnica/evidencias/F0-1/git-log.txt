@@ -1,0 +1,11 @@
+$ git log --oneline main..feature/F0-1-base
+2a4e952 F0-1: base da prova técnica (app, Supabase local, PowerSync e script único)
+59c051c F0: plano, ambiente e conferências da prova técnica
+
+$ git log --format="%h %an <%ae> | %cn <%ce>" main..feature/F0-1-base
+2a4e952 digodeveloper-crypto <241984478+digodeveloper-crypto@users.noreply.github.com> | digodeveloper-crypto <241984478+digodeveloper-crypto@users.noreply.github.com>
+59c051c digodeveloper-crypto <241984478+digodeveloper-crypto@users.noreply.github.com> | digodeveloper-crypto <241984478+digodeveloper-crypto@users.noreply.github.com>
+
+$ git branch --list "feature/F0*"
+* feature/F0-1-base
+  feature/F0-prova-tecnica

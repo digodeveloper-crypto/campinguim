@@ -1,0 +1,21 @@
+# Regras de sincronização da prova (F0-1 criou; F0-2 completou e testa).
+# Segunda barreira (SPEC, seção 11): o serviço lê o banco sem passar pelo RLS, então estas regras
+# garantem que cada aparelho só recebe as viagens de que a pessoa é membro ativo. Quem sai da
+# viagem (trip_member.deleted_at preenchido) deixa de receber tudo dela, e a cópia no aparelho
+# é retirada na próxima sincronização (S10).
+# Itens removidos (deleted_at preenchido) continuam indo ao aparelho: é assim que podem ser
+# restaurados (SPEC, seção 4).
+# O serviço precisa ser reiniciado para ler mudanças neste arquivo.
+
+config:
+  edition: 3
+
+streams:
+  minhas_viagens:
+    auto_subscribe: true
+    queries:
+      - SELECT * FROM trip WHERE id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM trip_member WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM trip_item WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM item_claim WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)
+      - SELECT * FROM trip_item_history WHERE trip_id IN (SELECT trip_id FROM trip_member WHERE profile_id = auth.user_id() AND deleted_at IS NULL)

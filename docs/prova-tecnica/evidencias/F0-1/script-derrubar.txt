@@ -1,0 +1,16 @@
+$ node prova/prova.mjs derrubar
+[prova] desligando os emuladores
+[prova] derrubando o serviço de sincronização
+[prova] derrubando o Supabase local
+--- estado da prova ---
+contêineres da prova: 0
+emuladores (processos): 0; aparelhos no adb: nenhum
+servidor adb: parado
+[prova] nada da prova ficou rodando
+código de saída: 0
+
+# conferência independente logo depois
+$ docker ps --format "{{.Names}}"   (contêineres rodando, de qualquer projeto)
+(fim da lista)
+$ Get-Process qemu-system-x86_64, emulator, adb   (contagem)
+0

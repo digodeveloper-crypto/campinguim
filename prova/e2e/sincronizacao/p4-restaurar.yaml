@@ -1,0 +1,11 @@
+# P4 (S4), depois de juntar: A restaura o "Item 01" removido (o item é restaurável).
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "restaurar-Item 01"

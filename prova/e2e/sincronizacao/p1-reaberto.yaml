@@ -1,0 +1,12 @@
+# P1 para o vídeo (parte 2): A reaberto, ainda em modo avião; a fila continua com 10.
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- extendedWaitUntil:
+    visible:
+      id: fila
+      text: "10 altera.*"
+    timeout: 20000

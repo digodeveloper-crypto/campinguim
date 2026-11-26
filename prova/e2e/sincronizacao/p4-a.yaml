@@ -1,0 +1,11 @@
+# P4 (S4), A em modo avião: remove "Item 01".
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "remover-Item 01"

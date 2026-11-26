@@ -1,0 +1,83 @@
+    NotificationRecord(0x0b341220: pkg=com.campinguim.prova user=UserHandle{0} id=0 tag=ef6f9e2b-476b-4058-860b-fd341843fcb2 importance=4 key=0|com.campinguim.prova|0|ef6f9e2b-476b-4058-860b-fd341843fcb2|10216: Notification(channel=lembretes shortcut=null contentView=null vibrate=null sound=null defaults=0 flags=AUTO_CANCEL color=0xff1f4b4d vis=PRIVATE))
+      uid=10216 userId=0
+      opPkg=com.campinguim.prova
+      icon=Icon(typ=RESOURCE pkg=com.campinguim.prova id=0x7f070105)
+      flags=AUTO_CANCEL
+      originalFlags=AUTO_CANCEL
+      pri=1
+      key=0|com.campinguim.prova|0|ef6f9e2b-476b-4058-860b-fd341843fcb2|10216
+      seen=false
+      groupKey=0|com.campinguim.prova|0|ef6f9e2b-476b-4058-860b-fd341843fcb2|10216
+      notification=
+            fullscreenIntent=null
+            contentIntent=PendingIntent{771a7d9: PendingIntentRecord{6dab8a0 com.campinguim.prova startActivity (allowlist: b1b102a:+30s0ms/0/NOTIFICATION_SERVICE/NotificationManagerService)}}
+            deleteIntent=null
+            number=0
+            groupAlertBehavior=0
+            when=1795576674659/1795576674659
+            tickerText=null
+            vis=0
+            contentView=null
+            bigContentView=null
+            headsUpContentView=null
+            color=0xff1f4b4d
+            timeout=PT72H
+            extras={
+                android.title=String (Campinguim)
+                android.reduced.images=Boolean (true)
+                android.subText=null
+                expo.notification_request=byte[] (744)
+                android.template=String (android.app.Notification$BigTextStyle)
+                android.showChronometer=Boolean (false)
+                android.text=String (Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás)
+                android.progress=Integer (0)
+                androidx.core.app.extra.COMPAT_TEMPLATE=String (androidx.core.app.NotificationCompat$BigTextStyle)
+                android.progressMax=Integer (0)
+                android.appInfo=ApplicationInfo (ApplicationInfo{75ec59e com.campinguim.prova})
+                android.showWhen=Boolean (true)
+                android.largeIcon=null
+                body=String ({"url":"\/viagem\/1f0a0b00-0000-4000-8000-0000000000c3"})
+                android.bigText=String (Amanhã é dia de camping: carregue as lanternas, congele o gelo e confira o gás)
+                android.infoText=null
+                android.progressIndeterminate=Boolean (false)
+                android.remoteInputHistory=null
+                android.shortCriticalText=null
+            }
+      publicNotification=
+            None
+      stats=SingleNotificationStats{posttimeElapsedMs=67475, posttimeToFirstClickMs=-1, posttimeToDismissMs=-1, airtimeCount=0, airtimeMs=0, currentAirtimeStartElapsedMs=-1, airtimeExpandedMs=0, posttimeToFirstVisibleExpansionMs=-1, currentAirtimeExpandedStartElapsedMs=-1, requestedImportance=4, naturalImportance=4, isNoisy=true}
+      mContactAffinity=0.0
+      mRecentlyIntrusive=true
+      mPackagePriority=0
+      mPackageVisibility=-1000
+      mSystemImportance=UNSPECIFIED
+      mAsstImportance=UNSPECIFIED
+      mImportance=HIGH
+      mImportanceExplanation=app
+      mProposedImportance=UNSPECIFIED
+      mIsAppImportanceLocked=true
+      mSensitiveContent=false
+      mCanceledAfterLifetimeExtension=false
+      mIntercept=false
+      mHidden==false
+      mGlobalSortKey=crtcl=0x0002:intrsv=2:grnk=0x0000:gsmry=1:nsk:rnk=0x0000
+      mRankingTimeMs=1795576674659
+      mCreationTimeMs=1795576674776
+      mVisibleSinceMs=0
+      mUpdateTimeMs=1795576674776
+      mInterruptionTimeMs=1795576675175
+      mSuppressedVisualEffects= 0
+      mSound= content://settings/system/notification_sound
+      mVibration= null
+      mAttributes= AudioAttributes: usage=USAGE_NOTIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null
+      mLight= null
+      mShowBadge=true
+      mColorized=false
+      mAllowBubble=false
+      isBubble=false
+      mIsInterruptive=true
+      effectiveNotificationChannel=NotificationChannel{mId='lembretes', mName=Lembretes de viagem, mDescription=, mImportance=4, mBypassDnd=false, mLockscreenVisibility=-1000, mSound=content://settings/system/notification_sound, mLights=false, mLightColor=0, mVibrationPattern=null, mVibrationEffect=null, mUserLockedFields=0, mUserVisibleTaskShown=false, mVibrationEnabled=false, mShowBadge=true, mDeleted=false, mDeletedTimeMs=-1, mGroup='null', mAudioAttributes=AudioAttributes: usage=USAGE_NOTIFICATION content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null, mBlockableSystem=false, mAllowBubbles=-1, mImportanceLockedDefaultApp=false, mOriginalImp=4, mParent=null, mConversationId=null, mDemoted=false, mImportantConvo=false, mLastNotificationUpdateTimeMs=1795576675179}
+      mAdjustments=[]
+      shortcut=null found valid? false
+      mUserVisOverride=-1000
+      hasSummarization=false

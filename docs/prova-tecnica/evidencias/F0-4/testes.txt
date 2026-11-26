@@ -1,0 +1,11 @@
+# Testes locais da F0-4
+
+$ cd prova/app && npx tsc --noEmit
+exit 0
+
+$ busca de endereços fora da configuração (run.app, pages.dev, workers.dev, campinguim.test) em prova/, fora de node_modules e android
+prova/config/enderecos.json:6:  "site": "https://campinguim.test"
+(fim da busca)
+
+$ busca de textos de interface soltos em prova/app/app e prova/app/src/links (strings JSX fora de textos.ts)
+(fim da busca)

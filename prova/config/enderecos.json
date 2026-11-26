@@ -1,0 +1,7 @@
+{
+  "_leia": "Único lugar com endereços da prova. App, scripts e testes leem daqui. 10.0.2.2 é o computador visto de dentro do emulador Android. O site é um domínio de teste reservado (.test), sem publicação.",
+  "servidor": "10.0.2.2",
+  "portaApi": 54321,
+  "portaSincronizacao": 8080,
+  "site": "https://campinguim.test"
+}

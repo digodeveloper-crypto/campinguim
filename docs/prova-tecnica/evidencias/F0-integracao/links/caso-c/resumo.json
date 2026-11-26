@@ -1,0 +1,11 @@
+{
+  "caso": "c",
+  "execucoes": 1,
+  "certas": 1,
+  "tempoFechado": {
+    "n": 1,
+    "mediana_ms": 584,
+    "pior_ms": 584,
+    "melhor_ms": 584
+  }
+}

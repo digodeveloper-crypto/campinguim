@@ -1,0 +1,29 @@
+[
+  {
+    "caso": "f",
+    "execucao": 1,
+    "minutos": 30,
+    "alarme_antes": true,
+    "alarme_depois_de_forcar_parada": false,
+    "aviso_apareceu": false,
+    "ok": true
+  },
+  {
+    "caso": "f",
+    "execucao": 2,
+    "minutos": 30,
+    "alarme_antes": true,
+    "alarme_depois_de_forcar_parada": false,
+    "aviso_apareceu": false,
+    "ok": true
+  },
+  {
+    "caso": "f",
+    "execucao": 3,
+    "minutos": 30,
+    "alarme_antes": true,
+    "alarme_depois_de_forcar_parada": false,
+    "aviso_apareceu": false,
+    "ok": true
+  }
+]

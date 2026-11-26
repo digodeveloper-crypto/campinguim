@@ -1,0 +1,23 @@
+[
+  {
+    "caso": "e",
+    "execucao": 1,
+    "minutos": 30,
+    "horario_do_lembrete": "2026-11-25T05:36:49.075Z",
+    "trigger_ms": 1795585009075,
+    "tipo_do_alarme": null,
+    "janela_do_alarme": "+22m29s910ms",
+    "app_fechado": true,
+    "como_fechou": "deslizar o cartão na lista de recentes",
+    "aviao_ligado": true,
+    "relogio_adiantado_para_ms": 1795585069000,
+    "aviso_chegou": true,
+    "aviso_postado_ms": 1795585085071,
+    "atraso_s": 16.1,
+    "aviao_no_momento_do_aviso": true,
+    "aviso_achado_na_barra": true,
+    "tocar_no_aviso_abre_a_viagem": true,
+    "id_na_tela": "1f0a0b00-0000-4000-8000-0000000000c3",
+    "ok": true
+  }
+]

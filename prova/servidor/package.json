@@ -1,0 +1,17 @@
+{
+  "name": "campinguim-prova-servidor",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Servidor local da prova técnica F0 (Supabase em Docker e serviço PowerSync).",
+  "type": "module",
+  "scripts": {
+    "supabase": "supabase",
+    "semear": "node scripts/semear.mjs",
+    "testar": "node --test --test-reporter=spec \"testes/*.test.mjs\""
+  },
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.119.2",
+    "pg": "^8.23.1",
+    "supabase": "^3.4.0"
+  }
+}

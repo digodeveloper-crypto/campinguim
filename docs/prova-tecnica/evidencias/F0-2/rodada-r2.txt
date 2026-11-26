@@ -1,0 +1,64 @@
+[sinc 05:02:52] P1 #1: ok em 4.0 s
+[sinc 05:03:46] P1 #2: ok em 3.7 s
+[sinc 05:05:10] P1 #3: ok em 5.3 s
+[sinc 05:07:00] P1 #4: ok em 11.4 s
+[sinc 05:08:37] P1 #5: ok em 8.6 s
+[sinc 05:10:21] P1 #6: ok em 17.9 s
+[sinc 05:11:51] P1 #7: ok em 4.4 s
+[sinc 05:11:57] P1 #8: refeita · Maestro p1-a.yaml em A: 
+[sinc 05:12:04] P1 #8: refeita · Maestro p1-a.yaml em A: 
+[sinc 05:12:29] P1 #8: refeita · Maestro p1-a.yaml em A: 
+[sinc 05:12:35] P1 #9: refeita · Maestro p1-a.yaml em A: 
+[sinc 05:13:41] P1 #9: ok em 3.7 s
+[sinc 05:14:47] P1 #10: ok em 4.3 s
+[sinc 05:15:24] P2 #1: ok em 11.0 s
+[sinc 05:15:49] P2 #2: ok em 3.9 s
+[sinc 05:16:13] P2 #3: ok em 4.3 s
+[sinc 05:16:39] P2 #4: ok em 6.0 s
+[sinc 05:17:04] P2 #5: ok em 5.1 s
+[sinc 05:17:28] P2 #6: ok em 5.4 s
+[sinc 05:17:54] P2 #7: ok em 6.2 s
+[sinc 05:18:18] P2 #8: ok em 5.0 s
+[sinc 05:18:43] P2 #9: ok em 3.9 s
+[sinc 05:19:06] P2 #10: ok em 3.9 s
+[sinc 05:19:40] P3 #1: ok em 4.6 s
+[sinc 05:20:10] P3 #2: ok em 3.5 s
+[sinc 05:20:54] P3 #3: ok em 4.0 s
+[sinc 05:21:24] P3 #4: ok em 4.0 s
+[sinc 05:21:54] P3 #5: ok em 2.9 s
+[sinc 05:22:25] P3 #6: ok em 3.0 s
+[sinc 05:22:57] P3 #7: ok em 3.5 s
+[sinc 05:23:48] P3 #8: ok em 21.4 s
+[sinc 05:24:23] P3 #9: ok em 3.7 s
+[sinc 05:25:22] P3 #10: ok em 29.7 s
+[sinc 05:26:05] P3b #1: ok em 9.9 s
+[sinc 05:26:43] P3b #2: ok em 3.0 s
+[sinc 05:27:23] P3b #3: ok em 4.6 s
+[sinc 05:28:06] P3b #4: ok em 8.3 s
+[sinc 05:28:44] P3b #5: ok em 4.7 s
+[sinc 05:29:22] P3b #6: ok em 4.5 s
+[sinc 05:30:06] P3b #7: ok em 11.3 s
+[sinc 05:30:43] P3b #8: ok em 3.9 s
+[sinc 05:31:23] P3b #9: ok em 7.2 s
+[sinc 05:32:07] P3b #10: ok em 9.2 s
+[sinc 05:33:02] P4 #1: ok em 7.9 s
+[sinc 05:34:16] P4 #2: ok em 24.7 s
+[sinc 05:35:13] P4 #3: ok em 6.6 s
+[sinc 05:36:15] P4 #4: ok em 10.8 s
+[sinc 05:37:20] P4 #5: ok em 8.8 s
+[sinc 05:38:25] P4 #6: ok em 11.2 s
+[sinc 05:39:32] P4 #7: ok em 7.5 s
+[sinc 05:40:40] P4 #8: ok em 12.2 s
+[sinc 05:41:49] P4 #9: ok em 8.2 s
+[sinc 05:43:04] P4 #10: ok em 13.3 s
+[sinc 05:44:07] P5 #1: ok em 7.9 s
+[sinc 05:44:47] P5 #2: refeita · Maestro p5.yaml em B: Assert that id: lista-nome is visible... FAILED | Assertion 'id: lista-nome is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+[sinc 05:45:30] P5 #2: refeita · Maestro p5.yaml em B: Assert that id: lista-nome is visible... FAILED | Assertion 'id: lista-nome is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+[sinc 05:46:25] P5 #2: ok em 10.3 s
+[sinc 05:47:09] P5 #3: refeita · Maestro p5.yaml em B: Assert that id: lista-nome is visible... FAILED | Assertion 'id: lista-nome is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+[sinc 05:48:21] P5 #3: ok em 8.1 s
+[sinc 05:49:22] P5 #4: ok em 12.3 s
+[sinc 05:50:07] P5 #5: refeita · Maestro p5.yaml em B: Assert that id: lista-nome is visible... FAILED | Assertion 'id: lista-nome is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+[sinc 05:52:06] P5 #5: falha em 47.8 s · convergência 44.6 s depois de o app reconectar, acima de 30 s
+[sinc 05:52:49] P5 #6: refeita · Maestro p5.yaml em B: Assert that id: lista-nome is visible... FAILED | Assertion 'id: lista-nome is visible' failed. Check the UI hierarchy in debug artifacts to verify the element state and properties.
+[sinc 05:53:02] P5 #6: refeita · Maestro p5.yaml em A: 

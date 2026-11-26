@@ -1,0 +1,12 @@
+$ pm set-app-links-user-selection --user 0 --package com.campinguim.prova false campinguim.test
+
+$ pm set-app-links --package com.campinguim.prova 0 campinguim.test
+
+$ pm reset-app-links com.campinguim.prova
+
+$ pm get-app-links com.campinguim.prova
+  com.campinguim.prova:
+    ID: 39a41e94-a500-407d-b26e-7be1ed49ff79
+    Signatures: [FA:C6:17:45:DC:09:03:78:6F:B9:ED:E6:2A:96:2B:39:9F:73:48:F0:BB:6F:89:9B:83:32:66:75:91:03:3B:9C]
+    Domain verification state:
+      campinguim.test: none

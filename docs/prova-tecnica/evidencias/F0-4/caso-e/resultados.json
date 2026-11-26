@@ -1,0 +1,52 @@
+[
+  {
+    "i": 1,
+    "link": "https://campinguim.test/viagem/1f0a0b00-0000-4000-8000-00000000f401",
+    "como_fechou": "remover a tarefa pelo sistema (mesma operação de tirar da lista de recentes)",
+    "resolvido_para": "com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity",
+    "erro_do_am": null,
+    "foco": "mCurrentFocus=Window{e13ef45 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity}\n  mFocusedApp=ActivityRecord{66035070 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity t33}",
+    "app_ficou_na_frente": false,
+    "app_vivo": false
+  },
+  {
+    "i": 2,
+    "link": "https://campinguim.test/viagem/1f0a0b00-0000-4000-8000-00000000f401",
+    "como_fechou": "forçar parada (último recurso)",
+    "resolvido_para": "com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity",
+    "erro_do_am": null,
+    "foco": "mCurrentFocus=Window{a31f134 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity}\n  mFocusedApp=ActivityRecord{142383147 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity t34}",
+    "app_ficou_na_frente": false,
+    "app_vivo": false
+  },
+  {
+    "i": 3,
+    "link": "https://campinguim.test/viagem/1f0a0b00-0000-4000-8000-00000000f401",
+    "como_fechou": "forçar parada (último recurso)",
+    "resolvido_para": "com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity",
+    "erro_do_am": null,
+    "foco": "mCurrentFocus=Window{a882f9f u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity}\n  mFocusedApp=ActivityRecord{211450866 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity t35}",
+    "app_ficou_na_frente": false,
+    "app_vivo": false
+  },
+  {
+    "i": 4,
+    "link": "https://campinguim.test/viagem/1f0a0b00-0000-4000-8000-00000000f401",
+    "como_fechou": "forçar parada (último recurso)",
+    "resolvido_para": "com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity",
+    "erro_do_am": null,
+    "foco": "mCurrentFocus=Window{10e94e6 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity}\n  mFocusedApp=ActivityRecord{157578181 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity t36}",
+    "app_ficou_na_frente": false,
+    "app_vivo": false
+  },
+  {
+    "i": 5,
+    "link": "https://campinguim.test/viagem/1f0a0b00-0000-4000-8000-00000000f401",
+    "como_fechou": "forçar parada (último recurso)",
+    "resolvido_para": "com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity",
+    "erro_do_am": null,
+    "foco": "mCurrentFocus=Window{2981f87 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity}\n  mFocusedApp=ActivityRecord{37995002 u0 com.android.chrome/org.chromium.chrome.browser.firstrun.FirstRunActivity t37}",
+    "app_ficou_na_frente": false,
+    "app_vivo": false
+  }
+]

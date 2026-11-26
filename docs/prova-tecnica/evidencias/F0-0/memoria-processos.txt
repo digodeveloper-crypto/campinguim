@@ -1,0 +1,8 @@
+﻿com.docker.backend: 212 MB
+com.docker.build: 32 MB
+Docker Desktop: 445 MB
+docker-agent: 53 MB
+emulator: 24 MB
+msedgewebview2: 1.532 MB
+qemu-system-x86_64: 8.580 MB
+vmmemWSL: 921 MB

@@ -1,0 +1,8 @@
+$ npm run nativo  (expo prebuild --platform android --clean)
+✔ Finished prebuild
+exit 0
+$ gradlew assembleRelease -PreactNativeArchitectures=x86_64
+$ gradlew assembleRelease -PreactNativeArchitectures=x86_64   (ANDROID_HOME definido na sessão)
+BUILD SUCCESSFUL in 5m 54s
+655 actionable tasks: 627 executed, 28 up-to-date
+exit 0

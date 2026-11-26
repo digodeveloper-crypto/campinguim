@@ -1,0 +1,11 @@
+# P3 (S3), B online, depois de A: marca "Item 01" como separado.
+appId: com.campinguim.prova
+---
+- extendedWaitUntil:
+    visible:
+      id: lista-nome
+    timeout: 20000
+- runFlow:
+    file: tocar.yaml
+    env:
+      ID: "separar-Item 01"

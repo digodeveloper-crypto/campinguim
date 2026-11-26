@@ -1,0 +1,34 @@
+    RTC_WAKEUP #5: Alarm{9889ef4 type 0 origWhen 1795580089518 whenElapsed 3068722 com.campinguim.prova}
+      tag=*walarm*:expo.modules.notifications.NOTIFICATION_EVENT
+      type=RTC_WAKEUP origWhen=2026-11-25 01:14:49.518 window=+3m20s73ms repeatInterval=0 count=0 flags=0x20
+      policyWhenElapsed: requester=+2m2s622ms app_standby=-2m24s142ms device_idle=-- battery_saver=-3s909ms
+      whenElapsed=+2m2s622ms maxWhenElapsed=+5m22s695ms
+      operation=PendingIntent{452361d: PendingIntentRecord{aec1092 com.campinguim.prova broadcastIntent}}
+---
+    RTC_WAKEUP #6: Alarm{67bba63 type 0 origWhen 1795580130696 whenElapsed 3109900 com.campinguim.prova}
+      tag=*walarm*:expo.modules.notifications.NOTIFICATION_EVENT
+      type=RTC_WAKEUP origWhen=2026-11-25 01:15:30.696 window=+3m40s165ms repeatInterval=0 count=0 flags=0x20
+      policyWhenElapsed: requester=+2m43s800ms app_standby=-2m9s753ms device_idle=-- battery_saver=-3s909ms
+      whenElapsed=+2m43s800ms maxWhenElapsed=+6m23s965ms
+      operation=PendingIntent{10ab660: PendingIntentRecord{3611719 com.campinguim.prova broadcastIntent}}
+---
+    RTC_WAKEUP #7: Alarm{bb6a3de type 0 origWhen 1795580283927 whenElapsed 3263131 com.campinguim.prova}
+      tag=*walarm*:expo.modules.notifications.NOTIFICATION_EVENT
+      type=RTC_WAKEUP origWhen=2026-11-25 01:18:03.927 window=+5m14s979ms repeatInterval=0 count=0 flags=0x20
+      policyWhenElapsed: requester=+5m17s31ms app_standby=-1m42s942ms device_idle=-- battery_saver=-3s909ms
+      whenElapsed=+5m17s31ms maxWhenElapsed=+10m32s10ms
+      operation=PendingIntent{e6599bf: PendingIntentRecord{ed4d88c com.campinguim.prova broadcastIntent}}
+---
+    RTC_WAKEUP #9: Alarm{2e30bd5 type 0 origWhen 1795580379796 whenElapsed 3359001 com.campinguim.prova}
+      tag=*walarm*:expo.modules.notifications.NOTIFICATION_EVENT
+      type=RTC_WAKEUP origWhen=2026-11-25 01:19:39.796 window=+5m57s862ms repeatInterval=0 count=0 flags=0x20
+      policyWhenElapsed: requester=+6m52s901ms app_standby=-1m4s249ms device_idle=-- battery_saver=-3s910ms
+      whenElapsed=+6m52s901ms maxWhenElapsed=+12m50s763ms
+      operation=PendingIntent{4051fea: PendingIntentRecord{ee412db com.campinguim.prova broadcastIntent}}
+---
+    RTC_WAKEUP #10: Alarm{53cf178 type 0 origWhen 1795580475891 whenElapsed 3455095 com.campinguim.prova}
+      tag=*walarm*:expo.modules.notifications.NOTIFICATION_EVENT
+      type=RTC_WAKEUP origWhen=2026-11-25 01:21:15.891 window=+6m42s324ms repeatInterval=0 count=0 flags=0x20
+      policyWhenElapsed: requester=+8m28s995ms app_standby=-27s437ms device_idle=-- battery_saver=-3s910ms
+      whenElapsed=+8m28s995ms maxWhenElapsed=+15m11s319ms
+      operation=PendingIntent{7559051: PendingIntentRecord{10d50b6 com.campinguim.prova broadcastIntent}}
