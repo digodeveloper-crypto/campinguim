@@ -118,13 +118,14 @@ Funções com tipos, usadas pelas features da etapa 1:
 | --- | --- |
 | `viagens.ts` | `criarViagem` (viagem, família organizadora e pessoas numa transação; com ou sem data), `listarViagens`, `obterViagem`, `alterarViagem`, `apagarViagem`, `listarFamilias`, `alterarFamilia`, `listarPessoas`, `adicionarPessoa`, `alterarPessoa`, `removerPessoa`, `contarPorFaixa` |
 | `itens.ts` | `inserirItens` (a lista inteira numa transação), `listarItens` (por família, do grupo, com ou sem removidos), `obterItem`, `alterarItem`, `marcarSeparacao`, `removerItem` e `restaurarItem` (E1-04) |
+| `../armazenamentoDeEventos.ts` | `criarArmazenamentoNoBanco` (a porta de eventos da B6) |
 | `local.ts` | `lerEstado`, `gravarEstado`, `apagarEstado`, `obterIdDaInstalacao`, `guardarEvento`, `lerLoteDeEventos`, `apagarEventos`, `contarEventos`, `listarTabelas` |
 | `pix.ts` | `lerChavesPixDoComprador` |
 
 - **Valores conferidos antes de gravar** (`valores.ts`): listas fechadas da seção 3 (`kind`, `climate`, `status`, `age_band`, `origin`, `pack_state`, `return_state`...), datas `AAAA-MM-DD` que existem, volta não antes da ida, inteiros não negativos, UUID v4. Valor inválido gera `ValorInvalido` e nada é gravado. Motivo: um valor fora da lista seria recusado pelo servidor e travaria a fila do aparelho (ponto J1 da prova).
 - **Regras de negócio ficam fora**: quantas noites, quem entra na lista, quantidades e alertas são das features e de `packages/core`. A camada só grava e lê.
 - **Sem conta** (E1-14): `owner_profile_id` e `updated_by` nulos; `trip_member` não é criado pela camada (o vínculo com a conta é da 2.1 e o grupo, da 2.3).
-- **Eventos e a B6**: a B6 (já no main) definiu a porta `ArmazenamentoDeEventos` em `src/medicao/porta.ts`, hoje com armazenamento em memória. Ligar essa porta à tabela `evento_local` é uma tarefa posterior (como a própria B6 registra); `guardarEvento`, `lerLoteDeEventos`, `apagarEventos` e `contarEventos` cobrem `guardar`, `listarPendentes`, `marcarEnviados` e `contarPendentes` (o adaptador passa o `id` do evento da B6).
+- **Eventos e a B6**: a porta `ArmazenamentoDeEventos` da B6 (`src/medicao/porta.ts`) tem a implementação sobre o banco em `src/dados/armazenamentoDeEventos.ts` (`criarArmazenamentoNoBanco(ctx)`), em cima de `evento_local`: guarda com o `id` e a hora do registrador da B6 (o mesmo `id` não entra duas vezes), lista os mais antigos primeiro (empate na mesma hora: ordem de chegada), apaga os enviados ignorando `id` desconhecido e conta os pendentes. Um teste roda o mesmo roteiro contra a referência em memória da B6 e contra o banco e exige o mesmo resultado, e outro registra um evento pelo `criarMedicao` da B6 e o lê do banco. **Pendências de integração** (não são da B4): criar a instância da medição no app com este armazenamento (a feature que começar a registrar eventos, 1.11 ou a primeira tela da etapa 1); e o tamanho máximo da fila de eventos no aparelho quando fica muito tempo sem internet (pendência 6 de `docs/textos-e-eventos.md`, a decidir na 2.2).
 - **Eventos**: a camada só garante a forma (nome `snake_case`, propriedades de um nível com valores simples). A lista de eventos e de propriedades aceitas é da B6.
 - **Escritas só pelas funções da camada**: ela é quem põe `updated_at`, `updated_by` e `_metadata`. Os tipos não deixam a camada escrever numa tabela que vem só do servidor.
 
@@ -154,6 +155,7 @@ O que a 2.1 e a 2.2 completam (está escrito no próprio `conector.ts`):
 | `src/dados/__testes__/migracoes.test.ts` | Migrações em sequência, repetidas, de versão antiga, com erro, de versão futura; migração publicada não muda | idem, contra o SQLite do Node |
 | `src/dados/__testes__/acesso.test.ts` | Camada de acesso: viagens, pessoas, itens, estados, removidos, estado local, eventos, Pix | idem |
 | `src/dados/__testes__/verificacao.test.ts` | O roteiro de `verificacao.ts` inteiro | idem |
+| `src/dados/__testes__/armazenamentoDeEventos.test.ts` | Porta de eventos da B6 no banco: mesmo resultado da referência em memória; registrador da B6 gravando no banco | idem |
 | `e2e/jornadas/fumaca-banco/banco-cifrado.yaml` | **Teste instrumentado no emulador**: abre o app a frio (cria chave e banco cifrado), roda a verificação da camada num banco cifrado descartável, fecha e reabre | `npm run testar:jornadas -- fumaca` |
 
 Nos testes do computador, as tabelas sincronizadas são tabelas comuns do SQLite do Node com as mesmas colunas (no aparelho são vistas do PowerSync); o comportamento no aparelho, com SQLCipher e PowerSync, é o que a fumaça no emulador confere.

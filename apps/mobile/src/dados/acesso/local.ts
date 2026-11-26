@@ -101,7 +101,7 @@ export async function guardarEvento(
 /** Os eventos mais antigos primeiro, até `limite`, para um envio. */
 export async function lerLoteDeEventos(ctx: ContextoDeAcesso, limite: number): Promise<EventoGuardado[]> {
   if (!Number.isInteger(limite) || limite < 1) throw new ValorInvalido('limite', 'esperado inteiro maior que zero');
-  return ctx.db.getAll<EventoGuardado>('select * from evento_local order by at, id limit ?', [limite]);
+  return ctx.db.getAll<EventoGuardado>('select * from evento_local order by at, rowid limit ?', [limite]);
 }
 
 /** Apaga os eventos que o servidor confirmou. */
