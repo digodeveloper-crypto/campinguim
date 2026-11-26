@@ -14,5 +14,6 @@ A versão é criada pelo orquestrador com aprovação humana (GIT-06). Cada feat
 | B1 | Repositório, scripts locais de teste e ambiente em Docker | GIT-10, GIT-11 (e GIT-05, GIT-07, GIT-08, GIT-09) |
 | B1-FIX | Correção da B1: o teste da esteira falhava em todo checkout novo no Windows por causa do fim de linha CRLF; `.github/**` fixado em LF e leitura do teste tolerante a `\r?\n` | GIT-05, GIT-10 |
 | B6 | Arquivo de textos por tela (app e página), formatação em reais e datas brasileiras, eventos de medição com validação e registro no aparelho | NF-09, DAT-04, DAT-05, RET-09, RET-10 (SPEC, seção 12) |
+| B3 | Motor de regras e catálogo da lista: geração e recálculo, cotas, aprendizado, alertas, frescor e duplicados como funções puras, com os casos da SPEC, seção 9 (`docs/regras.md`) | SPEC, seções 5 e 9 (E1-02, E1-03, E1-04, E1-11, E1-12, E2-09 a E2-13; regras puras de E3-05 a E3-09, E3-16, E3-17, E3-20 a E3-24) |
 
 Documentos de referência: `docs/PRD.md`, `docs/SPEC.md`, `docs/DESIGN.md`, `docs/prova-tecnica/resultado.md`.

@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Catálogo de itens da lista (SPEC, seção 5)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["versao", "fonte", "variaveis", "unidades", "categorias", "exclusoesPorTipo", "itens"],
+  "properties": {
+    "versao": { "type": "integer", "minimum": 1 },
+    "fonte": { "type": "string", "minLength": 1 },
+    "variaveis": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tipo", "descricao"],
+        "properties": {
+          "tipo": { "enum": ["numero", "logico", "texto"] },
+          "valores": { "type": "array", "items": { "$ref": "#/$defs/chave" }, "minItems": 1 },
+          "descricao": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "unidades": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["singular", "plural"],
+        "properties": {
+          "singular": { "type": "string", "minLength": 1 },
+          "plural": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "categorias": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "nome"],
+        "properties": {
+          "key": { "$ref": "#/$defs/chave" },
+          "nome": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "exclusoesPorTipo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mochila", "motorhome"],
+      "properties": {
+        "mochila": { "type": "array", "items": { "$ref": "#/$defs/chave" } },
+        "motorhome": { "type": "array", "items": { "$ref": "#/$defs/chave" } }
+      }
+    },
+    "itens": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/item" } }
+  },
+  "$defs": {
+    "chave": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+    "expressao": { "type": "string", "minLength": 1 },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "name", "category", "scope", "when", "qty", "unit", "dependsOnCamping", "consumivel", "entraQuandoSpec", "quantidadeSpec"],
+      "properties": {
+        "key": { "$ref": "#/$defs/chave" },
+        "name": { "type": "string", "minLength": 1 },
+        "category": { "$ref": "#/$defs/chave" },
+        "scope": { "enum": ["pessoa", "familia", "grupo"] },
+        "when": { "$ref": "#/$defs/expressao" },
+        "qty": { "anyOf": [{ "$ref": "#/$defs/expressao" }, { "type": "null" }] },
+        "unit": { "anyOf": [{ "$ref": "#/$defs/chave" }, { "type": "null" }] },
+        "detalhe": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["qty", "unit"],
+          "properties": {
+            "qty": { "$ref": "#/$defs/expressao" },
+            "unit": { "$ref": "#/$defs/chave" }
+          }
+        },
+        "tarefa": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["tipo"],
+          "properties": {
+            "tipo": { "enum": ["conferir", "planejar_refeicoes"] },
+            "partes": { "type": "object", "additionalProperties": { "$ref": "#/$defs/expressao" } }
+          }
+        },
+        "dependsOnCamping": { "type": "boolean" },
+        "consumivel": { "type": "boolean" },
+        "decisao": { "type": "string", "minLength": 1 },
+        "entraQuandoSpec": { "type": "string", "minLength": 1 },
+        "quantidadeSpec": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

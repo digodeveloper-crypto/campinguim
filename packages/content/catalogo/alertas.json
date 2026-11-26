@@ -1,0 +1,42 @@
+{
+  "versao": 1,
+  "fonte": "docs/SPEC.md, seção 6 (Do resumo aos alertas e à lista, coluna Texto-base)",
+  "textos": {
+    "voltagem_220": "220 V: confira o que você vai ligar",
+    "sem_energia": "Sem energia elétrica",
+    "tomada_longe": "Tomada longe: extensão de 20 m",
+    "tomada_perto": "Tomada perto da barraca",
+    "sem_tomada": "Sem tomada na área de barracas",
+    "chuveiro": "1 chuveiro para cerca de {barracas} barracas",
+    "sem_agua_quente": "Sem água quente",
+    "churrasco_proibido": "Churrasco não é permitido",
+    "churrasco_area_comum": "Churrasco só na área comum",
+    "pet_nao_aceita": "Este camping não aceita pet",
+    "pet_restricao": "Aceita pet com restrições: confirme antes",
+    "silencio": "Silêncio a partir das {horario}",
+    "piscina_horario": "Piscina abre às {horario}",
+    "piscina": "Tem piscina",
+    "sinal_fraco": "Sinal fraco: veja por operadora",
+    "limpeza_negativa": "Limpeza do banheiro: relatos recentes negativos"
+  },
+  "tarefas": {
+    "confira_aparelhos": "confira seus aparelhos",
+    "baixe_mapas": "baixe os mapas e avise a família"
+  },
+  "avisos": {
+    "nao_confirmado": "não confirmado",
+    "depende_do_camping": "depende do camping",
+    "sobrou_da_ultima_vez": "sobrou da última vez"
+  },
+  "horarios": {
+    "8h": "8h",
+    "9h": "9h",
+    "10h": "10h",
+    "11h": "11h",
+    "20h": "20h",
+    "21h": "21h",
+    "22h": "22h",
+    "23h": "23h",
+    "meia_noite": "meia-noite"
+  }
+}

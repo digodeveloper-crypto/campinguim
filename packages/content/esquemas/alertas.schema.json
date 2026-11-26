@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Textos-base dos alertas da ficha do camping (SPEC, seção 6)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["versao", "fonte", "textos", "tarefas", "avisos", "horarios"],
+  "properties": {
+    "versao": { "type": "integer", "minimum": 1 },
+    "fonte": { "type": "string", "minLength": 1 },
+    "textos": { "$ref": "#/$defs/mapaDeTextos" },
+    "tarefas": { "$ref": "#/$defs/mapaDeTextos" },
+    "avisos": { "$ref": "#/$defs/mapaDeTextos" },
+    "horarios": { "$ref": "#/$defs/mapaDeTextos" }
+  },
+  "$defs": {
+    "mapaDeTextos": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z0-9][a-z0-9_]*$" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    }
+  }
+}

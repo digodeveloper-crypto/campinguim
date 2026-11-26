@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Tarefas de véspera e da volta (SPEC, seção 5)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["versao", "fonte", "vespera", "volta"],
+  "properties": {
+    "versao": { "type": "integer", "minimum": 1 },
+    "fonte": { "type": "string", "minLength": 1 },
+    "vespera": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "texto"],
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "texto": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "volta": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "texto", "emCasa"],
+        "properties": {
+          "key": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+          "texto": { "type": "string", "minLength": 1 },
+          "emCasa": { "type": "boolean" }
+        }
+      }
+    }
+  }
+}

@@ -253,6 +253,10 @@ Este catálogo é a fonte única do que a lista gera. Ele vive em `packages/cont
 - **Família:** um por família.
 - **Grupo:** um para a viagem toda. Em viagem de grupo, vira item compartilhado, com dono (E2-03).
 
+**Categorias.** **Decidido pelo responsável em 26/11/2026:** valem as 11 categorias das tabelas abaixo; o PRD (E1-02) foi ajustado para citar as mesmas.
+
+**Consumíveis.** **Decidido pelo responsável em 26/11/2026:** são consumíveis, tudo o que acaba e não volta para casa: `agua`, `gas`, `gelo`, `carvao`, `sacos_lixo`, `papel_hig`, `papel_toalha`, `fraldas`, `lencos` e `racao`. Alimentos e básicos de cozinha não são. Só os consumíveis têm a quantidade reduzida por "sobrou" (veja "Aprendizado", abaixo).
+
 **Abrigo**
 
 | Chave | Item | Entra quando | Quantidade | Escopo |
@@ -412,10 +416,10 @@ A categoria só aparece com `pets` maior que 0.
 
 **Regras de geração**
 
-- **Tipos de viagem.** Trilha com mochila exclui `mesa`, `cadeiras`, `cooler`, `carvao`, `grelha`, `lona_sombra`, `balde` e `cintas`. Motorhome exclui `barraca`, `lona_chao`, `espeques`, `martelo` e `isolante`. O conteúdo desses dois tipos é mínimo na versão 1.
-- **Depende do camping.** Sem destino ou sem dados, os itens marcados assim entram com a etiqueta "depende do camping" (E3-09). Com dados, quem decide é a tabela da seção 6.
+- **Tipos de viagem.** Trilha com mochila exclui `mesa`, `cadeiras`, `cooler`, `carvao`, `grelha`, `lona_sombra`, `balde` e `cintas`. Motorhome exclui `barraca`, `lona_chao`, `espeques`, `martelo` e `isolante`. O conteúdo desses dois tipos é mínimo na versão 1. **Decidido pelo responsável em 26/11/2026:** o motorhome também leva `mesa`, `cadeiras`, `grelha` e `carvao`, como a viagem de barraca com carro; não leva `balde` nem `cintas`. A trilha com mochila segue sem esses itens.
+- **Depende do camping.** Sem destino ou sem dados, os itens marcados assim entram com a etiqueta "depende do camping" (E3-09). Com dados, quem decide é a tabela da seção 6. **Decidido pelo responsável em 26/11/2026:** com dados, camping com tomada (perto ou longe da barraca, qualquer tensão) faz entrar `extensao` (com o comprimento da seção 6) e `adaptador`; sem tomada na área de barracas, os dois saem.
 - **Recálculo.** Ao mudar uma resposta, só itens de origem `generated` são recalculados. Itens removidos não voltam, itens manuais não são tocados e quantidades editadas à mão são preservadas.
-- **Aprendizado (E1-11).** Um item marcado como "faltou" entra na próxima lista daquela pessoa. Um consumível marcado como "sobrou" em duas viagens seguidas tem a quantidade reduzida em 25% (premissa), com aviso. O usuário pode desfazer.
+- **Aprendizado (E1-11).** Um item marcado como "faltou" entra na próxima lista daquela pessoa. Um consumível marcado como "sobrou" em duas viagens seguidas tem a quantidade reduzida em 25% (premissa), com aviso. O usuário pode desfazer. **Decidido pelo responsável em 26/11/2026:** a redução acumula: cada nova viagem seguida em que o item sobrou reduz de novo, sobre a quantidade já reduzida, até o mínimo de 1, e toda redução vem sinalizada "sobrou da última vez". A conta de cada redução está na seção 9 ("Sobras").
 - **Formato do arquivo.** Cada item tem `key`, `name`, `category`, `scope`, `when`, `qty`, `unit` e `dependsOnCamping`. `when` e `qty` são expressões sobre as variáveis acima, avaliadas por um interpretador pequeno em `packages/core`, sem execução de código livre.
 
 ## 6. Ficha do camping
@@ -697,6 +701,12 @@ Retrato de referência: 220 V, tomada longe, 1 chuveiro, capacidade de 11 a 25, 
 | A4 | `churrasco` = proibido | Atenção; saem `carvao` e `grelha`. |
 | A5 | Fato de chuveiro com um único relato | Aparece como informação "não confirmado"; `ducha` não entra por ajuste. |
 | A6 | Usuário desfaz o ajuste da `extensao` | Volta ao estado anterior, e um novo retrato não reaplica o ajuste desfeito. |
+
+**Decidido pelo responsável em 26/11/2026:** há tomada no retrato de referência, então em A1 entram `extensao`, de 20 m como na tabela, e `adaptador` (seção 5, "Depende do camping"). Fato não confirmado de nível ajuste, como tomada e piscina, também só aparece como informação e não mexe na lista, como no A5.
+
+**Sobras**
+
+**Decidido pelo responsável em 26/11/2026:** a cada viagem seguida em que um consumível sobrou, a partir da segunda (seção 5, "Aprendizado"), nova = `teto(qty × 0,75)`; se o teto não muda a quantidade, nova = `max(1, qty − 1)`. A redução sempre avança e chega a 1: 10 → 8 → 6 → 5 → 4 → 3 → 2 → 1; 2 vai a 1 na segunda sobra; 1 fica 1. Toda redução vem sinalizada "sobrou da última vez".
 
 **Frescor e confirmação**
 

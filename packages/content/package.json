@@ -2,7 +2,7 @@
   "name": "@campinguim/content",
   "version": "0.0.0",
   "private": true,
-  "description": "Catálogos do Campinguim em arquivos de dados (SPEC, seções 5 e 6). Conteúdo entra na B3.",
+  "description": "Catálogos do Campinguim em arquivos de dados: itens e quantidades (SPEC, seção 5), tarefas de véspera e da volta e textos-base dos alertas (seção 6). Lidos e conferidos pelo packages/core.",
   "type": "module",
   "files": [
     "catalogo",

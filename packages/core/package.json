@@ -2,7 +2,7 @@
   "name": "@campinguim/core",
   "version": "0.0.0",
   "private": true,
-  "description": "Regras puras do Campinguim (lista, cotas, validade, alertas). Sem tela e sem rede.",
+  "description": "Regras puras do Campinguim (lista, cotas, aprendizado, alertas, frescor, duplicados; formatação pt-BR e eventos de medição) e leitura do catálogo de packages/content. Sem tela e sem rede.",
   "type": "module",
   "main": "src/index.ts",
   "types": "src/index.ts",
@@ -13,6 +13,10 @@
   },
   "scripts": {
     "tipos": "tsc --noEmit -p tsconfig.json",
-    "testar": "vitest run"
+    "testar": "vitest run",
+    "cobertura": "vitest run --coverage --coverage.provider=v8 --coverage.include=src/** --coverage.exclude=src/**/*.test.ts --coverage.reporter=text --coverage.reporter=html --coverage.thresholds.lines=90"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "5.1.0"
   }
 }
