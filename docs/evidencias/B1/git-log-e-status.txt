@@ -1,0 +1,12 @@
+# Ramo feature/B1-base, 26/11/2026 14:47. Gerado antes do commit que acrescenta este arquivo.
+$ git log --oneline main..HEAD
+849abdb B1: evidências da rodada 1 e ajustes achados ao gerar o app
+467e5d5 B1: estrutura do monorepo, ambiente local em Docker e suíte local de testes
+
+$ git status --short --branch
+## feature/B1-base
+?? docs/evidencias/B1/git-log-e-status.txt
+(só a linha do ramo: árvore limpa)
+
+$ git log main..HEAD --format='%an <%ae>' | sort -u   # autor dos commits
+digodeveloper-crypto <241984478+digodeveloper-crypto@users.noreply.github.com>
