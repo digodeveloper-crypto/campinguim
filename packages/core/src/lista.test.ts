@@ -212,9 +212,21 @@ describe('Regras de geração (SPEC, seção 5)', () => {
   it('motorhome exclui barraca, lona de chão, espeques, martelo e isolante', () => {
     const lista = gerarLista({ ...VIAGEM_DE_REFERENCIA, tipo: 'motorhome' }, catalogo);
     for (const chave of ['barraca', 'lona_chao', 'espeques', 'martelo', 'isolante']) expect(porChave(lista, chave), chave).toBeUndefined();
-    // itens "Viagem de barraca com carro" também não entram (leitura literal)
-    for (const chave of ['mesa', 'cadeiras', 'carvao', 'grelha', 'balde', 'cintas']) expect(porChave(lista, chave), chave).toBeUndefined();
     expect(porChave(lista, 'cooler')).toBeDefined();
+  });
+
+  it('decisão de 26/11/2026: motorhome leva mesa, cadeiras, grelha e carvão; não leva balde nem cintas', () => {
+    const lista = gerarLista({ ...VIAGEM_DE_REFERENCIA, tipo: 'motorhome' }, catalogo);
+    expect(qty(lista, 'mesa')).toBe(1);
+    expect(qty(lista, 'cadeiras')).toBe(4);
+    expect(qty(lista, 'grelha')).toBe(1);
+    expect(qty(lista, 'carvao')).toBe(1);
+    expect(porChave(lista, 'balde')).toBeUndefined();
+    expect(porChave(lista, 'cintas')).toBeUndefined();
+    // trocar de barraca com carro para motorhome: saem só os itens de barraca, balde e cintas
+    const r = recalcularLista(gerarLista(VIAGEM_DE_REFERENCIA, catalogo), { ...VIAGEM_DE_REFERENCIA, tipo: 'motorhome' }, catalogo);
+    expect(chaves(r.sairam)).toEqual(['balde', 'barraca', 'cintas', 'espeques', 'isolante', 'lona_chao', 'martelo']);
+    expect(r.entraram).toEqual([]);
   });
 
   it('trilha com mochila exclui também a lona de sombra, mesmo com chuva', () => {

@@ -5,20 +5,21 @@
 
  RUN  v5.1.0 C:/campinguim-wt/B3
 
- ❯  servidor  supabase/testes/autorizacao.test.ts (4 tests | 4 failed) 15ms
+ ❯  servidor  supabase/testes/ambiente.test.ts (4 tests | 4 failed) 41ms
+   ❯ ambiente local (GIT-11) (4)
+     × a API do Supabase local responde na porta do arquivo de configuração 5ms
+     × o serviço PowerSync responde 33ms
+     × o banco tem todas as migrações do repositório, na ordem 1ms
+     × a publicação do PowerSync existe e a replicação está ativa 1ms
+ ❯  servidor  supabase/testes/autorizacao.test.ts (4 tests | 4 failed) 8ms
    ❯ RLS em toda tabela (2)
-     × nenhuma tabela dos esquemas da aplicação está sem RLS 9ms
-     × a conferência acha uma tabela sem RLS (criada e desfeita dentro de uma transação) 2ms
+     × nenhuma tabela dos esquemas da aplicação está sem RLS 4ms
+     × a conferência acha uma tabela sem RLS (criada e desfeita dentro de uma transação) 1ms
    ❯ login (2)
      × cadastro aberto desligado: ninguém cria conta por e-mail e senha pela API 1ms
      × sem login, a chave pública não vê nenhuma tabela na API 1ms
- ❯  servidor  supabase/testes/ambiente.test.ts (4 tests | 3 failed) 65ms
-   ❯ ambiente local (GIT-11) (4)
-     × a API do Supabase local responde na porta do arquivo de configuração 6ms
-     × o banco tem todas as migrações do repositório, na ordem 1ms
-     × a publicação do PowerSync existe e a replicação está ativa 1ms
 
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
 
  FAIL   servidor  supabase/testes/ambiente.test.ts > ambiente local (GIT-11) > a API do Supabase local responde na porta do arquivo de configuração
 Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, SUPABASE_CHAVE_SERVICO, PS_DATA_SOURCE_URI, PS_PORT em .env.local: rode "npm run ambiente:subir"
@@ -31,7 +32,14 @@ Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, 
      16| }
  ❯ supabase/testes/ambiente.test.ts:8:17
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL   servidor  supabase/testes/ambiente.test.ts > ambiente local (GIT-11) > o serviço PowerSync responde
+TypeError: fetch failed
+Caused by: Error: connect ECONNREFUSED 127.0.0.1:8080
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -4078, code: 'ECONNREFUSED', syscall: 'connect', address: '127.0.0.1', port: 8080 }
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
 
  FAIL   servidor  supabase/testes/ambiente.test.ts > ambiente local (GIT-11) > o banco tem todas as migrações do repositório, na ordem
 Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, SUPABASE_CHAVE_SERVICO, PS_DATA_SOURCE_URI, PS_PORT em .env.local: rode "npm run ambiente:subir"
@@ -45,7 +53,7 @@ Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, 
  ❯ comBanco supabase/testes/apoio.ts:20:53
  ❯ supabase/testes/ambiente.test.ts:20:29
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
 
  FAIL   servidor  supabase/testes/ambiente.test.ts > ambiente local (GIT-11) > a publicação do PowerSync existe e a replicação está ativa
 Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, SUPABASE_CHAVE_SERVICO, PS_DATA_SOURCE_URI, PS_PORT em .env.local: rode "npm run ambiente:subir"
@@ -59,7 +67,7 @@ Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, 
  ❯ comBanco supabase/testes/apoio.ts:20:53
  ❯ supabase/testes/ambiente.test.ts:28:41
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
 
  FAIL   servidor  supabase/testes/autorizacao.test.ts > RLS em toda tabela > nenhuma tabela dos esquemas da aplicação está sem RLS
 Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, SUPABASE_CHAVE_SERVICO, PS_DATA_SOURCE_URI, PS_PORT em .env.local: rode "npm run ambiente:subir"
@@ -73,7 +81,7 @@ Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, 
  ❯ comBanco supabase/testes/apoio.ts:20:53
  ❯ supabase/testes/autorizacao.test.ts:17:26
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
 
  FAIL   servidor  supabase/testes/autorizacao.test.ts > RLS em toda tabela > a conferência acha uma tabela sem RLS (criada e desfeita dentro de uma transação)
 Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, SUPABASE_CHAVE_SERVICO, PS_DATA_SOURCE_URI, PS_PORT em .env.local: rode "npm run ambiente:subir"
@@ -87,7 +95,7 @@ Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, 
  ❯ comBanco supabase/testes/apoio.ts:20:53
  ❯ supabase/testes/autorizacao.test.ts:22:26
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
 
  FAIL   servidor  supabase/testes/autorizacao.test.ts > login > cadastro aberto desligado: ninguém cria conta por e-mail e senha pela API
 Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, SUPABASE_CHAVE_SERVICO, PS_DATA_SOURCE_URI, PS_PORT em .env.local: rode "npm run ambiente:subir"
@@ -100,7 +108,7 @@ Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, 
      16| }
  ❯ supabase/testes/autorizacao.test.ts:37:17
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
 
  FAIL   servidor  supabase/testes/autorizacao.test.ts > login > sem login, a chave pública não vê nenhuma tabela na API
 Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, SUPABASE_CHAVE_SERVICO, PS_DATA_SOURCE_URI, PS_PORT em .env.local: rode "npm run ambiente:subir"
@@ -113,12 +121,12 @@ Error: falta SUPABASE_URL_LOCAL, SUPABASE_DB_URL_LOCAL, SUPABASE_CHAVE_PUBLICA, 
      16| }
  ❯ supabase/testes/autorizacao.test.ts:47:17
 
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
 
 
  Test Files  2 failed | 13 passed | 1 skipped (16)
-      Tests  7 failed | 379 passed | 3 skipped (389)
-   Start at  16:16:48
-   Duration  5.53s (tests 62%, import 29%, transform 7%, worker 2%)
+      Tests  8 failed | 385 passed | 3 skipped (396)
+   Start at  17:04:02
+   Duration  2.34s (tests 49%, import 36%, transform 11%, worker 3%)
 
 SAIDA=1

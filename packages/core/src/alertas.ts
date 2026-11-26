@@ -41,7 +41,7 @@ export interface Alerta {
 
 /** Efeito de uma linha da tabela na lista. */
 export type Efeito =
-  | { readonly tipo: 'entra'; readonly item: string; readonly condicao?: string; readonly metros?: number }
+  | { readonly tipo: 'entra'; readonly item: string; readonly condicao?: string }
   | { readonly tipo: 'sai'; readonly item: string }
   | { readonly tipo: 'soma'; readonly item: string; readonly delta: number }
   | { readonly tipo: 'tarefa'; readonly tarefa: string };
@@ -126,26 +126,29 @@ export function avaliarRetrato(retrato: Retrato, entrada: EntradaDaViagem): Aval
     }
   }
 
+  // Decidido pelo responsável em 26/11/2026: camping com tomada (perto ou longe da barraca, qualquer
+  // tensão) faz entrar extensão e adaptador; sem tomada, os dois saem. "Tomada longe" é o alerta sobre a
+  // extensão e não muda a entrada. Sem energia elétrica não há tomada: nada entra.
   const tomada = retrato['energia_tomada'];
   if (valido(tomada)) {
+    const semEnergia = valido(voltagem) && voltagem.valor === 'sem_energia';
+    const entramComTomada: Regra['efeitos'] = semEnergia
+      ? []
+      : [
+          { tipo: 'entra', item: 'extensao' },
+          { tipo: 'entra', item: 'adaptador' },
+        ];
     if (tomada.valor === 'longe') {
-      registrar('energia_tomada', tomada.valor, [tomada], {
-        texto: 'tomada_longe',
-        nivel: 'ajuste',
-        efeitos: [{ tipo: 'entra', item: 'extensao', metros: 20 }],
-      });
+      registrar('energia_tomada', tomada.valor, [tomada], { texto: 'tomada_longe', nivel: 'ajuste', efeitos: entramComTomada });
     } else if (tomada.valor === 'perto') {
-      registrar('energia_tomada', tomada.valor, [tomada], {
-        texto: 'tomada_perto',
-        nivel: 'ajuste',
-        efeitos: [{ tipo: 'entra', item: 'extensao', metros: 5 }],
-      });
+      registrar('energia_tomada', tomada.valor, [tomada], { texto: 'tomada_perto', nivel: 'ajuste', efeitos: entramComTomada });
     } else if (tomada.valor === 'sem_tomada') {
       registrar('energia_tomada', tomada.valor, [tomada], {
         texto: 'sem_tomada',
         nivel: 'atencao',
         efeitos: [
           { tipo: 'sai', item: 'extensao' },
+          { tipo: 'sai', item: 'adaptador' },
           { tipo: 'soma', item: 'bateria_portatil', delta: 1 },
         ],
       });
@@ -337,12 +340,7 @@ export function aplicarAjustes(
       }
       const montado = montarItem(item, variaveis, familia, 'camping_adjust', false);
       if (!montado) continue;
-      const novo: ItemDaLista = {
-        ...montado,
-        ref,
-        detalhe: ajuste.metros !== undefined ? { qty: ajuste.metros, unidade: 'metro' } : montado.detalhe,
-      };
-      lista.push(novo);
+      lista.push({ ...montado, ref });
       entraram.push({ ajusteId: ajuste.id, ref });
     }
   }

@@ -42,12 +42,18 @@ export type TarefaDoItem =
 /** Marca do aprendizado de "faltou e sobrou" (E1-11), para a tela mostrar a mudança e desfazer. */
 export type Aprendizado =
   | { readonly tipo: 'faltou' }
-  | { readonly tipo: 'reduzido'; readonly qtyAnterior: number; readonly percentual: number }
+  | { readonly tipo: 'reduzido'; readonly qtyAnterior: number; readonly percentual: number; readonly reducoes: number }
   | { readonly tipo: 'sinalizado' };
 
-/** Quantidade reduzida pelo aprendizado: menos `percentual` %, arredondada para cima (como o `teto` do catálogo). */
-export function reduzirQuantidade(qty: number, percentual: number): number {
-  return Math.ceil((qty * (100 - percentual)) / 100);
+/**
+ * Quantidade reduzida pelo aprendizado: `vezes` reduções seguidas de `percentual` %, cada uma sobre a
+ * quantidade já reduzida, arredondada para cima (o `teto` do catálogo), até o mínimo de 1 (decisão do
+ * responsável, 26/11/2026).
+ */
+export function reduzirQuantidade(qty: number, percentual: number, vezes = 1): number {
+  let q = qty;
+  for (let i = 0; i < vezes && q > 1; i += 1) q = Math.max(1, Math.ceil((q * (100 - percentual)) / 100));
+  return q;
 }
 
 export interface ItemDaLista {
@@ -220,7 +226,7 @@ export function recalcularLista(atual: readonly ItemDaLista[], entrada: EntradaD
     }
     // A redução do aprendizado (E1-11) vale sobre a quantidade nova, até a pessoa desfazer.
     const reducao = existente.aprendizado?.tipo === 'reduzido' && gerado.qty !== null ? existente.aprendizado : null;
-    const qty = existente.qtyEditada ? existente.qty : reducao ? reduzirQuantidade(gerado.qty as number, reducao.percentual) : gerado.qty;
+    const qty = existente.qtyEditada ? existente.qty : reducao ? reduzirQuantidade(gerado.qty as number, reducao.percentual, reducao.reducoes) : gerado.qty;
     if (qty !== existente.qty) quantidadesAlteradas.push({ ref: existente.ref, de: existente.qty, para: qty });
     lista.push({
       ...existente,

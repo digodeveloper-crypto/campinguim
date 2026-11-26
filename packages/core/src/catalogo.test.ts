@@ -108,8 +108,21 @@ describe('catálogo × SPEC, seção 5', () => {
     expect(catalogo.tarefas.volta.filter((t) => t.emCasa).map((t) => t.key)).toEqual(['secar_barraca', 'saco_dormir']);
   });
 
-  it('consumíveis marcados são só os que o PRD nomeia em E1-03 (água, gás, gelo, carvão)', () => {
-    expect(catalogo.itens.filter((i) => i.consumivel).map((i) => i.key).sort()).toEqual(['agua', 'carvao', 'gas', 'gelo']);
+  it('consumíveis marcados são exatamente os da decisão do responsável de 26/11/2026 na SPEC', () => {
+    const paragrafo = /^\*\*Consumíveis\.\*\* \*\*Decidido pelo responsável em 26\/11\/2026:\*\* (.+)$/m.exec(secao(5))?.[1] ?? '';
+    const daSpec = [...(paragrafo.split('Alimentos')[0] ?? '').matchAll(/`([a-z_]+)`/g)].map((m) => m[1] as string);
+    expect(daSpec).toHaveLength(10);
+    expect(catalogo.itens.filter((i) => i.consumivel).map((i) => i.key).sort()).toEqual([...daSpec].sort());
+    // alimentos e básicos de cozinha não são consumíveis
+    for (const chave of ['refeicoes', 'basicos', 'lanches']) expect(catalogo.porChave.get(chave)?.consumivel, chave).toBe(false);
+  });
+
+  it('itens com decisão do responsável: o motorhome leva mesa, cadeiras, grelha e carvão (SPEC, "Tipos de viagem")', () => {
+    const frase = /o motorhome também leva ([^;]+);/.exec(secao(5))?.[1] ?? '';
+    const daSpec = [...frase.matchAll(/`([a-z_]+)`/g)].map((m) => m[1] as string);
+    expect(daSpec).toEqual(['mesa', 'cadeiras', 'grelha', 'carvao']);
+    expect(catalogo.itens.filter((i) => i.decisao !== null).map((i) => i.key).sort()).toEqual([...daSpec].sort());
+    for (const chave of daSpec) expect(catalogo.porChave.get(chave)?.decisao).toMatch(/^Decidido pelo responsável em 26\/11\/2026: /);
   });
 });
 
@@ -164,6 +177,7 @@ describe('validarCatalogo recusa catálogo com erro', () => {
     ['chave fora do formato', { key: 'Barraca' }, /snake_case/],
     ['expressão quebrada', { qty: '(P + 1' }, /esperava "\)"/],
     ['marca que não é verdadeiro ou falso', { consumivel: 'sim' }, /verdadeiro ou falso/],
+    ['decisão vazia', { decisao: '' }, /esperava um texto/],
   ])('%s', (_caso, mudanca, erro) => {
     expect(() => validar(comItem(mudanca))).toThrow(erro);
   });

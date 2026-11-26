@@ -10,7 +10,7 @@ Critérios copiados do `docs/PRD.md`. A tela e a gravação de cada um são das 
 
 | ID | Requisito | Critério de aceite | Onde |
 | --- | --- | --- | --- |
-| E1-02 | Gerar a lista por categoria: abrigo, dormir, cozinha, comida e bebida, roupa, higiene, primeiros socorros e segurança, ferramentas, lazer, documentos, crianças, pet. | Mudar uma resposta recalcula a lista e mostra quantos itens entraram e saíram. Categorias sem itens (pet, crianças) não aparecem. | `lista.ts`: `gerarLista`, `recalcularLista`, `categoriasVisiveis` |
+| E1-02 | Gerar a lista por categoria: abrigo, dormir, cozinha, comida e bebida, roupa, higiene, primeiros socorros e segurança, ferramentas e energia, lazer e documentos, crianças, pet (ajustado em 26/11/2026 por decisão do responsável, para bater com a SPEC seção 5). | Mudar uma resposta recalcula a lista e mostra quantos itens entraram e saíram. Categorias sem itens (pet, crianças) não aparecem. | `lista.ts`: `gerarLista`, `recalcularLista`, `categoriasVisiveis` |
 | E1-03 | Calcular quantidades de consumíveis (água, gás, gelo, carvão) por pessoas e noites. | As quantidades mudam ao alterar pessoas ou noites. As fórmulas vêm do conteúdo definido na spec. | `itens.json` (`qty`), `expressao.ts` |
 | E1-04 | Editar a lista: adicionar, remover, renomear, alterar quantidade e escrever uma nota por item. | Item removido não volta ao recalcular. Item adicionado à mão nunca é apagado por recálculo. | `lista.ts`: `removerItem`, `restaurarItem`, `editarQuantidade`, `editarItem`, `adicionarItemManual`, `recalcularLista` |
 | E1-11 | Perguntar em casa o que sobrou e o que faltou, e usar isso na próxima lista. | Na viagem seguinte, o que faltou já vem na lista e o que sobrou vem com quantidade menor ou sinalizado. A mudança é mostrada ao usuário. | `aprendizado.ts`: `aplicarAprendizado`, `desfazerAprendizado` |
@@ -59,6 +59,8 @@ Critérios copiados do `docs/PRD.md`. A tela e a gravação de cada um são das 
 - escopo **família**: um item por família, com as variáveis da própria família;
 - escopo **pessoa**: um item por família, com `porPessoa` = a quantidade da fórmula e `qty` = `porPessoa` × pessoas da família ("mudas 3 por pessoa" = 12; "manta 4").
 
+Tipos de viagem: a trilha com mochila e o motorhome excluem os itens da lista da SPEC; **Decidido pelo responsável em 26/11/2026:** o motorhome leva também `mesa`, `cadeiras`, `grelha` e `carvao` (no catálogo, `when` com `tipo == 'motorhome'` e o campo `decisao`), e não leva `balde` nem `cintas`.
+
 Cada item gerado tem a referência estável `chave@família` (ou `chave@grupo`) e nasce com origem `generated` e todos os estados zerados. Item que depende do camping entra com `dependeDoCamping` verdadeiro quando não há dados (E3-09). Linha com quantidade zero não entra (por exemplo, cadeiras numa família só de bebês).
 
 **Recálculo (`recalcularLista`).** Gera de novo e compara pela referência. Só itens `generated` mudam: removidos ficam guardados como removidos e nunca voltam; manuais e itens de ajuste do camping não são tocados; quantidade editada à mão (`qtyEditada`) fica. Item manual com a mesma chave do catálogo (o que voltou por "faltou") ocupa o lugar do gerado, que não entra em duplicado. Devolve `entraram`, `sairam` e `quantidadesAlteradas` para a tela mostrar "N entraram, M saíram".
@@ -72,9 +74,11 @@ Cada item gerado tem a referência estável `chave@família` (ou `chave@grupo`) 
 
 Como a saída é derivada, desfazer um ajuste é aplicar de novo sem ele, e um retrato novo igual não o reaplica (A6).
 
+Tomada (**Decidido pelo responsável em 26/11/2026:**): com dados do camping, `extensao` e `adaptador` não entram pela geração; entram por ajuste quando `energia_tomada` é "perto" ou "longe", em qualquer tensão (127 V, 220 V ou as duas), e saem com "sem tomada" (que também soma 1 à `bateria_portatil`). "Tomada longe" e "tomada perto" são os alertas de nível ajuste sobre a extensão e fazem entrar os mesmos itens, sem detalhe de metros. Com `energia_voltagem` "sem energia", nada entra pela tomada. Com dados mas sem valor vigente para a tomada, os dois ficam fora (leitura literal: só entram quando o fato diz que há tomada).
+
 **Cotas (`dividirGasto`, `resumirGastos`).** Meias cotas (adulto e adolescente 2, criança 1, menor de 5 zero; excluído zero), `H` = soma, valor da parte = valor ÷ `H` arredondado para baixo, em centavos inteiros. A família compradora deve zero e absorve a diferença. `per_family`: 1 parte por família com ao menos uma pessoa não excluída. `adults_teens`: 1 parte por adulto ou adolescente não excluído. Só com estimativa, a divisão sai marcada `estimado` e não vira dívida (C7).
 
-**Aprendizado (`aplicarAprendizado`, `repetirViagem`).** "Faltou" na última viagem: o item entra na próxima lista (volta, se estava removido; item fora da lista entra como item da pessoa, que o recálculo não apaga). "Sobrou" num consumível nas duas últimas viagens: quantidade × 0,75 arredondada para cima, com aviso; se o arredondamento não muda a quantidade, o item vem só sinalizado (E1-11: "com quantidade menor ou sinalizado"). A redução continua valendo sobre a quantidade recalculada até ser desfeita. `repetirViagem` gera a lista com as mesmas respostas, leva removidos, itens manuais e quantidades editadas, zera os estados e aplica o aprendizado.
+**Aprendizado (`aplicarAprendizado`, `repetirViagem`).** "Faltou" na última viagem: o item entra na próxima lista (volta, se estava removido; item fora da lista entra como item da pessoa, que o recálculo não apaga). "Sobrou" num consumível (**Decidido pelo responsável em 26/11/2026:** `agua`, `gas`, `gelo`, `carvao`, `sacos_lixo`, `papel_hig`, `papel_toalha`, `fraldas`, `lencos` e `racao`; alimentos e básicos não): conta-se quantas viagens seguidas, a partir da mais recente, tiveram o item marcado como "sobrou". Com 2 seguidas, uma redução; cada viagem seguida a mais, mais uma, sempre sobre a quantidade já reduzida: `teto(qty × 0,75)`, até o mínimo de 1 (**Decidido pelo responsável em 26/11/2026:** acumula). Se a redução não muda a quantidade, o item vem sinalizado "sobrou da última vez" (texto em `alertas.json`, `avisos.sobrou_da_ultima_vez`). A redução, com o número de reduções, continua valendo sobre a quantidade recalculada até ser desfeita. `repetirViagem` gera a lista com as mesmas respostas, leva removidos, itens manuais e quantidades editadas, zera os estados e aplica o aprendizado.
 
 **Relatos (`resumirFato`).** Entram os relatos dos últimos 12 meses, não retidos e que contam; maioria com peso 1 (campista) e 0,5 ("informado pelo camping"); empate: o mais recente (mês da visita; no mesmo mês, o que chegou depois). Frescor pelo último relato: até 6 meses recente, até 12 pode ter mudado, acima sem valor. Confirmado com 2 contas diferentes concordando. Divergência: um lado por valor, com contagem, último mês e ocasiões.
 
@@ -84,7 +88,22 @@ Como a saída é derivada, desfazer um ajuste é aplicar de novo sem ele, e um r
 
 ## 4. Leituras adotadas e dúvidas para o orquestrador
 
-Onde a SPEC não diz, a B3 implementou a leitura literal ou a mais conservadora e deixou a dúvida registrada. Nada aqui foi decidido como regra de negócio.
+Onde a SPEC não diz, a B3 implementou a leitura literal ou a mais conservadora e deixou a dúvida registrada. Os pontos 1 a 7 foram decididos pelo responsável em 26/11/2026 (registrados também na SPEC, seções 5 e 9, e no PRD, E1-02); os pontos 8 a 13 foram aceitos pelo orquestrador como implementados.
+
+| # | Ponto | Situação |
+| --- | --- | --- |
+| 1 | Consumíveis | **Decidido pelo responsável em 26/11/2026:** água, gás, gelo, carvão, sacos de lixo, papel higiênico, papel-toalha, fraldas, lenços umedecidos e ração. Alimentos e básicos não. Implementado no catálogo (`consumivel`) |
+| 2 | Arredondamento da redução | **Decidido pelo responsável em 26/11/2026:** mantém `teto(qty × 0,75)`; se não muda, sinalizado "sobrou da última vez". Implementado |
+| 3 | Acúmulo da redução | **Decidido pelo responsável em 26/11/2026:** acumula, 25 % sobre a já reduzida a cada viagem seguida, até o mínimo de 1. Implementado |
+| 4 | Tomada com dados | **Decidido pelo responsável em 26/11/2026:** com tomada (qualquer tensão) entram extensão e adaptador; sem tomada saem; "tomada longe" é alerta e não muda a entrada. Implementado |
+| 5 | Fato não confirmado de nível ajuste | **Decidido pelo responsável em 26/11/2026:** só informação, não mexe na lista. Era o implementado |
+| 6 | Categorias | **Decidido pelo responsável em 26/11/2026:** valem as 11 da SPEC; PRD E1-02 ajustado. Era o implementado |
+| 7 | Motorhome | **Decidido pelo responsável em 26/11/2026:** leva mesa, cadeiras, grelha e carvão; não leva balde nem cintas; mochila segue sem. Implementado |
+| 8 a 13 | Escopo em grupo, "5 ou mais" chuveiros, relato sem datas, divisão sem participantes, repetir viagem, tarefas de ajuste | Aceitos como implementados (tabela abaixo) |
+
+**Dúvida nova, achada ao implementar as decisões 2 e 3.** Com `teto`, a redução para de cair em 3 (teto(3 × 0,75) = teto(2,25) = 3) e em 2 (teto(1,5) = 2): o mínimo de 1 só vale para o que já é 1. A água da família da Carla em 6 noites vai 17, 13, 10, 8, 6, 5, 4, 3 e fica em 3. Implementado ao pé da letra (teto); quando a redução não muda mais a quantidade, o item vem sinalizado. Se a intenção era chegar a 1, a regra precisa de outro arredondamento a partir de 3 (por exemplo, tirar ao menos 1 a cada viagem).
+
+Registro das leituras de 26/11/2026 (pontos 1 a 7 substituídos pelas decisões acima):
 
 | # | Ponto | Leitura implementada | Pergunta |
 | --- | --- | --- | --- |
@@ -168,11 +187,12 @@ Lista final dos campos que faltam na SPEC, seção 3, para o motor funcionar. No
 | `trip_item` | `item_ref` | texto, não nulo | gerado pela regra abaixo | Referência estável do item, que o recálculo usa para achar o mesmo item: `<catalog_key>@<family_id>` ou `<catalog_key>@grupo` (origem `generated`), `ajuste:<catalog_key>@<family_id ou grupo>` (origem `camping_adjust`), o próprio `id` (origem `manual`). Índice único (`trip_id`, `item_ref`) entre as linhas com `deleted_at` nulo | `ItemDaLista.ref` |
 | `trip_item` | `qty_edited` | lógico, não nulo | falso | A pessoa editou a quantidade à mão; o recálculo não mexe mais nela (E1-04, L7) e o ajuste "soma" também não | `qtyEditada` |
 | `trip_item` | `qty_per_person` | inteiro, nulo | nulo | Quantidade por pessoa nos itens de escopo pessoa ("mudas 3 por pessoa"); `qty` = `qty_per_person` × pessoas da família | `porPessoa` |
-| `trip_item` | `detail_qty` | inteiro, nulo | nulo | Quantidade secundária mostrada junto: 36 L na água (8 galões), 20 m ou 5 m na extensão que entra por ajuste | `detalhe.qty` |
-| `trip_item` | `detail_unit` | texto, nulo: `litro` ou `metro` (chaves de `unidades` em `itens.json`) | nulo | Unidade da quantidade secundária. Preenchido junto com `detail_qty`, ou os dois nulos | `detalhe.unidade` |
+| `trip_item` | `detail_qty` | inteiro, nulo | nulo | Quantidade secundária mostrada junto: 36 L na água (8 galões). Depois da decisão de 26/11/2026 sobre a tomada, a extensão não leva mais metros | `detalhe.qty` |
+| `trip_item` | `detail_unit` | texto, nulo: `litro` (chave de `unidades` em `itens.json`) | nulo | Unidade da quantidade secundária. Preenchido junto com `detail_qty`, ou os dois nulos | `detalhe.unidade` |
 | `trip_item` | `learning_kind` | texto, nulo: `missing`, `reduced`, `flagged` | nulo | Marca do aprendizado (E1-11), para a tela mostrar a mudança e desfazer: entrou porque faltou; quantidade reduzida porque sobrou; só sinalizado porque sobrou | `aprendizado.tipo` (`faltou`, `reduzido`, `sinalizado`) |
 | `trip_item` | `learning_qty_before` | inteiro, nulo | nulo | Quantidade antes da redução, para desfazer. Preenchido só com `learning_kind` = `reduced` | `aprendizado.qtyAnterior` |
-| `trip_item` | `learning_percent` | inteiro, nulo, de 1 a 99 | nulo | Percentual aplicado na redução (premissa de 25 % no dia em que reduziu), para o recálculo reaplicar o mesmo. Preenchido só com `learning_kind` = `reduced` | `aprendizado.percentual` |
+| `trip_item` | `learning_percent` | inteiro, nulo, de 1 a 99 | nulo | Percentual de cada redução (premissa de 25 % no dia em que reduziu), para o recálculo reaplicar o mesmo. Preenchido só com `learning_kind` = `reduced` | `aprendizado.percentual` |
+| `trip_item` | `learning_steps` | inteiro, nulo, 1 ou mais | nulo | Quantas reduções seguidas valem (a redução acumula, decisão de 26/11/2026): 1 com duas viagens seguidas em que sobrou, mais 1 a cada viagem seguida a mais. O recálculo reaplica todas sobre a quantidade nova. Preenchido só com `learning_kind` = `reduced` | `aprendizado.reducoes` |
 | `trip_camping_snapshot` | `undone_adjustment_ids` | lista de texto (`text[]`) não nula | lista vazia | Ajustes que a pessoa desfez (E3-08, A6), pelo identificador estável `fato:valor:efeito:alvo`. Um retrato novo não reaplica os que estão aqui | `desfeitos` de `aplicarAjustes` |
 | `fact_summary` | `confirmed` | lógico, não nulo | falso | Ao menos 2 relatos de contas diferentes concordando com o valor vigente (seção 6, passo 5). Sem ele, fato vira informação "não confirmado" e não ajusta a lista (A5) | `ResumoDoFato.confirmado`, `FatoDoRetrato.confirmado` |
 | `merge_candidate` | `merge_record` | JSON, nulo | nulo | Registro da fusão aprovada, para desfazer (E3-24, D5): `fica_id`, `sai_id`, ids de relatos, sugestões e viagens movidos, apelidos movidos e o apelido criado. Só no servidor | `RegistroDeFusao` |

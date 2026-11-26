@@ -4,8 +4,10 @@
 //
 // - "Faltou" na última viagem: o item entra na próxima lista (volta, se a pessoa o tinha removido).
 // - "Sobrou" num consumível em duas viagens seguidas: quantidade reduzida em 25 % (premissa), com aviso.
-//   Se a redução arredondada para cima não muda a quantidade, o item vem só sinalizado
-//   (E1-11: "com quantidade menor ou sinalizado"). A pessoa pode desfazer.
+//   Decidido pelo responsável em 26/11/2026: a redução é teto(qty × 0,75) e acumula; cada viagem seguida
+//   a mais em que o item sobrou reduz mais 25 % sobre a quantidade já reduzida, até o mínimo de 1.
+//   Se a redução não muda a quantidade, o item vem sinalizado "sobrou da última vez". A pessoa pode desfazer.
+// - Consumíveis: os itens com `consumivel` no catálogo (decisão de 26/11/2026).
 
 import type { Catalogo } from './catalogo';
 import { ESTADO_INICIAL, ErroDeLista, gerarLista, reduzirQuantidade, type ItemDaLista } from './lista';
@@ -22,8 +24,9 @@ export interface ViagemAnterior {
 export type AvisoDeAprendizado =
   | { readonly tipo: 'faltou_entrou'; readonly ref: string }
   | { readonly tipo: 'faltou_ja_estava'; readonly ref: string }
-  | { readonly tipo: 'reduzido'; readonly ref: string; readonly de: number; readonly para: number }
-  | { readonly tipo: 'sinalizado'; readonly ref: string };
+  | { readonly tipo: 'reduzido'; readonly ref: string; readonly de: number; readonly para: number; readonly reducoes: number }
+  /** `texto`: chave em `alertas.json`, `avisos` ("sobrou da última vez"). */
+  | { readonly tipo: 'sinalizado'; readonly ref: string; readonly texto: 'sobrou_da_ultima_vez' };
 
 export interface ResultadoDoAprendizado {
   readonly lista: ItemDaLista[];
@@ -45,7 +48,6 @@ export function aplicarAprendizado(
   let saida = [...lista];
   const avisos: AvisoDeAprendizado[] = [];
   const ultima = historico[0];
-  const penultima = historico[1];
 
   // Faltou na última viagem: entra na próxima lista.
   for (const faltou of ultima?.itens.filter((i) => i.estado.missing) ?? []) {
@@ -75,20 +77,26 @@ export function aplicarAprendizado(
     avisos.push({ tipo: 'faltou_entrou', ref: novo.ref });
   }
 
-  // Sobrou em duas viagens seguidas, só em consumível.
-  const sobrou = (viagem: ViagemAnterior | undefined): Set<string> =>
-    new Set((viagem?.itens ?? []).filter((i) => i.estado.leftover && i.catalogKey !== null).map((i) => i.catalogKey as string));
-  const naUltima = sobrou(ultima);
-  const naPenultima = sobrou(penultima);
-  const reduzir = new Set([...naUltima].filter((k) => naPenultima.has(k) && catalogo.porChave.get(k)?.consumivel === true));
+  // Sobrou em viagens seguidas, só em consumível: a partir da segunda, uma redução por viagem.
+  const sobrou = historico.map(
+    (viagem) => new Set(viagem.itens.filter((i) => i.estado.leftover && i.catalogKey !== null).map((i) => i.catalogKey as string)),
+  );
+  const seguidas = (chave: string): number => {
+    let n = 0;
+    while (sobrou[n]?.has(chave)) n += 1;
+    return n;
+  };
   saida = saida.map((item) => {
-    if (!item.catalogKey || !reduzir.has(item.catalogKey) || item.removido || item.qtyEditada || item.qty === null) return item;
-    const para = reduzirQuantidade(item.qty, percentual);
+    if (!item.catalogKey || item.removido || item.qtyEditada || item.qty === null) return item;
+    if (catalogo.porChave.get(item.catalogKey)?.consumivel !== true) return item;
+    const reducoes = seguidas(item.catalogKey) - 1;
+    if (reducoes < 1) return item;
+    const para = reduzirQuantidade(item.qty, percentual, reducoes);
     if (para < item.qty) {
-      avisos.push({ tipo: 'reduzido', ref: item.ref, de: item.qty, para });
-      return { ...item, qty: para, aprendizado: { tipo: 'reduzido', qtyAnterior: item.qty, percentual } };
+      avisos.push({ tipo: 'reduzido', ref: item.ref, de: item.qty, para, reducoes });
+      return { ...item, qty: para, aprendizado: { tipo: 'reduzido', qtyAnterior: item.qty, percentual, reducoes } };
     }
-    avisos.push({ tipo: 'sinalizado', ref: item.ref });
+    avisos.push({ tipo: 'sinalizado', ref: item.ref, texto: 'sobrou_da_ultima_vez' });
     return { ...item, aprendizado: { tipo: 'sinalizado' } };
   });
 

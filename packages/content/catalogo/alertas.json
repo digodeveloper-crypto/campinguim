@@ -25,7 +25,8 @@
   },
   "avisos": {
     "nao_confirmado": "não confirmado",
-    "depende_do_camping": "depende do camping"
+    "depende_do_camping": "depende do camping",
+    "sobrou_da_ultima_vez": "sobrou da última vez"
   },
   "horarios": {
     "8h": "8h",

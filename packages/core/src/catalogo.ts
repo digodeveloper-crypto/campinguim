@@ -27,7 +27,10 @@ export interface ItemDoCatalogo {
   readonly detalhe: { readonly qty: ExpressaoCompilada; readonly unit: string } | null;
   readonly tarefa: { readonly tipo: TipoDeTarefa; readonly partes: Readonly<Record<string, ExpressaoCompilada>> } | null;
   readonly dependsOnCamping: boolean;
+  /** Consumível (acaba e não volta para casa): só ele tem a quantidade reduzida por "sobrou" (E1-11). */
   readonly consumivel: boolean;
+  /** Decisão do responsável que mudou a regra do item em relação à tabela da SPEC, quando houver. */
+  readonly decisao: string | null;
   /** Texto da coluna "Entra quando" da SPEC, guardado para conferir a transcrição. */
   readonly entraQuandoSpec: string;
   /** Texto da coluna "Quantidade" da SPEC, guardado para conferir a transcrição. */
@@ -143,7 +146,7 @@ function compilarComo(
 
 const CAMPOS_DO_ITEM = [
   'key', 'name', 'category', 'scope', 'when', 'qty', 'unit', 'detalhe', 'tarefa',
-  'dependsOnCamping', 'consumivel', 'entraQuandoSpec', 'quantidadeSpec',
+  'dependsOnCamping', 'consumivel', 'decisao', 'entraQuandoSpec', 'quantidadeSpec',
 ];
 
 /** Confere os três arquivos do catálogo e devolve o catálogo tipado, com as expressões prontas. */
@@ -239,6 +242,7 @@ export function validarCatalogo(itensDados: unknown, tarefasDados: unknown, aler
       tarefa,
       dependsOnCamping: logico(d['dependsOnCamping'], `${onde}.dependsOnCamping`),
       consumivel: logico(d['consumivel'], `${onde}.consumivel`),
+      decisao: d['decisao'] === undefined ? null : texto(d['decisao'], `${onde}.decisao`),
       entraQuandoSpec: texto(d['entraQuandoSpec'], `${onde}.entraQuandoSpec`),
       quantidadeSpec: texto(d['quantidadeSpec'], `${onde}.quantidadeSpec`),
     };

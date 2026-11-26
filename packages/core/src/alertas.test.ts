@@ -48,9 +48,12 @@ describe('Ficha, alertas e ajustes (SPEC, seção 9)', () => {
     expect(r.alertas.filter((a) => a.nivel === 'atencao')).toEqual([expect.objectContaining({ texto: 'chuveiro', parametros: { barracas: 25 } })]);
     expect(r.alertas.find((a) => a.texto === 'silencio')?.parametros).toEqual({ horario: '22h' });
     expect(r.alertas.find((a) => a.texto === 'piscina_horario')?.parametros).toEqual({ horario: '10h' });
-    // Ajustes: tarefa de 220 V; extensão de 20 m; entra ducha; sai grelha, fica carvão; entram roupa de banho 4 e boia 2
+    // Ajustes: tarefa de 220 V; extensão e adaptador (há tomada; decisão de 26/11/2026: "tomada longe" é o
+    // alerta sobre a extensão e não muda a entrada); entra ducha; sai grelha, fica carvão; entram roupa de banho 4 e boia 2
     expect(r.tarefas).toEqual([{ ajusteId: 'energia_voltagem:220v:tarefa:confira_aparelhos', tarefa: 'confira_aparelhos', texto: 'confira seus aparelhos' }]);
-    expect(daChave(r.lista, 'extensao')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1, detalhe: { qty: 20, unidade: 'metro' } })]);
+    expect(daChave(r.lista, 'extensao')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1, detalhe: null })]);
+    expect(daChave(r.lista, 'adaptador')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1 })]);
+    expect(r.alertas.find((a) => a.fato === 'energia_tomada')?.texto).toBe('tomada_longe');
     expect(daChave(r.lista, 'ducha')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1 })]);
     expect(daChave(r.lista, 'grelha')).toEqual([]);
     expect(daChave(r.lista, 'carvao')).toHaveLength(1);
@@ -58,6 +61,7 @@ describe('Ficha, alertas e ajustes (SPEC, seção 9)', () => {
     expect(daChave(r.lista, 'boia')).toEqual([expect.objectContaining({ qty: 2, origem: 'camping_adjust' })]);
     expect(r.entraram.map((e) => e.ref)).toEqual([
       'ajuste:extensao@familia-carla',
+      'ajuste:adaptador@familia-carla',
       'ajuste:ducha@familia-carla',
       'ajuste:roupa_banho@familia-carla',
       'ajuste:boia@familia-carla',
@@ -104,15 +108,17 @@ describe('Ficha, alertas e ajustes (SPEC, seção 9)', () => {
     // A lista guardada (com os itens que entraram por ajuste) passa de novo, sem o ajuste desfeito
     const depois = aplicar(RETRATO, VIAGEM_NO_RECANTO, antes.lista, desfeitos);
     expect(daChave(depois.lista, 'extensao')).toEqual([]);
-    const semTomada = aplicar({ ...RETRATO, energia_tomada: { valor: null, confirmado: false, frescor: 'sem_valor' } });
-    expect(depois.lista).toEqual(semTomada.lista);
+    expect(daChave(depois.lista, 'adaptador')).toHaveLength(1); // só o ajuste desfeito sai
+    const semEsseAjuste = aplicarAjustes(base, antes.ajustes.filter((a) => a.id !== id), VIAGEM_NO_RECANTO, catalogo);
+    expect(depois.lista).toEqual(semEsseAjuste.lista);
     // Retrato novo, igual: o ajuste desfeito continua desfeito
     const novoRetrato = aplicar({ ...RETRATO }, VIAGEM_NO_RECANTO, depois.lista, desfeitos);
     expect(daChave(novoRetrato.lista, 'extensao')).toEqual([]);
     expect(novoRetrato.entraram.map((e) => e.ref)).not.toContain('ajuste:extensao@familia-carla');
     // Fato diferente (tomada perto) é outro ajuste, e vale
     const perto = aplicar({ ...RETRATO, energia_tomada: ok('perto') }, VIAGEM_NO_RECANTO, depois.lista, desfeitos);
-    expect(daChave(perto.lista, 'extensao')).toEqual([expect.objectContaining({ detalhe: { qty: 5, unidade: 'metro' } })]);
+    expect(daChave(perto.lista, 'extensao')).toEqual([expect.objectContaining({ origem: 'camping_adjust' })]);
+    expect(perto.entraram.map((e) => e.ajusteId)).toContain('energia_tomada:perto:entra:extensao');
   });
 });
 
@@ -131,14 +137,40 @@ describe('Demais linhas da tabela da seção 6', () => {
     ]);
   });
 
-  it('sem tomada: atenção; sai extensão; bateria portátil ganha 1; quantidade editada à mão não muda', () => {
+  it('sem tomada: atenção; saem extensão e adaptador (decisão de 26/11/2026); bateria portátil ganha 1; quantidade editada à mão não muda', () => {
     const semDados = gerarLista({ ...VIAGEM_NO_RECANTO, dadosDoCamping: false }, catalogo);
     const r = aplicar({ energia_tomada: ok('sem_tomada') }, VIAGEM_NO_RECANTO, semDados);
     expect(r.alertas.map(resumo)).toEqual(['atencao:sem_tomada']);
     expect(daChave(r.lista, 'extensao')).toEqual([]);
+    expect(daChave(r.lista, 'adaptador')).toEqual([]);
     expect(daChave(r.lista, 'bateria_portatil')[0]?.qty).toBe(2);
     const editada = editarQuantidade(semDados, 'bateria_portatil@familia-carla', 3);
     expect(daChave(aplicar({ energia_tomada: ok('sem_tomada') }, VIAGEM_NO_RECANTO, editada).lista, 'bateria_portatil')[0]?.qty).toBe(3);
+  });
+
+  it('decisão de 26/11/2026: com tomada, perto ou longe, em qualquer tensão, entram extensão e adaptador', () => {
+    for (const voltagem of ['127v', '220v', 'as_duas']) {
+      for (const tomada of ['perto', 'longe']) {
+        const r = aplicar({ energia_voltagem: ok(voltagem), energia_tomada: ok(tomada) });
+        expect(daChave(r.lista, 'extensao'), `${voltagem} ${tomada}`).toHaveLength(1);
+        expect(daChave(r.lista, 'adaptador'), `${voltagem} ${tomada}`).toHaveLength(1);
+      }
+    }
+    // tomada longe ou perto não muda a entrada: os mesmos itens, iguais
+    const longe = aplicar({ energia_tomada: ok('longe') }).lista.filter((i) => i.origem === 'camping_adjust');
+    const perto = aplicar({ energia_tomada: ok('perto') }).lista.filter((i) => i.origem === 'camping_adjust');
+    expect(longe).toEqual(perto);
+  });
+
+  it('com tomada mas sem energia elétrica, nada entra; tomada ou piscina não confirmada só informa (decisão 5)', () => {
+    const semEnergia = aplicar({ energia_voltagem: ok('sem_energia'), energia_tomada: ok('perto') });
+    expect(daChave(semEnergia.lista, 'extensao')).toEqual([]);
+    expect(daChave(semEnergia.lista, 'adaptador')).toEqual([]);
+    const naoConfirmada = aplicar({ energia_tomada: { valor: 'longe', confirmado: false, frescor: 'recente' } });
+    expect(naoConfirmada.alertas.map(resumo)).toEqual(['informacao:tomada_longe:nao_confirmado']);
+    expect(daChave(naoConfirmada.lista, 'extensao')).toEqual([]);
+    expect(daChave(naoConfirmada.lista, 'adaptador')).toEqual([]);
+    expect(daChave(aplicar({ piscina: { valor: 'sem_horario', confirmado: false, frescor: 'recente' } }).lista, 'roupa_banho')).toEqual([]);
   });
 
   it('água quente: atenção no frio, informação nos demais climas', () => {
