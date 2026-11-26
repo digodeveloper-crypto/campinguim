@@ -1,0 +1,12 @@
+$ npx vitest run --project core apps/mobile/src/textos
+(chave plantada removida)
+
+ RUN  v5.1.0 C:/campinguim-wt/B6
+
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  15:48:02
+   Duration  541ms (transform 37%, tests 33%, import 27%, worker 4%)
+
+exit=0

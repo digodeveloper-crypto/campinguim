@@ -1,0 +1,16 @@
+$ npm run app:gerar
+  (expo prebuild --platform android --clean --no-install; gradlew assembleRelease -PreactNativeArchitectures=x86_64)
+
+O log completo do Gradle tem cerca de 500 linhas com caminhos da máquina e ficou de fora do repositório.
+Linhas de resultado:
+
+Created native directory
+Finished prebuild
+BUILD SUCCESSFUL in 15m 7s
+655 actionable tasks: 655 executed
+[app] gerado: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
+exit=0
+
+Efeito das mudanças da B6 sobre o manifesto do app: nenhum (não houve mudança em app.config.ts, em
+apps/mobile/package.json nem em apps/mobile/plugins/). O APK foi gerado mesmo assim, como pede a tarefa,
+e o teste do manifesto (J9) rodou de verdade na suíte completa (veja testar-exigir-completa.txt).

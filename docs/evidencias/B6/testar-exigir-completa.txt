@@ -1,0 +1,116 @@
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --exigir-completa
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1416 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/B6
+
+ ✓ |core| apps/mobile/src/medicao/medicao.test.ts (12 tests) 23ms
+ ✓ |scripts| scripts/testes/suite.test.ts (12 tests) 24ms
+ ✓ |core| packages/core/src/formato/formato.test.ts (42 tests) 23ms
+ ✓ |core| packages/core/src/eventos/eventos.test.ts (86 tests) 86ms
+ ✓ |core| apps/mobile/src/textos/textos.test.ts (27 tests) 108ms
+ ✓ |core| packages/core/src/cotas.test.ts (5 tests) 6ms
+ ✓ |scripts| scripts/testes/segredos.test.ts (36 tests) 41ms
+ ✓ |scripts| scripts/testes/manifesto.test.ts (3 tests) 11ms
+ ✓ |scripts| scripts/testes/repositorio.test.ts (25 tests) 948ms
+ ✓ |scripts| scripts/testes/enderecos.test.ts (7 tests) 1643ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 1577ms
+
+ Test Files  10 passed (10)
+      Tests  255 passed (255)
+   Start at  16:10:49
+   Duration  2.25s (tests 62%, import 27%, transform 8%, worker 3%)
+
+JSON report written to C:/campinguim-wt/B6/test-results/suite/vitest-unitarios.json
+
+=== Testes do servidor (ambiente local) ===================================
+
+ RUN  v5.1.0 C:/campinguim-wt/B6
+
+ ❯ |servidor| supabase/testes/ambiente.test.ts (4 tests | 1 failed) 163ms
+   ❯ ambiente local (GIT-11) (4)
+     ✓ a API do Supabase local responde na porta do arquivo de configuração 56ms
+     ✓ o serviço PowerSync responde 10ms
+     × o banco tem todas as migrações do repositório, na ordem 74ms
+     ✓ a publicação do PowerSync existe e a replicação está ativa 21ms
+ ✓ |servidor| supabase/testes/autorizacao.test.ts (4 tests) 200ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |servidor| supabase/testes/ambiente.test.ts > ambiente local (GIT-11) > o banco tem todas as migrações do repositório, na ordem
+AssertionError: expected [ '20261126180000', …(5) ] to deeply equal [ '20261126180000' ]
+
+- Expected
++ Received
+
+  [
+    "20261126180000",
++   "20261126190000",
++   "20261126190100",
++   "20261126190200",
++   "20261126190300",
++   "20261126190400",
+  ]
+
+ ❯ supabase/testes/ambiente.test.ts:24:23
+     22|       return rows.map((r) => r.version);
+     23|     });
+     24|     expect(aplicadas).toEqual(migracoesNoRepositorio());
+       |                       ^
+     25|   });
+     26|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 7 passed (8)
+   Start at  16:10:52
+   Duration  1.31s (tests 56%, import 36%, transform 5%, worker 2%)
+
+JSON report written to C:/campinguim-wt/B6/test-results/suite/vitest-servidor.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+(node:26820) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28612) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (602ms)
+  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.4s)
+
+  2 passed (9.5s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 3.1 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          1.5 s  
+passou  Tipos (TypeScript estrito)                                15.0 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                          7.4 s  
+passou  Testes unitários: regras puras e travas do repositório     3.0 s  255 de 255 testes passaram
+FALHOU  Testes do servidor (ambiente local)                        2.1 s  7 de 8 testes passaram
+passou  Página web (Chromium e WebKit)                            11.2 s  2 de 2 testes passaram
+
+SUÍTE FALHOU: 1 etapa(s) com falha (43.3 s).
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+exit=1
