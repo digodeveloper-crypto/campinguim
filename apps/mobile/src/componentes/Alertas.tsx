@@ -6,7 +6,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Icone } from '../icones/Icone';
 import { textos } from '../textos';
-import { tokens } from '../tema';
+import { tokens, useTema } from '../tema';
 import { BotaoMarca } from './Botoes';
 import { Divisoria, Folha } from './Lista';
 import { Texto } from './Texto';
@@ -58,10 +58,11 @@ const ICONE: Record<TipoAlerta, 'atencao' | 'info' | 'entrou' | 'saiu' | 'regra'
 };
 
 export function LinhaAlerta({ tipo, texto, ciente, aoMudarCiente, testID }: PropsAlerta) {
+  const { fator } = useTema();
   return (
     <View style={estilos.linha} testID={testID}>
       <Icone nome={ICONE[tipo]} cor={tipo === 'atencao' ? 'atencao' : 'textoSuave'} />
-      <Texto style={estilos.texto}>{texto}</Texto>
+      <Texto style={[estilos.texto, { minWidth: 120 * fator }]}>{texto}</Texto>
       {ciente === undefined ? null : (
         <BotaoMarca
           texto={ciente ? t.acao.desfazer : t.acao.ciente}

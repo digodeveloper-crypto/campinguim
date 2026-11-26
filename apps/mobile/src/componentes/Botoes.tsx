@@ -34,7 +34,7 @@ type PropsBotao = Base & {
 };
 
 export function Botao({ texto, tipo = 'principal', icone, falado, desativado = false, aoTocar, testID, style }: PropsBotao) {
-  const { cores } = useTema();
+  const { cores, fator } = useTema();
   return (
     <Pressable
       testID={testID}
@@ -47,7 +47,7 @@ export function Botao({ texto, tipo = 'principal', icone, falado, desativado = f
         const c = papeisDoBotao(tipo, estadoDoToque(pressed, desativado));
         return [
           estilos.botao,
-          { flexGrow: tipo === 'principal' ? 2 : 1, backgroundColor: cores[c.fundo], borderColor: cores[c.borda] },
+          { flexGrow: tipo === 'principal' ? 2 : 1, flexBasis: 128 * fator, backgroundColor: cores[c.fundo], borderColor: cores[c.borda] },
           style,
         ];
       }}

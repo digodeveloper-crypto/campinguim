@@ -16,11 +16,11 @@ appId: "{{pacote}}"
     id: rota
 - assertVisible:
     id: g-tema-sistema
-# Seção cores
+# Seção cores (a primeira: com letra de 200 %, os botões de seção começam abaixo da tela)
 - scrollUntilVisible:
     element:
       id: g-secao-cores
-    direction: UP
+    direction: DOWN
 - tapOn:
     id: g-secao-cores
 - scrollUntilVisible:

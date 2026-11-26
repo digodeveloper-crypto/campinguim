@@ -18,13 +18,13 @@ type Props = {
 };
 
 export function CabecalhoEtapa({ marca, titulo, subtitulo, aoVoltar, mascote }: Props) {
-  const { cores } = useTema();
+  const { cores, fator } = useTema();
   return (
     <View>
       {aoVoltar ? <BotaoVoltar aoTocar={aoVoltar} testID="voltar" /> : null}
       <View style={estilos.etapa}>
         <View style={estilos.linha}>
-          <View style={estilos.texto}>
+          <View style={[estilos.texto, { flexBasis: 192 * fator }]}>
             <View style={estilos.marca}>
               <View style={[estilos.traco, { backgroundColor: cores.textoSuave }]} />
               <Texto uso="rotulo" cor="textoSuave" style={estilos.encolhe}>

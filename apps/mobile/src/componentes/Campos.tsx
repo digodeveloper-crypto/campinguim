@@ -161,9 +161,10 @@ function Passo({ icone, falado, desativado, aoTocar, testID }: { icone: 'mais' |
 }
 
 export function Contador({ campo, valor, minimo = 0, maximo = 99, aoMudar, testID }: PropsContador) {
+  const { fator } = useTema();
   return (
     <View style={estilos.contador} testID={testID}>
-      <Texto uso="linhaNome" style={estilos.contadorNome} falado={t('criarViagem.campoValor', { campo, n: valor })}>
+      <Texto uso="linhaNome" style={[estilos.contadorNome, { minWidth: 96 * fator }]} falado={t('criarViagem.campoValor', { campo, n: valor })}>
         {campo}
       </Texto>
       <View style={estilos.contadorControle}>

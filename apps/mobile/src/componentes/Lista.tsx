@@ -1,6 +1,8 @@
 // 7.4 Item da lista e seus estados (DESIGN.md; estilo.css §8 a §10): linha de estado (ícone e texto,
 // nunca só cor), item com as duas alternâncias, régua de progresso, categoria que recolhe, faixa de
 // tarefa, folha e linha. O estado vem sempre com ícone, texto e, fora do carro, a faixa de 4 à esquerda.
+// Larguras de base em rem no protótipo (9rem, 10rem) crescem com a letra (× fator): com letra grande, a
+// quantidade e os botões descem de linha em vez de a palavra quebrar no meio (DESIGN.md 4.4).
 import { useState, type ReactNode } from 'react';
 import { Pressable, StyleSheet, View, type StyleProp, type ViewStyle } from 'react-native';
 
@@ -61,7 +63,7 @@ type PropsItem = {
 };
 
 export function ItemLista({ nome, quantidade, estado, aoMudar, aoAbrir, testID }: PropsItem) {
-  const { cores } = useTema();
+  const { cores, fator } = useTema();
   const separado = estado !== 'aSeparar';
   return (
     <View testID={testID} style={[estilos.item, { backgroundColor: cores.superficie }]}>
@@ -70,7 +72,7 @@ export function ItemLista({ nome, quantidade, estado, aoMudar, aoAbrir, testID }
         onPress={aoAbrir}
         accessibilityRole="button"
         accessibilityLabel={nomeFaladoDoItem(nome, quantidade, estado)}
-        style={({ pressed }) => [estilos.itemAbrir, pressed ? { backgroundColor: cores.fundo } : null]}
+        style={({ pressed }) => [estilos.itemAbrir, { minWidth: 120 * fator }, pressed ? { backgroundColor: cores.fundo } : null]}
       >
         <Texto uso="itemNome" semLeitura>
           {nome}
@@ -152,7 +154,7 @@ type PropsCategoria = {
 };
 
 export function Categoria({ nome, feitos, total, volta = false, abertaNoInicio = true, children, testID }: PropsCategoria) {
-  const { cores } = useTema();
+  const { cores, fator } = useTema();
   const [aberta, setAberta] = useState(abertaNoInicio);
   const progresso = volta ? t('volta.progressoConferidos', { feitos, total }) : t('lista.progressoNoCarro', { feitos, total });
   const falado = volta ? t('volta.categoriaAria', { categoria: nome, feitos, total }) : t('lista.categoriaAria', { categoria: nome, feitos, total });
@@ -166,7 +168,7 @@ export function Categoria({ nome, feitos, total, volta = false, abertaNoInicio =
         style={({ pressed }) => [estilos.catBotao, pressed ? { backgroundColor: cores.superficie } : null]}
       >
         <View style={estilos.catCabeca}>
-          <Texto uso="subtitulo" semLeitura style={estilos.catNome}>
+          <Texto uso="subtitulo" semLeitura style={[estilos.catNome, { flexBasis: 144 * fator }]}>
             {nome}
           </Texto>
           <View style={estilos.catProg}>
@@ -191,11 +193,11 @@ export function Categoria({ nome, feitos, total, volta = false, abertaNoInicio =
 type PropsTarefa = { tarefa: string; feito: boolean; aoMudar?: (feito: boolean) => void; testID?: string | undefined };
 
 export function FaixaTarefa({ tarefa, feito, aoMudar, testID }: PropsTarefa) {
-  const { cores } = useTema();
+  const { cores, fator } = useTema();
   return (
     <View testID={testID} style={[estilos.tarefa, { backgroundColor: cores.superficie, borderColor: cores.linha }]}>
       <Faixa cor="texto" />
-      <View style={estilos.tarefaTexto}>
+      <View style={[estilos.tarefaTexto, { flexBasis: 160 * fator }]}>
         <Icone nome="tarefa" />
         <Texto style={estilos.encolhe}>{tarefa}</Texto>
       </View>
