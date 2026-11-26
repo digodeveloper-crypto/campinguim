@@ -10,8 +10,8 @@
 -- protótipo (P-11), em domínio reservado.
 -- `catalog_key` só onde a chave do protótipo é a mesma do catálogo (seção 5); `origin` fica no
 -- padrão ('manual'), porque o protótipo não diz se o item veio da lista gerada.
--- Fica de fora até decisão (docs/servidor.md, "Pendências"): o destino, os dados da viagem que o
--- protótipo não dá (noites, clima, datas) e a cidade do camping.
+-- O destino (Camping Recanto das Águas) é ligado em 030-campings.sql. Ficam de fora os dados da
+-- viagem que o protótipo não dá (noites, clima, datas).
 
 insert into auth.users (
   instance_id, id, aud, role, email, encrypted_password, email_confirmed_at,

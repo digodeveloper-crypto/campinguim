@@ -97,3 +97,86 @@ describe('dados de exemplo', () => {
     ]);
   });
 });
+
+describe('dados de exemplo: campings (SPEC, seções 6, 9 e 13)', () => {
+  // Retrato de referência da seção 9, nos códigos das opções do motor da B3.
+  const RETRATO: Record<string, string> = {
+    energia_voltagem: '220v',
+    energia_tomada: 'longe',
+    chuveiros_qtd: '1',
+    capacidade: '11_a_25',
+    churrasco: 'area_comum',
+    pet: 'aceita',
+    som_horario: '22h',
+    piscina: '10h',
+  };
+
+  it('dois campings fictícios em cidades reais, com o código do IBGE', async () => {
+    const r = await comBanco(async (c) => (await c.query(
+      `select k.name, k.name_normalized, c.ibge_code, c.name as cidade, c.state
+         from public.camping k join public.city c on c.ibge_code = k.city_ibge_code order by k.name`)).rows);
+    expect(r).toEqual([
+      { name: 'Camping Recanto das Águas', name_normalized: 'recanto aguas', ibge_code: '3165206', cidade: 'São Tomé das Letras', state: 'MG' },
+      { name: 'Sítio Pedra Lisa', name_normalized: 'sitio pedra lisa', ibge_code: '3513603', cidade: 'Cunha', state: 'SP' },
+    ]);
+  });
+
+  it('Recanto das Águas: 7 relatos de 7 contas, e cada fato do retrato confirmado (2 contas ou mais) e recente', async () => {
+    const r = await comBanco(async (c) => ({
+      contas: (await c.query(`select count(distinct r.profile_id)::int as contas, count(distinct r.trip_id)::int as viagens
+                                from public.fact_report r join public.camping k on k.id = r.camping_id where k.name = 'Camping Recanto das Águas'`)).rows[0],
+      fatos: (await c.query(`select r.fact_key, array_agg(distinct r.value) as valores, count(distinct r.profile_id)::int as contas,
+                                    max(r.visited_month)::text as ultimo
+                               from public.fact_report r join public.camping k on k.id = r.camping_id
+                              where k.name = 'Camping Recanto das Águas' and r.counts and not r.held
+                              group by 1 order by 1`)).rows,
+    }));
+    expect(r.contas).toEqual({ contas: 7, viagens: 7 });
+    const porFato = Object.fromEntries(r.fatos.map((f) => [f.fact_key as string, f]));
+    for (const [fato, valor] of Object.entries(RETRATO)) {
+      expect(porFato[fato]?.valores, fato).toEqual([valor]);
+      expect(porFato[fato]?.contas, fato).toBeGreaterThanOrEqual(2);
+      // "recente": o último relato tem até 6 meses (referência: novembro de 2026)
+      expect(porFato[fato]?.ultimo >= '2026-05-01', fato).toBe(true);
+    }
+    expect(Object.keys(porFato).sort()).toEqual([...Object.keys(RETRATO), 'som_cumprido'].sort());
+  });
+
+  it('"som cumprido": 6 vezes "sim", e a última é da Carla, em novembro de 2026 (P-08)', async () => {
+    const r = await comBanco(async (c) => (await c.query(
+      `select r.value, r.visited_month::text as mes, p.display_name
+         from public.fact_report r join public.profile p on p.id = r.profile_id
+        where r.fact_key = 'som_cumprido' order by r.visited_month`)).rows);
+    expect(r.length).toBe(6);
+    expect(r.every((x) => x.value === 'sim')).toBe(true);
+    expect(r.at(-1)).toEqual({ value: 'sim', mes: '2026-11-01', display_name: 'Carla' });
+  });
+
+  it('os relatos respeitam FRD-01, FRD-02, FRD-03 e FRD-05, e o limite de perguntas por viagem', async () => {
+    const r = await comBanco(async (c) => (await c.query(
+      `select t.id, t.status, t.end_date < current_date as voltou, t.camping_id = r.camping_id as mesmo_camping,
+              t.created_at::date < t.start_date as criada_antes, r.visited_month = date_trunc('month', t.start_date)::date as mes_da_ida,
+              count(*)::int as perguntas, bool_and(r.counts and not r.held) as contam,
+              bool_and(u.created_at < r.created_at - interval '7 days') as conta_antiga,
+              exists (select 1 from public.trip_item i where i.trip_id = t.id and i.pack_state <> 'todo') as item_marcado
+         from public.fact_report r join public.trip t on t.id = r.trip_id join auth.users u on u.id = r.profile_id
+        group by t.id, r.camping_id, r.visited_month order by t.start_date`)).rows);
+    expect(r.length).toBe(7);
+    for (const v of r) {
+      expect(v).toMatchObject({ status: 'closed', voltou: true, mesmo_camping: true, criada_antes: true, mes_da_ida: true, contam: true, conta_antiga: true, item_marcado: true });
+    }
+    expect(r.map((v) => v.perguntas)).toEqual([6, 4, 4, 4, 4, 4, 4]);
+    const porContaMes = await comBanco(async (c) => (await c.query(
+      `select profile_id, visited_month, count(distinct trip_id)::int as n from public.fact_report group by 1, 2 having count(distinct trip_id) > 2`)).rows);
+    expect(porContaMes).toEqual([]);
+  });
+
+  it('o Sítio Pedra Lisa é o camping sem dados, e as viagens da Carla vão ao Recanto das Águas', async () => {
+    const r = await comBanco(async (c) => ({
+      semDados: (await c.query(`select count(r.id)::int as n from public.camping k left join public.fact_report r on r.camping_id = k.id where k.name = 'Sítio Pedra Lisa'`)).rows[0],
+      destinos: (await c.query(`select distinct k.name from public.trip t join public.camping k on k.id = t.camping_id where t.id = any($1)`, [[VIAGEM_CARLA, GRUPO]])).rows,
+    }));
+    expect(r.semDados).toEqual({ n: 0 });
+    expect(r.destinos).toEqual([{ name: 'Camping Recanto das Águas' }]);
+  });
+});

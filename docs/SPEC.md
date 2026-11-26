@@ -1098,6 +1098,7 @@ Nenhum destes pontos impede o início do mascote e dos protótipos. A conta de d
 - Sincronização em produção: o PowerSync segue auto-hospedado nas versões 0.x, que é o que a prova mediu. A escolha entre serviço hospedado e auto-hospedado em produção se decide com custo real antes da 1.0.0 e, de todo modo, antes de a 0.1.0 chegar a outras pessoas. A licença do serviço auto-hospedado é Apache 2.0 desde 03/11/2026.
 - Verificação do aparelho: os tempos de 5 minutos, 1 minuto e 24 horas passam a constar da tabela de premissas numéricas acima, como valores provisórios, guardados em configuração do servidor (B5). Decidem-se de novo na F0-6, com um token real.
 - Conta de desenvolvedor no Google Play: fica para depois da prova, e abre no começo da etapa 1, para a verificação de identidade andar em paralelo. O celular Android físico fica à mão até a feature 1.6.
+- Histórico do item do grupo (seção 4, "o valor perdido aparece no histórico do item"): a seção 3 não tem a tabela. A tabela de histórico do item é definida na feature 2.2, onde o conflito acontece (decisão do orquestrador, registrada na B5).
 
 **Premissas numéricas a calibrar**
 

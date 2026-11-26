@@ -132,7 +132,7 @@ Chamada pelo conector do PowerSync no app (`uploadData`), com o login da pessoa:
 | --- | --- |
 | `pack_state` | Alteração feita sobre um valor que já mudou no servidor (`prev` diferente do atual) fica com o mais avançado: `in_car` > `set_aside` > `todo`. Sobre o valor atual, vale o que veio (desmarcar é possível) |
 | `item_claim` | Uma linha por família; duas famílias no mesmo item ficam as duas. A mesma família duas vezes vira uma só (`already_claimed`) |
-| Quantidade, nome, nota e os demais campos do item | Vale a última a chegar. Em item do grupo, `outcome.overwritten` diz quais campos foram sobrescritos (ver pendência 2) |
+| Quantidade, nome, nota e os demais campos do item | Vale a última a chegar. Em item do grupo, `outcome.overwritten` diz quais campos foram sobrescritos (ver pendência 1) |
 | Removido e editado ao mesmo tempo | Vence a remoção (`removed` e `deleted_at`): editar não desfaz; o valor editado fica guardado. Restaurar só por `PATCH` explícito com `removed = false` ou `deleted_at = null`; uma linha inteira reenviada (`PUT`) nunca restaura |
 | Dois itens novos com o mesmo nome | Ficam os dois |
 | Valor e regra do gasto | Aplicados em sequência; cada mudança de `estimate_cents`, `amount_cents` ou `split_rule` vira uma linha em `expense_audit` (autor = linha de membro de quem mudou), inclusive os valores iniciais na criação |
@@ -179,9 +179,10 @@ Carregados por `npm run ambiente:zerar` (o Supabase local aplica `supabase/dados
 | --- | --- |
 | `000-ambiente-local.sql` | Liga a prova de desenvolvimento do aparelho, só no ambiente local |
 | `010-familia-da-carla.sql` | Carla (conta de teste, sem senha), a viagem de referência (barraca com carro, 2 noites, frio, sem chuva, sem datas), a família "Carla e Rafael" com 2 adultos, 2 crianças (Lucas e Bia) e 1 pet |
+| `030-campings.sql` | Os campings (nomes fictícios, cidades reais com o código do IBGE: São Tomé das Letras, MG, 3165206; Cunha, SP, 3513603). Camping Recanto das Águas com 7 relatos de 7 contas fictícias em 7 viagens encerradas, que reproduzem o retrato de referência da seção 9 (cada fato confirmado por 2 contas ou mais e recente; "som cumprido" 6 vezes "sim", a última da Carla em novembro de 2026) e respeitam FRD-01, FRD-02, FRD-03 e FRD-05. Sítio Pedra Lisa sem relato (o camping sem dados). Liga o destino das duas viagens da Carla ao Recanto. O resumo (`fact_summary`) e o retrato das viagens não entram: são calculados pelas features 3.2 e 3.3 |
 | `020-grupo-de-tres-familias.sql` | Viagem de grupo "Viagem de Carla ao Camping Recanto das Águas": Carla organizadora, Bruno membro, Diego convidado sem conta; famílias com as pessoas do caso C1 (meias cotas 6, 4 e 4); isqueiro e saco de lixo sem dono, fogareiro assumido pelas três famílias, carne de Bruno com o gasto de R$ 420,00 (regra de cotas) e a chave Pix de Bruno do protótipo |
 
-Os dados vêm de `design/prototipos/_compartilhado/dados.js`; os nomes são fictícios e os e-mails estão no domínio reservado `@pessoas-de-teste.test`. Ainda **não** entram (pendência 1): o Camping Recanto das Águas com 7 relatos, o camping sem dados e o destino das duas viagens; e os itens da lista da Carla (gerados no aparelho pela B3 e pela feature 1.2).
+Os dados vêm de `design/prototipos/_compartilhado/dados.js`; os nomes são fictícios e os e-mails estão no domínio reservado `@pessoas-de-teste.test`. Nenhum camping real é retratado. Não entram os itens da lista da Carla (gerados no aparelho pela B3 e pela feature 1.2).
 
 ## 10. Testes
 
@@ -211,14 +212,14 @@ Os testes dos grupos 1, 3 e 4 rodam cada caso numa transação desfeita no fim (
 6. **Prova de desenvolvimento ligada por dado de exemplo**, não por migração nem por variável de ambiente: o banco de produção nasce só das migrações e fica desligado por construção.
 7. **Registro das alterações sem conteúdo**: nada de nome, nota ou valor no registro do servidor.
 8. **Convite sem política e fora do aparelho**: só pelas funções da seção 8 (2.4).
-9. **Data de criação da viagem vem do aparelho** (pedido da B3: viagem feita sem conta sobe dias depois e precisa da data real), limitada a "agora". Atenção para a 3.7: o antifraude FRD-02 usa `trip.created_at`, e o relógio do aparelho pode ser adiantado ou atrasado. A hora de chegada ao servidor de cada alteração está guardada em `private.sync_change` (`received_at`, `row_id` = id da viagem), para a 3.7 decidir qual das duas vale.
+9. **Data de criação da viagem vem do aparelho** (pedido da B3: viagem feita sem conta sobe dias depois e precisa da data real), limitada a "agora". Atenção para a 3.7: o antifraude FRD-02 usa `trip.created_at`, e o relógio do aparelho pode ser adiantado ou atrasado. A hora de chegada ao servidor de cada alteração está guardada em `private.sync_change` (`received_at`, `row_id` = id da viagem), para a 3.7 decidir qual das duas vale. Confirmado pelo orquestrador em 26/11/2026.
 10. **Ninguém muda de família pela sincronização** (nem o organizador muda a família de quem já tem uma): mudar de família daria acesso aos itens pessoais da outra. Entrar numa família é pelo convite para a mesma família (E2-18).
 
-## 12. Pendências (aguardam decisão; nada foi preenchido)
+## 12. Pendências
 
-1. **Dados de exemplo de camping.** Falta: a cidade do Camping Recanto das Águas (P-07 do protótipo) e a do Sítio Pedra Lisa (P-13), com o código do IBGE; e os 7 relatos do Recanto (conta, mês da visita, tipo de viagem, ocasião e valor de cada fato; o protótipo só dá a última confirmação do som, P-08). Sem isso, `camping`, `fact_report` e o destino das duas viagens ficam fora dos dados de exemplo.
-2. **Histórico do item do grupo.** A seção 4 diz que o valor perdido em item do grupo "aparece no histórico do item", mas a seção 3 não tem tabela para esse histórico. Hoje `sync_apply` só devolve os campos sobrescritos (`outcome.overwritten`), sem guardar os valores (registro sem texto livre). Precisa de uma tabela na seção 3 (a prova usava `trip_item_history`, sincronizada).
-3. **Valores fechados que a SPEC não dá em código:** tipos de chave Pix, `camping.status`, `merge_candidate.status`, valores das opções de cada fato, `occasion` e `trip_kind`.
+1. **Histórico do item do grupo: fica para a feature 2.2** (decisão do orquestrador de 26/11/2026, registrada na SPEC, seção 15). A seção 4 diz que o valor perdido em item do grupo "aparece no histórico do item", mas a seção 3 não tem tabela para isso. Até a 2.2, `sync_apply` só devolve os campos sobrescritos (`outcome.overwritten`), sem guardar os valores (registro sem texto livre); nenhuma tabela `trip_item_history` foi criada.
+2. **Valores fechados que a SPEC não dá em código** (aceito pelo orquestrador; as features 2.9, 3.1 e 3.2 fecham): tipos de chave Pix, `camping.status`, `merge_candidate.status`, valores das opções de cada fato, `occasion` e `trip_kind`. Nos dados de exemplo, as opções dos fatos usam os códigos do motor da B3 (`220v`, `longe`, `11_a_25`, `area_comum`, `22h`...), a ocasião usa `feriado`, `ferias` e `fim_de_semana` (os da B3) e o tipo de viagem usa códigos provisórios (`familia_com_criancas`, `casal`, `grupo`, `sozinho`).
+3. **FRD-02, "item com mudança de pack_state registrada antes de start_date":** o servidor guarda a hora de chegada de cada alteração (`private.sync_change`), não a hora da mudança no aparelho. A feature 3.7 decide como provar isso.
 
 ## 13. O que fica para as features seguintes
 

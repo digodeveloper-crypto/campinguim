@@ -4,8 +4,8 @@
 --
 -- Viagem de referência: barraca com carro, 2 noites, 2 adultos, 2 crianças (Lucas, 9, e Bia, 5),
 -- 1 pet, clima frio, sem chuva, uma família. Sem datas (no protótipo, `datas: null`).
--- Fica de fora até decisão (docs/servidor.md, "Pendências"):
---   - o destino (Camping Recanto das Águas): falta a cidade do camping (P-07 do protótipo);
+-- O destino (Camping Recanto das Águas) é ligado em 030-campings.sql, depois que o camping existe.
+-- Fica de fora:
 --   - os 68 itens da lista: a lista é gerada no aparelho pelo motor de regras (B3, feature 1.2),
 --     e as chaves de item do protótipo não são as do catálogo (por exemplo, `cartucho_gas` e `gas`).
 --
@@ -18,12 +18,12 @@ insert into auth.users (
   confirmation_token, recovery_token, email_change_token_new, email_change)
 values (
   '00000000-0000-0000-0000-000000000000', '639868af-d201-4b8c-9784-5bd80e68e4b0',
-  'authenticated', 'authenticated', 'carla@pessoas-de-teste.test', '', now(),
-  '{"provider": "email", "providers": ["email"]}', '{}', now(), now(), '', '', '', '');
+  'authenticated', 'authenticated', 'carla@pessoas-de-teste.test', '', '2025-08-10 15:00+00',
+  '{"provider": "email", "providers": ["email"]}', '{}', '2025-08-10 15:00+00', '2025-08-10 15:00+00', '', '', '', '');
 
 -- O perfil nasce pelo gatilho do primeiro login; aqui só o nome de exibição.
 update public.profile
-   set display_name = 'Carla', nickname = 'Carla R.', updated_at = now()
+   set display_name = 'Carla', nickname = 'Carla R.', created_at = '2025-08-10 15:00+00', updated_at = now()
  where id = '639868af-d201-4b8c-9784-5bd80e68e4b0';
 
 insert into public.trip (
