@@ -1,0 +1,38 @@
+
+> @campinguim/core@0.0.0 cobertura
+> vitest run --coverage --coverage.provider=v8 --coverage.include=src/** --coverage.exclude=src/**/*.test.ts --coverage.reporter=text --coverage.reporter=html --coverage.thresholds.lines=90
+
+
+ RUN  v5.1.0 C:/campinguim-wt/B3/packages/core
+      Coverage enabled with v8
+
+
+ Test Files  9 passed (9)
+      Tests  298 passed (298)
+   Start at  16:17:12
+   Duration  3.82s (import 28%, tests 25%, transform 25%, worker 22%)
+
+ % Coverage report from v8
+------------------|---------|----------|---------|---------|--------------------
+File              | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s  
+------------------|---------|----------|---------|---------|--------------------
+All files         |   98.53 |    96.16 |     100 |   99.75 |                    
+ src              |   99.15 |    97.22 |     100 |   99.73 |                    
+  alertas.ts      |   99.21 |     95.9 |     100 |     100 | 276,308,330,339    
+  aprendizado.ts  |   98.57 |    98.07 |     100 |     100 | 128                
+  catalogo.ts     |    97.9 |    94.93 |     100 |   99.19 | 162                
+  duplicados.ts   |     100 |    98.21 |     100 |     100 | 222                
+  expressao.ts    |    99.5 |    97.18 |     100 |     100 | 57,63,88,313       
+  fatos.ts        |     100 |    98.43 |     100 |     100 | 114                
+  lista.ts        |   98.38 |    96.96 |     100 |   98.88 | 92                 
+ src/testes       |   90.78 |    86.11 |     100 |     100 |                    
+  esquema-json.ts |   90.27 |    86.11 |     100 |     100 | ...,52,55-58,60-61 
+------------------|---------|----------|---------|---------|--------------------
+
+=============================== Coverage summary ===============================
+Statements   : 98.53% ( 1007/1022 )
+Branches     : 96.16% ( 728/757 )
+Functions    : 100% ( 184/184 )
+Lines        : 99.75% ( 821/823 )
+================================================================================
+SAIDA=0

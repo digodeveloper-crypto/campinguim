@@ -1,0 +1,71 @@
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --exigir-completa
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1415 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/B3
+
+ ✓  core  packages/core/src/catalogo.test.ts (108 tests) 43ms
+ ✓  core  packages/core/src/duplicados.test.ts (11 tests) 13ms
+ ✓  core  packages/core/src/cotas.test.ts (13 tests) 161ms
+ ✓  core  packages/core/src/aprendizado.test.ts (14 tests) 28ms
+ ✓  core  packages/core/src/casos.test.ts (71 tests) 212ms
+ ✓  core  packages/core/src/lista.test.ts (29 tests) 56ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 32ms
+ ✓  core  packages/core/src/alertas.test.ts (22 tests) 31ms
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 28ms
+ ✓  core  packages/core/src/fatos.test.ts (23 tests) 17ms
+ ↓  scripts  scripts/testes/manifesto.test.ts (3 tests | 3 skipped)
+ ✓  core  packages/core/src/expressao.test.ts (7 tests) 15ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 1632ms
+   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
+     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 455ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 3269ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 3197ms
+
+ Test Files  13 passed | 1 skipped (14)
+      Tests  378 passed | 3 skipped (381)
+   Start at  16:16:24
+   Duration  5.31s (tests 74%, import 18%, transform 5%, worker 2%)
+
+JSON report written to C:/campinguim-wt/B3/test-results/suite/vitest-unitarios.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (650ms)
+  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.1s)
+
+  2 passed (7.6s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 3.9 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          2.9 s  
+passou  Tipos (TypeScript estrito)                                20.2 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                          9.9 s  
+PULADO  Testes unitários: regras puras e travas do repositório     6.4 s  378 de 381 testes passaram; 3 pulado(s): manifesto final do app (ponto J9), PULADO: APK ausente: rode npm run app:gerar
+FALHOU  Testes do servidor (ambiente local)                        0.0 s  falta .env.local (rode npm run ambiente:subir)
+passou  Página web (Chromium e WebKit)                             8.7 s  2 de 2 testes passaram
+
+SUÍTE FALHOU: 1 etapa(s) com falha (52.0 s).
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+SAIDA=1

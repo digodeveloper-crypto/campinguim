@@ -1,0 +1,20 @@
+{
+  "versao": 1,
+  "fonte": "docs/SPEC.md, seção 5 (Tarefas de véspera e Tarefas da volta)",
+  "vespera": [
+    { "key": "carregar", "texto": "Carregar lanternas, bateria portátil e celulares." },
+    { "key": "gelo", "texto": "Congelar garrafas de água ou comprar o gelo." },
+    { "key": "gas", "texto": "Conferir o gás." },
+    { "key": "pneus", "texto": "Calibrar os pneus para carro carregado e conferir o estepe." },
+    { "key": "abastecer", "texto": "Abastecer o carro." },
+    { "key": "previsao", "texto": "Olhar a previsão do tempo e ajustar clima e chuva na viagem." }
+  ],
+  "volta": [
+    { "key": "espeques", "texto": "Contar os espeques.", "emCasa": false },
+    { "key": "fogo", "texto": "Apagar o fogo até esfriar.", "emCasa": false },
+    { "key": "lixo", "texto": "Recolher todo o lixo.", "emCasa": false },
+    { "key": "chao", "texto": "Olhar o chão em volta da barraca antes de sair.", "emCasa": false },
+    { "key": "secar_barraca", "texto": "Em casa: abrir a barraca para secar.", "emCasa": true },
+    { "key": "saco_dormir", "texto": "Em casa: guardar o saco de dormir solto, fora do saco de compressão.", "emCasa": true }
+  ]
+}
