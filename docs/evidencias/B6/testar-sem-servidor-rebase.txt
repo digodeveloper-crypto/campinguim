@@ -1,0 +1,73 @@
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --sem-servidor
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1422 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/B6
+
+ ✓ |scripts| scripts/testes/segredos.test.ts (36 tests) 28ms
+ ✓ |core| packages/core/src/eventos/eventos.test.ts (86 tests) 51ms
+ ✓ |scripts| scripts/testes/suite.test.ts (12 tests) 21ms
+ ✓ |core| packages/core/src/formato/formato.test.ts (42 tests) 33ms
+ ✓ |core| apps/mobile/src/medicao/medicao.test.ts (12 tests) 21ms
+ ✓ |core| apps/mobile/src/textos/textos.test.ts (27 tests) 151ms
+ ✓ |core| packages/core/src/cotas.test.ts (5 tests) 14ms
+ ✓ |scripts| scripts/testes/manifesto.test.ts (3 tests) 6ms
+ ✓ |scripts| scripts/testes/repositorio.test.ts (25 tests) 2468ms
+   ✓ emuladores (J23) (2)
+     ✓ nenhum script derruba ou reinicia o servidor do adb 805ms
+   ✓ o que é só da prova técnica não vem para a base (J5, J6) (2)
+     ✓ sem login por link com token, sem atraso artificial e sem botões de teste 557ms
+ ✓ |scripts| scripts/testes/enderecos.test.ts (7 tests) 3099ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 3023ms
+
+ Test Files  10 passed (10)
+      Tests  255 passed (255)
+   Start at  17:07:15
+   Duration  5.50s (tests 64%, import 27%, transform 7%, worker 1%)
+
+JSON report written to C:/campinguim-wt/B6/test-results/suite/vitest-unitarios.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+(node:15240) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:29808) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (809ms)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.7s)
+
+  2 passed (9.9s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 3.6 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          1.3 s  
+passou  Tipos (TypeScript estrito)                                18.3 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                         23.1 s  
+passou  Testes unitários: regras puras e travas do repositório     7.9 s  255 de 255 testes passaram
+PULADO  Testes do servidor (ambiente local)                        0.0 s  pedido com --sem-servidor
+passou  Página web (Chromium e WebKit)                            11.8 s  2 de 2 testes passaram
+
+SUÍTE INCOMPLETA: nada falhou, mas 1 etapa(s) foram puladas (65.9 s). Não serve para aprovar.
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+exit=0
