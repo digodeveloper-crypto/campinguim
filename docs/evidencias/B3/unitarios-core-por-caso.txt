@@ -1,13 +1,17 @@
 
  RUN  v5.1.0 C:/campinguim-wt/B3
 
- ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > aritmética com precedência, teto e se() 5ms
- ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > comparações e lógica (e, ou, nao, sempre) 1ms
- ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > recusa variável e função desconhecidas e mistura de tipos, antes de avaliar 3ms
- ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > recusa texto mal formado 1ms
- ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > nunca executa código: só lê os símbolos da gramática 0ms
- ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > avaliar com variável sem valor ou divisão por zero é erro 0ms
- ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > tipoDe diz o tipo do resultado 0ms
+ ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D1: "Camping Recanto das Águas" e "recanto das aguas" são o mesmo camping; a criação devolve o existente 4ms
+ ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D2: "Recanto das Águas" e "Recanto das Agoas" são parecidos: o app pergunta "é este?" 1ms
+ ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D3: "Recanto das Águas" e "Sítio Pedra Lisa" são distintos 0ms
+ ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D4: mesmo nome em cidades diferentes são distintos 0ms
+ ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D5: fusão de dois campings com relatos; desfazer restaura os dois 1ms
+ ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > tira acento, pontuação, maiúsculas e as palavras genéricas 0ms
+ ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > trigramas no formato do pg_trgm 0ms
+ ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > similaridade entre 0,45 e 0,6 vai para a fila de fusão 1ms
+ ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > E3-22: a criação encontra o camping por qualquer apelido 0ms
+ ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > parecidos vêm do mais parecido para o menos 0ms
+ ✓  core  packages/core/src/duplicados.test.ts > Fusão: casos de erro > recusa fundir consigo mesmo, camping inexistente e camping já fundido 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > a SPEC tem os 35 casos: C1 a C7, L1 a L8, A1 a A6, F1 a F9 e D1 a D5 3ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C1 tem um teste com o código no título, em packages/core 0ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C2 tem um teste com o código no título, em packages/core 0ms
@@ -33,7 +37,7 @@
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F1 tem um teste com o código no título, em packages/core 0ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F2 tem um teste com o código no título, em packages/core 0ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F3 tem um teste com o código no título, em packages/core 0ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F4 tem um teste com o código no título, em packages/core 0ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F4 tem um teste com o código no título, em packages/core 3ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F5 tem um teste com o código no título, em packages/core 0ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F6 tem um teste com o código no título, em packages/core 0ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F7 tem um teste com o código no título, em packages/core 0ms
@@ -45,40 +49,40 @@
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D4 tem um teste com o código no título, em packages/core 0ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D5 tem um teste com o código no título, em packages/core 0ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C1 está na tabela caso → teste de docs/regras.md 2ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C2 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C3 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C2 está na tabela caso → teste de docs/regras.md 2ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C3 está na tabela caso → teste de docs/regras.md 2ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C4 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C5 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C5 está na tabela caso → teste de docs/regras.md 2ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C6 está na tabela caso → teste de docs/regras.md 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > C7 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L1 está na tabela caso → teste de docs/regras.md 2ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L2 está na tabela caso → teste de docs/regras.md 2ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L3 está na tabela caso → teste de docs/regras.md 3ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L1 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L2 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L3 está na tabela caso → teste de docs/regras.md 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L4 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L5 está na tabela caso → teste de docs/regras.md 4ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L6 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L7 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L5 está na tabela caso → teste de docs/regras.md 2ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L6 está na tabela caso → teste de docs/regras.md 2ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L7 está na tabela caso → teste de docs/regras.md 3ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > L8 está na tabela caso → teste de docs/regras.md 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A1 está na tabela caso → teste de docs/regras.md 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A2 está na tabela caso → teste de docs/regras.md 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A3 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A4 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A4 está na tabela caso → teste de docs/regras.md 3ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A5 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A6 está na tabela caso → teste de docs/regras.md 3ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F1 está na tabela caso → teste de docs/regras.md 3ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F2 está na tabela caso → teste de docs/regras.md 2ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F3 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F4 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F5 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F6 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > A6 está na tabela caso → teste de docs/regras.md 2ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F1 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F2 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F3 está na tabela caso → teste de docs/regras.md 5ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F4 está na tabela caso → teste de docs/regras.md 5ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F5 está na tabela caso → teste de docs/regras.md 4ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F6 está na tabela caso → teste de docs/regras.md 2ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F7 está na tabela caso → teste de docs/regras.md 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F8 está na tabela caso → teste de docs/regras.md 1ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > F9 está na tabela caso → teste de docs/regras.md 2ms
  ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D1 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D2 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D3 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D4 está na tabela caso → teste de docs/regras.md 1ms
- ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D5 está na tabela caso → teste de docs/regras.md 1ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D2 está na tabela caso → teste de docs/regras.md 4ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D3 está na tabela caso → teste de docs/regras.md 2ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D4 está na tabela caso → teste de docs/regras.md 2ms
+ ✓  core  packages/core/src/casos.test.ts > Casos obrigatórios da SPEC, seção 9 > D5 está na tabela caso → teste de docs/regras.md 2ms
  ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > C1: R$ 420,00, regra de cotas 3ms
  ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > C2: R$ 100,00 entre três famílias de 1 adulto; a primeira comprou 1ms
  ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > C3: como C1, com Lucas excluído do gasto 0ms
@@ -86,55 +90,69 @@
  ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > C5: como C1, regra adults_teens 0ms
  ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > C6: como C1, com todos excluídos menos a família compradora 1ms
  ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > C7: gasto só com estimativa: mostra a estimativa por família, marcada "estimado", sem dívida 1ms
- ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > a soma fecha ao centavo em qualquer valor, regra e exclusão 46ms
- ✓  core  packages/core/src/cotas.test.ts > Regras das cotas > meias cotas por faixa: adulto e adolescente 2, criança 1, menor de 5 zero 6ms
+ ✓  core  packages/core/src/cotas.test.ts > Cotas (SPEC, seção 9) > a soma fecha ao centavo em qualquer valor, regra e exclusão 101ms
+ ✓  core  packages/core/src/cotas.test.ts > Regras das cotas > meias cotas por faixa: adulto e adolescente 2, criança 1, menor de 5 zero 0ms
  ✓  core  packages/core/src/cotas.test.ts > Regras das cotas > valorDaMeiaCota recusa valor negativo, fração de centavo e H menor que 1 1ms
  ✓  core  packages/core/src/cotas.test.ts > Regras das cotas > família só com menor de 5, na regra per_family, participa; sem ninguém não participando, ninguém deve 0ms
- ✓  core  packages/core/src/cotas.test.ts > Regras das cotas > recusa gasto sem valor e sem estimativa, compradora fora do gasto, família repetida e valor inválido 1ms
+ ✓  core  packages/core/src/cotas.test.ts > Regras das cotas > recusa gasto sem valor e sem estimativa, compradora fora do gasto, família repetida e valor inválido 3ms
  ✓  core  packages/core/src/cotas.test.ts > Resumo de gastos por família (E2-13) > quanto cada família deve a cada comprador, por item e no total 1ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F1: último relato em outubro de 2026 é recente 3ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F2: último relato em março de 2026 pode ter mudado 0ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F3: último relato em outubro de 2025 fica sem valor vigente (e não gera alerta) 1ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F4: dois relatos iguais, de contas diferentes, recentes: confirmado 0ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F5: dois relatos iguais, da mesma conta, em viagens diferentes: não confirmado 0ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F6: 5 relatos "cumprida" e 1 "não cumprida" em feriado: vale "cumprida", com a divergência e a ocasião 1ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F7: 1 "sim" de setembro e 1 "não" de outubro: empate, vale "não", o mais recente; não confirmado 0ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F8: terceira viagem da mesma conta ao mesmo camping no mesmo mês: relato guardado, sem contar 1ms
- ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F9: relato de viagem criada depois da data de ida é recusado com not_eligible 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato "informado pelo camping, via campista" pesa metade 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato retido não entra na conta 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato de mais de 12 meses sai da conta, mesmo com outros recentes 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato de conta excluída (anônimo) vale como relato, mas não como conta diferente 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > empate no mesmo mês: vale o que chegou depois 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > sem relatos: sem valor vigente 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > idade e frescor nos limites: 6 meses recente, 12 pode ter mudado, 13 sem valor 0ms
- ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > recusa mês fora do formato ou no futuro 1ms
- ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > conta logada, viagem para aquele camping, volta já passada e criada antes da ida: pode 0ms
- ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > sem conta: not_eligible 0ms
- ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > outro camping: not_eligible 0ms
- ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > viagem sem data: not_eligible 0ms
- ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > volta ainda não passou: not_eligible 0ms
- ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > recusa data fora do formato 0ms
- ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D1: "Camping Recanto das Águas" e "recanto das aguas" são o mesmo camping; a criação devolve o existente 4ms
- ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D2: "Recanto das Águas" e "Recanto das Agoas" são parecidos: o app pergunta "é este?" 1ms
- ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D3: "Recanto das Águas" e "Sítio Pedra Lisa" são distintos 0ms
- ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D4: mesmo nome em cidades diferentes são distintos 0ms
- ✓  core  packages/core/src/duplicados.test.ts > Duplicados (SPEC, seção 9) > D5: fusão de dois campings com relatos; desfazer restaura os dois 2ms
- ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > tira acento, pontuação, maiúsculas e as palavras genéricas 0ms
- ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > trigramas no formato do pg_trgm 0ms
- ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > similaridade entre 0,45 e 0,6 vai para a fila de fusão 1ms
- ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > E3-22: a criação encontra o camping por qualquer apelido 1ms
- ✓  core  packages/core/src/duplicados.test.ts > Nome normalizado e similaridade (seção 6; E3-21) > parecidos vêm do mais parecido para o menos 2ms
- ✓  core  packages/core/src/duplicados.test.ts > Fusão: casos de erro > recusa fundir consigo mesmo, camping inexistente e camping já fundido 2ms
- ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A1: viagem de referência com o retrato de referência 7ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > item marcado como "faltou" entra na próxima lista daquela pessoa, com aviso 4ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "faltou" num item que não estava na lista (E1-09) entra como item da pessoa 1ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "faltou" num item do catálogo que não está na lista nova entra como item da pessoa e o recálculo não o apaga 4ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "faltou" num item que já está na lista nova só gera aviso 0ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > consumível marcado como "sobrou" em duas viagens seguidas tem a quantidade reduzida em 25 %, com aviso 2ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > decisão de 26/11/2026: o item que já está em 1 não reduz e vem sinalizado "sobrou da última vez" 1ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > decisão de 26/11/2026: a redução acumula, 25 % sobre a quantidade já reduzida a cada viagem seguida em que sobrou, até o mínimo de 1 2ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > regra final das sobras (26/11/2026): 10 → 8 → 6 → 5 → 4 → 3 → 2 → 1, e 2 → 1 na segunda sobra 1ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > regra final das sobras: a cada viagem seguida em que sobrou, um passo a mais, sempre com o aviso "sobrou da última vez" 2ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > decisão de 26/11/2026: consumíveis são também sacos de lixo, papel higiênico, papel-toalha, fraldas, lenços e ração; alimentos não 1ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "sobrou" numa viagem só, ou em item que não é consumível, não reduz 0ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > quantidade editada à mão não é reduzida 0ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > o usuário pode desfazer a redução e a sinalização 1ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > a redução continua valendo sobre a quantidade recalculada, até ser desfeita 1ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > percentual de redução fora do intervalo é recusado; a premissa padrão é 25 % 0ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > sem histórico, nada muda 0ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Repetir a viagem (E1-12) > cria a lista nova em um passo, com o que a pessoa fez na anterior e o aprendizado aplicado 1ms
+ ✓  core  packages/core/src/aprendizado.test.ts > Repetir a viagem (E1-12) > itens que entraram por ajuste do camping não são levados: o retrato é da viagem 0ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L1: quantidades 4ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L2: itens presentes por condição 1ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L3: itens ausentes por condição 0ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L4: mudar o clima para calor mostra as entradas e saídas 1ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L5: remover a grelha e depois mudar as noites para 3 1ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L6: item adicionado à mão continua na lista, sem alteração, depois do recálculo 1ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L7: a quantidade da água editada para 4 galões é preservada no recálculo 1ms
+ ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L8: trocar para trilha com mochila 1ms
+ ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > gera exatamente estes itens, nesta ordem, com estas quantidades 2ms
+ ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > todos os itens nascem gerados, não removidos, sem edição e com estados zerados 8ms
+ ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > a tarefa das refeições planeja D cafés, D almoços e N jantares 3ms
+ ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > E1-02: todas as categorias aparecem; sem crianças e sem pet, essas duas somem 1ms
+ ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > E1-02: categoria com todos os itens removidos some 1ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > E1-03: as quantidades mudam com pessoas e noites 1ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > chuva, clima ameno, bebê e destino: as condições restantes 2ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > motorhome exclui barraca, lona de chão, espeques, martelo e isolante 1ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > decisão de 26/11/2026: motorhome leva mesa, cadeiras, grelha e carvão; não leva balde nem cintas 1ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > trilha com mochila exclui também a lona de sombra, mesmo com chuva 0ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > E3-09: sem destino ou sem dados, os itens que dependem do camping entram com a etiqueta 0ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > com dados do camping, a ficha decide: ducha, extensão e adaptador só entram por ajuste; a água entra cheia e sem etiqueta 1ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > E2-06: em grupo, itens do grupo somam todas as famílias; itens de família e pessoa usam a própria família 3ms
+ ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > linha com quantidade zero não entra (cadeiras numa família só de bebês) 1ms
+ ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > item removido pode ser restaurado, e o recálculo volta a cuidar dele 1ms
+ ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > item removido que deixa de valer continua guardado como removido, sem contar como saída 1ms
+ ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > o recálculo guarda os estados (separei, está no carro) dos itens que ficam 1ms
+ ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > itens de ajuste do camping não são tocados pelo recálculo 1ms
+ ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > renomear e anotar 0ms
+ ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > recusa edições inválidas 2ms
+ ✓  core  packages/core/src/lista.test.ts > Entrada da viagem > recusa entrada inválida 1ms
+ ✓  core  packages/core/src/lista.test.ts > Entrada da viagem > E1-01: noites a partir das datas 2ms
+ ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A1: viagem de referência com o retrato de referência 8ms
  ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A2: mesmo retrato com 2 chuveiros 1ms
  ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A3: pet não aceito gera atenção; sem pet na viagem, nenhum alerta 1ms
  ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A4: churrasco proibido gera atenção e tira carvão e grelha 1ms
  ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A5: fato de chuveiro com um único relato aparece como informação "não confirmado", e a ducha não entra 1ms
- ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A6: desfazer o ajuste da extensão volta ao estado anterior, e um retrato novo não o reaplica 2ms
- ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > sem energia: atenção; saem extensão e adaptador; lanterna e bateria portátil ganham 1 2ms
+ ✓  core  packages/core/src/alertas.test.ts > Ficha, alertas e ajustes (SPEC, seção 9) > A6: desfazer o ajuste da extensão volta ao estado anterior, e um retrato novo não o reaplica 3ms
+ ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > sem energia: atenção; saem extensão e adaptador; lanterna e bateria portátil ganham 1 1ms
  ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > sem tomada: atenção; saem extensão e adaptador (decisão de 26/11/2026); bateria portátil ganha 1; quantidade editada à mão não muda 3ms
- ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > decisão de 26/11/2026: com tomada, perto ou longe, em qualquer tensão, entram extensão e adaptador 1ms
+ ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > decisão de 26/11/2026: com tomada, perto ou longe, em qualquer tensão, entram extensão (20 m longe, 5 m perto) e adaptador 2ms
  ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > com tomada mas sem energia elétrica, nada entra; tomada ou piscina não confirmada só informa (decisão 5) 1ms
  ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > água quente: atenção no frio, informação nos demais climas 0ms
  ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > pet com restrição: informação, só com pet na viagem 0ms
@@ -150,53 +168,37 @@
  ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > valores sem linha na tabela não geram nada 0ms
  ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > ajuste que cita item fora do catálogo é erro 1ms
  ✓  core  packages/core/src/alertas.test.ts > Demais linhas da tabela da seção 6 > todo item citado nos ajustes existe no catálogo e todo texto citado existe em alertas.json 1ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > item marcado como "faltou" entra na próxima lista daquela pessoa, com aviso 5ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "faltou" num item que não estava na lista (E1-09) entra como item da pessoa 1ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "faltou" num item do catálogo que não está na lista nova entra como item da pessoa e o recálculo não o apaga 4ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "faltou" num item que já está na lista nova só gera aviso 1ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > consumível marcado como "sobrou" em duas viagens seguidas tem a quantidade reduzida em 25 %, com aviso 2ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > decisão de 26/11/2026: quando a redução arredondada para cima não muda a quantidade, o item vem sinalizado "sobrou da última vez" 1ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > decisão de 26/11/2026: a redução acumula, 25 % sobre a quantidade já reduzida a cada viagem seguida em que sobrou, até o mínimo de 1 3ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > decisão de 26/11/2026: consumíveis são também sacos de lixo, papel higiênico, papel-toalha, fraldas, lenços e ração; alimentos não 3ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > "sobrou" numa viagem só, ou em item que não é consumível, não reduz 0ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > quantidade editada à mão não é reduzida 0ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > o usuário pode desfazer a redução e a sinalização 2ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > a redução continua valendo sobre a quantidade recalculada, até ser desfeita 1ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > percentual de redução fora do intervalo é recusado; a premissa padrão é 25 % 1ms
- ✓  core  packages/core/src/aprendizado.test.ts > Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5) > sem histórico, nada muda 0ms
- ✓  core  packages/core/src/aprendizado.test.ts > Repetir a viagem (E1-12) > cria a lista nova em um passo, com o que a pessoa fez na anterior e o aprendizado aplicado 1ms
- ✓  core  packages/core/src/aprendizado.test.ts > Repetir a viagem (E1-12) > itens que entraram por ajuste do camping não são levados: o retrato é da viagem 0ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L1: quantidades 3ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L2: itens presentes por condição 1ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L3: itens ausentes por condição 0ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L4: mudar o clima para calor mostra as entradas e saídas 1ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L5: remover a grelha e depois mudar as noites para 3 2ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L6: item adicionado à mão continua na lista, sem alteração, depois do recálculo 2ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L7: a quantidade da água editada para 4 galões é preservada no recálculo 1ms
- ✓  core  packages/core/src/lista.test.ts > Geração da lista: viagem de referência (SPEC, seção 9) > L8: trocar para trilha com mochila 1ms
- ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > gera exatamente estes itens, nesta ordem, com estas quantidades 2ms
- ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > todos os itens nascem gerados, não removidos, sem edição e com estados zerados 8ms
- ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > a tarefa das refeições planeja D cafés, D almoços e N jantares 1ms
- ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > E1-02: todas as categorias aparecem; sem crianças e sem pet, essas duas somem 1ms
- ✓  core  packages/core/src/lista.test.ts > Lista esperada da família da Carla (SPEC, seção 13: viagem de referência) > E1-02: categoria com todos os itens removidos some 1ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > E1-03: as quantidades mudam com pessoas e noites 2ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > chuva, clima ameno, bebê e destino: as condições restantes 1ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > motorhome exclui barraca, lona de chão, espeques, martelo e isolante 1ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > decisão de 26/11/2026: motorhome leva mesa, cadeiras, grelha e carvão; não leva balde nem cintas 1ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > trilha com mochila exclui também a lona de sombra, mesmo com chuva 0ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > E3-09: sem destino ou sem dados, os itens que dependem do camping entram com a etiqueta 0ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > com dados do camping, a ficha decide: ducha, extensão e adaptador só entram por ajuste; a água entra cheia e sem etiqueta 0ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > E2-06: em grupo, itens do grupo somam todas as famílias; itens de família e pessoa usam a própria família 2ms
- ✓  core  packages/core/src/lista.test.ts > Regras de geração (SPEC, seção 5) > linha com quantidade zero não entra (cadeiras numa família só de bebês) 1ms
- ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > item removido pode ser restaurado, e o recálculo volta a cuidar dele 1ms
- ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > item removido que deixa de valer continua guardado como removido, sem contar como saída 2ms
- ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > o recálculo guarda os estados (separei, está no carro) dos itens que ficam 1ms
- ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > itens de ajuste do camping não são tocados pelo recálculo 1ms
- ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > renomear e anotar 0ms
- ✓  core  packages/core/src/lista.test.ts > Editar a lista (E1-04) > recusa edições inválidas 2ms
- ✓  core  packages/core/src/lista.test.ts > Entrada da viagem > recusa entrada inválida 1ms
- ✓  core  packages/core/src/lista.test.ts > Entrada da viagem > E1-01: noites a partir das datas 2ms
- ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > a SPEC tem as 11 tabelas de itens e o arquivo as mesmas categorias, na mesma ordem 5ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F1: último relato em outubro de 2026 é recente 5ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F2: último relato em março de 2026 pode ter mudado 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F3: último relato em outubro de 2025 fica sem valor vigente (e não gera alerta) 2ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F4: dois relatos iguais, de contas diferentes, recentes: confirmado 1ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F5: dois relatos iguais, da mesma conta, em viagens diferentes: não confirmado 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F6: 5 relatos "cumprida" e 1 "não cumprida" em feriado: vale "cumprida", com a divergência e a ocasião 1ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F7: 1 "sim" de setembro e 1 "não" de outubro: empate, vale "não", o mais recente; não confirmado 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F8: terceira viagem da mesma conta ao mesmo camping no mesmo mês: relato guardado, sem contar 1ms
+ ✓  core  packages/core/src/fatos.test.ts > Frescor e confirmação (SPEC, seção 9) > F9: relato de viagem criada depois da data de ida é recusado com not_eligible 1ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato "informado pelo camping, via campista" pesa metade 1ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato retido não entra na conta 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato de mais de 12 meses sai da conta, mesmo com outros recentes 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > relato de conta excluída (anônimo) vale como relato, mas não como conta diferente 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > empate no mesmo mês: vale o que chegou depois 1ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > sem relatos: sem valor vigente 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > idade e frescor nos limites: 6 meses recente, 12 pode ter mudado, 13 sem valor 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Resumo do fato: regras da seção 6 > recusa mês fora do formato ou no futuro 2ms
+ ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > conta logada, viagem para aquele camping, volta já passada e criada antes da ida: pode 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > sem conta: not_eligible 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > outro camping: not_eligible 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > viagem sem data: not_eligible 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > volta ainda não passou: not_eligible 0ms
+ ✓  core  packages/core/src/fatos.test.ts > Quem pode relatar (E3-17) > recusa data fora do formato 0ms
+ ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > aritmética com precedência, teto e se() 5ms
+ ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > comparações e lógica (e, ou, nao, sempre) 1ms
+ ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > recusa variável e função desconhecidas e mistura de tipos, antes de avaliar 4ms
+ ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > recusa texto mal formado 1ms
+ ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > nunca executa código: só lê os símbolos da gramática 0ms
+ ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > avaliar com variável sem valor ou divisão por zero é erro 0ms
+ ✓  core  packages/core/src/expressao.test.ts > Interpretador das expressões do catálogo (SPEC, seção 5, "Formato do arquivo") > tipoDe diz o tipo do resultado 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > a SPEC tem as 11 tabelas de itens e o arquivo as mesmas categorias, na mesma ordem 4ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > todo item da SPEC está no arquivo, e nada a mais, na mesma ordem 1ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item barraca: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 1ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item lona_chao: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
@@ -205,12 +207,12 @@
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item lona_sombra: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item kit_reparo: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item tapete: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
- ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item vassourinha: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item vassourinha: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 1ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item saco_dormir: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
- ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item isolante: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
- ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item travesseiro: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item isolante: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 3ms
+ ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item travesseiro: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 2ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item manta: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
- ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item lencol: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item lencol: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 1ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item fogareiro: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item gas: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > item isqueiro: nome, categoria, escopo, condição e quantidade iguais aos da SPEC 0ms
@@ -281,7 +283,7 @@
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > as exclusões por tipo de viagem são as da SPEC ("Regras de geração") 1ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > as tarefas de véspera e da volta são as da SPEC, na ordem 0ms
  ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > consumíveis marcados são exatamente os da decisão do responsável de 26/11/2026 na SPEC 1ms
- ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > itens com decisão do responsável: o motorhome leva mesa, cadeiras, grelha e carvão (SPEC, "Tipos de viagem") 1ms
+ ✓  core  packages/core/src/catalogo.test.ts > catálogo × SPEC, seção 5 > itens com decisão do responsável: o motorhome leva mesa, cadeiras, grelha e carvão (SPEC, "Tipos de viagem") 0ms
  ✓  core  packages/core/src/catalogo.test.ts > textos-base dos alertas × SPEC, seção 6 > os textos do arquivo são os da coluna "Texto-base", nem mais nem menos 0ms
  ✓  core  packages/core/src/catalogo.test.ts > esquemas JSON de packages/content/esquemas > itens.json segue o esquema 4ms
  ✓  core  packages/core/src/catalogo.test.ts > esquemas JSON de packages/content/esquemas > tarefas.json segue o esquema 0ms
@@ -293,23 +295,23 @@
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > quantidade que não é número 0ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > texto fora dos valores da variável 0ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > categoria desconhecida 0ms
- ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > unidade desconhecida 1ms
+ ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > unidade desconhecida 0ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > escopo desconhecido 0ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > campo a mais 0ms
- ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > sem quantidade e sem tarefa 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > sem quantidade e sem tarefa 2ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > chave fora do formato 0ms
- ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > expressão quebrada 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > expressão quebrada 3ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > marca que não é verdadeiro ou falso 0ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > decisão vazia 0ms
- ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > chave repetida 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > chave repetida 1ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > exclusão de item que não existe 1ms
- ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > arquivo que não é objeto, lista que não é lista e versão inválida 3ms
- ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > tarefa com tipo desconhecido ou parte que não é número 0ms
+ ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > arquivo que não é objeto, lista que não é lista e versão inválida 4ms
+ ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > tarefa com tipo desconhecido ou parte que não é número 1ms
  ✓  core  packages/core/src/catalogo.test.ts > validarCatalogo recusa catálogo com erro > o catálogo carregado é o mesmo objeto nas chamadas seguintes 0ms
 
  Test Files  9 passed (9)
-      Tests  305 passed (305)
-   Start at  17:04:01
-   Duration  441ms (import 36%, tests 34%, transform 21%, worker 8%, environment 1%)
+      Tests  307 passed (307)
+   Start at  17:10:50
+   Duration  1.38s (import 35%, tests 31%, transform 26%, worker 7%)
 
 SAIDA=0

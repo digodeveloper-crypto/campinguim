@@ -59,13 +59,13 @@ describe('Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5)', () => {
     expect(item(r.lista, 'agua@grupo')).toMatchObject({ qty: 13, aprendizado: { tipo: 'reduzido', qtyAnterior: 17, percentual: 25, reducoes: 1 } });
     expect(item(r.lista, 'gas@grupo')).toMatchObject({ qty: 3, aprendizado: { tipo: 'reduzido', qtyAnterior: 4 } }); // gás teto(24 / 8) + 1 = 4; teto(4 × 0,75) = 3
     expect(r.avisos).toEqual([
-      { tipo: 'reduzido', ref: 'gas@grupo', de: 4, para: 3, reducoes: 1 },
-      { tipo: 'reduzido', ref: 'agua@grupo', de: 17, para: 13, reducoes: 1 },
+      { tipo: 'reduzido', ref: 'gas@grupo', de: 4, para: 3, reducoes: 1, texto: 'sobrou_da_ultima_vez' },
+      { tipo: 'reduzido', ref: 'agua@grupo', de: 17, para: 13, reducoes: 1, texto: 'sobrou_da_ultima_vez' },
     ]);
   });
 
-  it('decisão de 26/11/2026: quando a redução arredondada para cima não muda a quantidade, o item vem sinalizado "sobrou da última vez"', () => {
-    const sobras = marcar(lista, 'leftover', ['carvao@grupo']); // carvão 1: teto(0,75) = 1
+  it('decisão de 26/11/2026: o item que já está em 1 não reduz e vem sinalizado "sobrou da última vez"', () => {
+    const sobras = marcar(lista, 'leftover', ['carvao@grupo']); // carvão 1
     const r = aplicarAprendizado(lista, [viagem(sobras), viagem(sobras)], catalogo);
     expect(item(r.lista, 'carvao@grupo')).toMatchObject({ qty: 1, aprendizado: { tipo: 'sinalizado' } });
     expect(r.avisos).toEqual([{ tipo: 'sinalizado', ref: 'carvao@grupo', texto: 'sobrou_da_ultima_vez' }]);
@@ -82,10 +82,9 @@ describe('Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5)', () => {
     expect(reduzida(3)).toBe(10); // teto(13 × 0,75)
     expect(reduzida(4)).toBe(8); // teto(10 × 0,75)
     expect(reduzida(5)).toBe(6);
-    expect(reduzida(8)).toBe(3); // 6, 5, 4, 3
-    // Com teto, 3 vira teto(2,25) = 3 e 2 vira teto(1,5) = 2: a quantidade para de cair e o item vem
-    // sinalizado; o mínimo de 1 nunca é atingido a partir de 2 (dúvida registrada em docs/regras.md).
-    expect(reduzida(20)).toBe(3);
+    // regra final das sobras: quando o teto não muda, tira 1 (3 → 2 → 1)
+    expect([6, 7, 8, 9, 10].map(reduzida)).toEqual([5, 4, 3, 2, 1]);
+    expect(reduzida(20)).toBe(1); // nunca abaixo de 1
     const vinte = aplicarAprendizado(grande, Array.from({ length: 20 }, () => viagem(sobras)), catalogo);
     expect(item(vinte.lista, 'agua@grupo')?.aprendizado).toMatchObject({ tipo: 'reduzido', qtyAnterior: 17, reducoes: 19 });
     // a sequência para na primeira viagem sem sobra
@@ -96,6 +95,35 @@ describe('Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5)', () => {
     const recalculo = recalcularLista(tres.lista, { ...VIAGEM_DE_REFERENCIA, noites: 3 }, catalogo); // água teto(48 / 5) = 10
     expect(item(recalculo.lista, 'agua@grupo')).toMatchObject({ qty: 6, aprendizado: { qtyAnterior: 10, reducoes: 2 } }); // 10, 8, 6
     expect(item(desfazerAprendizado(recalculo.lista, 'agua@grupo'), 'agua@grupo')?.qty).toBe(10);
+  });
+
+  it('regra final das sobras (26/11/2026): 10 → 8 → 6 → 5 → 4 → 3 → 2 → 1, e 2 → 1 na segunda sobra', () => {
+    expect(Array.from({ length: 9 }, (_, vezes) => reduzirQuantidade(10, 25, vezes))).toEqual([10, 8, 6, 5, 4, 3, 2, 1, 1]);
+    // gás 2 na viagem de referência: na segunda viagem seguida em que sobrou, vai a 1, sinalizado
+    const sobras = marcar(lista, 'leftover', ['gas@grupo']);
+    expect(aplicarAprendizado(lista, [viagem(sobras)], catalogo).avisos).toEqual([]); // uma sobra só: nada muda
+    const r = aplicarAprendizado(lista, [viagem(sobras), viagem(sobras)], catalogo);
+    expect(item(r.lista, 'gas@grupo')).toMatchObject({ qty: 1, aprendizado: { tipo: 'reduzido', qtyAnterior: 2, reducoes: 1 } });
+    expect(r.avisos).toEqual([{ tipo: 'reduzido', ref: 'gas@grupo', de: 2, para: 1, reducoes: 1, texto: 'sobrou_da_ultima_vez' }]);
+  });
+
+  it('regra final das sobras: a cada viagem seguida em que sobrou, um passo a mais, sempre com o aviso "sobrou da última vez"', () => {
+    const dez = gerarLista({ ...VIAGEM_DE_REFERENCIA, noites: 3 }, catalogo); // água teto(3 × 4 × 4 / 5) = 10
+    expect(item(dez, 'agua@grupo')?.qty).toBe(10);
+    const sobras = marcar(dez, 'leftover', ['agua@grupo']);
+    const passos = [2, 3, 4, 5, 6, 7, 8, 9].map((seguidas) => {
+      const r = aplicarAprendizado(dez, Array.from({ length: seguidas }, () => viagem(sobras)), catalogo);
+      return r.avisos;
+    });
+    expect(passos.map((avisos) => (avisos[0]?.tipo === 'reduzido' ? avisos[0].para : null))).toEqual([8, 6, 5, 4, 3, 2, 1, 1]);
+    for (const avisos of passos) {
+      expect(avisos).toEqual([expect.objectContaining({ tipo: 'reduzido', ref: 'agua@grupo', de: 10, texto: 'sobrou_da_ultima_vez' })]);
+    }
+    // 1 fica 1, sinalizado
+    const um = marcar(lista, 'leftover', ['carvao@grupo']);
+    expect(aplicarAprendizado(lista, [viagem(um), viagem(um), viagem(um)], catalogo).avisos).toEqual([
+      { tipo: 'sinalizado', ref: 'carvao@grupo', texto: 'sobrou_da_ultima_vez' },
+    ]);
   });
 
   it('decisão de 26/11/2026: consumíveis são também sacos de lixo, papel higiênico, papel-toalha, fraldas, lenços e ração; alimentos não', () => {
@@ -110,7 +138,7 @@ describe('Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5)', () => {
     const r = aplicarAprendizado(comBebe, [viagem(sobras), viagem(sobras)], catalogo);
     expect(Object.fromEntries(r.avisos.map((a) => [a.ref.split('@')[0], a.tipo === 'reduzido' ? `${a.de}>${a.para}` : a.tipo]))).toEqual({
       sacos_lixo: '14>11',
-      papel_toalha: 'sinalizado',
+      papel_toalha: 'sinalizado', // 1
       papel_hig: '8>6', // teto(5 × 6 / 4)
       lencos: 'sinalizado',
       fraldas: '42>32', // 6 × 1 × 7
@@ -156,6 +184,8 @@ describe('Aprendizado de "faltou e sobrou" (E1-11; SPEC, seção 5)', () => {
     expect(reduzirQuantidade(8, 25)).toBe(6);
     expect(reduzirQuantidade(8, 25, 2)).toBe(5);
     expect(reduzirQuantidade(2, 90)).toBe(1);
+    expect(reduzirQuantidade(3, 25)).toBe(2); // teto(2,25) = 3 não muda: tira 1
+    expect(reduzirQuantidade(2, 25)).toBe(1);
     expect(reduzirQuantidade(1, 25, 5)).toBe(1);
     expect(() => aplicarAprendizado(lista, [], catalogo, 0)).toThrow(/percentual/);
     expect(() => aplicarAprendizado(lista, [], catalogo, 100)).toThrow(/percentual/);
@@ -185,7 +215,7 @@ describe('Repetir a viagem (E1-12)', () => {
     expect(item(r.lista, 'boia-velha')).toBeUndefined();
     expect(item(r.lista, 'agua@grupo')).toMatchObject({ qty: 6, aprendizado: { tipo: 'reduzido' } });
     expect(r.avisos).toContainEqual({ tipo: 'faltou_ja_estava', ref: `lanterna@${FAM}` });
-    expect(r.avisos).toContainEqual({ tipo: 'reduzido', ref: 'agua@grupo', de: 8, para: 6, reducoes: 1 });
+    expect(r.avisos).toContainEqual({ tipo: 'reduzido', ref: 'agua@grupo', de: 8, para: 6, reducoes: 1, texto: 'sobrou_da_ultima_vez' });
     // estados zerados na viagem nova
     expect(r.lista.every((i) => i.estado.packState === 'todo' && i.estado.returnState === 'unchecked' && !i.estado.missing && !i.estado.leftover)).toBe(true);
   });

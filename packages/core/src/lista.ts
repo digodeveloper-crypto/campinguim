@@ -46,13 +46,17 @@ export type Aprendizado =
   | { readonly tipo: 'sinalizado' };
 
 /**
- * Quantidade reduzida pelo aprendizado: `vezes` reduções seguidas de `percentual` %, cada uma sobre a
- * quantidade já reduzida, arredondada para cima (o `teto` do catálogo), até o mínimo de 1 (decisão do
- * responsável, 26/11/2026).
+ * Quantidade reduzida pelo aprendizado: `vezes` reduções seguidas, cada uma sobre a quantidade já
+ * reduzida. Regra final das sobras (decidida em 26/11/2026, conciliando as decisões 2 e 3 do
+ * responsável): nova = teto(qty × (100 − percentual) / 100); se o teto não muda a quantidade,
+ * nova = max(1, qty − 1). A redução sempre avança e chega a 1 (10, 8, 6, 5, 4, 3, 2, 1).
  */
 export function reduzirQuantidade(qty: number, percentual: number, vezes = 1): number {
   let q = qty;
-  for (let i = 0; i < vezes && q > 1; i += 1) q = Math.max(1, Math.ceil((q * (100 - percentual)) / 100));
+  for (let i = 0; i < vezes && q > 1; i += 1) {
+    const nova = Math.ceil((q * (100 - percentual)) / 100);
+    q = nova === q ? Math.max(1, q - 1) : nova;
+  }
   return q;
 }
 

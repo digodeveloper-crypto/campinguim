@@ -48,10 +48,10 @@ describe('Ficha, alertas e ajustes (SPEC, seção 9)', () => {
     expect(r.alertas.filter((a) => a.nivel === 'atencao')).toEqual([expect.objectContaining({ texto: 'chuveiro', parametros: { barracas: 25 } })]);
     expect(r.alertas.find((a) => a.texto === 'silencio')?.parametros).toEqual({ horario: '22h' });
     expect(r.alertas.find((a) => a.texto === 'piscina_horario')?.parametros).toEqual({ horario: '10h' });
-    // Ajustes: tarefa de 220 V; extensão e adaptador (há tomada; decisão de 26/11/2026: "tomada longe" é o
-    // alerta sobre a extensão e não muda a entrada); entra ducha; sai grelha, fica carvão; entram roupa de banho 4 e boia 2
+    // Ajustes: tarefa de 220 V; extensão de 20 m e adaptador (há tomada: decisão de 26/11/2026); entra ducha;
+    // sai grelha, fica carvão; entram roupa de banho 4 e boia 2
     expect(r.tarefas).toEqual([{ ajusteId: 'energia_voltagem:220v:tarefa:confira_aparelhos', tarefa: 'confira_aparelhos', texto: 'confira seus aparelhos' }]);
-    expect(daChave(r.lista, 'extensao')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1, detalhe: null })]);
+    expect(daChave(r.lista, 'extensao')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1, detalhe: { qty: 20, unidade: 'metro' } })]);
     expect(daChave(r.lista, 'adaptador')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1 })]);
     expect(r.alertas.find((a) => a.fato === 'energia_tomada')?.texto).toBe('tomada_longe');
     expect(daChave(r.lista, 'ducha')).toEqual([expect.objectContaining({ origem: 'camping_adjust', qty: 1 })]);
@@ -117,7 +117,7 @@ describe('Ficha, alertas e ajustes (SPEC, seção 9)', () => {
     expect(novoRetrato.entraram.map((e) => e.ref)).not.toContain('ajuste:extensao@familia-carla');
     // Fato diferente (tomada perto) é outro ajuste, e vale
     const perto = aplicar({ ...RETRATO, energia_tomada: ok('perto') }, VIAGEM_NO_RECANTO, depois.lista, desfeitos);
-    expect(daChave(perto.lista, 'extensao')).toEqual([expect.objectContaining({ origem: 'camping_adjust' })]);
+    expect(daChave(perto.lista, 'extensao')).toEqual([expect.objectContaining({ origem: 'camping_adjust', detalhe: { qty: 5, unidade: 'metro' } })]);
     expect(perto.entraram.map((e) => e.ajusteId)).toContain('energia_tomada:perto:entra:extensao');
   });
 });
@@ -148,17 +148,20 @@ describe('Demais linhas da tabela da seção 6', () => {
     expect(daChave(aplicar({ energia_tomada: ok('sem_tomada') }, VIAGEM_NO_RECANTO, editada).lista, 'bateria_portatil')[0]?.qty).toBe(3);
   });
 
-  it('decisão de 26/11/2026: com tomada, perto ou longe, em qualquer tensão, entram extensão e adaptador', () => {
+  it('decisão de 26/11/2026: com tomada, perto ou longe, em qualquer tensão, entram extensão (20 m longe, 5 m perto) e adaptador', () => {
     for (const voltagem of ['127v', '220v', 'as_duas']) {
       for (const tomada of ['perto', 'longe']) {
         const r = aplicar({ energia_voltagem: ok(voltagem), energia_tomada: ok(tomada) });
-        expect(daChave(r.lista, 'extensao'), `${voltagem} ${tomada}`).toHaveLength(1);
+        expect(daChave(r.lista, 'extensao'), `${voltagem} ${tomada}`).toEqual([
+          expect.objectContaining({ detalhe: { qty: tomada === 'longe' ? 20 : 5, unidade: 'metro' } }),
+        ]);
         expect(daChave(r.lista, 'adaptador'), `${voltagem} ${tomada}`).toHaveLength(1);
       }
     }
-    // tomada longe ou perto não muda a entrada: os mesmos itens, iguais
-    const longe = aplicar({ energia_tomada: ok('longe') }).lista.filter((i) => i.origem === 'camping_adjust');
-    const perto = aplicar({ energia_tomada: ok('perto') }).lista.filter((i) => i.origem === 'camping_adjust');
+    // longe ou perto: os mesmos itens entram; muda só o comprimento da extensão
+    const semComprimento = (i: ItemDaLista): ItemDaLista => ({ ...i, detalhe: null });
+    const longe = aplicar({ energia_tomada: ok('longe') }).lista.filter((i) => i.origem === 'camping_adjust').map(semComprimento);
+    const perto = aplicar({ energia_tomada: ok('perto') }).lista.filter((i) => i.origem === 'camping_adjust').map(semComprimento);
     expect(longe).toEqual(perto);
   });
 

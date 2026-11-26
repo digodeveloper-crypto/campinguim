@@ -4,9 +4,10 @@
 //
 // - "Faltou" na última viagem: o item entra na próxima lista (volta, se a pessoa o tinha removido).
 // - "Sobrou" num consumível em duas viagens seguidas: quantidade reduzida em 25 % (premissa), com aviso.
-//   Decidido pelo responsável em 26/11/2026: a redução é teto(qty × 0,75) e acumula; cada viagem seguida
-//   a mais em que o item sobrou reduz mais 25 % sobre a quantidade já reduzida, até o mínimo de 1.
-//   Se a redução não muda a quantidade, o item vem sinalizado "sobrou da última vez". A pessoa pode desfazer.
+//   Decidido em 26/11/2026 (regra final das sobras): a redução acumula; cada viagem seguida a mais em que
+//   o item sobrou reduz de novo, sobre a quantidade já reduzida: teto(qty × 0,75) e, se o teto não muda a
+//   quantidade, qty − 1, até o mínimo de 1. Toda redução vem sinalizada "sobrou da última vez"; o item
+//   que já está em 1 vem só sinalizado. A pessoa pode desfazer.
 // - Consumíveis: os itens com `consumivel` no catálogo (decisão de 26/11/2026).
 
 import type { Catalogo } from './catalogo';
@@ -24,8 +25,15 @@ export interface ViagemAnterior {
 export type AvisoDeAprendizado =
   | { readonly tipo: 'faltou_entrou'; readonly ref: string }
   | { readonly tipo: 'faltou_ja_estava'; readonly ref: string }
-  | { readonly tipo: 'reduzido'; readonly ref: string; readonly de: number; readonly para: number; readonly reducoes: number }
-  /** `texto`: chave em `alertas.json`, `avisos` ("sobrou da última vez"). */
+  /** `texto`: chave em `alertas.json`, `avisos` ("sobrou da última vez"), mostrada em toda redução. */
+  | {
+      readonly tipo: 'reduzido';
+      readonly ref: string;
+      readonly de: number;
+      readonly para: number;
+      readonly reducoes: number;
+      readonly texto: 'sobrou_da_ultima_vez';
+    }
   | { readonly tipo: 'sinalizado'; readonly ref: string; readonly texto: 'sobrou_da_ultima_vez' };
 
 export interface ResultadoDoAprendizado {
@@ -93,7 +101,7 @@ export function aplicarAprendizado(
     if (reducoes < 1) return item;
     const para = reduzirQuantidade(item.qty, percentual, reducoes);
     if (para < item.qty) {
-      avisos.push({ tipo: 'reduzido', ref: item.ref, de: item.qty, para, reducoes });
+      avisos.push({ tipo: 'reduzido', ref: item.ref, de: item.qty, para, reducoes, texto: 'sobrou_da_ultima_vez' });
       return { ...item, qty: para, aprendizado: { tipo: 'reduzido', qtyAnterior: item.qty, percentual, reducoes } };
     }
     avisos.push({ tipo: 'sinalizado', ref: item.ref, texto: 'sobrou_da_ultima_vez' });

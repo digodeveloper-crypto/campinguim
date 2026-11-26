@@ -27,6 +27,7 @@
     "saco_5kg": { "singular": "saco de 5 kg", "plural": "sacos de 5 kg" },
     "galao_5l": { "singular": "galão de 5 L", "plural": "galões de 5 L" },
     "litro": { "singular": "L", "plural": "L" },
+    "metro": { "singular": "m", "plural": "m" },
     "dia_de_racao": { "singular": "dia de porções", "plural": "dias de porções" }
   },
   "categorias": [
