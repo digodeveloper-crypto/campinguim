@@ -9,6 +9,9 @@ const { withDangerousMod } = require('expo/config-plugins');
 const VERSAO = '3.31.6';
 
 module.exports = function withCmakeCaminhoLongo(config) {
+  // O problema do caminho longo é só do Windows. Fora dele (esteira da versão, em Linux) o build usa
+  // o CMake padrão do Android SDK, e este plugin não exige o 3.31.6.
+  if (process.platform !== 'win32') return config;
   return withDangerousMod(config, [
     'android',
     async (cfg) => {

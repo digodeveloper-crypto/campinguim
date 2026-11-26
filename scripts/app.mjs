@@ -44,6 +44,32 @@ function instalar(serial) {
   console.log(`[app] ${String(r.stdout).trim().split(/\r?\n/).pop()} em ${serial} (${PACOTE})`);
 }
 
+/** Arquivos do app que mudam o manifesto: um APK mais velho que qualquer um deles está desatualizado. */
+export function fontesDoManifesto() {
+  const plugins = path.join(APP, 'plugins');
+  return [
+    path.join(APP, 'app.config.ts'),
+    path.join(APP, 'package.json'),
+    ...(fs.existsSync(plugins) ? fs.readdirSync(plugins).map((f) => path.join(plugins, f)) : []),
+  ].filter((f) => fs.existsSync(f));
+}
+
+/**
+ * O APK gerado serve para conferir o manifesto? Ausente ou mais velho que as fontes do manifesto
+ * não serve: o teste é pulado com o motivo (e a suíte fica INCOMPLETA).
+ * @returns {{ ok: boolean, motivo: string }}
+ */
+export function estadoDoApk(apk = APK) {
+  if (!fs.existsSync(apk)) return { ok: false, motivo: 'APK ausente: rode npm run app:gerar' };
+  const geradoEm = fs.statSync(apk).mtimeMs;
+  const maisNovos = fontesDoManifesto().filter((f) => fs.statSync(f).mtimeMs > geradoEm);
+  if (maisNovos.length) {
+    const nomes = maisNovos.map((f) => path.relative(RAIZ, f).replaceAll('\\', '/')).join(', ');
+    return { ok: false, motivo: `APK desatualizado: rode npm run app:gerar (mudou depois dele: ${nomes})` };
+  }
+  return { ok: true, motivo: '' };
+}
+
 /** Permissões do APK gerado, lidas do manifesto final mesclado (aapt2 do SDK). */
 export function permissoesDoApk(apk = APK) {
   const buildTools = path.join(SDK, 'build-tools');

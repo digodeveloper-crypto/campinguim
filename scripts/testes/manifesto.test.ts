@@ -1,10 +1,10 @@
 // Permissões do app no manifesto final mesclado (ponto J9 da prova técnica; PRV-02; decisão D2).
-// Lê o APK gerado por `npm run app:gerar`. Sem APK, o teste é pulado e diz por quê.
-import fs from 'node:fs';
-
+// Lê o APK gerado por `npm run app:gerar`. APK ausente, ou mais velho que app.config.ts,
+// package.json ou plugins do app, conta como ausente: o teste é pulado com o motivo no nome, e o
+// `npm run testar` marca a etapa como PULADO (a suíte fica INCOMPLETA, nunca "completa").
 import { describe, expect, it } from 'vitest';
 
-import { APK, permissoesDoApk } from '../app.mjs';
+import { estadoDoApk, permissoesDoApk } from '../app.mjs';
 
 // Lista fechada: qualquer permissão nova no app faz este teste falhar até ser conferida e
 // acrescentada aqui de propósito, com o motivo.
@@ -27,8 +27,11 @@ const PROIBIDAS = [
   'com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE',
 ];
 
-describe.skipIf(!fs.existsSync(APK))('manifesto final do app (pulado: rode "npm run app:gerar")', () => {
-  const permissoes = fs.existsSync(APK) ? permissoesDoApk() : [];
+const apk = estadoDoApk();
+const titulo = apk.ok ? 'manifesto final do app (ponto J9)' : `manifesto final do app (ponto J9), PULADO: ${apk.motivo}`;
+
+describe.skipIf(!apk.ok)(titulo, () => {
+  const permissoes = apk.ok ? permissoesDoApk() : [];
 
   it('não pede nenhuma permissão proibida', () => {
     expect(permissoes.filter((p) => PROIBIDAS.includes(p))).toEqual([]);

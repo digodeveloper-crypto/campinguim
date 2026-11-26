@@ -1,8 +1,10 @@
-# Evidências da B1 (rodada 1, 26/11/2026)
+# Evidências da B1 (rodadas 1 e 2, 26/11/2026)
 
 | Arquivo | O que mostra |
 | --- | --- |
-| `testar-suite-completa.txt` | `npm run testar` com o ambiente no ar: 7 de 7 etapas, 76 testes unitários e de travas, 8 do servidor, 2 da página web |
+| `testar-suite-completa.txt` | Rodada 2: `npm run testar -- --exigir-completa` com o ambiente no ar e o APK regerado: 7 de 7 etapas, nenhuma pulada (unitários e travas com os 3 testes do manifesto rodando, servidor e página web) |
+| `testar-sem-apk-incompleta.txt` | Rodada 2 (item 1 do QA): sem o APK, a etapa dos unitários sai PULADO com o motivo "APK ausente" e o resumo diz SUÍTE INCOMPLETA |
+| `testar-apk-desatualizado-exigir-completa.txt` | Rodada 2 (item 1 do QA): APK mais velho que um plugin do app, com `--exigir-completa`: etapa PULADO com "APK desatualizado", suíte falha com código 1 |
 | `testar-ambiente-fora-do-ar.txt` | `npm run testar` com o ambiente parado: a etapa do servidor aparece como PULADO e o resumo diz "SUÍTE INCOMPLETA" |
 | `tipos-e-lint.txt` | `npm run tipos` e `npm run lint` sem erro |
 | `ambiente-subir.txt` | `npm run ambiente:subir` partindo do ambiente parado: 7 contêineres, os que têm verificação de saúde em "healthy" |

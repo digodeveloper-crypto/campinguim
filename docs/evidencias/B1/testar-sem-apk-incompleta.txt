@@ -1,0 +1,76 @@
+# npm run testar -- --exigir-servidor SEM o APK (renomeado de propósito), 26/11/2026 15:01. QA B1 rodada 1, item 1
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --exigir-servidor
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1388 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/B1
+
+ ✓  core  packages/core/src/cotas.test.ts (5 tests) 9ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 39ms
+ ↓  scripts  scripts/testes/manifesto.test.ts (3 tests | 3 skipped)
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 24ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 694ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 1481ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 1423ms
+
+ Test Files  5 passed | 1 skipped (6)
+      Tests  85 passed | 3 skipped (88)
+   Start at  15:02:11
+   Duration  2.05s (tests 69%, import 26%, transform 4%, worker 2%)
+
+JSON report written to C:/campinguim-wt/B1/test-results/suite/vitest-unitarios.json
+
+=== Testes do servidor (ambiente local) ===================================
+
+ RUN  v5.1.0 C:/campinguim-wt/B1
+
+ ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 179ms
+ ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 127ms
+
+ Test Files  2 passed (2)
+      Tests  8 passed (8)
+   Start at  15:02:14
+   Duration  1.11s (tests 51%, import 41%, worker 4%, transform 4%)
+
+JSON report written to C:/campinguim-wt/B1/test-results/suite/vitest-servidor.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 1 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (572ms)
+  ok 2 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (917ms)
+
+  2 passed (5.6s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 2.8 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          1.6 s  
+passou  Tipos (TypeScript estrito)                                11.5 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                          6.2 s  
+PULADO  Testes unitários: regras puras e travas do repositório     2.9 s  85 de 88 testes passaram; 3 pulado(s): manifesto final do app (ponto J9), PULADO: APK ausente: rode npm run app:gerar
+passou  Testes do servidor (ambiente local)                        1.8 s  8 de 8 testes passaram
+passou  Página web (Chromium e WebKit)                             6.6 s  2 de 2 testes passaram
+
+SUÍTE INCOMPLETA: nada falhou, mas 1 etapa(s) foram puladas (33.3 s). Não serve para aprovar.
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+(código de saída: 0)

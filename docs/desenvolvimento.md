@@ -69,7 +69,8 @@ O que sobe (7 contêineres):
 | Comando | O que roda | Precisa de |
 | --- | --- | --- |
 | `npm run testar` | **Suíte local completa (GIT-10)**: trava de segredos, endereços fora da configuração, tipos, lint, testes unitários, testes do servidor e página web | Docker com o ambiente no ar, para não pular o servidor |
-| `npm run testar -- --exigir-servidor` | O mesmo, mas falha se o ambiente estiver fora do ar (usado na esteira de versão) | ambiente no ar |
+| `npm run testar -- --exigir-servidor` | O mesmo, mas falha se o ambiente estiver fora do ar | ambiente no ar |
+| `npm run testar -- --exigir-completa` | **Para aprovar (QA) e na esteira da versão**: qualquer etapa pulada faz a suíte falhar (código de saída 1). Inclui o `--exigir-servidor` | ambiente no ar e APK atualizado (`npm run app:gerar`) |
 | `npm run testar:rapido` | Sem servidor e sem navegador, para o ciclo de edição | nada |
 | `npm run testar:jornadas` | Roteiros do Maestro de `e2e/jornadas/` no `campinguim-a` | emulador ligado e app instalado |
 | `npm run testar:sincronizacao` | Cenários S1 a S10 (`e2e/sincronizacao/`) | ambiente no ar e os dois emuladores |
@@ -77,7 +78,12 @@ O que sobe (7 contêineres):
 | `npm run unitarios` | Todos os testes do Vitest (core, scripts e servidor) | ambiente no ar, para o servidor |
 | `npm run segredos` / `npm run enderecos` | Só as duas travas | nada |
 
-O resumo do fim do `npm run testar` diz, por etapa, `passou`, `FALHOU` ou `PULADO`, com quantos testes passaram. **"SUÍTE INCOMPLETA"** quer dizer que alguma etapa foi pulada (por exemplo, o ambiente estava fora do ar): não serve para aprovar uma feature.
+O resumo do fim do `npm run testar` diz, por etapa, `passou`, `FALHOU` ou `PULADO`, com quantos testes passaram. **Teste pulado nunca conta como passou:** se qualquer teste dentro de uma etapa for pulado, a etapa sai `PULADO`, com o motivo (o nome do grupo de testes diz por quê). **"SUÍTE INCOMPLETA"** quer dizer que alguma etapa foi pulada: não serve para aprovar uma feature. Sem `--exigir-completa` ela sai com código 0 (serve para o ciclo de edição); com `--exigir-completa`, sai com 1.
+
+Casos de pulo conhecidos:
+
+- **Servidor:** o ambiente Docker está fora do ar (`npm run ambiente:subir`).
+- **Manifesto do app (ponto J9, `scripts/testes/manifesto.test.ts`):** o APK não existe, ou é mais velho que `apps/mobile/app.config.ts`, `apps/mobile/package.json` ou algum arquivo de `apps/mobile/plugins/`. O motivo aparece como "APK ausente" ou "APK desatualizado: rode npm run app:gerar". Um APK velho nunca é usado para conferir as permissões do código atual.
 
 Camadas (SPEC, seção 13) e onde ficam:
 
@@ -103,7 +109,7 @@ adb -s emulator-5554 emu kill           # desligar só este emulador
 
 - A variante **release** leva o JavaScript dentro do app (não depende do Metro) e é assinada com a chave de depuração do modelo do Expo. Serve para emulador e testes com modo avião; nunca vai para a loja.
 - Para desenvolver com recarga: `npm run android --workspace apps/mobile` (variante de depuração, com o Metro).
-- A pasta `apps/mobile/android/` é gerada e fica fora do git. O plugin `plugins/cmake-caminho-longo.cjs` aponta o build para o CMake 3.31.6, que aceita caminhos acima de 260 caracteres no Windows (problema achado na prova, F0-1).
+- A pasta `apps/mobile/android/` é gerada e fica fora do git. O plugin `plugins/cmake-caminho-longo.cjs` aponta o build para o CMake 3.31.6, que aceita caminhos acima de 260 caracteres no Windows (problema achado na prova, F0-1). Fora do Windows o plugin não faz nada (a esteira da versão gera o APK em Linux com o CMake padrão do SDK).
 - **Regras do adb (ponto J23):** todo comando leva `-s emulator-<porta>`, e nenhum script derruba ou reinicia o servidor do adb, porque outras tarefas usam emuladores ao mesmo tempo. Os scripts só chamam o adb por `scripts/android.mjs`; um teste falha se outro arquivo chamar o adb direto ou tiver o comando de derrubar o servidor. **Não use** `prova/prova.mjs derrubar`: ele derruba o servidor do adb e todos os emuladores da máquina.
 - Capturas para o QA: só a tela do app, nunca a tela inicial do Android com ícones de outros apps.
 
@@ -163,8 +169,9 @@ prova/               código da prova técnica (registro histórico, não muda)
 | **Migração `20261126180000_b1_publicacao_sincronizacao.sql`**: só a publicação `powersync`, vazia | Sem ela o PowerSync sobe mas a replicação fica parada com erro (`PSYNC_S1141`). Nenhuma tabela é criada; a B5 acrescenta cada tabela sincronizada à publicação na migração que a cria. Nunca `for all tables` |
 | **`supabase/config.jsonc`** derivado da prova: `project_id` `campinguim`, `jwt_expiry` 3600, sem a função da prova, `site_url` vindo de `config/enderecos.json` (variável `CAMPINGUIM_SITE`), cadastro aberto desligado, dados de exemplo em `supabase/dados-de-exemplo/*.sql` | Pontos J5 e J6; endereço num único valor |
 | **Hook por `core.hooksPath = .githooks`**, ligado no `npm install` (script `prepare`) | Funciona em todo clone e em todo worktree sem instalar nada. A configuração fica no `.git/config` do clone; em pasta sem `.githooks` (ramos antigos) o git simplesmente não acha hook |
-| **Esteira** `.github/workflows/versao.yml` só em etiqueta `v*`: instala, sobe o ambiente em Docker e roda `npm run testar -- --exigir-servidor` | GIT-05. Geração dos apps e envio às lojas ficam para a rodada de lançamento (comentário no arquivo). **Não foi executada no GitHub** na B1 (nenhuma etiqueta foi criada) |
-| **Lista fechada de permissões do app** (`scripts/testes/manifesto.test.ts`), lida do APK gerado | Ponto J9: qualquer permissão nova faz o teste falhar até ser conferida e acrescentada de propósito |
+| **Esteira** `.github/workflows/versao.yml` só em etiqueta `v*`: instala, **gera o APK de teste** (`npm run app:gerar`, JDK 17 e o Android SDK da imagem do GitHub), sobe o ambiente em Docker e roda `npm run testar -- --exigir-completa` | GIT-05. **O que a esteira faz com o J9 (QA B1, rodada 1):** gera o APK, para o teste do manifesto rodar de verdade; ela nunca aceita a etapa como PULADO, porque com `--exigir-completa` qualquer pulo faz a versão falhar. O APK da esteira é só para conferir o manifesto: o app de loja, assinado, e o envio às lojas ficam para a rodada de lançamento (comentário no arquivo). **Não foi executada no GitHub** na B1 (nenhuma etiqueta foi criada); a geração do APK em Linux não foi provada localmente |
+| **Lista fechada de permissões do app** (`scripts/testes/manifesto.test.ts`), lida do APK gerado; APK ausente ou mais velho que as fontes do manifesto é pulado com o motivo | Ponto J9: qualquer permissão nova faz o teste falhar até ser conferida e acrescentada de propósito; um APK velho nunca aprova o manifesto do código atual |
+| **Teste pulado vira etapa PULADO** (`scripts/suite.mjs`, testado em `scripts/testes/suite.test.ts`) e `--exigir-completa` | Uma suíte com teste pulado não pode dizer "completa" (QA B1, rodada 1) |
 | **Sem `expo-notifications` na B1** | O app da base não tem lembrete ainda; a dependência entra na feature 1.6. As permissões que ela traz (c2dm, selos de ícone) já ficam bloqueadas no `app.config.ts` |
 
 ## 10. Pontos da prova técnica tratados na B1

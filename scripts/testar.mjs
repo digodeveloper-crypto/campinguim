@@ -4,12 +4,16 @@
 // Uso (na raiz do repositório):
 //   npm run testar                       tudo o que não precisa de emulador
 //   npm run testar -- --exigir-servidor  falha (em vez de pular) se o ambiente Docker estiver fora do ar
+//   npm run testar -- --exigir-completa  qualquer etapa pulada faz a suíte falhar (QA e esteira da versão)
 //   npm run testar:rapido                sem servidor e sem navegador (para o ciclo de edição)
 //
 // Etapas, nesta ordem: trava de segredos, endereços fora da configuração, tipos (TypeScript
 // estrito), lint, testes unitários (regras puras e travas do repositório), testes do servidor
 // (contra o ambiente local em Docker) e testes da página web (Chromium e WebKit, tela de celular).
 // O que precisa de emulador fica fora: `npm run testar:jornadas` e `npm run testar:sincronizacao`.
+//
+// Teste pulado nunca conta como passou: uma etapa com qualquer teste pulado (por exemplo, o do
+// manifesto do app sem APK atualizado) sai PULADO, com o motivo, e a suíte fica INCOMPLETA.
 
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -17,6 +21,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { ambienteNoAr } from './ambiente/ambiente.mjs';
+import { resumoGeral, resumoPlaywright, resumoVitest } from './suite.mjs';
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const RESULTADOS = path.join(RAIZ, 'test-results', 'suite');
@@ -32,7 +37,8 @@ const args = process.argv.slice(2);
 const opcoes = {
   semServidor: args.includes('--sem-servidor'),
   semWeb: args.includes('--sem-web'),
-  exigirServidor: args.includes('--exigir-servidor'),
+  exigirCompleta: args.includes('--exigir-completa'),
+  exigirServidor: args.includes('--exigir-servidor') || args.includes('--exigir-completa'),
 };
 
 /** @typedef {{ etapa: string, estado: 'passou' | 'FALHOU' | 'PULADO', detalhe: string, ms: number }} Resultado */
@@ -70,12 +76,6 @@ function etapa(nome, fn) {
   resultados.push({ etapa: nome, estado, detalhe, ms: Date.now() - inicio });
 }
 
-function contagemVitest(arquivo) {
-  if (!fs.existsSync(arquivo)) return '';
-  const j = JSON.parse(fs.readFileSync(arquivo, 'utf8'));
-  return `${j.numPassedTests} de ${j.numTotalTests} testes passaram` + (j.numPendingTests ? ` (${j.numPendingTests} pulados)` : '');
-}
-
 /**
  * @param {string[]} projetos
  * @param {string} nomeArquivo
@@ -92,7 +92,8 @@ function vitest(projetos, nomeArquivo) {
     '--reporter=json',
     `--outputFile.json=${saida}`,
   ]);
-  return { estado: ok ? 'passou' : 'FALHOU', detalhe: contagemVitest(saida) };
+  const relatorio = fs.existsSync(saida) ? JSON.parse(fs.readFileSync(saida, 'utf8')) : null;
+  return resumoVitest(relatorio, ok);
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -145,13 +146,8 @@ if (opcoes.semWeb) {
     const saida = path.join(RESULTADOS, 'playwright.json');
     fs.rmSync(saida, { force: true });
     const ok = rodar(process.execPath, [BIN.playwright, 'test', '--reporter=list,json'], { PLAYWRIGHT_JSON_OUTPUT_NAME: saida });
-    let detalhe = '';
-    if (fs.existsSync(saida)) {
-      const s = JSON.parse(fs.readFileSync(saida, 'utf8')).stats ?? {};
-      const total = (s.expected ?? 0) + (s.unexpected ?? 0) + (s.flaky ?? 0) + (s.skipped ?? 0);
-      detalhe = `${s.expected ?? 0} de ${total} testes passaram`;
-    }
-    return { estado: ok ? 'passou' : 'FALHOU', detalhe };
+    const stats = fs.existsSync(saida) ? (JSON.parse(fs.readFileSync(saida, 'utf8')).stats ?? null) : null;
+    return resumoPlaywright(stats, ok);
   });
 }
 
@@ -162,15 +158,10 @@ const largura = Math.max(...resultados.map((r) => r.etapa.length));
 for (const r of resultados) {
   console.log(`${r.estado.padEnd(6)}  ${r.etapa.padEnd(largura)}  ${(r.ms / 1000).toFixed(1).padStart(6)} s  ${r.detalhe}`);
 }
-const falhas = resultados.filter((r) => r.estado === 'FALHOU');
-const pulados = resultados.filter((r) => r.estado === 'PULADO');
-const total = `${((Date.now() - inicioGeral) / 1000).toFixed(1)} s`;
-if (falhas.length) {
-  console.log(`\nSUÍTE FALHOU: ${falhas.length} etapa(s) com falha (${total}).`);
-  process.exitCode = 1;
-} else if (pulados.length) {
-  console.log(`\nSUÍTE INCOMPLETA: nada falhou, mas ${pulados.length} etapa(s) foram puladas (${total}). Não serve para aprovar.`);
-} else {
-  console.log(`\nSUÍTE COMPLETA: todas as ${resultados.length} etapas passaram (${total}).`);
-}
+const final = resumoGeral(resultados, {
+  exigirCompleta: opcoes.exigirCompleta,
+  duracao: `${((Date.now() - inicioGeral) / 1000).toFixed(1)} s`,
+});
+console.log(`\n${final.frase}`);
+process.exitCode = final.codigo;
 console.log('Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.');
