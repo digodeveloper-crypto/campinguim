@@ -1,7 +1,8 @@
 # Fumaça da B2: abre a galeria dos componentes e captura cada seção, para o QA comparar com o protótipo
 # Rumo (DSG-06). A galeria só abre no ambiente local. Rode de novo com o aparelho em tema escuro e com a
 # letra do sistema em 130 % e 200 % (docs/componentes.md, "Como conferir"); as capturas saem com o mesmo nome.
-# Os marcadores {{...}} são trocados pelo executor (scripts/jornadas.mjs).
+# Os marcadores {{...}} são trocados pelo executor (scripts/jornadas.mjs). Rolagens com 60 s de prazo: com a
+# máquina carregada (vários emuladores e builds), o emulador rola devagar.
 appId: "{{pacote}}"
 ---
 # O app abre a frio pelo link (com o app já aberto, o link não troca de tela; ver docs/componentes.md).
@@ -21,12 +22,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-cores
     direction: DOWN
+    timeout: 60000
 - tapOn:
     id: g-secao-cores
 - scrollUntilVisible:
     element:
       id: galeria-cores
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -41,12 +44,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-tipografia
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-tipografia
 - scrollUntilVisible:
     element:
       id: galeria-tipografia
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -61,12 +66,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-icones
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-icones
 - scrollUntilVisible:
     element:
       id: galeria-icones
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -81,12 +88,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-rota
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-rota
 - scrollUntilVisible:
     element:
       id: galeria-rota
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -101,12 +110,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-cabecalho
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-cabecalho
 - scrollUntilVisible:
     element:
       id: galeria-cabecalho
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -121,12 +132,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-botoes
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-botoes
 - scrollUntilVisible:
     element:
       id: galeria-botoes
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -141,12 +154,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-item
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-item
 - scrollUntilVisible:
     element:
       id: galeria-item
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -161,12 +176,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-alerta
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-alerta
 - scrollUntilVisible:
     element:
       id: galeria-alerta
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -181,12 +198,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-selo
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-selo
 - scrollUntilVisible:
     element:
       id: galeria-selo
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -201,12 +220,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-legenda
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-legenda
 - scrollUntilVisible:
     element:
       id: galeria-legenda
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -221,12 +242,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-rodape
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-rodape
 - scrollUntilVisible:
     element:
       id: galeria-rodape
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -241,12 +264,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-campos
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-campos
 - scrollUntilVisible:
     element:
       id: galeria-campos
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -261,12 +286,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-vazios
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-vazios
 - scrollUntilVisible:
     element:
       id: galeria-vazios
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -281,12 +308,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-mascote
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-mascote
 - scrollUntilVisible:
     element:
       id: galeria-mascote
     direction: DOWN
+    timeout: 60000
     centerElement: false
 - swipe:
     start: 50%, 80%
@@ -301,12 +330,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-legenda
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-legenda
 - scrollUntilVisible:
     element:
       id: legenda-botao
     direction: DOWN
+    timeout: 60000
 - tapOn:
     id: legenda-botao
 - assertVisible:
@@ -321,12 +352,14 @@ appId: "{{pacote}}"
     element:
       id: g-secao-item
     direction: UP
+    timeout: 60000
 - tapOn:
     id: g-secao-item
 - scrollUntilVisible:
     element:
       id: g-item-0-carro
     direction: DOWN
+    timeout: 60000
 - tapOn:
     id: g-item-0-carro
 - assertVisible: "{{textos.estados.carro}}"
