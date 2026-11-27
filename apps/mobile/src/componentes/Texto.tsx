@@ -3,7 +3,8 @@
 // Respeita a letra do sistema até 200 % (NF-08): o React Native já amplia; aqui só entram as adaptações.
 // Nenhuma palavra parte no meio (DESIGN.md 4.4): o texto mede a largura que tem e, se a palavra mais longa
 // não cabe nela, diminui só o necessário (pelas métricas da própria fonte, tema/metricas.ts). Sem isso, o
-// Android quebra a palavra letra a letra ("Co/zin/ha").
+// Android quebra a palavra letra a letra ("Co/zin/ha"). O Android também quebra depois de "/" ("nov/ 2026");
+// um sinal invisível que junta palavras (U+2060) depois da barra impede isso, como no navegador.
 import { useState, type ReactNode } from 'react';
 import { Text, useWindowDimensions, type LayoutChangeEvent, type StyleProp, type TextStyle } from 'react-native';
 
@@ -23,6 +24,10 @@ type Props = {
   testID?: string | undefined;
 };
 
+/** Depois da barra, o sinal invisível que impede a quebra de linha ali (U+2060, WORD JOINER). */
+const SEM_QUEBRA_NA_BARRA = /\//g;
+const BARRA_JUNTA = '/' + String.fromCharCode(0x2060);
+
 /** O texto visível, quando é só texto (é o que pode partir). */
 function textoDe(children: ReactNode): string | null {
   if (typeof children === 'string' || typeof children === 'number') return String(children);
@@ -38,8 +43,9 @@ export function Texto({ uso = 'corpo', cor = 'texto', children, style, titulo = 
   const [largura, setLargura] = useState(0);
   const e = estiloDoUso(uso, tema.fator, tema.simulacao);
   const caixaAlta = e.textTransform === 'uppercase';
-  const nome = falado ?? (caixaAlta && typeof children === 'string' ? children : undefined);
   const texto = textoDe(children);
+  // O leitor de tela recebe a frase como está no arquivo de textos (caixa normal, sem o sinal invisível).
+  const nome = falado ?? (texto !== null && (caixaAlta || texto.includes('/')) ? texto : undefined);
   const escala =
     tema.fontes && texto !== null && largura > 0
       ? escalaParaCaber(
@@ -76,7 +82,7 @@ export function Texto({ uso = 'corpo', cor = 'texto', children, style, titulo = 
         style,
       ]}
     >
-      {children}
+      {texto === null ? children : texto.replace(SEM_QUEBRA_NA_BARRA, BARRA_JUNTA)}
     </Text>
   );
 }
