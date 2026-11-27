@@ -7,19 +7,19 @@
 //   - nunca se repete na resposta o valor recusado (ele pode ser um dado pessoal).
 import { type Campo, motivoDaRecusa } from './campos';
 import {
-  CANAIS_PADRAO_PENDENTE,
+  CANAIS_PADRAO,
   CATALOGO,
   type DefinicaoDeEvento,
   type EventoQualquer,
   type NomeDoEvento,
   type Variante,
 } from './catalogo';
-import { type ConfigDeFaixas, FAIXAS_PADRAO_PENDENTE, rotulosDeFaixa } from './faixas';
+import { type ConfigDeFaixas, FAIXAS_PADRAO, rotulosDeFaixa } from './faixas';
 
 export interface OpcoesDeValidacao {
-  /** Limites das faixas de valor. Padrão: a proposta PENDENTE de `faixas.ts`. */
+  /** Limites das faixas de valor. Padrão: as faixas decididas de `faixas.ts`. */
   readonly faixas?: ConfigDeFaixas;
-  /** Canais de origem aceitos. Padrão: a lista PENDENTE de `catalogo.ts`. */
+  /** Canais de origem aceitos. Padrão: a lista decidida de `catalogo.ts`. */
   readonly canais?: readonly string[];
 }
 
@@ -145,8 +145,8 @@ export function validarEvento(entrada: unknown, opcoes: OpcoesDeValidacao = {}):
   const nomeDoEvento = nome as NomeDoEvento;
   const definicao: DefinicaoDeEvento = CATALOGO[nomeDoEvento];
   const contexto = {
-    faixas: rotulosDeFaixa(opcoes.faixas ?? FAIXAS_PADRAO_PENDENTE),
-    canais: opcoes.canais ?? CANAIS_PADRAO_PENDENTE,
+    faixas: rotulosDeFaixa(opcoes.faixas ?? FAIXAS_PADRAO),
+    canais: opcoes.canais ?? CANAIS_PADRAO,
   };
 
   // O evento vale se bater com alguma variante. Com mais de uma, o erro mostrado é o da variante

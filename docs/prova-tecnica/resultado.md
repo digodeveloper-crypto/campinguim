@@ -52,6 +52,8 @@ Se algo não bater com o que você esperava de cada item, diga qual e eu volto a
 
 **Decidido pelo responsável em 26/11/2026:** opção B. Fica o provisório `com.campinguim.prova` até existir a conta do Google Play e o domínio; a B1 usa um nome provisório marcado. O definitivo sai do domínio que ele registrar, escrito ao contrário (por exemplo, `campinguim.com.br` vira `br.com.campinguim`), e tem de estar fixado antes de criar o app no Google Play.
 
+**Decidido pelo responsável em 27/11/2026 (V7, validação da Base):** a conta de desenvolvedor do Google Play só será aberta perto do lançamento 1.0.0. Por isso o nome definitivo do pacote (D1) fica adiado até lá e `com.campinguim.prova` segue como o nome provisório. Registro em `docs/decisoes-da-base.md`.
+
 **D2. Alarme exato para o lembrete (H8).** Por padrão, o Android 13 ou mais novo **não** concede o "alarme exato" a um app novo. Com a permissão, o aviso sai na hora. Sem ela, o Android pode atrasar. Medi os dois casos (emulador, tela ligada, sem economia de bateria; **não medido em celular real**).
 
 | Opção | O que a pessoa vê | Número medido | Custo |
@@ -77,6 +79,8 @@ Junto com esta decisão: **se o aparelho estiver desligado na hora do lembrete, 
 Opções: manter os três valores até a F0-6 e decidir com o teste real, ou fixar já outros valores. Não há número medido que favoreça um valor: a prova só verificou que a recusa funciona com o prazo vencido.
 
 **Decidido pelo responsável em 26/11/2026:** manter os três valores (5 minutos, 1 minuto e 24 horas) até a F0-6, como premissas numéricas provisórias, e decidir de novo com um token real. Para a B5: os três ficam em configuração do servidor, para mudar sem nova versão do app.
+
+**Decidido pelo responsável em 27/11/2026 (V11, validação da Base):** os tempos definitivos da verificação do aparelho são decididos na feature 3.7, com proposta do ajudante; até lá valem os três valores acima, como premissas. Registro em `docs/decisoes-da-base.md`.
 
 **D4. Como contar o tempo do cenário P8 (envio cortado no meio).** O plano diz que, depois de reconectar, os dois aparelhos devem ficar iguais ao servidor em até 30 segundos. O P8 corta a rede no meio de um envio e reenvia. Dois jeitos de contar dão respostas diferentes:
 
@@ -181,6 +185,8 @@ Aposta: `expo-router` 58.0.32 e `expo-linking` 58.0.17, com esquema próprio `ca
 ## Item 4. Verificação do aparelho: PENDENTE (parte local, F0-5)
 
 Aposta: `@expo/app-integrity` 58.0.2 atrás de interface própria no app (SPEC, seção 2), conferência no servidor. **A prova do item 4 é INCOMPLETA.**
+
+**Decidido pelo responsável em 27/11/2026 (V7, validação da Base):** a conta de desenvolvedor do Google Play só será aberta perto do lançamento 1.0.0. Consequência: o item 4 da prova (F0-6, versão pela faixa de teste interno) fica adiado até lá e a prova segue INCOMPLETA só por ele. O conteúdo desta seção continua como foi escrito em 26/11/2026. Registro em `docs/decisoes-da-base.md`.
 
 | Critério do plano (F0-5) | Número medido (conferido pelo QA) | Evidência | Veredito |
 | --- | --- | --- | --- |

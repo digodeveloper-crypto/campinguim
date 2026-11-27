@@ -19,5 +19,6 @@ A versão é criada pelo orquestrador com aprovação humana (GIT-06). Cada feat
 | B5 | Esquema do servidor e autorização: tabelas da SPEC seção 3 com RLS, aplicação das alterações vindas do aparelho, regras de sincronização, verificação do aparelho (esboço), dados de exemplo | NF-10, DEF-01, DEF-05, DEF-08, DEF-09, DEF-11, PRV-01, PRV-02, PRV-06, FRD-01 a FRD-05 (estrutura) |
 | B4 | Banco local cifrado (SQLCipher, chave no cofre do sistema), esquema local da seção 3 (com os campos pedidos pela B3 e os técnicos do B5), migrações das tabelas só locais e camada de acesso | DEF-11, NF-03 (base local), DEF-09; SPEC, seções 3, 4, 11 e 12 |
 | B2 | Componentes visuais a partir do protótipo Rumo (tema claro e escuro, tipografia, ícones, mascote, componentes 7.1 a 7.10, galeria; `docs/componentes.md`) | DSG-06, NF-07, NF-08 |
+| BASE-VAL | Validação humana da Base (27/11/2026) e decisões V1 a V11 do responsável: regra de sobras, escolhas visuais, faixas e canais de medição, rótulo do login com Google, adiamento da conta do Google Play, pendências técnicas T0 a T13 (`docs/decisoes-da-base.md`, `docs/qa/BASE-conferencia-final.md`) | DSG-06, NF-09, PRV-04 (só registro) |
 
-Documentos de referência: `docs/PRD.md`, `docs/SPEC.md`, `docs/DESIGN.md`, `docs/prova-tecnica/resultado.md`.
+Documentos de referência: `docs/PRD.md`, `docs/SPEC.md`, `docs/DESIGN.md`, `docs/prova-tecnica/resultado.md`, `docs/decisoes-da-base.md`.

@@ -7,10 +7,10 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 
 import {
-  CANAIS_PADRAO_PENDENTE,
+  CANAIS_PADRAO,
   CATALOGO,
   EVENTOS_DE_USUARIO_ATIVO,
-  FAIXAS_PADRAO_PENDENTE,
+  FAIXAS_PADRAO,
   NOMES_DE_EVENTO,
   ehUsuarioAtivo,
   faixaDeValor,
@@ -236,8 +236,8 @@ describe('validação: o que é recusado', () => {
   });
 });
 
-describe('faixa de valor (amount_band) — limites PENDENTES, vindos de configuração', () => {
-  it('as faixas padrão (proposta) e seus nomes', () => {
+describe('faixa de valor (amount_band) — limites decididos em 27/11/2026, vindos de configuração', () => {
+  it('as faixas padrão (decididas) e seus nomes', () => {
     expect(rotulosDeFaixa()).toEqual(['0-50', '50-150', '150-500', '500-1500', '1500+']);
   });
 
@@ -287,15 +287,22 @@ describe('faixa de valor (amount_band) — limites PENDENTES, vindos de configur
     expect(() => faixaDeValor(10.5)).toThrow(RangeError);
   });
 
-  it('o padrão está marcado como pendente no nome e não pode ser alterado por engano', () => {
-    expect(Object.isFrozen(FAIXAS_PADRAO_PENDENTE)).toBe(true);
-    expect(FAIXAS_PADRAO_PENDENTE.limitesEmCentavos).toEqual([5000, 15000, 50000, 150000]);
+  it('o padrão não pode ser alterado por engano', () => {
+    expect(Object.isFrozen(FAIXAS_PADRAO)).toBe(true);
+    expect(FAIXAS_PADRAO.limitesEmCentavos).toEqual([5000, 15000, 50000, 150000]);
   });
 });
 
-describe('canais de origem — lista PENDENTE, vinda de configuração', () => {
+describe('canais de origem — lista decidida em 27/11/2026, vinda de configuração', () => {
+  it('a lista fechada é store, invite, site, social e unknown', () => {
+    expect([...CANAIS_PADRAO]).toEqual(['store', 'invite', 'site', 'social', 'unknown']);
+    for (const canal of CANAIS_PADRAO) {
+      expect(validarEvento(montar('install_attributed', { channel: canal })).ok).toBe(true);
+    }
+    expect(validarEvento(montar('install_attributed', { channel: 'site_content' })).ok).toBe(false); // da proposta antiga
+  });
+
   it('o padrão serve e outra lista pode ser passada', () => {
-    expect(CANAIS_PADRAO_PENDENTE).toContain('invite');
     expect(validarEvento(montar('install_attributed', { channel: 'parceiro_x' })).ok).toBe(false);
     expect(validarEvento(montar('install_attributed', { channel: 'parceiro_x' }), { canais: ['parceiro_x'] }).ok).toBe(true);
   });

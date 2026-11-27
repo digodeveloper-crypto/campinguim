@@ -1,10 +1,10 @@
 // Faixas de valor dos gastos (`amount_band`, SPEC, seção 12): dinheiro nunca vai ao evento pelo
 // valor exato, só pela faixa em que cai.
 //
-// PENDENTE (decisão do responsável): a SPEC não define os limites das faixas. Os limites abaixo são
-// só uma PROPOSTA, para o código e os testes funcionarem, e não valem como regra de negócio até o
-// orquestrador confirmar. A função recebe os limites como configuração; trocar o padrão não mexe em
-// mais nada. Ver docs/textos-e-eventos.md, seção "Pendências".
+// Decidido pelo responsável em 27/11/2026 (validação da Base): a SPEC não define os limites; as
+// faixas definitivas, em reais, são 0-50, 50-150, 150-500, 500-1500 e acima de 1500. A função
+// recebe os limites como configuração, e este padrão é o lugar do valor; trocar não mexe em mais
+// nada. Ver docs/textos-e-eventos.md e docs/decisoes-da-base.md.
 
 export interface ConfigDeFaixas {
   /**
@@ -16,10 +16,11 @@ export interface ConfigDeFaixas {
 }
 
 /**
- * PENDENTE: R$ 50, R$ 150, R$ 500 e R$ 1.500 (faixas "0-50", "50-150", "150-500", "500-1500" e
- * "1500+", em reais). Proposta: a carne da jornada J6 (R$ 420) cai em "150-500".
+ * Decidido pelo responsável em 27/11/2026: R$ 50, R$ 150, R$ 500 e R$ 1.500 (faixas "0-50",
+ * "50-150", "150-500", "500-1500" e "1500+", em reais). A carne da jornada J6 (R$ 420) cai em
+ * "150-500".
  */
-export const FAIXAS_PADRAO_PENDENTE: ConfigDeFaixas = Object.freeze({
+export const FAIXAS_PADRAO: ConfigDeFaixas = Object.freeze({
   limitesEmCentavos: Object.freeze([5000, 15000, 50000, 150000]),
 });
 
@@ -39,7 +40,7 @@ export function conferirFaixas(config: ConfigDeFaixas): void {
 }
 
 /** Os nomes das faixas, da mais baixa à mais alta: "0-50", "50-150", ..., "1500+" (em reais). */
-export function rotulosDeFaixa(config: ConfigDeFaixas = FAIXAS_PADRAO_PENDENTE): string[] {
+export function rotulosDeFaixa(config: ConfigDeFaixas = FAIXAS_PADRAO): string[] {
   conferirFaixas(config);
   const reais = config.limitesEmCentavos.map((c) => c / 100);
   const rotulos = reais.map((limite, i) => `${i === 0 ? 0 : (reais[i - 1] ?? 0)}-${limite}`);
@@ -48,7 +49,7 @@ export function rotulosDeFaixa(config: ConfigDeFaixas = FAIXAS_PADRAO_PENDENTE):
 }
 
 /** Faixa de um valor em centavos inteiros, zero ou mais. Nunca devolve o valor exato. */
-export function faixaDeValor(centavos: number, config: ConfigDeFaixas = FAIXAS_PADRAO_PENDENTE): string {
+export function faixaDeValor(centavos: number, config: ConfigDeFaixas = FAIXAS_PADRAO): string {
   if (!Number.isSafeInteger(centavos) || centavos < 0) {
     throw new RangeError('o valor precisa ser um número inteiro de centavos, zero ou mais');
   }

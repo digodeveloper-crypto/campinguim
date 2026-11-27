@@ -297,7 +297,7 @@
   "entrar": {
     "titulo": "[PENDENTE] Título da tela de entrar (E2-16)",
     "motivo": "[PENDENTE] Frase que diz por que o login é pedido neste momento (organizar grupo, lançar gasto, cadastrar Pix, confirmar fato)",
-    "comGoogle": "[PENDENTE] Rótulo do botão de login com Google: o nome é marca de terceiro, confirmar o uso e o rótulo exigido pelo Google"
+    "comGoogle": "Continuar com o Google"
   },
   "transformarEmGrupo": {
     "titulo": "[PENDENTE] Título da tela de transformar em grupo (E2-01)",

@@ -217,6 +217,8 @@ Os testes dos grupos 1, 3 e 4 rodam cada caso numa transação desfeita no fim (
 
 ## 12. Pendências
 
+**De acordo do responsável em 27/11/2026** (validação da Base; `docs/decisoes-da-base.md`, V8): o histórico do item do grupo adiado para a 2.2 (item 1) e as listas fechadas do item 2 (tipos de chave Pix, `camping.status`, `merge_candidate.status`, opções dos fatos, `occasion` e `trip_kind`), que as features 2.9, 3.1 e 3.2 fecham.
+
 1. **Histórico do item do grupo: fica para a feature 2.2** (decisão do orquestrador de 26/11/2026, registrada na SPEC, seção 15). A seção 4 diz que o valor perdido em item do grupo "aparece no histórico do item", mas a seção 3 não tem tabela para isso. Até a 2.2, `sync_apply` só devolve os campos sobrescritos (`outcome.overwritten`), sem guardar os valores (registro sem texto livre); nenhuma tabela `trip_item_history` foi criada.
 2. **Valores fechados que a SPEC não dá em código** (aceito pelo orquestrador; as features 2.9, 3.1 e 3.2 fecham): tipos de chave Pix, `camping.status`, `merge_candidate.status`, valores das opções de cada fato, `occasion` e `trip_kind`. Nos dados de exemplo, as opções dos fatos usam os códigos do motor da B3 (`220v`, `longe`, `11_a_25`, `area_comum`, `22h`...), a ocasião usa `feriado`, `ferias` e `fim_de_semana` (os da B3) e o tipo de viagem usa códigos provisórios (`familia_com_criancas`, `casal`, `grupo`, `sozinho`).
 3. **FRD-02, "item com mudança de pack_state registrada antes de start_date":** o servidor guarda a hora de chegada de cada alteração (`private.sync_change`), não a hora da mudança no aparelho. A feature 3.7 decide como provar isso.

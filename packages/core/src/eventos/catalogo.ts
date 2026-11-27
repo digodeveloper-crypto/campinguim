@@ -30,21 +30,12 @@ export const TIPOS_DE_AVISO = [
 ] as const;
 
 /**
- * PENDENTE (decisão do responsável): a SPEC não lista os canais de origem. Este padrão é a tradução
- * dos canais de divulgação do PRD (convite de grupo, conteúdo no site, comunidades, criadores,
- * campings, feiras), mais `store` (instalação direta pela loja) e `other`. Trocar a lista é
- * configuração: a validação recebe `canais`.
+ * Decidido pelo responsável em 27/11/2026 (validação da Base): a SPEC não lista os canais de origem;
+ * a lista fechada, com códigos em inglês, é `store` (loja), `invite` (convite), `site` (site),
+ * `social` (redes sociais) e `unknown` (não identificado). A lista vive aqui, e a validação recebe
+ * `canais` por configuração.
  */
-export const CANAIS_PADRAO_PENDENTE = [
-  'invite',
-  'site_content',
-  'communities',
-  'creators',
-  'camping_poster',
-  'events',
-  'store',
-  'other',
-] as const;
+export const CANAIS_PADRAO = ['store', 'invite', 'site', 'social', 'unknown'] as const;
 
 // ---- Definição dos eventos -----------------------------------------------------------------
 

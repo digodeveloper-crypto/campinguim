@@ -26,6 +26,8 @@ npm run testar
 
 Passo a passo completo, requisitos da máquina e todos os comandos: [`docs/desenvolvimento.md`](docs/desenvolvimento.md).
 
+Validação da Base e decisões do responsável: [`docs/decisoes-da-base.md`](docs/decisoes-da-base.md).
+
 ## Direitos
 
 Todos os direitos reservados. Este repositório não tem licença de uso.

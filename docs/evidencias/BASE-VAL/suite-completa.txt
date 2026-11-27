@@ -1,0 +1,125 @@
+
+> campinguim@0.0.0 testar
+> node scripts/testar.mjs --exigir-completa
+
+
+=== Trava de segredos (GIT-08) ============================================
+[segredos] 1839 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+
+=== Endereços só no arquivo de configuração (SPEC 14) =====================
+[enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
+
+=== Tipos (TypeScript estrito) ============================================
+tsc -p apps/mobile/tsconfig.json
+tsc -p apps/web/tsconfig.json
+tsc -p packages/core/tsconfig.json
+tsc -p tsconfig.json
+tsc -p tsconfig.scripts.json
+
+=== Lint (ESLint, sem aviso tolerado) =====================================
+
+=== Testes unitários: regras puras e travas do repositório ================
+
+ RUN  v5.1.0 C:/campinguim-wt/BASE-VAL
+
+ ✓  core  apps/mobile/src/textos/textos.test.ts (27 tests) 181ms
+ ✓  core  apps/mobile/src/dados/__testes__/ferramentasDeDesenvolvimento.test.ts (4 tests) 404ms
+   ✓ ferramentas de desenvolvimento só no ambiente local (4)
+     ✓ com ambiente "local": o gancho de verificação do banco e a galeria existem 387ms
+(node:10228) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓  core  packages/core/src/eventos/eventos.test.ts (87 tests) 177ms
+ ✓  core  apps/mobile/src/config.test.ts (5 tests) 14ms
+ ✓  core  apps/mobile/src/tema/tema.test.ts (47 tests) 109ms
+ ✓  core  packages/core/src/catalogo.test.ts (110 tests) 64ms
+ ✓  core  packages/core/src/alertas.test.ts (24 tests) 50ms
+ ✓  core  packages/core/src/lista.test.ts (30 tests) 85ms
+ ✓  core  apps/mobile/src/componentes/componentes.test.ts (20 tests) 122ms
+ ✓  core  packages/core/src/cotas.test.ts (13 tests) 188ms
+(node:16180) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓  core  apps/mobile/src/dados/__testes__/acesso.test.ts (35 tests) 680ms
+   ✓ itens da lista (features 1.2 a 1.10 usam) (6)
+     ✓ marca "separei" e "está no carro"; marcação repetida não entra na fila 465ms
+ ✓  core  packages/core/src/casos.test.ts (71 tests) 677ms
+   ✓ Casos obrigatórios da SPEC, seção 9 (71)
+     ✓ F9 está na tabela caso → teste de docs/regras.md 408ms
+ ✓  core  apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts (2 tests) 33ms
+(node:23096) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓  core  apps/mobile/src/dados/__testes__/verificacao.test.ts (2 tests) 27ms
+(node:33960) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓  core  apps/mobile/src/dados/__testes__/migracoes.test.ts (8 tests) 43ms
+ ✓  core  packages/core/src/duplicados.test.ts (11 tests) 26ms
+ ✓  core  packages/core/src/formato/formato.test.ts (42 tests) 71ms
+ ✓  core  packages/core/src/aprendizado.test.ts (18 tests) 33ms
+ ✓  core  apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts (8 tests) 15ms
+ ✓  scripts  scripts/testes/segredos.test.ts (36 tests) 50ms
+ ✓  core  packages/core/src/fatos.test.ts (23 tests) 31ms
+ ✓  core  apps/mobile/src/tema/mascote.test.ts (7 tests) 32ms
+ ✓  core  packages/core/src/expressao.test.ts (7 tests) 17ms
+ ✓  core  apps/mobile/src/medicao/medicao.test.ts (12 tests) 26ms
+ ✓  scripts  scripts/testes/suite.test.ts (12 tests) 20ms
+ ✓  core  apps/mobile/src/dados/__testes__/esquema.test.ts (17 tests) 19ms
+ ✓  scripts  scripts/testes/manifesto.test.ts (3 tests) 13ms
+ ✓  scripts  scripts/testes/enderecos.test.ts (7 tests) 2238ms
+   ✓ endereços fora do arquivo de configuração (7)
+     ✓ a árvore do repositório está limpa 2145ms
+ ✓  scripts  scripts/testes/repositorio.test.ts (25 tests) 2576ms
+   ✓ .gitignore (GIT-08) (12)
+     ✓ ignora .segredos-locais 521ms
+     ✓ ignora .claude/settings.json 722ms
+
+ Test Files  29 passed (29)
+      Tests  713 passed (713)
+   Start at  09:03:59
+   Duration  9.01s (tests 40%, import 32%, transform 23%, worker 5%)
+
+JSON report written to C:/campinguim-wt/BASE-VAL/test-results/suite/vitest-unitarios.json
+
+=== Testes do servidor (ambiente local) ===================================
+
+ RUN  v5.1.0 C:/campinguim-wt/BASE-VAL
+
+ ✓  servidor  supabase/testes/sync-apply.test.ts (49 tests) 2227ms
+ ✓  servidor  supabase/testes/sincronizacao.test.ts (5 tests) 1245ms
+   ✓ grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) (5)
+     ✓ S10: B removido da viagem deixa de receber tudo dela 572ms
+ ✓  servidor  supabase/testes/autorizacao-por-linha.test.ts (17 tests) 1056ms
+ ✓  servidor  supabase/testes/aparelho.test.ts (8 tests) 200ms
+ ✓  servidor  supabase/testes/dados-e-config.test.ts (9 tests) 163ms
+ ✓  servidor  supabase/testes/rls.test.ts (8 tests) 146ms
+ ✓  servidor  supabase/testes/autorizacao.test.ts (4 tests) 108ms
+ ✓  servidor  supabase/testes/exclusao-de-conta.test.ts (2 tests) 103ms
+ ✓  servidor  supabase/testes/ambiente.test.ts (4 tests) 98ms
+ ✓  servidor  supabase/testes/contratos.test.ts (3 tests) 73ms
+
+ Test Files  10 passed (10)
+      Tests  109 passed (109)
+   Start at  09:04:11
+   Duration  8.38s (tests 82%, import 15%, transform 2%, worker 1%)
+
+JSON report written to C:/campinguim-wt/BASE-VAL/test-results/suite/vitest-servidor.json
+
+=== Página web (Chromium e WebKit) ========================================
+
+Running 2 tests using 2 workers
+
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (829ms)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.3s)
+
+  2 passed (5.2s)
+
+=== Resumo da suíte local =================================================
+passou  Trava de segredos (GIT-08)                                 1.9 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          0.4 s  
+passou  Tipos (TypeScript estrito)                                24.0 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                         11.6 s  
+passou  Testes unitários: regras puras e travas do repositório     9.9 s  713 de 713 testes passaram
+passou  Testes do servidor (ambiente local)                       10.9 s  109 de 109 testes passaram
+passou  Página web (Chromium e WebKit)                             6.2 s  2 de 2 testes passaram
+
+SUÍTE COMPLETA: todas as 7 etapas passaram (65.1 s).
+Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.
+exit=0
