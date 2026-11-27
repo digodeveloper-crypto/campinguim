@@ -70,7 +70,8 @@ describe('grupo 1: RLS em todas as tabelas (SPEC, seção 11)', () => {
     expect(politicas.filter((p) => /anon|public/.test(p.papeis as string))).toEqual([]);
   });
 
-  it('quem não tem login (anon) não tem privilégio em nenhuma tabela nem função da aplicação', async () => {
+  // A única exceção é `waitlist_join` (1.12): a lista de espera do site é sem conta (seção 8).
+  it('quem não tem login (anon) não tem privilégio em nenhuma tabela, e só chama a função da lista de espera', async () => {
     const { tabelas, funcoes } = await comBanco(async (c) => ({
       tabelas: (
         await c.query(
@@ -90,7 +91,7 @@ describe('grupo 1: RLS em todas as tabelas (SPEC, seção 11)', () => {
       ).rows,
     }));
     expect(tabelas).toEqual([]);
-    expect(funcoes).toEqual([]);
+    expect(funcoes).toEqual([{ f: 'waitlist_join(text,boolean,uuid)' }]);
   });
 
   it('o app (authenticated) não tem privilégio nas tabelas protegidas e só lê as sincronizadas', async () => {

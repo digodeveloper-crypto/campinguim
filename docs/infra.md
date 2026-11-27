@@ -189,3 +189,24 @@ Emuladores e contêineres da prova continuam ligados até a junção dos ramos. 
 - **Dados de exemplo:** `supabase/dados-de-exemplo/`, aplicados por `npm run ambiente:zerar`. Pessoas de teste sem senha, no domínio `@pessoas-de-teste.test`.
 - **Ajuste só do ambiente local:** a prova de desenvolvimento do aparelho é ligada pelos dados de exemplo (`private.server_setting`). Em produção, que nasce só das migrações, fica desligada.
 - **Credenciais:** nenhuma nova. Os testes do servidor usam a chave de serviço local de `.env.local` (fora do git) só para criar e apagar pessoas de teste, com senha aleatória que fica só na memória do teste.
+
+## Site e lista de espera (feature 1.12): o que a publicação (tarefa C) vai precisar
+
+- **Data:** 27/11/2026 (feature 1.12, partes A e B, só locais). **Nenhum serviço externo foi criado nem alterado.** A parte C (publicação) é tarefa separada, aberta pelo piloto, pelo Chrome do responsável.
+- **Decisões que valem:** hospedagem do site nas versões 0.x na Cloudflare Pages, endereço provisório `campinguim.pages.dev` (R4, 27/11/2026; SPEC, seção 14, atualizada); a função da lista de espera roda no Supabase. Lista de espera: só e-mail e data do consentimento, um único aviso por e-mail quando o app estiver na loja (R3 e decisão do piloto).
+- **O que a parte A deixa pronto:** a página em `apps/web` (Vite + React). `npm run gerar --workspace apps/web` gera os arquivos estáticos em `apps/web/dist/` (sem mapas de código). É isso que vai para o projeto Pages `campinguim` (envio direto: painel ou `wrangler pages deploy`; o projeto já existe por envio direto, ver seção Cloudflare acima e o cuidado com recriar o projeto).
+- **O que a parte B deixa pronto:** a migração `supabase/migrations/20261127120000_1_12_lista_de_espera.sql` (tabela `waitlist`, tentativas por endereço em `private.waitlist_attempt`, função `public.waitlist_join`, premissa `limits.waitlist_join_per_ip_per_hour` = 20). Vai ao Supabase hospedado só por migração (SPEC, seção 14, regra 3), quando ele existir.
+
+O que a parte C precisa fazer ou decidir, nesta ordem:
+
+1. **Servidor hospedado.** Não existe (`producao.servidor: null`; SPEC, seção 15). Criar o projeto no Supabase envolve conta, plano e talvez cartão: **chama o responsável**. Sem ele, a lista de espera não funciona fora da máquina.
+2. **`config/enderecos.json`:** preencher `producao.site` (o endereço do Pages) e `producao.servidor` (a API do Supabase hospedado). É o único lugar com endereço; a trava `npm run enderecos` continua barrando `pages.dev`, `workers.dev` e `run.app` em qualquer outro arquivo.
+3. **Chave pública na geração da página:** a página lê a chave PÚBLICA do Supabase da variável `CAMPINGUIM_CHAVE_PUBLICA` no momento de gerar (`apps/web/vite.config.ts`); na máquina, de `.env.local`. Nunca a chave de serviço. A chave pública vai dentro da página publicada (é pública por natureza), mas não entra no repositório.
+4. **Texto legal antes do formulário.** O consentimento e a política da página são **rascunho** (V6). A página trava sozinha: com `producao.servidor` preenchido e o consentimento ainda começando por `[PENDENTE]`, o formulário não aparece e a seção mostra "A lista de espera abre em breve." (`formularioLiberado`, `apps/web/src/site/listaDeEspera.ts`, com teste). Publicar a página antes do texto aprovado é possível; o formulário só liga depois.
+5. **Endereço de quem chama (limite por rede).** A função usa o ÚLTIMO endereço do cabeçalho `x-forwarded-for`, o que o portão da API acrescenta (conferido no Supabase local em 27/11/2026: o cliente só consegue mudar os primeiros). No Supabase hospedado a cadeia de portões pode ser outra: **conferir com uma chamada real** antes de ligar o formulário. Se o último endereço for interno (igual para todos), todos dividiriam o mesmo limite de 20 por hora; o ajuste é uma migração nova.
+6. **Endereços aceitos pelo servidor (CORS):** a página chama a API do Supabase de outro endereço (o do Pages). Conferir que a API hospedada aceita a chamada vinda de `producao.site`.
+7. **Buscadores:** enquanto o endereço for o provisório, a página leva `noindex, nofollow` e não há mapa do site nem `robots.txt` (decisão do piloto, 27/11/2026; teste em `apps/web/src/site/arquivos.test.ts`). **A liberação para buscadores é tarefa do lançamento**, junto com o domínio próprio.
+8. **Verificação em duas etapas:** ativa na Cloudflare (seção acima); o QA cobra a evidência antes de liberar a publicação (SPEC, seção 14, regra 7). No Supabase hospedado, quando for criado, também.
+9. **Registro:** o que for criado entra aqui, sem segredo.
+
+Pendências de produto da lista de espera, sem resposta ainda (o piloto leva ao responsável): prazo de guarda dos e-mails, forma de pedir a saída da lista e quem manda o aviso (com que ferramenta). Até lá, ninguém lê a lista pelo app e a função não devolve e-mail nenhum.

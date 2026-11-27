@@ -14,8 +14,10 @@ export const PROTEGIDAS = [
   'public.list_feedback',
   'public.merge_candidate',
   'public.suggestion',
+  'public.waitlist',
   'private.server_setting',
   'private.sync_change',
+  'private.waitlist_attempt',
 ];
 
 // As que vão ao aparelho (SPEC, seção 3, "O que chega ao aparelho").

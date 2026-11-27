@@ -163,6 +163,7 @@ O modelo tem três grupos: a viagem e sua lista, que vivem no aparelho e sincron
 | `device` | `install_id`, `platform`, `integrity_ok_at`, `first_seen_at` | Um por instalação. Base dos limites por aparelho (DEF-03). |
 | `event` | `name`, `props`, `at`, `install_id`, `profile_id` | Eventos da seção 12. Sem texto livre do usuário. |
 | `config` | `key`, `value` | Todas as premissas numéricas do PRD. |
+| `waitlist` | `email`, `consent_at` | Lista de espera do site (feature 1.12; decisão do responsável de 27/11/2026). Só o e-mail normalizado (único) e a data do consentimento. RLS ativo e nenhuma política: só `waitlist_join` escreve, ninguém lê pelo app. Não vai ao aparelho. |
 
 **O que chega ao aparelho**
 
@@ -643,6 +644,7 @@ O app fala com o servidor por dois caminhos: a sincronização das viagens, que 
 | Buscas de camping por aparelho | 30 por hora |
 | Campings distintos consultados por aparelho | 10 por dia |
 | Entradas de convidado por endereço de rede | 20 por hora |
+| Entradas na lista de espera do site por endereço de rede | 20 por hora |
 | Relatos que contam, por conta e por camping | 2 viagens por mês |
 | Linhas no histórico de um fato | 20 |
 
@@ -816,6 +818,7 @@ No ambiente local e em emulador não há prova real. O servidor local aceita uma
 - Nenhuma tela pede CPF, telefone ou localização. O app não declara permissão de localização (PRV-02).
 - O consentimento é uma tela no primeiro uso que envia dados ao servidor: login, destino ou convite. O texto vem da pessoa responsável pela parte jurídica, não dos agentes (PRV-04, DAT-02).
 - Registros do servidor não guardam nomes, e-mails, chaves Pix nem texto livre.
+- Exceção, decidida pelo responsável em 27/11/2026: a lista de espera do site (`waitlist`, seção 3) guarda o e-mail de quem pediu o aviso, com a data do consentimento, e nada mais. Fica em tabela própria, fora dos registros comuns, sem política de leitura e fora da sincronização; só `waitlist_join` escreve. O e-mail serve só para um único aviso, quando o app estiver na loja. O limite por endereço de rede guarda só o resumo do endereço, por uma hora, sem ligação com o e-mail.
 - A foto de nota fiscal fica em armazenamento privado, acessível só a membros da viagem, e é apagada com a viagem.
 - Exportação e exclusão de conta seguem a seção 3.
 - Uma rotina mensal avisa contas sem uso há 23 meses e apaga ou anonimiza aos 24 (RET-11).
@@ -923,7 +926,7 @@ A construção segue esta ordem: prova técnica, base, etapa 1, etapa 2, etapa 3
 
 **Configuração dos serviços externos**
 
-O agente configura tudo sozinho, pelo Chrome do responsável pelo produto: projeto no Supabase, serviço de sincronização, login com Google, Google Play Console, repositório no GitHub com o ramo principal protegido e o serviço no Cloud Run.
+O agente configura tudo sozinho, pelo Chrome do responsável pelo produto: projeto no Supabase, serviço de sincronização, login com Google, Google Play Console, repositório no GitHub com o ramo principal protegido e a hospedagem do site (Cloudflare Pages nas versões 0.x, "Endereço provisório no desenvolvimento" abaixo).
 
 O agente para e chama o responsável só nestes casos:
 
@@ -945,12 +948,13 @@ Regras da configuração:
 
 **Endereço provisório no desenvolvimento**
 
-Nas versões 0.x, a página do convidado e o site ficam publicados no Cloud Run, com o endereço provisório `run.app` que o próprio serviço fornece. O domínio próprio entra só na versão 1.0.0.
+Nas versões 0.x, a página do convidado e o site ficam publicados na Cloudflare Pages, com o endereço provisório `pages.dev` que o próprio serviço fornece (decisão do responsável de 24/11/2026, confirmada em 27/11/2026; registro em `docs/infra.md`). As funções do servidor, como a da lista de espera, rodam no Supabase. O domínio próprio entra só na versão 1.0.0.
 
 - O endereço fica em um único valor de configuração, lido pelo app, pela página web e pelo servidor. Nenhum código traz o endereço escrito.
-- Um teste falha se `run.app` aparecer no repositório fora do arquivo de configuração.
-- Nome do serviço, projeto e região no Cloud Run não mudam durante o desenvolvimento, porque o endereço depende deles.
+- Um teste falha se `run.app`, `pages.dev` ou `workers.dev` aparecerem no repositório fora do arquivo de configuração.
+- O nome do projeto Pages na Cloudflare não muda durante o desenvolvimento, porque o endereço depende dele.
 - O endereço provisório não é divulgado ao público: não vai para rede social, lista de espera nem material de loja.
+- Enquanto o endereço for o provisório, as páginas levam `noindex, nofollow` e não há mapa do site. A liberação para buscadores é tarefa do lançamento.
 - Convites criados no endereço provisório deixam de abrir depois da troca. São dados de teste, então isso é aceito.
 
 A troca para o domínio próprio é uma tarefa da rodada de lançamento e confere, nesta ordem:
