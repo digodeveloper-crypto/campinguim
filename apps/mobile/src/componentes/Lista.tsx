@@ -154,7 +154,7 @@ type PropsCategoria = {
 };
 
 export function Categoria({ nome, feitos, total, volta = false, abertaNoInicio = true, children, testID }: PropsCategoria) {
-  const { cores, fator } = useTema();
+  const { cores, fator, faixa } = useTema();
   const [aberta, setAberta] = useState(abertaNoInicio);
   const progresso = volta ? t('volta.progressoConferidos', { feitos, total }) : t('lista.progressoNoCarro', { feitos, total });
   const falado = volta ? t('volta.categoriaAria', { categoria: nome, feitos, total }) : t('lista.categoriaAria', { categoria: nome, feitos, total });
@@ -167,8 +167,9 @@ export function Categoria({ nome, feitos, total, volta = false, abertaNoInicio =
         accessibilityState={{ expanded: aberta }}
         style={({ pressed }) => [estilos.catBotao, pressed ? { backgroundColor: cores.superficie } : null]}
       >
-        <View style={estilos.catCabeca}>
-          <Texto uso="subtitulo" semLeitura style={[estilos.catNome, { flexBasis: 144 * fator }]}>
+        {/* Em 200 %, o nome ocupa a linha inteira e a régua com o "x de y" desce (QA B2, rodada 1). */}
+        <View style={[estilos.catCabeca, faixa === 200 ? estilos.catCabecaColuna : null]}>
+          <Texto uso="subtitulo" semLeitura style={faixa === 200 ? estilos.catNomeColuna : [estilos.catNome, { flexBasis: 144 * fator }]}>
             {nome}
           </Texto>
           <View style={estilos.catProg}>
@@ -234,6 +235,8 @@ const estilos = StyleSheet.create({
   cat: { marginTop: 12 },
   catBotao: { flexDirection: 'row', alignItems: 'center', gap: 12, minHeight: tokens.alvo.linha, paddingVertical: 6, paddingHorizontal: 4 },
   catCabeca: { flex: 1, flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', columnGap: 12, rowGap: 4 },
+  catCabecaColuna: { flexDirection: 'column', alignItems: 'flex-start' },
+  catNomeColuna: { alignSelf: 'stretch' },
   catNome: { flexGrow: 1, flexShrink: 1, flexBasis: 144 },
   catProg: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   catConteudo: { marginTop: 4 },

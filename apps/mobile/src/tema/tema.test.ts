@@ -7,6 +7,8 @@ import { describe, expect, it } from 'vitest';
 import { contraste, PARES, pisoDoPar, PISO_FORMA, PISO_TEXTO, type NomeTema, type PapelCor } from './contraste';
 import { aplicarBloco, cssDosTokens, nomeVariavel } from './css';
 import { COMBINACOES, estiloDoUso, faixaDaLetra, nomeDaFamilia, type UsoTexto } from './familias';
+import { lerMetricas } from './leitorTtf';
+import { escalaParaCaber, larguraDoTexto, palavras } from './metricas';
 import tokens from './tokens.json';
 
 const RAIZ = path.resolve(__dirname, '..', '..', '..', '..');
@@ -140,5 +142,58 @@ describe('medidas (DESIGN.md 5 e 9; D-7)', () => {
   it('raio de 2 em tudo e movimento até 200 ms', () => {
     expect(tokens.raio).toBe(2);
     expect(tokens.movimentoMs).toBeLessThanOrEqual(200);
+  });
+});
+
+describe('nenhuma palavra parte no meio (DESIGN.md 4.4; NF-08; QA B2 rodada 1)', () => {
+  const pasta = path.join(RAIZ, 'apps', 'mobile', 'assets', 'fontes', 'archivo');
+
+  it('as métricas (metricas.json) estão em dia com as fontes embutidas e batem com valores conhecidos', () => {
+    const json = JSON.parse(ler('apps', 'mobile', 'src', 'tema', 'metricas.json')) as { familias: Record<string, unknown> };
+    for (const [l, p] of COMBINACOES) {
+      const nome = nomeDaFamilia(l, p);
+      expect(json.familias[nome], nome).toEqual(lerMetricas(new Uint8Array(fs.readFileSync(path.join(pasta, `${nome}.ttf`)))));
+    }
+    // fontTools: 'A' = 918, 'Ç' = 944, espaço = 313 na Archivo largura 125 peso 700 (1000 unidades por em).
+    expect(larguraDoTexto('A', 'Archivo-L125-P700', 1000)).toBe(918);
+    expect(larguraDoTexto('Ç', 'Archivo-L125-P700', 1000)).toBe(944);
+    expect(larguraDoTexto(' ', 'Archivo-L125-P700', 1000)).toBe(313);
+  });
+
+  it('o título de painel e o texto grande do selo passam para a largura 100 em 200 %', () => {
+    expect(estiloDoUso('tituloPainel', 1).fontFamily).toBe('Archivo-L125-P700');
+    expect(estiloDoUso('tituloPainel', 2).fontFamily).toBe('Archivo-L100-P700');
+    expect(estiloDoUso('tituloPainel', 2).letterSpacing).toBeCloseTo(19 * 0.01, 2);
+  });
+
+  // Tela de 5 polegadas (360 dp), letra do sistema em 200 %: o selo tem 16 de margem da tela de cada lado,
+  // 16 de respiro e 2 de traço.
+  const SELO_5_POL = 360 - 2 * 16 - 2 * 16 - 2 * 2;
+  const medida = (uso: UsoTexto, fator: number) => {
+    const e = estiloDoUso(uso, fator);
+    return { familia: e.fontFamily, tamanho: e.fontSize * fator, espacoLetras: e.letterSpacing * fator, caixaAlta: e.textTransform === 'uppercase' };
+  };
+
+  it('"6 confirmações" no selo, em 200 % numa tela de 5 polegadas: diminui só até "CONFIRMAÇÕES" caber', () => {
+    const m = medida('tituloPainel', 2);
+    const palavra = larguraDoTexto('CONFIRMAÇÕES', m.familia, m.tamanho, m.espacoLetras);
+    expect(palavra).toBeGreaterThan(SELO_5_POL); // sem a regra, o Android partiria a palavra
+    const k = escalaParaCaber('6 confirmações', m, SELO_5_POL);
+    expect(k).toBeLessThan(1);
+    expect(larguraDoTexto('CONFIRMAÇÕES', m.familia, m.tamanho * k, m.espacoLetras * k)).toBeLessThanOrEqual(SELO_5_POL);
+  });
+
+  it('texto que cabe não muda de tamanho', () => {
+    expect(escalaParaCaber('Cozinha', medida('subtitulo', 2), 360 - 2 * 16 - 8)).toBe(1);
+    expect(escalaParaCaber('6 confirmações', medida('tituloPainel', 1), SELO_5_POL)).toBe(1);
+    expect(escalaParaCaber('qualquer', medida('corpo', 1), 0)).toBe(1);
+  });
+
+  it('a palavra mais longa é a que manda; espaço separa palavras', () => {
+    expect(palavras('  Saco  de dormir ')).toEqual(['Saco', 'de', 'dormir']);
+    const m = medida('secundario', 2);
+    const largura = larguraDoTexto('compartilhar', m.familia, m.tamanho, m.espacoLetras);
+    expect(escalaParaCaber('compartilhar', m, largura * 2)).toBe(1);
+    expect(escalaParaCaber('compartilhar', m, largura / 2)).toBeLessThan(0.5);
   });
 });

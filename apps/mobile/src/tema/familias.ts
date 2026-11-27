@@ -50,6 +50,9 @@ export function estiloDoUso(uso: UsoTexto, fator: number, simulacao = 1): Estilo
   } else if (uso === 'tituloTela' && faixa === 200) {
     largura = g.tituloTela.largura;
     espaco = g.tituloTela.espacoLetras;
+  } else if (uso === 'tituloPainel' && faixa === 200) {
+    largura = g.tituloPainel.largura;
+    espaco = g.tituloPainel.espacoLetras;
   } else if (uso === 'rotulo' && faixa === 200) {
     largura = g.rotulo.largura;
     espaco = g.rotulo.espacoLetras;

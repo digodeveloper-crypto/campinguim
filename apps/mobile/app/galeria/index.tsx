@@ -123,11 +123,12 @@ function Tipografia() {
 }
 
 function Icones() {
+  const { fator } = useTema();
   return (
     <Bloco titulo={g.secoes.icones}>
       <Folha style={estilos.grade}>
         {ORDEM_ICONES.map((nome) => (
-          <View key={nome} style={estilos.celula} accessible accessibilityLabel={nome}>
+          <View key={nome} style={[estilos.celula, { width: 104 * fator }]} accessible accessibilityLabel={nome}>
             <View style={estilos.icones}>
               <Icone nome={nome} />
               {temAtivo(nome) ? <Icone nome={nome} ativo /> : null}

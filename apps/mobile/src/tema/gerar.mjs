@@ -1,6 +1,7 @@
 // Gera os derivados da identidade a partir das fontes únicas (B2):
 //   1. o bloco de cores de apps/web/src/estilos.css, a partir de src/tema/tokens.json;
-//   2. src/componentes/mascote/artes.ts, com o texto exato das artes de assets/mascote/*.svg.
+//   2. src/componentes/mascote/artes.ts, com o texto exato das artes de assets/mascote/*.svg;
+//   3. src/tema/metricas.json, com a largura de cada caractere das fontes de assets/fontes/archivo.
 // Uso, na raiz:  node apps/mobile/src/tema/gerar.mjs            (grava)
 //                node apps/mobile/src/tema/gerar.mjs --conferir (só confere; sai com 1 se algo estiver velho)
 // O teste do tema faz a mesma conferência dentro do `npm run testar`.
@@ -9,6 +10,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { aplicarBloco, cssDosTokens } from './css.ts';
+import { lerMetricas } from './leitorTtf.ts';
 
 const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const APP = path.resolve(AQUI, '..', '..');
@@ -16,6 +18,8 @@ const RAIZ = path.resolve(APP, '..', '..');
 const CSS_WEB = path.join(RAIZ, 'apps', 'web', 'src', 'estilos.css');
 const PASTA_MASCOTE = path.join(APP, 'assets', 'mascote');
 const ARTES = path.join(APP, 'src', 'componentes', 'mascote', 'artes.ts');
+const PASTA_FONTES = path.join(APP, 'assets', 'fontes', 'archivo');
+const METRICAS = path.join(AQUI, 'metricas.json');
 
 export const NOMES_ARTES = ['principal', 'icone', 'pose-alerta', 'pose-camping', 'pose-comemorando'];
 
@@ -39,11 +43,22 @@ export function artesTs() {
   ].join('\n');
 }
 
+export function metricasJson() {
+  const familias = {};
+  for (const arquivo of fs.readdirSync(PASTA_FONTES).filter((f) => f.endsWith('.ttf')).sort()) {
+    familias[arquivo.replace(/\.ttf$/, '')] = lerMetricas(new Uint8Array(fs.readFileSync(path.join(PASTA_FONTES, arquivo))));
+  }
+  const leia = 'GERADO por apps/mobile/src/tema/gerar.mjs a partir de assets/fontes/archivo/*.ttf. Largura de avanço de cada caractere, em unidades da fonte.';
+  return `${JSON.stringify({ _leia: leia, familias }, null, 1)}
+`;
+}
+
 const conferir = process.argv.includes('--conferir');
 const tokens = JSON.parse(fs.readFileSync(path.join(AQUI, 'tokens.json'), 'utf8'));
 const saidas = [
   [CSS_WEB, aplicarBloco(lerLf(CSS_WEB), cssDosTokens(tokens))],
   [ARTES, artesTs()],
+  [METRICAS, metricasJson()],
 ];
 
 let velhos = 0;
