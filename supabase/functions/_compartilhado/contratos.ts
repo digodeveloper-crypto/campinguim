@@ -60,5 +60,5 @@ export const CONTRATOS: readonly Contrato[] = [
 
   { nome: 'device_register', grupo: 'apoio', feature: 'B5 (esboço) e 3.7', semConta: false, exigeVerificacao: false, onde: 'banco', estado: 'esboço' },
   { nome: 'events_ingest', grupo: 'apoio', feature: 'B6', semConta: true, exigeVerificacao: false, onde: 'a definir', estado: 'a fazer' },
-  { nome: 'waitlist_join', grupo: 'apoio', feature: '1.12', semConta: true, exigeVerificacao: false, onde: 'a definir', estado: 'a fazer' },
+  { nome: 'waitlist_join', grupo: 'apoio', feature: '1.12', semConta: true, exigeVerificacao: false, onde: 'banco', estado: 'implementada' },
 ];

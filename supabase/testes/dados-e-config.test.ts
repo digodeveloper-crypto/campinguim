@@ -31,6 +31,8 @@ describe('config: premissas numéricas', () => {
       'limits.guest_join_per_ip_per_hour': 20,
       'limits.counted_report_trips_per_camping_per_month': 2,
       'limits.fact_history_max_rows': 20,
+      // Lista de espera do site (1.12): mesmo valor inicial do limite de convidado.
+      'limits.waitlist_join_per_ip_per_hour': 20,
       'antifraud.hold_reports_above': 5,
       'antifraud.hold_account_age_below_days': 7,
       'antifraud.hold_window_hours': 72,
@@ -38,7 +40,7 @@ describe('config: premissas numéricas', () => {
       'device.proof_future_tolerance_seconds': 60,
       'device.verified_validity_hours': 24,
     });
-    expect(Object.keys(config).length).toBe(40);
+    expect(Object.keys(config).length).toBe(41);
   });
 });
 

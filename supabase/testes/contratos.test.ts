@@ -28,8 +28,8 @@ describe('contratos da seção 8', () => {
     expect([...codigos.matchAll(/`([a-z_]+)`/g)].map((m) => m[1])).toEqual([...CODIGOS_DE_ERRO]);
   });
 
-  it('as funções marcadas como existentes no banco existem e só quem tem login as chama', async () => {
-    const noBanco = CONTRATOS.filter((c) => c.onde === 'banco' && c.estado !== 'a fazer').map((c) => c.nome);
+  it('as funções marcadas como existentes no banco existem, e sem login só se chama a que é sem conta', async () => {
+    const noBanco = CONTRATOS.filter((c) => c.onde === 'banco' && c.estado !== 'a fazer');
     const r = await comBanco(
       async (c) =>
         (
@@ -41,6 +41,10 @@ describe('contratos da seção 8', () => {
           )
         ).rows,
     );
-    expect(r).toEqual(noBanco.sort().map((nome) => ({ nome, login: true, sem_login: false, definer: true })));
+    expect(r).toEqual(
+      noBanco
+        .sort((a, b) => a.nome.localeCompare(b.nome))
+        .map((c) => ({ nome: c.nome, login: true, sem_login: c.semConta, definer: true })),
+    );
   });
 });

@@ -43,15 +43,16 @@ describe('login', () => {
     expect(r.ok).toBe(false);
   });
 
-  it('sem login, a chave pública não vê nenhuma tabela na API', async () => {
+  it('sem login, a chave pública não vê nenhuma tabela na API, só a função da lista de espera', async () => {
     const env = envLocal();
     const r = await fetch(`${env.SUPABASE_URL_LOCAL}/rest/v1/`, { headers: { apikey: env.SUPABASE_CHAVE_PUBLICA ?? '' } });
     // A descrição da API (OpenAPI) lista as rotas de dados visíveis para quem chama sem login.
     // Desde a B5 há tabelas e funções na API, mas nenhuma para quem não tem login: os privilégios
-    // de anon são retirados em cada migração (conferido também em rls.test.ts).
+    // de anon são retirados em cada migração (conferido também em rls.test.ts). A exceção é a lista
+    // de espera do site (1.12), que é sem conta: só a função, nunca a tabela.
     expect(r.status).toBe(200);
     const corpo = (await r.json()) as { paths?: Record<string, unknown> };
     const rotas = Object.keys(corpo.paths ?? {}).filter((p) => p !== '/');
-    expect(rotas).toEqual([]);
+    expect(rotas).toEqual(['/rpc/waitlist_join']);
   });
 });
