@@ -1,0 +1,19 @@
+B1-FIX-2, correção 1: teste "a árvore do repositório está limpa" (scripts/testes/enderecos.test.ts)
+Medição de conferirEnderecos() (varredura de todos os arquivos do repositório), 4 rodadas seguidas.
+(O teste fica em enderecos.test.ts, não em repositorio.test.ts.)
+
+Sem carga
+  ANTES : 1328 1175 1210 1275 ms
+  DEPOIS:  684  686  639  587 ms   (cerca de metade; 1830 arquivos, 1154 fora de docs/)
+
+Onde ia o tempo (ANTES): cada arquivo aberto/consultado custa uma verificação do antivírus no Windows:
+~1830 existsSync (213 ms) + ~1155 abertura de arquivos de mídia (a leitura de 55 MB só para descobrir que
+PNG/TTF é binário). Agora: 2 chamadas do git em vez de um existsSync por arquivo, e extensões de mídia
+(png, ttf, mp4...) nem são abertas. O critério por conteúdo (byte nulo nos 8000 primeiros) segue valendo
+para as demais.
+
+Com a máquina ocupada (simulada com 12 processos queimando CPU, o QA relatou 20 a 25 s)
+  ANTES : 84163 3017 1211 1202 ms (1ª rodada sob contenção extrema)
+  DEPOIS: 48038 22172 1432 1177 ms (idem; a varredura continua dependendo da máquina)
+Como ainda depende da carga, o teste ganhou limite próprio de 60 s, com comentário, em vez do padrão de 5 s.
+A varredura não mudou de resultado: 0 achados na árvore, e os 6 testes de plantar domínio proibido continuam passando.

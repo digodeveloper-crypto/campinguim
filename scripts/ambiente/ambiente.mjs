@@ -65,9 +65,17 @@ function supabase(args, opcoes = {}) {
   return rodar(process.execPath, [SUPABASE_CLI, ...args], { ...opcoes, env: { CAMPINGUIM_SITE: ENDERECOS.site } });
 }
 
-function compose(args, opcoes = {}) {
-  const envFile = fs.existsSync(ENV_LOCAL) ? ['--env-file', ENV_LOCAL] : [];
-  return rodar('docker', ['compose', '-p', PROJETO_SINCRONIZACAO, '-f', SINCRONIZACAO, ...envFile, ...args], opcoes);
+// Só o comando PARAR roda sem .env.local (worktree novo, arquivo apagado): o docker-compose.yml
+// exige PS_DATA_SOURCE_URI, mas `compose down` nunca usa o valor, só precisa que ele exista para
+// interpolar o arquivo. Este texto NÃO é credencial, nunca chega a um contêiner e não serve para
+// ligar em nada. `subir` e `zerar` continuam exigindo o .env.local verdadeiro (compose falha sem ele).
+const VALOR_FICTICIO_PARA_PARAR = 'valor-ficticio-so-para-parar';
+
+function compose(args, { paraParar = false, ...opcoes } = {}) {
+  const temEnv = fs.existsSync(ENV_LOCAL);
+  const envFile = temEnv ? ['--env-file', ENV_LOCAL] : [];
+  const env = paraParar && !temEnv ? { PS_DATA_SOURCE_URI: VALOR_FICTICIO_PARA_PARAR } : undefined;
+  return rodar('docker', ['compose', '-p', PROJETO_SINCRONIZACAO, '-f', SINCRONIZACAO, ...envFile, ...args], { ...opcoes, env });
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -204,7 +212,7 @@ async function subir() {
 
 function parar({ apagarDados = false } = {}) {
   log('parando o serviço de sincronização (PowerSync)');
-  compose(['down', '--remove-orphans', ...(apagarDados ? ['--volumes'] : [])], { permitirFalha: true, silencioso: true });
+  compose(['down', '--remove-orphans', ...(apagarDados ? ['--volumes'] : [])], { paraParar: true, permitirFalha: true, silencioso: true });
   log(apagarDados ? 'parando o Supabase local e apagando os dados' : 'parando o Supabase local (os dados ficam guardados)');
   supabase(['stop', ...(apagarDados ? ['--no-backup'] : [])], { permitirFalha: true, silencioso: true });
   const sobra = estado();
