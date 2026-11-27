@@ -19,3 +19,6 @@ contêineres do ambiente rodando: 0
 docker ps | contêineres do projeto: 0
 
 O .env.local foi restaurado em seguida. subir e zerar continuam usando o .env.local verdadeiro.
+
+Repetido ao fim, com o código final (tipos do compose ajustados): sem .env.local, `npm run ambiente:parar` saiu com 0 e o
+`docker ps` mostrou 0 contêineres do projeto. Arquivo restaurado depois.
