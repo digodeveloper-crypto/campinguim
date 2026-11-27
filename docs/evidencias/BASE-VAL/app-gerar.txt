@@ -1,0 +1,5 @@
+(saída do build nativo reduzida às linhas finais: o registro completo tem caminhos da máquina de quem gerou)
+BUILD SUCCESSFUL in 14m 21s
+695 actionable tasks: 695 executed
+[app] gerado: apps\mobile\android\app\build\outputs\apk\release\app-release.apk
+exit=0
