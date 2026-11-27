@@ -86,7 +86,7 @@ Decidido pelo responsável em 27/11/2026: os tempos são decididos na **feature 
 
 ## 3. Pendências técnicas do relatório do QA e onde cada uma será tratada
 
-Do relatório `docs/qa/BASE-conferencia-final.md`, seção 5.2. O orquestrador cria cada tarefa; a coluna diz em que feature ou momento a pendência entra.
+Do relatório `docs/qa/BASE-conferencia-final.md`, seção 5.2 (T0 a T13) e de `docs/qa/BASE-VAL-rodada-1.md`, observação 4 (T14). O orquestrador cria cada tarefa; a coluna diz em que feature ou momento a pendência entra.
 
 | # | Pendência | Quando será tratada |
 | --- | --- | --- |
@@ -104,6 +104,7 @@ Do relatório `docs/qa/BASE-conferencia-final.md`, seção 5.2. O orquestrador c
 | T11 | A trava de segredos vale também nos commits dos reels, pelo `core.hooksPath` compartilhado | Avisar a missão dos reels (orquestrador) |
 | T12 | Coautoria dos commits: os ajudantes assinam com o modelo que fez o trabalho; o squash de cada feature é do orquestrador | Cada integração (rotina do orquestrador) |
 | T13 | Evidências da B2 ocupam cerca de 19 MB | Só se o repositório pesar; revisar na etapa 2 |
+| T14 | `ferramentasDeDesenvolvimento.test.ts` (da B1-FIX-2) estourou o limite padrão de 5 s nos 4 testes na primeira rodada fria da suíte, sob carga; sozinho leva 326 ms, e na rodada seguinte passou. É a mesma classe do teste de endereços que a B1-FIX-2 resolveu com limite próprio (QA BASE-VAL, rodada 1, observação 4) | Manutenção da esteira: limite próprio nesses testes ou import aquecido |
 
 ## 4. Onde cada decisão foi registrada
 
@@ -115,4 +116,4 @@ Do relatório `docs/qa/BASE-conferencia-final.md`, seção 5.2. O orquestrador c
 | V7, V11 | `docs/prova-tecnica/resultado.md` (D1, D3 e item 4) |
 | V8 | `docs/servidor.md` (seção 12), `docs/regras.md` (seção 4) |
 | V9 | este arquivo (pedido na feature 1.6) |
-| Pendências T0 a T13 | este arquivo, seção 3 |
+| Pendências T0 a T14 | este arquivo, seção 3 |
