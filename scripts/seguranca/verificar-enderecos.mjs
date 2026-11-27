@@ -28,13 +28,20 @@ function ehBinario(buffer) {
   return false;
 }
 
+// Extensões de mídia e binários: nunca são texto, então nem são abertos. No Windows cada arquivo
+// aberto custa uma verificação do antivírus; com a máquina ocupada (emulador, Docker) a varredura
+// inteira passava de 20 s e derrubava o teste da árvore limpa. O critério por conteúdo
+// (`ehBinario`) continua valendo para as demais extensões.
+const EXTENSOES_BINARIAS = /\.(?:png|jpe?g|gif|webp|ico|mp4|mov|webm|mp3|wav|ogg|ttf|otf|woff2?|glb|blend|zip|pdf|apk|aab|jar|keystore|jks)$/i;
+
+const git = (raiz, ...args) => execFileSync('git', args, { cwd: raiz, maxBuffer: 64 * 1024 * 1024 }).toString('utf8').split('\0').filter(Boolean);
+
 /** Todo arquivo rastreado ou novo (sem os ignorados), relativo à raiz. */
 export function arquivosDoRepositorio(raiz = RAIZ) {
-  return execFileSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: raiz })
-    .toString('utf8')
-    .split('\0')
-    .filter(Boolean)
-    .filter((rel) => fs.existsSync(path.join(raiz, rel)));
+  // Um arquivo apagado no disco mas ainda no índice não conta. Duas chamadas do git em vez de um
+  // existsSync por arquivo.
+  const apagados = new Set(git(raiz, 'ls-files', '-z', '--deleted'));
+  return git(raiz, 'ls-files', '-z', '--cached', '--others', '--exclude-standard').filter((rel) => !apagados.has(rel));
 }
 
 /**
@@ -49,7 +56,7 @@ export function conferirEnderecos(opcoes = {}) {
   const achados = [];
   for (const arquivo of arquivos) {
     const rel = arquivo.replaceAll('\\', '/');
-    if (rel === ARQUIVO_DE_CONFIGURACAO || rel.startsWith('docs/') || rel.toLowerCase().endsWith('.md')) continue;
+    if (rel === ARQUIVO_DE_CONFIGURACAO || rel.startsWith('docs/') || rel.toLowerCase().endsWith('.md') || EXTENSOES_BINARIAS.test(rel)) continue;
     const abs = path.join(raiz, rel);
     if (fs.statSync(abs).size > 5 * 1024 * 1024) continue;
     const conteudo = fs.readFileSync(abs);
