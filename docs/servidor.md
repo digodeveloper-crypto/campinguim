@@ -9,6 +9,7 @@ Feature **B5** (26/11/2026). Cobre a SPEC, seções 3 e 11, e a parte de servido
 | `supabase/migrations/20261126190200_b5_campings.sql` | Campings, só no servidor: `city`, `camping`, `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`, `list_feedback` |
 | `supabase/migrations/20261126190300_b5_apoio.sql` | Apoio: `device`, `event`, `config` (com as premissas); verificação do aparelho (esboço); exclusão de conta |
 | `supabase/migrations/20261126190400_b5_sync_apply.sql` | `public.sync_apply`: aplica as alterações vindas do aparelho |
+| `supabase/migrations/20261127120000_1_12_lista_de_espera.sql` | Feature 1.12: lista de espera do site (`waitlist`, `private.waitlist_attempt`, `public.waitlist_join`; seção 14 abaixo) |
 | `supabase/sincronizacao/powersync/sync-config.yaml` | Regras de sincronização: o que cada aparelho recebe |
 | `supabase/dados-de-exemplo/` | Dados das jornadas (família da Carla, grupo de três famílias) e o ajuste do ambiente local |
 | `supabase/functions/_compartilhado/contratos.ts` | Lista dos contratos da seção 8: de que feature é cada função e o que já existe |
@@ -74,11 +75,11 @@ Escolhas de tipo onde a SPEC não diz:
 
 Sincronizam (publicação `powersync` e regras de sincronização): `profile` (só o próprio), `trip`, `trip_family`, `trip_person`, `trip_member`, `trip_item`, `item_claim`, `trip_camping_snapshot`, `expense`, `expense_exclusion`, `expense_payment`, `expense_audit`.
 
-Nunca vão: `invite`, `pix_key`, `city`, `camping`, `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`, `list_feedback`, `device`, `event`, `config` e o esquema `private`.
+Nunca vão: `waitlist` (1.12), `invite`, `pix_key`, `city`, `camping`, `camping_alias`, `fact_report`, `fact_summary`, `suggestion`, `merge_candidate`, `list_feedback`, `device`, `event`, `config` e o esquema `private`.
 
 ## 3. Autorização (SPEC, seção 11)
 
-O papel do app é `authenticated` (com login). Quem não tem login (`anon`) não tem privilégio em nenhuma tabela nem função da aplicação.
+O papel do app é `authenticated` (com login). Quem não tem login (`anon`) não tem privilégio em nenhuma tabela nem função da aplicação, com uma exceção: `waitlist_join`, a lista de espera do site (1.12), que é sem conta (seção 14).
 
 | Dado | Quem lê (política) | Quem escreve (dentro de `sync_apply`, ou política onde indicado) |
 | --- | --- | --- |
@@ -93,7 +94,7 @@ O papel do app é `authenticated` (com login). Quem não tem login (`anon`) não
 
 Como isso está montado:
 
-- **RLS ativo em todas as 27 tabelas**, na mesma migração que cria cada uma. As tabelas protegidas (convite, campings, relatos, resumos, sugestões, fila de fusão, insumo do aprendizado, aparelho, eventos, `config` e as duas do esquema `private`) não têm **nenhuma** política e não têm privilégio para `anon` nem `authenticated`.
+- **RLS ativo em todas as 29 tabelas** (27 da B5 e as 2 da lista de espera da 1.12), na mesma migração que cria cada uma. As tabelas protegidas (lista de espera, convite, campings, relatos, resumos, sugestões, fila de fusão, insumo do aprendizado, aparelho, eventos, `config` e as duas do esquema `private`) não têm **nenhuma** política e não têm privilégio para `anon` nem `authenticated`.
 - **Leitura:** uma política de `SELECT` por tabela sincronizada, para `authenticated`, com os predicados `private.is_trip_member`, `private.is_family_member` e `private.can_read_pix_key` (funções `SECURITY DEFINER` no esquema `private`, que a API não expõe).
 - **Escrita:** o app não escreve direto em nenhuma tabela sincronizada (o privilégio de `INSERT`, `UPDATE` e `DELETE` é retirado). Toda escrita passa por `sync_apply`, que aplica as regras de conflito da seção 4 e confere o "quem escreve" desta tabela por alteração (ponto J2 da prova). A única escrita direta é a da chave Pix, pelo dono, protegida por política.
 - **Membro** é sempre membro ativo (`trip_member.deleted_at` nulo) com conta. Quem é removido perde leitura, escrita e sincronização de tudo da viagem (S10).
@@ -198,6 +199,7 @@ Rodam contra o ambiente local (`npm run ambiente:subir` ou `ambiente:zerar` ante
 | `exclusao-de-conta.test.ts` | Exclusão de conta da seção 3 |
 | `dados-e-config.test.ts` | Premissas em `config` e dados de exemplo |
 | `contratos.test.ts` | A lista de contratos bate com a seção 8 e com o banco |
+| `lista-de-espera.test.ts` (1.12) | `waitlist_join`: grava e-mail normalizado e data do consentimento; repetido não duplica nem revela; sem consentimento e e-mail inválido recusam; tabela com RLS, sem política, fora da publicação; `anon` e `authenticated` não leem nem escrevem direto; limite por endereço; a resposta não traz e-mail; chamada pela API com a chave pública |
 | `ambiente.test.ts`, `autorizacao.test.ts` | Da B1: ambiente no ar, migrações aplicadas, cadastro aberto desligado, `anon` sem tabela na API |
 
 Os testes dos grupos 1, 3 e 4 rodam cada caso numa transação desfeita no fim (`supabase/testes/apoio-banco.ts`), agindo como a API age (`set role authenticated` e o token em `request.jwt.claims`). O grupo 2 cria pessoas com senha aleatória só na memória do teste e apaga tudo no fim.
@@ -236,3 +238,24 @@ Os testes dos grupos 1, 3 e 4 rodam cada caso numa transação desfeita no fim (
 | 3.1 | Cidades do IBGE, busca e criação de camping, `pg_trgm` para a similaridade |
 | 3.2 a 3.7 | Resumo dos relatos, retrato, perguntas da volta, antifraude (FRD-01 a FRD-05, usando `trip.created_at` e o registro de chegada), verificação real do aparelho e limites por aparelho |
 | 3.10 | Rotina de contas inativas (prazos já em `config`) |
+
+## 14. Lista de espera do site (feature 1.12, 27/11/2026)
+
+Decisão R3 do responsável (27/11/2026): a lista guarda só o e-mail normalizado e a data do consentimento, em tabela própria, com RLS ativo e sem política; só `waitlist_join` (security definer) escreve; fora da publicação do PowerSync; consentimento obrigatório; sem confirmação por e-mail. Promete um único aviso, quando o app estiver na loja (decisão do piloto). A SPEC, seção 11, ganhou a exceção ("Registros do servidor não guardam ... e-mails"), e a seção 3 ganhou a tabela.
+
+| Peça | O quê |
+| --- | --- |
+| `public.waitlist` | `id` (UUID v4), `email` (único; guardado sem espaço nas pontas e em minúsculas, conferido por `check`), `consent_at`, `created_at`. RLS ativo, nenhuma política, nenhum privilégio para `anon` e `authenticated`. Protegida (`supabase/testes/tabelas.ts`) |
+| `private.waitlist_attempt` | `ip_hash` (SHA-256 do endereço, nunca o endereço), `at`. Base do limite por endereço; o que passa de uma hora é apagado a cada chamada. Nada liga uma tentativa a um e-mail |
+| `config.limits.waitlist_join_per_ip_per_hour` | 20 por hora: o mesmo valor inicial do limite de convidado (seção 8). Muda sem nova versão. Valor provisório, escolha técnica da 1.12 (o responsável revisa) |
+| `public.waitlist_join(p_email, p_consent, p_request_id)` | Sem conta (`anon` e `authenticated` executam). Devolve `{ok: true}`, `{ok: false, code: 'validation'}` (sem consentimento ou e-mail inválido) ou `{ok: false, code: 'rate_limited'}`. E-mail repetido recebe a mesma resposta do primeiro, sem duplicar e sem revelar. A resposta nunca traz e-mail, a lista nem a contagem |
+
+Regras da função:
+
+- **Limite por endereço de rede** (seção 8, "Limites"; DEF-03): conta toda chamada da última hora vinda do mesmo endereço, inclusive as recusadas (assim ninguém testa e-mails em série). Acima do limite: `rate_limited`, e a primeira recusa da hora grava um evento interno `rate_limited` em `event` (`{"function": "waitlist_join"}`, sem aparelho nem conta); as seguintes não gravam nada, para quem insiste não encher o banco. Chamadas do mesmo endereço passam uma por vez (trava consultiva por resumo do endereço).
+- **Qual endereço:** o ÚLTIMO de `x-forwarded-for`, o que o portão da API acrescenta. Conferido no Supabase local em 27/11/2026: o portão acrescenta o endereço que viu ao fim do cabeçalho e mantém o que o cliente mandou antes; o cliente não escolhe o último. No hospedado, conferir na publicação (`docs/infra.md`, seção da 1.12).
+- **E-mail válido:** a mesma regra da página (`apps/web/src/site/listaDeEspera.ts`): uma arroba, sem espaço, até 64 antes da arroba, domínio com ponto, sem ponto duplo, até 254 no total. A página não é a única barreira.
+- **`request_id`** é aceito (seção 8, "Regras de todas as funções") e não é usado: repetir a chamada já é inofensivo, porque o e-mail é único.
+- **Campo armadilha** (robôs): fica só na página; o contrato da seção 8 não muda.
+
+Pendências (o piloto leva ao responsável): prazo de guarda dos e-mails; forma de pedir a saída da lista (LGPD); quem manda o aviso e com que ferramenta. Até lá ninguém lê a lista pelo app.

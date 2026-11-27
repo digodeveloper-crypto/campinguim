@@ -45,47 +45,517 @@
 }
 /* tokens:fim */
 
-* {
+/* ---------------------------------------------------------------------------------------------
+   Site e página do convidado (feature 1.12). Medidas de design/prototipos/rumo/estilo.css e do
+   docs/DESIGN.md, seções 4 a 8 e 11.3. Só os 10 papéis de cor do bloco acima (a arte do mascote é a
+   única exceção, e não é tocada aqui). Tema: o do sistema (prefers-color-scheme), ou data-tema.
+   Tamanhos de letra em rem: a letra ampliada (100, 130 e 200 %) cresce sem cortar.
+   --------------------------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fontes/archivo/Archivo-variavel.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
+  --ico-recorte: var(--superficie);
   margin: 0;
   min-height: 100vh;
   background: var(--fundo);
   color: var(--texto);
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-family: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-stretch: 100%;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.53;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: break-word;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.pagina {
-  min-height: 100vh;
+button,
+input {
+  font: inherit;
+  color: inherit;
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: inherit;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+
+.rumo {
+  position: relative;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+  padding-left: calc(16px + env(safe-area-inset-left, 0px));
+  padding-right: calc(16px + env(safe-area-inset-right, 0px));
+}
+
+.suave {
+  color: var(--texto-suave);
+}
+
+/* Rótulo de carta: caixa alta larga e espaçada. */
+.bloco-titulo {
   display: flex;
   align-items: center;
-  padding: 16px;
-}
-
-.cartao {
-  width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  background: var(--superficie);
-  border-radius: 16px;
-  padding: 24px;
-}
-
-h1 {
-  margin: 0 0 12px;
-  color: var(--acento);
-  font-size: 2rem;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-stretch: 125%;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-suave);
 }
 
 .subtitulo {
-  font-size: 1.25rem;
-  margin: 0 0 8px;
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-stretch: 112.5%;
+  font-weight: 600;
 }
 
-.detalhe {
+/* ---------- Ícones ---------- */
+
+.ico {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+}
+
+/* ---------- Curvas de nível ---------- */
+
+.curvas path {
+  fill: none;
+  stroke: var(--linha);
+  stroke-width: 1;
+  opacity: 0.6;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ---------- Apoio do mascote: papel de canto cortado na cor "texto", só no escuro (DESIGN.md 8) ---------- */
+
+.apoio {
+  position: relative;
+  isolation: isolate;
+  display: inline-grid;
+  place-items: center;
+  line-height: 0;
+}
+
+.mascote {
+  display: block;
+  width: 136px;
+  height: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) .apoio {
+    --chanfro: 14px;
+    padding: 8px;
+  }
+
+  :root:not([data-tema="claro"]) .apoio::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--texto);
+    clip-path: polygon(var(--chanfro) 0, calc(100% - var(--chanfro)) 0, 100% var(--chanfro), 100% calc(100% - var(--chanfro)),
+      calc(100% - var(--chanfro)) 100%, var(--chanfro) 100%, 0 calc(100% - var(--chanfro)), 0 var(--chanfro));
+  }
+}
+
+:root[data-tema="escuro"] .apoio {
+  --chanfro: 14px;
+  padding: 8px;
+}
+
+:root[data-tema="escuro"] .apoio::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--texto);
+  clip-path: polygon(var(--chanfro) 0, calc(100% - var(--chanfro)) 0, 100% var(--chanfro), 100% calc(100% - var(--chanfro)),
+    calc(100% - var(--chanfro)) 100%, var(--chanfro) 100%, 0 calc(100% - var(--chanfro)), 0 var(--chanfro));
+}
+
+/* ---------- Régua de seções fixa no topo (DESIGN.md 7.1) ---------- */
+
+.regua-web {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  margin: 0 -16px;
+  padding: 0 16px;
+  background: var(--fundo);
+  border-bottom: 1px solid var(--linha);
+}
+
+.regua-web ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+}
+
+.regua-web a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 4px;
+  color: inherit;
+  text-decoration: none;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+  font-stretch: 112.5%;
+  font-weight: 600;
+}
+
+.regua-web a::before {
+  content: "";
+  flex: none;
+  width: 1.5px;
+  height: 14px;
+  background: var(--texto);
+}
+
+.regua-web a[aria-current="true"] {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* ---------- Seções e topo ---------- */
+
+.secao {
+  scroll-margin-top: 4rem;
+  margin-top: 32px;
+}
+
+.site-heroi {
+  display: grid;
+  justify-items: center;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.abertura-mapa {
+  position: relative;
+  width: 100%;
+  height: 17rem;
+  max-height: 260px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.abertura-mapa .curvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.marca-nome {
+  margin-top: 8px;
+  font-size: 2.25rem;
+  line-height: 1.15;
+  font-stretch: 125%;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.abertura-frase {
+  max-width: 24rem;
+  margin-top: 12px;
+  font-size: 1.1875rem;
+  line-height: 1.6rem;
+}
+
+.em-breve {
+  margin-top: 12px;
+}
+
+.espera-explica {
+  margin-bottom: 8px;
+}
+
+/* ---------- Folhas, linhas e categorias (telas 4 e 15) ---------- */
+
+.folha {
+  background: var(--superficie);
+  border: 1px solid var(--linha);
+  border-radius: var(--raio);
+}
+
+.folha > li + li {
+  border-top: 1px solid var(--linha);
+}
+
+.linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  min-height: 56px;
+  padding: 6px 12px;
+}
+
+.linha-texto {
+  flex: 1 1 0;
+  min-width: min(100%, 10rem);
+}
+
+.linha-qtd {
+  margin-left: auto;
+  text-align: right;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.cat {
+  margin-top: 12px;
+}
+
+.cat-titulo {
+  font: inherit;
+}
+
+.cat .folha {
+  margin-top: 4px;
+}
+
+.cat-botao {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 6px 4px;
+}
+
+.cat-cabeca {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+}
+
+.cat-nome {
+  flex: 1 1 9rem;
+  min-width: 0;
+  font-size: 1.1875rem;
+  line-height: 1.5rem;
+  font-stretch: 112.5%;
+  font-weight: 600;
+}
+
+.cat-prog {
   color: var(--texto-suave);
-  line-height: 1.5;
+  font-size: 0.9375rem;
+  line-height: 1.25rem;
+}
+
+.cat--aberta .cat-botao > .ico {
+  rotate: 180deg;
+}
+
+/* ---------- Formulário (tela 15) ---------- */
+
+.formulario {
+  padding: 4px 12px 16px;
+}
+
+.campo {
+  display: block;
+  margin-top: 16px;
+}
+
+.campo-rotulo {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.entrada {
+  display: block;
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--linha);
+  border-radius: var(--raio);
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+.entrada[aria-invalid="true"] {
+  border: 2px solid var(--atencao);
+}
+
+/* Campo armadilha: fora da tela e do leitor de tela; só robô preenche. */
+.armadilha {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.check {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+.check-campo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
   margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.check-caixa {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 1.5px solid var(--texto);
+  border-radius: var(--raio);
+  background: var(--superficie);
+}
+
+.check-caixa .ico {
+  visibility: hidden;
+}
+
+.check-campo:checked + .check-caixa {
+  background: var(--texto);
+  color: var(--fundo);
+}
+
+.check-campo:checked + .check-caixa .ico {
+  visibility: visible;
+}
+
+.check-campo:focus-visible + .check-caixa {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+
+.check-texto {
+  padding-top: 10px;
+}
+
+.botao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  min-width: 44px;
+  padding: 8px 16px;
+  border-radius: var(--raio);
+  font-size: 1.0625rem;
+  line-height: 1.375rem;
+  font-stretch: 112.5%;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.botao--principal {
+  background: var(--acento);
+  color: var(--sobre-acento);
+}
+
+.botao--bloco {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.botao[aria-disabled="true"] {
+  cursor: progress;
+}
+
+.mensagem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 12px;
+  font-weight: 600;
+}
+
+.mensagem:empty {
+  display: none;
+}
+
+.mensagem--erro {
+  color: var(--atencao);
 }

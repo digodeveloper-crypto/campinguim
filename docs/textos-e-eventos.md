@@ -236,13 +236,12 @@ Arquivo `apps/mobile/src/textos/pt-BR.json`. Total: 54 chaves.
 
 ### Pendentes da página web
 
-Arquivo `apps/web/src/textos/pt-BR.json`. Total: 6 chaves.
+Arquivo `apps/web/src/textos/pt-BR.json`. Total: 5 chaves.
 
 | Chave | O que falta |
 | --- | --- |
 | `convite.linkVencido` | Mensagem clara de link de convite vencido (E2-02) |
 | `convite.linkRevogado` | Mensagem clara de link de convite revogado (E2-02) |
 | `listaDoGrupo.precisaDeInternet` | Uma linha que diz que a lista do grupo só funciona com internet (SPEC, seção 7) |
-| `site.oQueE` | Frase do que é o Campinguim para o site: texto de conteúdo do site, não definido (DESIGN, seção 11.3, P-19) |
-| `site.consentimento` | Texto de consentimento da lista de espera: vem de pessoa habilitada (PRV-04, DESIGN P-18), nunca escrito pelo desenvolvimento |
-| `site.politicaDePrivacidade` | Política de privacidade do site: vem de pessoa habilitada (PRV-04), nunca escrita pelo desenvolvimento |
+| `site.consentimento` | Texto legal (V6): o arquivo tem um **rascunho marcado como rascunho**, escrito pela 1.12 a partir da decisão do piloto (um único aviso por e-mail, quando o app estiver na loja). Falta a revisão do responsável com quem de direito. Enquanto for rascunho, o formulário só funciona no ambiente local (`formularioLiberado`, `apps/web/src/site/listaDeEspera.ts`) |
+| `site.politicaDePrivacidade` | Texto legal (V6): **rascunho marcado como rascunho** da 1.12, que a página ainda não mostra (P-18: sem link de política até o texto ser aprovado). Faltam o prazo de guarda e a forma de pedir a saída da lista (decisão do responsável) e a revisão com quem de direito |
