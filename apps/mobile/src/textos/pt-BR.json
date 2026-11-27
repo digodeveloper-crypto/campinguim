@@ -1,16 +1,13 @@
 {
   "_leia": "Textos da interface do app em português do Brasil, por tela e área (SPEC, seção 7). Nenhum texto para a pessoa fica solto no código (CLAUDE.md, regra 5; NF-09). Tom do DESIGN, seção 10: diário de expedição, verbo no presente, sem adjetivo, sem exclamação. Marcas {nome} são trocadas na hora (veja index.ts). Plural: a chave do singular leva o sufixo _um e vale quando {n} é 1. Texto ainda não definido começa por [PENDENTE]: a lista está em docs/textos-e-eventos.md. Texto legal (consentimento, privacidade) nunca é escrito aqui: vem de pessoa habilitada (PRV-04).",
-
   "app": {
     "nome": "Campinguim"
   },
-
   "telaProvisoria": {
     "titulo": "Campinguim",
     "subtitulo": "O app está em construção.",
     "detalhe": "Esta é a tela provisória da base. A lista de camping chega na etapa 1."
   },
-
   "acoes": {
     "comecar": "Começar",
     "gerarLista": "Gerar lista",
@@ -44,7 +41,6 @@
     "verFato": "Ver o fato",
     "verGastos": "Ver os gastos"
   },
-
   "estados": {
     "separei": "separei",
     "carro": "está no carro",
@@ -64,12 +60,10 @@
     "separeiForaDoCarro": "separei, fora do carro",
     "separeiEForaDoCarro": "{separei} · {fora}"
   },
-
   "niveis": {
     "atencao": "Atenção",
     "informacao": "Informação"
   },
-
   "ajustes": {
     "titulo": "Ajustes na lista",
     "entrou": "Entrou",
@@ -77,7 +71,6 @@
     "tarefa": "Tarefa",
     "regras": "Regras"
   },
-
   "categorias": {
     "abrigo": "Abrigo",
     "dormir": "Dormir",
@@ -92,14 +85,12 @@
     "criancas": "Crianças",
     "pet": "Pet"
   },
-
   "filtros": {
     "aSeparar": "a separar",
     "separados": "separados",
     "noCarro": "no carro",
     "comprar": "comprar"
   },
-
   "campos": {
     "tipo": "Tipo",
     "noites": "Noites",
@@ -120,9 +111,9 @@
     "motivo": "Motivo",
     "sugestao": "Sugestão (opcional, até 200 caracteres)",
     "responderComo": "Responder como",
-    "chavePix": "Chave Pix"
+    "chavePix": "Chave Pix",
+    "opcional": "opcional"
   },
-
   "opcoes": {
     "tipo": {
       "barracaComCarro": "Barraca com carro",
@@ -139,7 +130,6 @@
     "menosUm": "menos um",
     "maisUm": "mais um"
   },
-
   "areas": {
     "lista": "Lista",
     "camping": "Camping",
@@ -147,7 +137,6 @@
     "gastos": "Gastos",
     "volta": "Volta"
   },
-
   "rota": {
     "rotulo": "Rota da viagem",
     "preparar": "Preparar",
@@ -160,7 +149,6 @@
     "etapa": "Parada {n} de {total} · {nome}",
     "deslizar": "Deslize para os lados para trocar de parada."
   },
-
   "legenda": {
     "botao": "Legenda",
     "itens": "camping, grupo, gastos",
@@ -170,15 +158,15 @@
     "aberta": "Legenda aberta. Camping, grupo e gastos.",
     "fato": "Fato: {fato}",
     "grupoSub": "Quem leva o quê",
-    "gastosSub": "Divisão e chave Pix"
+    "gastosSub": "Divisão e chave Pix",
+    "etapa": "Legenda · {nome}",
+    "alertas": "Alertas do camping"
   },
-
   "abertura": {
     "frase": "Marque a rota antes de sair: a lista do que levar, parada por parada.",
     "rota": "Cinco paradas, da sala de casa até a volta.",
     "semCadastro": "Sem cadastro. A lista começa na próxima tela."
   },
-
   "criarViagem": {
     "titulo": "Nova viagem",
     "intro": "Tipo, noites e pessoas são obrigatórios. O resto entra se você souber.",
@@ -190,7 +178,6 @@
     "maisUm": "{campo}, mais um",
     "buscaPrecisaDeInternet": "Buscar camping precisa de internet."
   },
-
   "lista": {
     "titulo": "Lista da viagem",
     "progressoNoCarro": "{feitos} de {total} no carro",
@@ -209,7 +196,6 @@
     "mudancaDaResposta": "{entraram} entraram, {sairam} saíram",
     "vazia": "[PENDENTE] Texto da lista sem nenhum item, com a ação clara (SPEC, seção 7, estado vazio)"
   },
-
   "item": {
     "titulo": "Item",
     "medida": "Medida",
@@ -218,14 +204,12 @@
     "marcadoParaComprar": "Marcado para comprar.",
     "motivoGerado": "[PENDENTE] Frase que mostra o motivo de um item gerado estar na lista (E1-04), com o dado que o gerou"
   },
-
   "adicionarItem": {
     "titulo": "[PENDENTE] Título da tela de adicionar item (busca no catálogo e texto livre)",
     "busca": "[PENDENTE] Texto do campo de busca no catálogo",
     "textoLivre": "[PENDENTE] Ação de criar um item com o texto digitado",
     "sugestoes": "[PENDENTE] Título das sugestões de itens do catálogo que não estão na lista"
   },
-
   "avisoDeSaida": {
     "titulo": "Conferir a carga",
     "separadosFora": "Separados e fora do carro",
@@ -236,7 +220,6 @@
     "completo": "{feitos} de {total} no carro. Carga fechada.",
     "noCarroAria": "{nome}: está no carro"
   },
-
   "estadia": {
     "titulo": "Durante a estadia",
     "regrasAMao": "Regras à mão",
@@ -248,7 +231,6 @@
     "anotado": "{nome}: faltou.",
     "nivel": "{nivel}"
   },
-
   "volta": {
     "titulo": "Checklist da volta",
     "intro": "Cada item conferido antes de guardar no carro.",
@@ -261,7 +243,6 @@
     "alternarSecar": "{nome}: secar ou lavar em casa",
     "alternarFeito": "{tarefa}: feito"
   },
-
   "emCasa": {
     "titulo": "Depois da viagem",
     "emCasa": "Em casa",
@@ -273,26 +254,22 @@
     "opcaoAria": "{nome}: {opcao}",
     "fim": "Registro da viagem fechado."
   },
-
   "novaViagem": {
     "repetirAUltima": "[PENDENTE] Ação de repetir a última viagem (E1-12)",
     "modelosSalvos": "[PENDENTE] Título dos modelos salvos (E1-12)",
     "oQueMudou": "[PENDENTE] Frase do que mudou por aprendizado da viagem anterior (E1-12)"
   },
-
   "emBreve": {
     "inventario": "[PENDENTE] Nome da função futura inventário de equipamento (DAT-05)",
     "cardapio": "[PENDENTE] Nome da função futura cardápio (DAT-05)",
     "mensagem": "[PENDENTE] Mensagem curta que aparece quando a pessoa toca numa função em breve (SPEC, seção 7)"
   },
-
   "estadosGerais": {
     "vazio": "[PENDENTE] Texto padrão de tela vazia com ação clara (SPEC, seção 7, estados que toda tela trata)",
     "semInternet": "[PENDENTE] Uma linha para dizer que a função precisa de internet (SPEC, seção 7)",
     "aguardandoEnvio": "[PENDENTE] Indicador discreto de itens aguardando envio, com a contagem {n}",
     "erro": "[PENDENTE] Mensagem de erro em português simples, com o que a pessoa pode fazer"
   },
-
   "notificacoes": {
     "faltamItens": "Faltam 3 dias: {n} itens para separar",
     "faltamItens_um": "Faltam 3 dias: {n} item para separar",
@@ -305,7 +282,6 @@
       "motivo": "[PENDENTE] Texto que explica o motivo do pedido de permissão de notificação (RET-03)"
     }
   },
-
   "ajustesDoApp": {
     "titulo": "[PENDENTE] Título da área de ajustes",
     "conta": "[PENDENTE] Item de ajustes: conta",
@@ -313,26 +289,22 @@
     "privacidade": "[PENDENTE] Item de ajustes: privacidade",
     "sobre": "[PENDENTE] Item de ajustes: sobre"
   },
-
   "legal": {
     "consentimento": "[PENDENTE] Texto de consentimento: vem de pessoa habilitada (PRV-04), nunca escrito pelo desenvolvimento",
     "politicaDePrivacidade": "[PENDENTE] Política de privacidade: vem de pessoa habilitada (PRV-04), nunca escrita pelo desenvolvimento",
     "termosDeUso": "[PENDENTE] Termos de uso: vêm de pessoa habilitada (PRV-04), nunca escritos pelo desenvolvimento"
   },
-
   "entrar": {
     "titulo": "[PENDENTE] Título da tela de entrar (E2-16)",
     "motivo": "[PENDENTE] Frase que diz por que o login é pedido neste momento (organizar grupo, lançar gasto, cadastrar Pix, confirmar fato)",
     "comGoogle": "[PENDENTE] Rótulo do botão de login com Google: o nome é marca de terceiro, confirmar o uso e o rótulo exigido pelo Google"
   },
-
   "transformarEmGrupo": {
     "titulo": "[PENDENTE] Título da tela de transformar em grupo (E2-01)",
     "nomeDoGrupo": "[PENDENTE] Rótulo do campo nome do grupo",
     "familias": "[PENDENTE] Rótulo das famílias",
     "gerarConvite": "[PENDENTE] Ação de gerar o link de convite"
   },
-
   "grupo": {
     "titulo": "Grupo",
     "familias": "Famílias",
@@ -346,12 +318,10 @@
     "lembrado": "Lembrete enviado a quem falta.",
     "euLevoAria": "{item}: eu levo"
   },
-
   "convidarFamilia": {
     "titulo": "[PENDENTE] Título da tela de convidar para a minha família (E2-18)",
     "explicacao": "[PENDENTE] Frase que explica que quem entra vê a mesma lista pessoal"
   },
-
   "gastos": {
     "titulo": "Gastos",
     "itemDividido": "Item dividido",
@@ -375,17 +345,14 @@
       "comprador": "comprador"
     }
   },
-
   "pagar": {
     "titulo": "[PENDENTE] Título da tela de pagar (E2-14)",
     "soParaMembros": "[PENDENTE] Aviso de que a chave Pix só aparece para membros da viagem"
   },
-
   "historicoDoGasto": {
     "titulo": "[PENDENTE] Título do histórico do gasto (E2-15)",
     "linha": "[PENDENTE] Frase de cada alteração: autor, data e valor anterior"
   },
-
   "conta": {
     "titulo": "[PENDENTE] Título da tela de conta (E2-17)",
     "nomeDeExibicao": "[PENDENTE] Rótulo do nome de exibição",
@@ -393,7 +360,6 @@
     "excluirConta": "[PENDENTE] Ação de excluir a conta, com a confirmação em dois passos (PRV-05)",
     "exportarDados": "[PENDENTE] Ação de exportar os dados (PRV-05)"
   },
-
   "escolherDestino": {
     "titulo": "[PENDENTE] Título da tela de escolher destino (E3-01)",
     "busca": "[PENDENTE] Texto do campo de busca por nome",
@@ -401,7 +367,6 @@
     "eEste": "[PENDENTE] Pergunta é este? com os campings parecidos (E3-20)",
     "exigeInternet": "Buscar camping precisa de internet."
   },
-
   "alertas": {
     "registro": "Registro do camping antes da viagem.",
     "desfeito": "desfeito",
@@ -409,7 +374,6 @@
     "desfazerAria": "{item}: desfazer",
     "naoConfirmado": "[PENDENTE] Aviso de fato não confirmado, que aparece como informação (SPEC, seção 5)"
   },
-
   "campingSemDados": {
     "registro": "Nenhum registro deste camping ainda.",
     "naDuvida": "Na dúvida",
@@ -417,19 +381,16 @@
     "perguntasIntro": "Mande ao camping antes de sair. O texto não cita o app.",
     "semDados": "Ainda não há dados deste camping. A lista veio \"na dúvida\"."
   },
-
   "registrarRespostasDoCamping": {
     "titulo": "[PENDENTE] Título da tela de registrar respostas do camping (E3-11)",
     "origem": "[PENDENTE] Texto da origem informado pelo camping"
   },
-
   "camping": {
     "confirmadoPor": "confirmado por {n} campistas",
     "confirmadoPor_um": "confirmado por {n} campista",
     "confirmaram": "{camping}: {n} campistas confirmaram.",
     "confirmaram_um": "{camping}: {n} campista confirmou."
   },
-
   "fato": {
     "dado": "{fato}: {valor}. {n} confirmações. Última: {nome}, {mes}.",
     "confirmacoes": "{n} confirmações",
@@ -440,7 +401,6 @@
     "linha": "{nome} · {mes} · {tipo}",
     "historico": "Histórico"
   },
-
   "perguntasDaVolta": {
     "regrasCumpridas": "As regras informadas foram cumpridas?",
     "sugestaoParaOCamping": "Alguma sugestão para o camping?",
@@ -448,18 +408,16 @@
     "responderComoApelido": "[PENDENTE] Opção de responder com apelido",
     "responderComoAnonimo": "[PENDENTE] Opção de responder como anônimo (E3-13)"
   },
-
   "mesmoLugar": {
     "titulo": "[PENDENTE] Título da tela é o mesmo lugar (E3-23)",
     "acao": "[PENDENTE] Ação de sinalizar dois campings como o mesmo"
   },
-
   "mensagens": {
     "copiado": "Copiado.",
     "naoCopiado": "Não foi possível copiar. Selecione o texto e copie.",
-    "lembrete": "Lembrete em {dias} dias"
+    "lembrete": "Lembrete em {dias} dias",
+    "erroAria": "Erro: {mensagem}"
   },
-
   "mascote": {
     "principal": "Campinguim, o pinguim de gorro",
     "neutro": "Campinguim, o pinguim de gorro, em pé",
@@ -467,5 +425,106 @@
     "alerta": "Campinguim em alerta",
     "camping": "Campinguim com frio, de gorro, no camping",
     "icone": "Campinguim"
+  },
+  "galeria": {
+    "titulo": "Galeria",
+    "subtitulo": "Componentes do Rumo em todos os estados. Só no ambiente de desenvolvimento.",
+    "tema": "Tema",
+    "temaSistema": "Do aparelho",
+    "temaClaro": "Claro",
+    "temaEscuro": "Escuro",
+    "letra": "Letra simulada",
+    "letra100": "100 %",
+    "letra130": "130 %",
+    "letra200": "200 %",
+    "letraAviso": "A letra real vem do aparelho. Esta simulação soma à do sistema.",
+    "indisponivel": "A galeria só abre no ambiente de desenvolvimento.",
+    "secoes": {
+      "cores": "Cores",
+      "tipografia": "Tipografia",
+      "icones": "Ícones",
+      "rota": "7.1 Rota",
+      "cabecalho": "7.2 Cabeçalho da etapa",
+      "botoes": "7.3 Botões",
+      "item": "7.4 Item da lista",
+      "alerta": "7.5 Alerta do camping",
+      "selo": "7.6 Selo",
+      "legenda": "7.7 Legenda",
+      "rodape": "7.8 Rodapé de ação",
+      "campos": "7.9 Campos",
+      "vazios": "7.10 Vazios e mensagens",
+      "mascote": "Mascote"
+    },
+    "estados": {
+      "normal": "normal",
+      "ligado": "ligado",
+      "desativado": "desativado",
+      "erro": "erro",
+      "pressao": "toque e segure para ver a pressão"
+    },
+    "exemplo": {
+      "titulo": "Lista",
+      "subtitulo": "Carregar o carro, item por item.",
+      "principal": "Vou sair",
+      "secundario": "Faltou algo",
+      "discreto": "Ver como o convidado vê",
+      "comecar": "Começar",
+      "filtroTodos": "Todos",
+      "filtroFora": "Fora do carro",
+      "filtroComprar": "Comprar",
+      "marcaCiente": "Ciente",
+      "marcaEuLevo": "Eu levo",
+      "marcaCarro": "Está no carro",
+      "item1": "Lanterna",
+      "item1Qtd": "4",
+      "item2": "Saco de dormir",
+      "item2Qtd": "4",
+      "item3": "Cartucho de gás",
+      "item3Qtd": "2",
+      "item4": "Isolante ou colchonete",
+      "item4Qtd": "4",
+      "item5": "Toalha",
+      "item5Qtd": "4",
+      "categoria": "Cozinha",
+      "tarefa": "Comprar gelo na estrada",
+      "alertaAtencao": "Não tem sombra na área de barracas. Leve lona para o sol.",
+      "alertaAtencao2": "Churrasco só no quiosque comum",
+      "alertaInfo": "Piscina abre às 10h",
+      "alertaEntrou": "Entrou na lista: lona extra.",
+      "alertaSaiu": "Saiu da lista: carvão.",
+      "alertaRegra": "Som até 22h",
+      "seloGrande": "6 confirmações",
+      "seloLinha": "Última: Carla R., nov/2026",
+      "fato": "Sombra",
+      "campoNome": "Nome da viagem",
+      "campoNomeValor": "Serra em julho",
+      "campoNota": "Nota",
+      "campoEmail": "Seu e-mail",
+      "campoEmailErro": "Escreva um e-mail para entrar na lista.",
+      "erroAcao": "Tentar de novo",
+      "erroCarregar": "A lista não abriu. Confira a internet e tente de novo.",
+      "opcaoBarraca": "Barraca",
+      "opcaoChale": "Chalé",
+      "opcaoMotorhome": "Motorhome",
+      "contadorAdultos": "Adultos",
+      "contadorPets": "Pets",
+      "caixaMarcar": "Quero receber aviso do lançamento",
+      "resultado1": "Camping Recanto das Águas",
+      "resultado1Cidade": "mesmo nome, outra cidade",
+      "resultado2": "Camping Recanto das Águas II",
+      "resultado2Cidade": "sem registro: lista na dúvida",
+      "vazio": "Nada anotado.",
+      "vazioFiltro": "Nenhum item neste filtro.",
+      "mensagem": "Entre com o seu nome para assumir um item.",
+      "semDados": "Nenhum registro deste camping ainda."
+    },
+    "secao": "Seção",
+    "amostra": "Parada 2 de 5: carregar o carro. 36 L em 8 galões.",
+    "contraste": "{frente} sobre {fundo}: {valor}",
+    "repouso": "repouso",
+    "ativo": "ativo",
+    "semMascote": "sem mascote: ponto cheio",
+    "semParada": "sem parada atual (legenda)",
+    "abrirLegenda": "Abrir a legenda"
   }
 }

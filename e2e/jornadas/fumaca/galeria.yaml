@@ -1,0 +1,366 @@
+# Fumaça da B2: abre a galeria dos componentes e captura cada seção, para o QA comparar com o protótipo
+# Rumo (DSG-06). A galeria só abre no ambiente local. Rode de novo com o aparelho em tema escuro e com a
+# letra do sistema em 130 % e 200 % (docs/componentes.md, "Como conferir"); as capturas saem com o mesmo nome.
+# Os marcadores {{...}} são trocados pelo executor (scripts/jornadas.mjs). Rolagens com 60 s de prazo: com a
+# máquina carregada (vários emuladores e builds), o emulador rola devagar.
+appId: "{{pacote}}"
+---
+# O app abre a frio pelo link (com o app já aberto, o link não troca de tela; ver docs/componentes.md).
+- clearState
+- stopApp
+- openLink: "campinguim://galeria"
+- extendedWaitUntil:
+    visible:
+      id: galeria
+    timeout: 30000
+- assertVisible:
+    id: rota
+- assertVisible:
+    id: g-tema-sistema
+# Seção cores (a primeira: com letra de 200 %, os botões de seção começam abaixo da tela)
+- scrollUntilVisible:
+    element:
+      id: g-secao-cores
+    direction: DOWN
+    timeout: 60000
+- tapOn:
+    id: g-secao-cores
+- scrollUntilVisible:
+    element:
+      id: galeria-cores
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cores-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cores-2
+# Seção tipografia
+- scrollUntilVisible:
+    element:
+      id: g-secao-tipografia
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-tipografia
+- scrollUntilVisible:
+    element:
+      id: galeria-tipografia
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-tipografia-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-tipografia-2
+# Seção icones
+- scrollUntilVisible:
+    element:
+      id: g-secao-icones
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-icones
+- scrollUntilVisible:
+    element:
+      id: galeria-icones
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-icones-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-icones-2
+# Seção rota
+- scrollUntilVisible:
+    element:
+      id: g-secao-rota
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-rota
+- scrollUntilVisible:
+    element:
+      id: galeria-rota
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rota-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rota-2
+# Seção cabecalho
+- scrollUntilVisible:
+    element:
+      id: g-secao-cabecalho
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-cabecalho
+- scrollUntilVisible:
+    element:
+      id: galeria-cabecalho
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cabecalho-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-cabecalho-2
+# Seção botoes
+- scrollUntilVisible:
+    element:
+      id: g-secao-botoes
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-botoes
+- scrollUntilVisible:
+    element:
+      id: galeria-botoes
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-botoes-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-botoes-2
+# Seção item
+- scrollUntilVisible:
+    element:
+      id: g-secao-item
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-item
+- scrollUntilVisible:
+    element:
+      id: galeria-item
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-item-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-item-2
+# Seção alerta
+- scrollUntilVisible:
+    element:
+      id: g-secao-alerta
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-alerta
+- scrollUntilVisible:
+    element:
+      id: galeria-alerta
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-alerta-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-alerta-2
+# Seção selo
+- scrollUntilVisible:
+    element:
+      id: g-secao-selo
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-selo
+- scrollUntilVisible:
+    element:
+      id: galeria-selo
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-selo-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-selo-2
+# Seção legenda
+- scrollUntilVisible:
+    element:
+      id: g-secao-legenda
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-legenda
+- scrollUntilVisible:
+    element:
+      id: galeria-legenda
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-legenda-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-legenda-2
+# Seção rodape
+- scrollUntilVisible:
+    element:
+      id: g-secao-rodape
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-rodape
+- scrollUntilVisible:
+    element:
+      id: galeria-rodape
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rodape-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-rodape-2
+# Seção campos
+- scrollUntilVisible:
+    element:
+      id: g-secao-campos
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-campos
+- scrollUntilVisible:
+    element:
+      id: galeria-campos
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-campos-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-campos-2
+# Seção vazios
+- scrollUntilVisible:
+    element:
+      id: g-secao-vazios
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-vazios
+- scrollUntilVisible:
+    element:
+      id: galeria-vazios
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-vazios-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-vazios-2
+# Seção mascote
+- scrollUntilVisible:
+    element:
+      id: g-secao-mascote
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-mascote
+- scrollUntilVisible:
+    element:
+      id: galeria-mascote
+    direction: DOWN
+    timeout: 60000
+    centerElement: false
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-mascote-1
+- swipe:
+    start: 50%, 80%
+    end: 50%, 30%
+- takeScreenshot: galeria-mascote-2
+# Legenda aberta: o painel abre de baixo, com o fechar de 48
+- scrollUntilVisible:
+    element:
+      id: g-secao-legenda
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-legenda
+- scrollUntilVisible:
+    element:
+      id: legenda-botao
+    direction: DOWN
+    timeout: 60000
+- tapOn:
+    id: legenda-botao
+- assertVisible:
+    id: legenda-painel
+- takeScreenshot: galeria-legenda-aberta
+- tapOn:
+    id: legenda-fechar
+- assertNotVisible:
+    id: legenda-painel
+# Item: marcar "está no carro" no primeiro item muda o estado (ícone e texto)
+- scrollUntilVisible:
+    element:
+      id: g-secao-item
+    direction: UP
+    timeout: 60000
+- tapOn:
+    id: g-secao-item
+- scrollUntilVisible:
+    element:
+      id: g-item-0-carro
+    direction: DOWN
+    timeout: 60000
+- tapOn:
+    id: g-item-0-carro
+- assertVisible: "{{textos.estados.carro}}"
+- takeScreenshot: galeria-item-marcado

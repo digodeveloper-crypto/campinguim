@@ -1,22 +1,49 @@
-/* Paleta Eucalipto (docs/DESIGN.md). Provisório da B1: os componentes visuais são da B2. */
+/* Identidade do Rumo, paleta Eucalipto (docs/DESIGN.md, seção 3). As cores vêm da mesma fonte do app. */
+/* tokens:início · gerado de apps/mobile/src/tema/tokens.json por apps/mobile/src/tema/gerar.mjs; não edite à mão */
 :root {
   --fundo: #dce8e2;
   --superficie: #f4f9f6;
   --texto: #10201c;
   --texto-suave: #3d514a;
+  --linha: #66847a;
   --acento: #1f4b4d;
+  --sobre-acento: #f4f9f6;
+  --atencao: #a0282e;
+  --separei: #77560f;
+  --carro: #24507f;
+  --raio: 2px;
+  --chanfro: 8px;
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-tema="claro"]) {
     --fundo: #0c1615;
     --superficie: #14211f;
     --texto: #e2eeea;
     --texto-suave: #a6bbb4;
+    --linha: #5f7a73;
     --acento: #b8d5c8;
+    --sobre-acento: #0c1615;
+    --atencao: #ff8f86;
+    --separei: #e8c27c;
+    --carro: #a3c8f2;
   }
 }
+
+:root[data-tema="escuro"] {
+  --fundo: #0c1615;
+  --superficie: #14211f;
+  --texto: #e2eeea;
+  --texto-suave: #a6bbb4;
+  --linha: #5f7a73;
+  --acento: #b8d5c8;
+  --sobre-acento: #0c1615;
+  --atencao: #ff8f86;
+  --separei: #e8c27c;
+  --carro: #a3c8f2;
+}
+/* tokens:fim */
 
 * {
   box-sizing: border-box;
