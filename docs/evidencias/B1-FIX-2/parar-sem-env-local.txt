@@ -1,0 +1,24 @@
+B1-FIX-2, correção 2: `npm run ambiente:parar` sem .env.local (26/11/2026)
+Worktree novo, sem .env.local. `npm run ambiente:subir` cria o arquivo e sobe 7 contêineres (25 s).
+Depois o arquivo foi renomeado temporariamente e o comando de parar foi rodado.
+
+## ANTES da correção (código antigo, sem .env.local)
+[ambiente] parando o Supabase local (os dados ficam guardados)
+contêineres do ambiente rodando: 2
+  campinguim-sincronizacao-powersync-1	Up 12 seconds (healthy)
+  campinguim-sincronizacao-mongo-1	Up 13 seconds
+[ambiente] ATENÇÃO: 2 contêiner(es) do ambiente ainda rodando
+-> o Supabase parou, o PowerSync e o Mongo ficaram no ar (o compose recusou o arquivo sem PS_DATA_SOURCE_URI)
+
+## DEPOIS da correção (sem .env.local)
+$ npm run ambiente:parar            exit=0
+[ambiente] parando o serviço de sincronização (PowerSync)
+[ambiente] parando o Supabase local (os dados ficam guardados)
+contêineres do ambiente rodando: 0
+[ambiente] nada do ambiente ficou rodando
+docker ps | contêineres do projeto: 0
+
+O .env.local foi restaurado em seguida. subir e zerar continuam usando o .env.local verdadeiro.
+
+Repetido ao fim, com o código final (tipos do compose ajustados): sem .env.local, `npm run ambiente:parar` saiu com 0 e o
+`docker ps` mostrou 0 contêineres do projeto. Arquivo restaurado depois.

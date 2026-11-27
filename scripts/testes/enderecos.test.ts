@@ -22,7 +22,10 @@ function arvoreDeTeste(arquivos: Record<string, string>) {
 }
 
 describe('endereços fora do arquivo de configuração', () => {
-  it('a árvore do repositório está limpa', () => {
+  // Varre todos os arquivos do repositório: ~0,6 s sozinho, mas 20 a 25 s com a máquina ocupada
+  // (emulador e Docker do QA), acima do limite padrão de 5 s. O limite próprio de 60 s existe só
+  // para esse teste de varredura; os demais (cópias pequenas em pasta temporária) seguem no padrão.
+  it('a árvore do repositório está limpa', { timeout: 60_000 }, () => {
     expect(conferirEnderecos()).toEqual([]);
   });
 
