@@ -43,7 +43,7 @@ Opcional, recomendado: criar `.segredos-locais` na raiz (ignorado pelo git) com 
 ```
 npm run ambiente:subir     # Supabase local + PowerSync; espera tudo ficar saudável
 npm run ambiente:estado    # lista os contêineres do ambiente
-npm run ambiente:parar     # para tudo; os dados do banco ficam guardados
+npm run ambiente:parar     # para tudo; os dados do banco ficam guardados (funciona até sem .env.local)
 npm run ambiente:zerar     # apaga os dados, recria o banco pelas migrações e dados de exemplo, e sobe
 ```
 
@@ -57,6 +57,7 @@ O que sobe (7 contêineres):
 | `campinguim-sincronizacao-powersync-1` | Serviço PowerSync 1.29.1, auto-hospedado (decisão E1) | 8080 |
 | `campinguim-sincronizacao-mongo-1` | Armazenamento interno do PowerSync (MongoDB 7.0) | nenhuma |
 
+- **Parar não precisa do `.env.local`.** Num worktree novo, ou com o arquivo apagado, `ambiente:parar` funciona do mesmo jeito (B1-FIX-2): o `docker-compose.yml` exige a variável `PS_DATA_SOURCE_URI` só para interpolar o arquivo, e o comando de parar nunca usa o valor. Por isso, **só no parar** e **só se o arquivo faltar**, o script passa a essa variável um texto fictício e explícito (`VALOR_FICTICIO_PARA_PARAR` em `scripts/ambiente/ambiente.mjs`), que não é credencial e não chega a nenhum contêiner. `subir` e `zerar` continuam usando o `.env.local` verdadeiro (o `subir` o cria).
 - **Portas e endereços** vêm de `config/enderecos.json` (único lugar com endereço; veja a seção 6). O script confere que a API do Supabase ficou na porta do arquivo.
 - **Credenciais locais** (chaves do Supabase local, ligação do PowerSync com o Postgres) ficam só em `.env.local` na raiz, criado pelo `ambiente:subir` e ignorado pelo git. O modelo sem valores é `.env.local.exemplo`. O script nunca imprime os valores.
 - **Serviços do Supabase desligados** (não usados ainda): imgproxy, logflare, vector, studio, realtime, mailpit, postgres-meta, storage-api, supavisor. Quem precisar de um deles tira da lista em `scripts/ambiente/ambiente.mjs` e registra aqui.
@@ -82,10 +83,14 @@ O resumo do fim do `npm run testar` diz, por etapa, `passou`, `FALHOU` ou `PULAD
 
 **Fim de linha dos arquivos lidos por teste.** Arquivos lidos por teste são LF por `.gitattributes` (hoje `.github/**`, `.githooks/*` e `*.sh`), mesmo com `core.autocrlf=true` no Windows. Os testes também aceitam `\r?\n` ao ler texto. Quem acrescentar um teste que leia outro arquivo de texto com expressão que dependa de quebra de linha deve usar `\r?\n` (ou fixar o arquivo em LF no `.gitattributes`). Depois de mexer no `.gitattributes`: `git add --renormalize .` e conferir com `git ls-files --eol`.
 
+O teste da árvore limpa dos endereços (`scripts/testes/enderecos.test.ts`) varre todos os arquivos do repositório. No Windows cada arquivo aberto custa uma verificação do antivírus, então a varredura não abre mídia (png, ttf, mp4...) nem consulta cada arquivo um a um; mesmo assim o tempo depende da máquina, e por isso esse teste tem limite próprio de 60 s (os outros seguem no padrão de 5 s). Medições em `docs/evidencias/B1-FIX-2/`.
+
 Casos de pulo conhecidos:
 
 - **Servidor:** o ambiente Docker está fora do ar (`npm run ambiente:subir`).
 - **Manifesto do app (ponto J9, `scripts/testes/manifesto.test.ts`):** o APK não existe, ou é mais velho que `apps/mobile/app.config.ts`, `apps/mobile/package.json` ou algum arquivo de `apps/mobile/plugins/`. O motivo aparece como "APK ausente" ou "APK desatualizado: rode npm run app:gerar". Um APK velho nunca é usado para conferir as permissões do código atual.
+
+**Ambiente do app.** `apps/mobile/src/config.ts` lê `extra.ambiente`, que o `app.config.ts` preenche. Se o valor faltar, o padrão é `producao` (fechado): a galeria de componentes (`app/galeria`) e o gancho `campinguim://?verificar-banco=1` (`src/dados/ProvedorDoBanco.tsx`) só existem com `config.ambiente === 'local'`. `config.test.ts` e `dados/__testes__/ferramentasDeDesenvolvimento.test.ts` provam as duas coisas. O build local continua com `ambiente: 'local'` (a suíte e as jornadas dependem dele).
 
 Camadas (SPEC, seção 13) e onde ficam:
 

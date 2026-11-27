@@ -71,11 +71,15 @@ function supabase(args, opcoes = {}) {
 // ligar em nada. `subir` e `zerar` continuam exigindo o .env.local verdadeiro (compose falha sem ele).
 const VALOR_FICTICIO_PARA_PARAR = 'valor-ficticio-so-para-parar';
 
+/**
+ * @param {string[]} args
+ * @param {{ paraParar?: boolean, permitirFalha?: boolean, silencioso?: boolean }} [opcoes]
+ */
 function compose(args, { paraParar = false, ...opcoes } = {}) {
   const temEnv = fs.existsSync(ENV_LOCAL);
   const envFile = temEnv ? ['--env-file', ENV_LOCAL] : [];
   const env = paraParar && !temEnv ? { PS_DATA_SOURCE_URI: VALOR_FICTICIO_PARA_PARAR } : undefined;
-  return rodar('docker', ['compose', '-p', PROJETO_SINCRONIZACAO, '-f', SINCRONIZACAO, ...envFile, ...args], { ...opcoes, env });
+  return rodar('docker', ['compose', '-p', PROJETO_SINCRONIZACAO, '-f', SINCRONIZACAO, ...envFile, ...args], { ...opcoes, ...(env ? { env } : {}) });
 }
 
 // ---------------------------------------------------------------------------------------------
