@@ -4,7 +4,7 @@
 
 
 === Trava de segredos (GIT-08) ============================================
-[segredos] 1795 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
+[segredos] 1827 arquivo(s) conferido(s): nenhum segredo nem dado pessoal
 
 === Endereços só no arquivo de configuração (SPEC 14) =====================
 [enderecos] nenhum endereço fora de config/enderecos.json (run.app, pages.dev, workers.dev e endereços locais)
@@ -22,42 +22,49 @@ tsc -p tsconfig.scripts.json
 
 [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90mC:/campinguim-wt/B2[39m
 
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/duplicados.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 12[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/fatos.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 18[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/cotas.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 61[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/alertas.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 55[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/aprendizado.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 55[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/formato/formato.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 17[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/lista.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 75[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/tema/tema.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/tema/mascote.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 26[2mms[22m[39m
  [32m✓[39m [30m[45m core [49m[39m packages/core/src/eventos/eventos.test.ts [2m([22m[2m86 tests[22m[2m)[22m[32m 56[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/catalogo.test.ts [2m([22m[2m110 tests[22m[2m)[22m[32m 60[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/componentes/componentes.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 45[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/esquema.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/medicao/medicao.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 16[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/acesso.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 161[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/tema/mascote.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 23[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/textos/textos.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 442[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/expressao.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 14[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m packages/core/src/casos.test.ts [2m([22m[2m71 tests[22m[2m)[22m[32m 117[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/migracoes.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 30[2mms[22m[39m
- [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/suite.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 24[2mms[22m[39m
- [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/segredos.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 28[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/verificacao.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 25[2mms[22m[39m
- [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/manifesto.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 17[2mms[22m[39m
- [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/enderecos.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 1382[2mms[22m[39m
-   [32m✓[39m endereços fora do arquivo de configuração [2m(7)[22m
-     [33m[2m✓[22m[39m a árvore do repositório está limpa[33m 1347[2mms[22m[39m
- [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/repositorio.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 1001[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/tema/tema.test.ts [2m([22m[2m47 tests[22m[2m)[22m[32m 116[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/aprendizado.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/cotas.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 70[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/lista.test.ts [2m([22m[2m30 tests[22m[2m)[22m[32m 56[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/componentes/componentes.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/verificacao.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/acesso.test.ts [2m([22m[2m35 tests[22m[2m)[22m[32m 243[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/alertas.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 50[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/catalogo.test.ts [2m([22m[2m110 tests[22m[2m)[22m[32m 87[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/textos/textos.test.ts [2m([22m[2m27 tests[22m[2m)[22m[33m 851[2mms[22m[39m
+   [32m✓[39m chaves usadas no código: app [2m(2)[22m
+     [33m[2m✓[22m[39m a varredura de fato acha chaves (não passa por não ter olhado nada)[33m 670[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/migracoes.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/esquema.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/casos.test.ts [2m([22m[2m71 tests[22m[2m)[22m[33m 1314[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/fatos.test.ts [2m([22m[2m23 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/medicao/medicao.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/seguranca/__testes__/chaveDoBanco.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m apps/mobile/src/dados/__testes__/armazenamentoDeEventos.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/segredos.test.ts [2m([22m[2m36 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/suite.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/formato/formato.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/duplicados.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+ [32m✓[39m [30m[45m core [49m[39m packages/core/src/expressao.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/manifesto.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/repositorio.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 2684[2mms[22m[39m
+   [32m✓[39m emuladores (J23) [2m(2)[22m
+     [33m[2m✓[22m[39m nenhum script derruba ou reinicia o servidor do adb[33m 347[2mms[22m[39m
+     [33m[2m✓[22m[39m todo comando do adb passa pelo módulo que exige o aparelho (-s emulator-<porta>)[33m 332[2mms[22m[39m
    [32m✓[39m o que é só da prova técnica não vem para a base (J5, J6) [2m(2)[22m
-     [33m[2m✓[22m[39m sem login por link com token, sem atraso artificial e sem botões de teste[33m 350[2mms[22m[39m
+     [33m[2m✓[22m[39m sem login por link com token, sem atraso artificial e sem botões de teste[33m 518[2mms[22m[39m
+   [32m✓[39m .gitignore (GIT-08) [2m(12)[22m
+     [33m[2m✓[22m[39m ignora apps/mobile/android/app/build.gradle[33m 595[2mms[22m[39m
+ [32m✓[39m [30m[46m scripts [49m[39m scripts/testes/enderecos.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 4253[2mms[22m[39m
+   [32m✓[39m endereços fora do arquivo de configuração [2m(7)[22m
+     [33m[2m✓[22m[39m a árvore do repositório está limpa[33m 4086[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m27 passed[39m[22m[90m (27)[39m
-[2m      Tests [22m [1m[32m698 passed[39m[22m[90m (698)[39m
-[2m   Start at [22m 20:45:20
-[2m   Duration [22m 3.93s[2m (transform 52%, tests 23%, import 22%, worker 2%)[22m
+[2m      Tests [22m [1m[32m703 passed[39m[22m[90m (703)[39m
+[2m   Start at [22m 22:27:00
+[2m   Duration [22m 7.87s[2m (tests 50%, import 38%, transform 10%, worker 3%)[22m
 
 JSON report written to C:/campinguim-wt/B2/test-results/suite/vitest-unitarios.json
 
@@ -65,24 +72,44 @@ JSON report written to C:/campinguim-wt/B2/test-results/suite/vitest-unitarios.j
 
 [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90mC:/campinguim-wt/B2[39m
 
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/sync-apply.test.ts [2m([22m[2m49 tests[22m[2m)[22m[33m 2239[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/autorizacao-por-linha.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 881[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/sincronizacao.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 2232[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/sync-apply.test.ts [2m([22m[2m49 tests[22m[2m)[22m[33m 9921[2mms[22m[39m
+   [32m✓[39m grupo 4: lote misto (válida, inválida e não autorizada) [2m(2)[22m
+     [33m[2m✓[22m[39m aplica as válidas e devolve o motivo das outras, na mesma ordem, sem abortar o lote[33m 427[2mms[22m[39m
+     [33m[2m✓[22m[39m o mesmo lote misto, mandado de novo, não aplica nada duas vezes e repete o primeiro veredito[33m 781[2mms[22m[39m
+   [32m✓[39m J1: um dado inválido não trava a fila (recusa só aquela alteração) [2m(18)[22m
+     [33m[2m✓[22m[39m tipo de viagem fora da lista: recusada como "validation", e a alteração válida depois dela é aplicada[33m 372[2mms[22m[39m
+     [33m[2m✓[22m[39m nome com mais de 120 caracteres: recusada como "validation", e a alteração válida depois dela é aplicada[33m 689[2mms[22m[39m
+     [33m[2m✓[22m[39m o lote inteiro só falha sem login, com mais de 500 alterações ou quando não é uma lista[33m 808[2mms[22m[39m
+   [32m✓[39m J2: regras por viagem e por família escritas dentro da função [2m(11)[22m
+     [33m[2m✓[22m[39m item novo com família de outra viagem: recusado[33m 328[2mms[22m[39m
+     [33m[2m✓[22m[39m item pessoal de outra família: não edita, não remove, não marca[33m 415[2mms[22m[39m
+     [33m[2m✓[22m[39m o próprio item pessoal: a família edita (inclusive o outro adulto da mesma família, E2-18)[33m 482[2mms[22m[39m
+   [32m✓[39m regras de conflito da seção 4 [2m(9)[22m
+     [33m[2m✓[22m[39m o relógio do aparelho não vale: updated_at, updated_by e deleted_at são do servidor[33m 593[2mms[22m[39m
+   [32m✓[39m viagem que sobe no primeiro login (E1-14, S9) [2m(2)[22m
+     [33m[2m✓[22m[39m viagem, família, pessoas e itens sobem com os mesmos identificadores; quem envia vira organizador[33m 530[2mms[22m[39m
+   [32m✓[39m campos e tabelas do servidor [2m(3)[22m
+     [33m[2m✓[22m[39m o destino da viagem não muda pela sincronização (só por trip_set_camping)[33m 696[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/sincronizacao.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 6689[2mms[22m[39m
    [32m✓[39m grupo 2: cada aparelho só recebe as viagens de que é membro (segunda barreira) [2m(5)[22m
-     [33m[2m✓[22m[39m C, membro só de W, não recebe nada da viagem V[33m 742[2mms[22m[39m
-     [33m[2m✓[22m[39m S10: B removido da viagem deixa de receber tudo dela[33m 586[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/dados-e-config.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 154[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/aparelho.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 273[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/rls.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 224[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/autorizacao.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 138[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/exclusao-de-conta.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 105[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/contratos.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 35[2mms[22m[39m
- [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/ambiente.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 112[2mms[22m[39m
+     [33m[2m✓[22m[39m C, membro só de W, não recebe nada da viagem V[33m 1227[2mms[22m[39m
+     [33m[2m✓[22m[39m B recebe os itens do grupo e os da própria família, nunca os pessoais da outra família[33m 487[2mms[22m[39m
+     [33m[2m✓[22m[39m S10: B removido da viagem deixa de receber tudo dela[33m 1584[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/autorizacao-por-linha.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 2824[2mms[22m[39m
+   [32m✓[39m linha 1: viagem, famílias, pessoas e itens (lê e escreve: membros; dados da viagem e remoção de membro: organizador) [2m(7)[22m
+     [33m[2m✓[22m[39m membro escreve família, pessoa e item do grupo (controle da linha)[33m 661[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/dados-e-config.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 365[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/aparelho.test.ts [2m([22m[2m8 tests[22m[2m)[22m[33m 405[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/rls.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 272[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/autorizacao.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 271[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/exclusao-de-conta.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 134[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/ambiente.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 126[2mms[22m[39m
+ [32m✓[39m [30m[42m servidor [49m[39m supabase/testes/contratos.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 52[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m10 passed[39m[22m[90m (10)[39m
 [2m      Tests [22m [1m[32m109 passed[39m[22m[90m (109)[39m
-[2m   Start at [22m 20:45:25
-[2m   Duration [22m 9.42s[2m (tests 83%, import 13%, transform 3%, worker 1%)[22m
+[2m   Start at [22m 22:27:10
+[2m   Duration [22m 31.44s[2m (tests 87%, import 11%, transform 1%, worker 1%)[22m
 
 JSON report written to C:/campinguim-wt/B2/test-results/suite/vitest-servidor.json
 
@@ -90,19 +117,19 @@ JSON report written to C:/campinguim-wt/B2/test-results/suite/vitest-servidor.js
 
 Running 2 tests using 2 workers
 
-  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (881ms)
-  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (1.0s)
+  ok 2 [android-chromium] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (839ms)
+  ok 1 [iphone-webkit] › e2e\web\pagina-provisoria.spec.ts:7:1 › a página provisória abre com os textos do arquivo de textos (3.5s)
 
-  2 passed (5.7s)
+  2 passed (16.7s)
 
 === Resumo da suíte local =================================================
-passou  Trava de segredos (GIT-08)                                 2.9 s  
-passou  Endereços só no arquivo de configuração (SPEC 14)          1.1 s  
-passou  Tipos (TypeScript estrito)                                13.2 s  5 de 5 projetos sem erro
-passou  Lint (ESLint, sem aviso tolerado)                         14.8 s  
-passou  Testes unitários: regras puras e travas do repositório     4.9 s  698 de 698 testes passaram
-passou  Testes do servidor (ambiente local)                        9.9 s  109 de 109 testes passaram
-passou  Página web (Chromium e WebKit)                             6.5 s  2 de 2 testes passaram
+passou  Trava de segredos (GIT-08)                                10.1 s  
+passou  Endereços só no arquivo de configuração (SPEC 14)          3.7 s  
+passou  Tipos (TypeScript estrito)                                69.4 s  5 de 5 projetos sem erro
+passou  Lint (ESLint, sem aviso tolerado)                         52.7 s  
+passou  Testes unitários: regras puras e travas do repositório     9.2 s  703 de 703 testes passaram
+passou  Testes do servidor (ambiente local)                       33.3 s  109 de 109 testes passaram
+passou  Página web (Chromium e WebKit)                            18.8 s  2 de 2 testes passaram
 
-SUÍTE COMPLETA: todas as 7 etapas passaram (53.3 s).
+SUÍTE COMPLETA: todas as 7 etapas passaram (197.3 s).
 Fora desta suíte (precisam de emulador): npm run testar:jornadas e npm run testar:sincronizacao.

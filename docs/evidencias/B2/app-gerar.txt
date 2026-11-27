@@ -1,2 +1,2 @@
-BUILD SUCCESSFUL in 6m 13s
+BUILD SUCCESSFUL in 8m 11s
 [app] gerado: apps/mobile/android/app/build/outputs/apk/release/app-release.apk

@@ -1,5 +1,0 @@
-[jornadas] 3 roteiro(s) em emulator-5554; saída em test-results\jornadas\2026-11-26T22-38-50-212Z
-  passou  fumaca/abre-tela-provisoria  (147.7 s)
-  passou  fumaca/galeria  (294.2 s)
-  passou  fumaca-banco/banco-cifrado  (82.2 s)
-[jornadas] 3 de 3 passaram

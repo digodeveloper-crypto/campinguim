@@ -1,0 +1,8 @@
+npm run testar:jornadas -- fumaca, APK da ponta 44056f4, emulator-5554, uma rodada por condição:
+claro:  passou fumaca/abre-tela-provisoria (51.0 s)  passou fumaca/galeria (215.9 s)  passou fumaca-banco/banco-cifrado (41.8 s)  [pasta 2026-11-27T00-49-26-319Z]
+escuro:  passou fumaca/abre-tela-provisoria (32.8 s)  passou fumaca/galeria (167.4 s)  passou fumaca-banco/banco-cifrado (24.2 s)  [pasta 2026-11-27T00-54-48-276Z]
+fonte130:  passou fumaca/abre-tela-provisoria (19.8 s)  passou fumaca/galeria (174.0 s)  passou fumaca-banco/banco-cifrado (31.3 s)  [pasta 2026-11-27T00-58-40-292Z]
+fonte200:  passou fumaca/abre-tela-provisoria (25.7 s)  passou fumaca/galeria (205.4 s)  passou fumaca-banco/banco-cifrado (22.7 s)  [pasta 2026-11-27T01-02-37-150Z]
+tela5:  passou fumaca/abre-tela-provisoria (18.8 s)  passou fumaca/galeria (170.6 s)  passou fumaca-banco/banco-cifrado (24.5 s)  [pasta 2026-11-27T01-06-58-840Z]
+tela5-fonte200:  passou fumaca/abre-tela-provisoria (20.9 s)  passou fumaca/galeria (241.7 s)  passou fumaca-banco/banco-cifrado (33.0 s)  [pasta 2026-11-27T01-10-41-292Z]
+tela67:  passou fumaca/abre-tela-provisoria (23.3 s)  passou fumaca/galeria (144.5 s)  passou fumaca-banco/banco-cifrado (25.0 s)  [pasta 2026-11-27T01-15-47-994Z]
