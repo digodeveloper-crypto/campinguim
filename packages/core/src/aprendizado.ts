@@ -4,9 +4,10 @@
 //
 // - "Faltou" na última viagem: o item entra na próxima lista (volta, se a pessoa o tinha removido).
 // - "Sobrou" num consumível em duas viagens seguidas: quantidade reduzida em 25 % (premissa), com aviso.
-//   Decidido em 26/11/2026 (regra final das sobras): a redução acumula; cada viagem seguida a mais em que
-//   o item sobrou reduz de novo, sobre a quantidade já reduzida: teto(qty × 0,75) e, se o teto não muda a
-//   quantidade, qty − 1, até o mínimo de 1. Toda redução vem sinalizada "sobrou da última vez"; o item
+//   Regra final das sobras (proposta pelo orquestrador em 26/11/2026 e confirmada pelo responsável em
+//   27/11/2026): a redução acumula; cada viagem seguida a mais em que o item sobrou reduz de novo, sobre
+//   a quantidade já reduzida: teto(qty × 0,75) e, se o teto não muda a quantidade, qty − 1, até o mínimo
+//   de 1. Toda redução vem sinalizada "sobrou da última vez"; o item
 //   que já está em 1 vem só sinalizado. A pessoa pode desfazer.
 // - Consumíveis: os itens com `consumivel` no catálogo (decisão de 26/11/2026).
 
