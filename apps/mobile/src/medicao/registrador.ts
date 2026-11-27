@@ -9,7 +9,7 @@ import {
   type EventoDeMedicao,
   type NomeDoEvento,
   type PropriedadesDe,
-  FAIXAS_PADRAO_PENDENTE,
+  FAIXAS_PADRAO,
   faixaDeValor,
   validarEvento,
 } from '@campinguim/core/eventos';
@@ -27,9 +27,9 @@ export interface DependenciasDaMedicao {
   readonly agora: () => Date;
   /** Gera o identificador de cada evento (UUID v4 em produção). */
   readonly gerarId: () => string;
-  /** Limites das faixas de valor. PENDENTE: padrão em `faixas.ts` do core. */
+  /** Limites das faixas de valor. Padrão decidido em `faixas.ts` do core. */
   readonly faixas?: ConfigDeFaixas;
-  /** Canais de origem aceitos. PENDENTE: padrão em `catalogo.ts` do core. */
+  /** Canais de origem aceitos. Padrão decidido em `catalogo.ts` do core. */
   readonly canais?: readonly string[];
   /** Chamado quando um evento é recusado, só para registro de desenvolvimento (recebe os erros, nunca o valor). */
   readonly aoRecusar?: (nome: string, erros: readonly string[]) => void;
@@ -44,7 +44,7 @@ export interface Medicao {
 }
 
 export function criarMedicao(dependencias: DependenciasDaMedicao): Medicao {
-  const { armazenamento, agora, gerarId, faixas = FAIXAS_PADRAO_PENDENTE, canais, aoRecusar } = dependencias;
+  const { armazenamento, agora, gerarId, faixas = FAIXAS_PADRAO, canais, aoRecusar } = dependencias;
 
   return {
     async registrar(nome, propriedades) {

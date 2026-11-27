@@ -2,7 +2,7 @@
 // faixa de valor, resumo irreversível do convite e regra de usuário ativo. Regras puras: o
 // armazenamento e o envio ficam no app (apps/mobile/src/medicao) e na feature 2.2.
 export {
-  CANAIS_PADRAO_PENDENTE,
+  CANAIS_PADRAO,
   CATALOGO,
   ESTADOS_DE_SEPARACAO,
   FUNCOES_EM_BREVE,
@@ -22,7 +22,7 @@ export { validarEvento, type OpcoesDeValidacao, type ResultadoDaValidacao } from
 export {
   conferirFaixas,
   faixaDeValor,
-  FAIXAS_PADRAO_PENDENTE,
+  FAIXAS_PADRAO,
   rotulosDeFaixa,
   type ConfigDeFaixas,
 } from './faixas';

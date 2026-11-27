@@ -78,7 +78,7 @@ t('estados.falado', { nome, quantidade, estado })
 | Evento | Propriedades (valores aceitos) |
 | --- | --- |
 | `app_opened` | `origin` (`icon`, `notification`, `invite_link`) |
-| `install_attributed` | `channel` (lista de canais, **pendente**), `invite_token_hash` (opcional, resumo SHA-256) |
+| `install_attributed` | `channel` (`store`, `invite`, `site`, `social`, `unknown`; decidido em 27/11/2026), `invite_token_hash` (opcional, resumo SHA-256) |
 | `trip_created` | `kind` (`tent_car`, `backpack`, `motorhome`), `nights` (0 a 365), `people` (1 a 999), `has_dates`, `has_destination`, `from_previous` (verdadeiro ou falso) |
 | `list_generated` | `items_added`, `items_removed` (inteiros, 0 a 9999) |
 | `item_state_changed` | `catalog_key`, `to_state` (`todo`, `set_aside`, `in_car`) |
@@ -90,7 +90,7 @@ t('estados.falado', { nome, quantidade, estado })
 | `coming_soon_tapped` | `feature` (`gear_inventory`, `menu_planner`) |
 | `group_created`, `invite_shared` | `families` |
 | `guest_joined`, `guest_claimed` | `installed_later` |
-| `expense_added` | `catalog_key`, `amount_band` (uma das faixas, **limites pendentes**), `split_rule` (`shares`, `per_family`, `adults_teens`) |
+| `expense_added` | `catalog_key`, `amount_band` (uma das faixas `0-50`, `50-150`, `150-500`, `500-1500`, `1500+`, em reais; decidido em 27/11/2026), `split_rule` (`shares`, `per_family`, `adults_teens`) |
 | `destination_set` | `camping_id` (UUID), `had_data` |
 | `camping_not_found` | `city_code` (código do IBGE, 7 dígitos) |
 | `alert_shown` | `fact_key`, `level` (`attention`, `adjustment`, `information`) |
@@ -111,7 +111,7 @@ t('estados.falado', { nome, quantidade, estado })
 - A resposta de erro **nunca repete o valor recusado** (ele pode ser um dado pessoal); diz só a propriedade e a regra.
 - Inteiros fora dos limites e tipos errados (texto no lugar de número, objeto, lista, nulo, NaN) são recusados. Os limites (`nights` até 365, contagens até 9999) são só de sanidade, não regra de negócio.
 
-**Dinheiro vira faixa** (`faixaDeValor`, `amount_band`): `faixaDeValor(42000)` dá `150-500` (em reais). O valor exato nunca entra no evento: o evento só aceita o nome de uma faixa, e a validação recusa `420,00` e `42000`. Cada faixa é fechada embaixo e aberta em cima: o valor igual ao limite cai na faixa de cima (R$ 150,00 vale `150-500`). **Os limites são configuração** (`ConfigDeFaixas`), recebidos por parâmetro; o padrão é uma proposta marcada como pendente (veja a seção 7).
+**Dinheiro vira faixa** (`faixaDeValor`, `amount_band`): `faixaDeValor(42000)` dá `150-500` (em reais). O valor exato nunca entra no evento: o evento só aceita o nome de uma faixa, e a validação recusa `420,00` e `42000`. Cada faixa é fechada embaixo e aberta em cima: o valor igual ao limite cai na faixa de cima (R$ 150,00 vale `150-500`). **Os limites são configuração** (`ConfigDeFaixas`), recebidos por parâmetro; o padrão (`FAIXAS_PADRAO`) é a decisão do responsável de 27/11/2026 (veja a seção 7).
 
 **Resumo irreversível do convite** (`resumoDoConvite`, `invite_token_hash`): SHA-256 do código do convite, em UTF-8, em 64 letras hexadecimais minúsculas, **sem sal** de propósito: o servidor (B5) calcula o mesmo resumo do código que ele guarda e a igualdade diz de qual convite veio a instalação (DAT-04). O código do convite é sorteado e longo, então o resumo não se desfaz por tentativa. A implementação é própria (sem dependência) porque o Hermes não traz o `crypto` do Node; um teste a compara com o SHA-256 do Node em textos de 0 a 200 caracteres, com acento e emoji, e com os vetores oficiais. **Para a B5:** use SHA-256 hexadecimal minúsculo do código exato, sem alteração.
 
@@ -162,12 +162,12 @@ t('estados.falado', { nome, quantidade, estado })
 
 ## 7. Pendências para o orquestrador
 
-1. **Limites das faixas de valor (`amount_band`).** A SPEC não os define. O código recebe os limites por configuração; o padrão (`FAIXAS_PADRAO_PENDENTE`) é uma **proposta**, não regra: R$ 50, R$ 150, R$ 500 e R$ 1.500, dando as faixas `0-50`, `50-150`, `150-500`, `500-1500` e `1500+` (em reais; a carne de R$ 420 da jornada J6 cai em `150-500`). Decidir os limites e, se for o caso, trocar o padrão.
-2. **Canais de origem (`channel` de `install_attributed`).** A SPEC e o PRD não listam os valores. Padrão provisório (`CANAIS_PADRAO_PENDENTE`), traduzido dos canais de divulgação do PRD: `invite`, `site_content`, `communities`, `creators`, `camping_poster`, `events`, `store`, `other`. Decidir a lista.
+1. **Limites das faixas de valor (`amount_band`). Decidido pelo responsável em 27/11/2026.** A SPEC não os define. As faixas definitivas, em reais, são `0-50`, `50-150`, `150-500`, `500-1500` e acima de 1500 (`1500+`; a carne de R$ 420 da jornada J6 cai em `150-500`). O código recebe os limites por configuração; o lugar do valor continua sendo o padrão `FAIXAS_PADRAO`, em `packages/core/src/eventos/faixas.ts` (R$ 50, R$ 150, R$ 500 e R$ 1.500, em centavos `[5000, 15000, 50000, 150000]`). A marca de pendente saiu.
+2. **Canais de origem (`channel` de `install_attributed`). Decidido pelo responsável em 27/11/2026.** Lista fechada, com códigos em inglês: `store` (loja), `invite` (convite), `site` (site), `social` (redes sociais) e `unknown` (não identificado). A lista vive em `CANAIS_PADRAO`, em `packages/core/src/eventos/catalogo.ts`, e a validação aceita outra lista por configuração (`canais`). A proposta antiga (`site_content`, `communities`, `creators`, `camping_poster`, `events`, `other`) foi descartada. A marca de pendente saiu.
 3. **Códigos em inglês das listas fechadas que a SPEC só nomeia em português:** `origin` (`icon`, `notification`, `invite_link`), `level` (`attention`, `adjustment`, `information`), `feature` (`gear_inventory`, `menu_planner`) e os nove `kind` de aviso. Seguem o estilo do esquema de dados; confirmar ou trocar (a B5 precisa dos mesmos valores se o servidor validar o lote).
-4. **Limites de sanidade** (`nights` até 365, `people` até 999, contagens até 9999, `asked` e `answered` até 4): não são regra de negócio, só barram valor absurdo. Confirmar se algum deve mudar.
-5. **Textos pendentes** da seção 8, em especial os **textos legais** (consentimento, política de privacidade, termos de uso), que vêm de pessoa habilitada (PRV-04), e o rótulo do **botão de login com Google** (o nome é marca de terceiro; confirmar o uso e o rótulo exigido pelo Google).
-6. **Fila de eventos no aparelho:** tamanho máximo e o que fazer quando passa dele (ficou muito tempo sem internet). Decidir na integração com a B4 e na feature 2.2.
+4. **Limites de sanidade** (`nights` até 365, `people` até 999, contagens até 9999, `asked` e `answered` até 4): não são regra de negócio, só barram valor absurdo. **Ficam como estão: decisão técnica da B6**, registrada como tal na validação da Base de 27/11/2026.
+5. **Textos pendentes** da seção 8. **Decidido pelo responsável em 27/11/2026:** (a) os textos comuns `[PENDENTE]` são escritos por cada feature, que escreve os seus, e o responsável revisa na validação da etapa; (b) os **textos legais** (consentimento, política de privacidade, termos de uso; PRV-04) têm rascunho preparado por um ajudante, marcado como rascunho, e o responsável revisa com quem de direito, até a etapa 3; (c) o rótulo do **botão de login com Google** é "Continuar com o Google" (`entrar.comGoogle`, já aplicado). Registro em `docs/decisoes-da-base.md`.
+6. **Fila de eventos no aparelho:** tamanho máximo e o que fazer quando passa dele (ficou muito tempo sem internet). **Fica como está: decisão técnica da B6** (registrada na validação da Base de 27/11/2026); a integração com a B4 e o envio ficam na feature 2.2.
 
 ## 8. Textos pendentes
 
@@ -175,7 +175,7 @@ Chaves cujo texto ainda não existe na SPEC, no protótipo nem no PRD. O valor n
 
 ### Pendentes do app
 
-Arquivo `apps/mobile/src/textos/pt-BR.json`. Total: 55 chaves.
+Arquivo `apps/mobile/src/textos/pt-BR.json`. Total: 54 chaves.
 
 | Chave | O que falta |
 | --- | --- |
@@ -207,7 +207,6 @@ Arquivo `apps/mobile/src/textos/pt-BR.json`. Total: 55 chaves.
 | `legal.termosDeUso` | Termos de uso: vêm de pessoa habilitada (PRV-04), nunca escritos pelo desenvolvimento |
 | `entrar.titulo` | Título da tela de entrar (E2-16) |
 | `entrar.motivo` | Frase que diz por que o login é pedido neste momento (organizar grupo, lançar gasto, cadastrar Pix, confirmar fato) |
-| `entrar.comGoogle` | Rótulo do botão de login com Google: o nome é marca de terceiro, confirmar o uso e o rótulo exigido pelo Google |
 | `transformarEmGrupo.titulo` | Título da tela de transformar em grupo (E2-01) |
 | `transformarEmGrupo.nomeDoGrupo` | Rótulo do campo nome do grupo |
 | `transformarEmGrupo.familias` | Rótulo das famílias |

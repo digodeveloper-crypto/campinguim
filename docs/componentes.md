@@ -104,7 +104,9 @@ Todos têm: propriedades tipadas (TypeScript estrito), variação escura (leem `
 
 ## 7. Decisões
 
-### 7.1 Decisões provisórias do orquestrador (valem até a validação humana ao fim da Base)
+### 7.1 Decisões do orquestrador (confirmado pelo responsável em 27/11/2026)
+
+Eram provisórias até a validação humana ao fim da Base. **Confirmado pelo responsável em 27/11/2026:** D-2, D-5, D-7, P-1, P-2 e P-4, como estão abaixo (`docs/decisoes-da-base.md`, V2). O texto das linhas não foi reescrito.
 
 | # | Decisão | Como está no código |
 | --- | --- | --- |
@@ -115,7 +117,9 @@ Todos têm: propriedades tipadas (TypeScript estrito), variação escura (leem `
 | P-2 | Só as expressões que o Rumo usa | 5 artes: `principal`, `icone`, `pose-alerta`, `pose-camping`, `pose-comemorando` |
 | P-4 | O 3D não entra no app nesta fase | nenhum modelo 3D no app |
 
-### 7.2 Decisões desta feature (provisórias, para o QA e o responsável conferirem)
+### 7.2 Decisões desta feature (duas confirmadas pelo responsável em 27/11/2026)
+
+Eram provisórias, para o QA e o responsável conferirem. **Confirmado pelo responsável em 27/11/2026:** as linhas "Erro (D-5)" (ícone, texto e ação, nunca só cor) e "Palavra que não cabe" (o texto encolhe até a palavra mais longa caber; DESIGN.md 4.4); ver `docs/decisoes-da-base.md`, V2. As demais linhas da tabela não foram citadas à parte na validação e seguem como decisões desta feature. O texto da tabela não foi reescrito.
 
 | Ponto | O protótipo diz | Escolha | Por quê |
 | --- | --- | --- | --- |

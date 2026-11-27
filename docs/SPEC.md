@@ -706,7 +706,7 @@ Retrato de referência: 220 V, tomada longe, 1 chuveiro, capacidade de 11 a 25, 
 
 **Sobras**
 
-**Decidido pelo responsável em 26/11/2026:** a cada viagem seguida em que um consumível sobrou, a partir da segunda (seção 5, "Aprendizado"), nova = `teto(qty × 0,75)`; se o teto não muda a quantidade, nova = `max(1, qty − 1)`. A redução sempre avança e chega a 1: 10 → 8 → 6 → 5 → 4 → 3 → 2 → 1; 2 vai a 1 na segunda sobra; 1 fica 1. Toda redução vem sinalizada "sobrou da última vez".
+**Conciliação das decisões do responsável de 26/11/2026, proposta pelo orquestrador no mesmo dia e confirmada pelo responsável em 27/11/2026:** a cada viagem seguida em que um consumível sobrou, a partir da segunda (seção 5, "Aprendizado"), nova = `teto(qty × 0,75)`; se o teto não muda a quantidade, nova = `max(1, qty − 1)`. A redução sempre avança e chega a 1: 10 → 8 → 6 → 5 → 4 → 3 → 2 → 1; 2 vai a 1 na segunda sobra; 1 fica 1. Toda redução vem sinalizada "sobrou da última vez".
 
 **Frescor e confirmação**
 

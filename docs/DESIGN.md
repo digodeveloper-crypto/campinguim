@@ -166,7 +166,7 @@ A arte colorida nunca muda de cor, em nenhuma paleta e em nenhum tema.
 | Ardósia-escura | `#333C45` | sombra do corpo, nadadeiras, olhos |
 | Creme | `#FBF3E4` | face e barriga |
 | Âmbar | `#E4A33A` | bico e pés |
-| Verde-azulado | `#3EA8AE` | gorro (fixo, decisão provisória P-20; ver seção 14) |
+| Verde-azulado | `#3EA8AE` | gorro (fixo; confirmado pelo responsável em 27/11/2026; ver seção 14) |
 
 Origem: `design/mascote/guia/guia.html`, seção 2. A tabela inteira, com tinta única e branco, está lá.
 
@@ -241,6 +241,8 @@ O tamanho da letra muda na raiz (`html { font-size: 100 % | 130 % | 200 % }`, po
 Medido pelo QA (`rumo-rodada-3.md`, `rumo-paletas-rodada-1.md`):
 - 0 rolagem para o lado e 0 texto cortado em 100, 130 e 200 %;
 - nenhuma palavra partida no meio. As exceções aceitas são o e-mail do Pix (`.chave`, que pode quebrar em qualquer ponto) e caminhos de arquivo.
+
+**Confirmado pelo responsável em 27/11/2026:** o texto encolhe até a palavra mais longa caber (nenhuma palavra partida), como o app faz (`docs/componentes.md`, seção 7.2, "Palavra que não cabe").
 
 ---
 
@@ -613,12 +615,14 @@ Os quatro riscos da recomendação da Cinema (`design/prototipos/recomendacao-da
 
 ## 14. Perguntas abertas ao responsável (só identidade)
 
+Na validação da Base, em 27/11/2026, o responsável confirmou as linhas 1, 2 e 4 (gorro fixo, só as 5 expressões que o Rumo usa, sem 3D no app). Está marcado em cada linha. As demais seguem abertas. Registro completo em `docs/decisoes-da-base.md`.
+
 | # | Pergunta | Como está agora | Origem |
 | --- | --- | --- | --- |
-| 1 | O gorro pode mudar de cor? | provisório: não, fixo em `#3EA8AE` | P-20 (`direcao/telas.md`); guia do mascote, seção 13 |
-| 2 | Em que telas entram as expressões preocupado, com calor e surpreso? | não definido; o Rumo usa `principal`, `icone`, `pose-alerta`, `pose-camping` e `pose-comemorando` | guia, seção 13 |
+| 1 | O gorro pode mudar de cor? | **confirmado pelo responsável em 27/11/2026:** não, fixo em `#3EA8AE` | P-20 (`direcao/telas.md`); guia do mascote, seção 13 |
+| 2 | Em que telas entram as expressões preocupado, com calor e surpreso? | **confirmado pelo responsável em 27/11/2026:** no app entram só as 5 que o Rumo usa (`principal`, `icone`, `pose-alerta`, `pose-camping` e `pose-comemorando`); as outras não entram | guia, seção 13 |
 | 3 | Tamanhos mínimos para impressão | provisório: convertidos da tela, sem prova em papel | guia, seção 13 |
-| 4 | O 3D entra no app? Em que telas? | não definido | guia, seção 13 |
+| 4 | O 3D entra no app? Em que telas? | **confirmado pelo responsável em 27/11/2026:** sem 3D no app | guia, seção 13 |
 | 5 | Tamanho no quadro, luz e destaque em outros planos de vídeo | só o que foi medido no teste de 5 segundos | guia, seção 13 |
 | 6 | Quais clipes e expressões entram nos vídeos? | o teste usou `neutro`, `alegre`, `acenar` e `parado-respirando` | guia, seção 13 |
 | 7 | Cor de destaque dos vídeos | **proposta** `#A3C8F2` (seção 11.2); hoje o teste usa `#4FD1FF` | TECNICA-3D §15; guia, seção 13 |
@@ -631,14 +635,14 @@ As outras perguntas provisórias dos protótipos (P-01 a P-19, P-21 a P-23) são
 
 ## 15. Divergências entre o protótipo e os documentos
 
-Listadas, sem escolha. Cada uma foi avisada ao orquestrador.
+Listadas, sem escolha. Cada uma foi avisada ao orquestrador. As linhas D-2, D-5 e D-7 foram decididas pelo orquestrador na B2 e **confirmadas pelo responsável em 27/11/2026** (marcadas na coluna "O que diverge"; `docs/decisoes-da-base.md`).
 
 | # | Onde | O que diverge |
 | --- | --- | --- |
 | D-1 | `direcoes.md`, seção 4, tabela "Paleta" | Traz os valores da paleta Original (papel `#F3EEE2`, tinta `#1C2630`...) e o apoio do mascote fixo em `#EDE6D6`. A escolha do responsável é a Eucalipto, cujo apoio é o papel `texto` escuro `#E2EEEA`. Neste arquivo valem os da Eucalipto; `direcoes.md` não foi alterado |
-| D-2 | `direcoes.md`, "Pares e mínimos" | Pede `sobre-acento`/`acento` ≥ 4,5. A conferência das paletas usou ≥ 7, porque o texto do botão é texto principal. A Eucalipto passa nos dois (9,08 e 11,73). Falta decidir qual mínimo vale para o app |
+| D-2 | `direcoes.md`, "Pares e mínimos" | Pede `sobre-acento`/`acento` ≥ 4,5. A conferência das paletas usou ≥ 7, porque o texto do botão é texto principal. A Eucalipto passa nos dois (9,08 e 11,73). Falta decidir qual mínimo vale para o app. **Confirmado pelo responsável em 27/11/2026:** vale 4,5 em todo texto, botões inclusive |
 | D-3 | `rumo/textos.js`, nomes dos papéis na identidade | Os nomes descrevem a Original: "papel de carta", "tinta", "vermelho de rota", "ocre", "água do mapa". Na Eucalipto, o papel é verde-acinzentado, mas os papéis continuam os mesmos. Os nomes não foram mudados |
 | D-4 | `design/mascote/guia/guia.html`, seção 3 | Diz para não pôr o mascote "sobre um fundo da mesma família de cor do gorro". O `fundo` claro da Eucalipto é um verde-cinza muito claro (matiz 150°, saturação 0,21; o gorro tem 183° e 0,47). O gorro fica a 2,25 dele, um pouco abaixo do creme (2,57) e do branco (2,83), que o guia aceita. O corpo faz o contorno (6,05). O QA aprovou o mascote nessa paleta (`rumo-paletas-rodada-1.md`). Falta o dono do guia dizer se a regra se aplica |
-| D-5 | `docs/SPEC.md` §7, "Estados que toda tela trata" | A SPEC define o **conteúdo** do vazio ("com uma ação clara, nunca uma tela em branco") e do erro ("mensagem em português simples, com o que a pessoa pode fazer"). Não define a **forma visual** do erro. O protótipo também não tem estilo próprio de erro: a mensagem (`.mensagem`) é texto em peso 600, sem cor nem ícone. A forma visual do erro no app segue em aberto |
+| D-5 | `docs/SPEC.md` §7, "Estados que toda tela trata" | A SPEC define o **conteúdo** do vazio ("com uma ação clara, nunca uma tela em branco") e do erro ("mensagem em português simples, com o que a pessoa pode fazer"). Não define a **forma visual** do erro. O protótipo também não tem estilo próprio de erro: a mensagem (`.mensagem`) é texto em peso 600, sem cor nem ícone. A forma visual do erro no app segue em aberto. **Confirmado pelo responsável em 27/11/2026:** o erro sempre tem ícone, texto e ação, nunca só cor (forma em `docs/componentes.md`, seção 7.2) |
 | D-6 | `docs/TECNICA-3D.md` §15 e a pasta `videos/` | A técnica manda tirar o provisório de `marca/tokens.json`, que não existe no repositório. A prova de vídeo usa Inter, o fundo `#111827` e o destaque `#4FD1FF` direto no código (`videos/src/`). A tipografia da identidade é Archivo |
-| D-7 | `docs/brief-cinema-2-prototipos.md` | Fala em alvos de 44 **pontos**; o protótipo mede em px de CSS. No app, vale a unidade da plataforma (NF-07) |
+| D-7 | `docs/brief-cinema-2-prototipos.md` | Fala em alvos de 44 **pontos**; o protótipo mede em px de CSS. No app, vale a unidade da plataforma (NF-07). **Confirmado pelo responsável em 27/11/2026:** alvo de toque de 44 dp |
